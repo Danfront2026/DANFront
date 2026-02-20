@@ -1,0 +1,36 @@
+{
+  "garrison_name": "Osiyek",
+  "eyalet": "Rumili Eyaleti",
+  "source_file": "Osiyek.xlsx",
+  "headers": [
+    "Column_0",
+    "Column_1"
+  ],
+  "row_count": 6,
+  "data": [
+    {
+      "Column_0": null,
+      "Column_1": null
+    },
+    {
+      "Column_0": null,
+      "Column_1": 1530.0
+    },
+    {
+      "Column_0": "Müstahfız",
+      "Column_1": 622.0
+    },
+    {
+      "Column_0": "Rüesa ve azeb",
+      "Column_1": 881.0
+    },
+    {
+      "Column_0": "Ulufeciyan-ı süvari",
+      "Column_1": 757.0
+    },
+    {
+      "Column_0": "Martolos",
+      "Column_1": 943.0
+    }
+  ]
+}

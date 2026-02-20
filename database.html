@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="DANFront Projesi Veri Seti - Osmanlı Garnizonları Database">
+    <meta name="keywords" content="Osmanlı, Garnizon, Veri Seti, Database, DANFront, Tarih, Askeri">
+    <meta name="author" content="DANFront Project">
+    
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="DANFront - Database">
+    <meta property="og:description" content="Osmanlı garnizonları hakkında kapsamlı veri seti">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="DANFront - Database">
+    <meta name="twitter:description" content="Osmanlı garnizonları hakkında kapsamlı veri seti">
+    
+    <title>Database - DANFront</title>
+    
+    <!-- Header Includes -->
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="apple-touch-icon" href="favicon.svg">
+
+    <!-- Google Fonts for Logo -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bitcount+Grid+Single:wght@100..900&display=swap" rel="stylesheet">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/main.css">
+
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+        <nav>
+      <div class="nav-container">
+        <a href="index.html" class="nav-brand">DANFront</a>
+        <button class="mobile-menu-toggle" aria-label="Toggle menu">
+          <span>☰</span>
+        </button>
+        <ul class="nav-menu">
+          <li><a href="index.html" data-tr="Ana Sayfa" data-en="Home">Ana Sayfa</a></li>
+          <li><a href="about.html" data-tr="Hakkında" data-en="About">Hakkında</a></li>
+          <li><a href="team.html" data-tr="Ekip" data-en="Team">Ekip</a></li>
+          <li><a href="sources.html" data-tr="Kaynaklar" data-en="Sources">Kaynaklar</a></li>
+          <li><a href="methodology.html" data-tr="Metodoloji" data-en="Methodology">Metodoloji</a></li>
+          <li><a href="activities.html" data-tr="Etkinlikler" data-en="Activities">Etkinlikler</a></li>
+          <li class="language-selector">
+            <div class="language-dropdown">
+              <button class="language-toggle" aria-label="Select language">
+                <i class="fas fa-globe"></i>
+                <span class="current-lang">TR</span>
+                <i class="fas fa-chevron-down"></i>
+              </button>
+              <div class="language-menu">
+                <a href="#" class="lang-option" data-lang="tr">
+                  <i class="fas fa-flag"></i> Türkçe
+                </a>
+                <a href="#" class="lang-option" data-lang="en">
+                  <i class="fas fa-flag"></i> English
+                </a>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <section class="section-modern" style="padding-top: 2rem;">
+        <div class="container">
+            <div class="section-header-modern">
+                <h1 class="section-title-modern">
+                    <i class="fas fa-database"></i>
+                    <span data-tr-text="Veri Seti" data-en-text="Database">Database</span>
+                </h1>
+                <p class="section-subtitle-modern" data-tr-text="Veri seti bilgileri ve erişim" data-en-text="Dataset information and access">Veri seti bilgileri ve erişim</p>
+            </div>
+
+            <!-- Database Interface -->
+            <div class="database-interface">
+                <div class="database-description">
+                    <p data-tr-text="Osmanlı garnizonları hakkında kapsamlı veri seti. 586 veri kaydı, 23 garnizon, 37 askeri kategori ve 1454-1662 yılları arası bilgileri içermektedir." data-en-text="Comprehensive dataset about Ottoman garrisons. Contains 586 data records, 23 garrisons, 37 military categories and information from 1454-1662.">
+                        Osmanlı garnizonları hakkında kapsamlı veri seti. 586 veri kaydı, 23 garnizon, 37 askeri kategori ve 1454-1662 yılları arası bilgileri içermektedir.
+                    </p>
+                </div>
+
+                <!-- Controls -->
+                <div class="database-controls">
+                    <div class="control-group">
+                        <label for="garrison-select" data-tr-text="Garnizon Seçin" data-en-text="Select Garrison">
+                            <i class="fas fa-fort"></i> Garnizon Seçin
+                        </label>
+                        <select id="garrison-select" class="garrison-select">
+                            <option value="" data-tr-text="-- Garnizon Seçin --" data-en-text="-- Select a Garrison --">-- Loading --</option>
+                        </select>
+                    </div>
+                    
+                    <div class="control-group">
+                        <label for="garrison-search" data-tr-text="Ara" data-en-text="Search">
+                            <i class="fas fa-search"></i> Ara
+                        </label>
+                        <input 
+                            type="text" 
+                            id="garrison-search" 
+                            class="garrison-search" 
+                            placeholder="Tabloda ara..."
+                            disabled
+                        >
+                    </div>
+                    
+                    <div class="control-group">
+                        <label>&nbsp;</label>
+                        <button 
+                            id="download-excel" 
+                            class="btn-download" 
+                            disabled
+                            data-tr-text="Excel'e Aktar" 
+                            data-en-text="Export to Excel"
+                        >
+                            <i class="fas fa-file-excel"></i> Excel'e Aktar
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Loading Indicator -->
+                <div id="garrison-loading" class="loading-indicator" style="display: none;">
+                    <i class="fas fa-spinner fa-spin"></i>
+                    <span data-tr-text="Yükleniyor..." data-en-text="Loading...">Yükleniyor...</span>
+                </div>
+
+                <!-- Error Message -->
+                <div id="garrison-error" class="error-message" style="display: none;"></div>
+
+                <!-- Results Count -->
+                <div id="garrison-results-count" class="results-count"></div>
+
+                <!-- Table Container -->
+                <div id="garrison-table-container" class="table-container"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3 data-tr-text="Bağlantılar" data-en-text="Links">Bağlantılar</h3>
+          <ul class="footer-links">
+            <li><a href="index.html">Ana Sayfa</a></li>
+            <li><a href="about.html">Hakkında</a></li>
+            <li><a href="visualizations.html" data-tr="Görselleştirmeler" data-en="Visualizations">Görselleştirmeler</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h3 data-tr-text="İletişim" data-en-text="Contact">İletişim</h3>
+          <div class="footer-contact">
+            <p><strong data-tr-text="DANFront Projesi" data-en-text="DANFront Project">DANFront Projesi</strong></p>
+            <p>University of Vienna</p>
+            <p>Department of Near Eastern Studies</p>
+            <p><a href="https://danfront.univie.ac.at/" target="_blank">danfront.univie.ac.at</a></p>
+          </div>
+        </div>
+        <div class="footer-section">
+          <h3 data-tr-text="Proje Hakkında" data-en-text="About the Project">Proje Hakkında</h3>
+          <div class="footer-contact">
+            <p data-tr-text="DANFront: Orta ve Aşağı Tuna'da Erken Modern Osmanlı Askeri Sınırının Çevre Tarihi" data-en-text="DANFront: An Environmental History of the Early-Modern Ottoman Military Frontier in the Middle and Lower Danube">DANFront: Orta ve Aşağı Tuna'da Erken Modern Osmanlı Askeri Sınırının Çevre Tarihi</p>
+            <p>An Environmental History of the Early-Modern Ottoman Military Frontier in the Middle and Lower Danube</p>
+          </div>
+        </div>
+      </div>
+      <div class="footer-copyright">
+        <p>&copy; <span class="current-year">2025</span> <span data-tr-text="DANFront Projesi. Tüm hakları saklıdır." data-en-text="DANFront Project. All rights reserved.">DANFront Projesi. Tüm hakları saklıdır.</span></p>
+      </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <!-- SheetJS library for Excel export -->
+    <script src="https://cdn.sheetjs.com/xlsx-0.20.1/package/dist/xlsx.full.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/garrison-data.js"></script>
+    <script src="js/garrison-table.js"></script>
+</body>
+</html>
+

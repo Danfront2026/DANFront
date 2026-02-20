@@ -1,0 +1,98 @@
+{
+  "garrison_name": "Filordin",
+  "eyalet": "Rumili Eyaleti",
+  "source_file": "Filordin.xlsx",
+  "headers": [
+    "Column_0",
+    "Column_1",
+    "Column_2",
+    "Column_3",
+    "Column_4",
+    "Column_5",
+    "Column_6"
+  ],
+  "row_count": 9,
+  "data": [
+    {
+      "Column_0": null,
+      "Column_1": null,
+      "Column_2": null,
+      "Column_3": null,
+      "Column_4": null,
+      "Column_5": null,
+      "Column_6": null
+    },
+    {
+      "Column_0": null,
+      "Column_1": 1455.0,
+      "Column_2": 1483.0,
+      "Column_3": 1515.0,
+      "Column_4": 1531.0,
+      "Column_5": 1560.0,
+      "Column_6": 1580.0
+    },
+    {
+      "Column_0": "Dizdar",
+      "Column_1": 1.0,
+      "Column_2": 1.0,
+      "Column_3": 1.0,
+      "Column_4": 1.0,
+      "Column_5": 1.0,
+      "Column_6": 1.0
+    },
+    {
+      "Column_0": "Bevvab",
+      "Column_1": 2.0,
+      "Column_2": null,
+      "Column_3": 1.0,
+      "Column_4": null,
+      "Column_5": null,
+      "Column_6": 1.0
+    },
+    {
+      "Column_0": "Topçu",
+      "Column_1": null,
+      "Column_2": 1.0,
+      "Column_3": 1.0,
+      "Column_4": 1.0,
+      "Column_5": 1.0,
+      "Column_6": null
+    },
+    {
+      "Column_0": "Merdan",
+      "Column_1": 5.0,
+      "Column_2": 15.0,
+      "Column_3": 15.0,
+      "Column_4": 15.0,
+      "Column_5": 22.0,
+      "Column_6": 18.0
+    },
+    {
+      "Column_0": "İmam",
+      "Column_1": 1.0,
+      "Column_2": 1.0,
+      "Column_3": 1.0,
+      "Column_4": 1.0,
+      "Column_5": 1.0,
+      "Column_6": 1.0
+    },
+    {
+      "Column_0": "Kethüda",
+      "Column_1": null,
+      "Column_2": null,
+      "Column_3": null,
+      "Column_4": null,
+      "Column_5": null,
+      "Column_6": 1.0
+    },
+    {
+      "Column_0": "Serbölük",
+      "Column_1": null,
+      "Column_2": null,
+      "Column_3": null,
+      "Column_4": null,
+      "Column_5": null,
+      "Column_6": 2.0
+    }
+  ]
+}

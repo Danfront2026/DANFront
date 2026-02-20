@@ -1,0 +1,38 @@
+{
+  "garrison_name": "Rusçuk",
+  "eyalet": "Rumili Eyaleti",
+  "source_file": "Rusçuk.xlsx",
+  "headers": [
+    "Garrison",
+    "Column_1",
+    "Column_2",
+    "Column_3"
+  ],
+  "row_count": 4,
+  "data": [
+    {
+      "Garrison": null,
+      "Column_1": 1470.0,
+      "Column_2": 1538.0,
+      "Column_3": 1595.0
+    },
+    {
+      "Garrison": "Müstahfız ",
+      "Column_1": 9.0,
+      "Column_2": 7.0,
+      "Column_3": 9.0
+    },
+    {
+      "Garrison": "Dizdar",
+      "Column_1": null,
+      "Column_2": 1.0,
+      "Column_3": 1.0
+    },
+    {
+      "Garrison": "Kethüda",
+      "Column_1": null,
+      "Column_2": null,
+      "Column_3": 1.0
+    }
+  ]
+}

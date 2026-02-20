@@ -1,0 +1,24 @@
+{
+  "garrison_name": "Duk",
+  "eyalet": "Rumili Eyaleti",
+  "source_file": "Duk.xlsx",
+  "headers": [
+    "Column_0",
+    "Column_1"
+  ],
+  "row_count": 3,
+  "data": [
+    {
+      "Column_0": null,
+      "Column_1": null
+    },
+    {
+      "Column_0": null,
+      "Column_1": 1530.0
+    },
+    {
+      "Column_0": "Müstahfız",
+      "Column_1": 18.0
+    }
+  ]
+}

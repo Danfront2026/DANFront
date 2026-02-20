@@ -1,0 +1,38 @@
+{
+  "garrison_name": "Fethü_l İslam",
+  "eyalet": "Rumili Eyaleti",
+  "source_file": "Fethü_l İslam.xlsx",
+  "headers": [
+    "Column_0",
+    "Column_1",
+    "Column_2",
+    "Column_3"
+  ],
+  "row_count": 4,
+  "data": [
+    {
+      "Column_0": null,
+      "Column_1": null,
+      "Column_2": null,
+      "Column_3": null
+    },
+    {
+      "Column_0": null,
+      "Column_1": 1530.0,
+      "Column_2": 1559.0,
+      "Column_3": 1586.0
+    },
+    {
+      "Column_0": "Müstahfız",
+      "Column_1": 106.0,
+      "Column_2": 81.0,
+      "Column_3": 81.0
+    },
+    {
+      "Column_0": "Dizdar",
+      "Column_1": 1.0,
+      "Column_2": 1.0,
+      "Column_3": 1.0
+    }
+  ]
+}

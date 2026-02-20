@@ -1,0 +1,5074 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="DANFront Projesi Haritalar - Osmanlı Garnizonları Maps">
+    <meta name="keywords" content="Osmanlı, Garnizon, Harita, Maps, DANFront, Tarih, Askeri">
+    <meta name="author" content="DANFront Project">
+    
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="DANFront - Maps">
+    <meta property="og:description" content="Osmanlı garnizonlarının coğrafi dağılımını gösteren harita görselleştirmeleri">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="DANFront - Maps">
+    <meta name="twitter:description" content="Osmanlı garnizonlarının coğrafi dağılımını gösteren harita görselleştirmeleri">
+    
+    <title>Maps - DANFront</title>
+    
+    <!-- Header Includes -->
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="apple-touch-icon" href="favicon.svg">
+
+    <!-- Google Fonts for Logo -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bitcount+Grid+Single:wght@100..900&display=swap" rel="stylesheet">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/main.css">
+
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+          crossorigin=""/>
+    
+    <!-- Leaflet Map Styles -->
+    <style>
+        #map {
+            height: 600px;
+            width: 100%;
+            border-radius: var(--radius-lg);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+            margin: 2rem 0;
+        }
+        .map-container {
+            background: white;
+            padding: 2rem;
+            border-radius: var(--radius-lg);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+            max-width: 1400px;
+            margin: 2rem auto;
+        }
+        .map-info {
+            margin-bottom: 1.5rem;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+        /* Improve tile rendering and help hide edge artifacts */
+        .leaflet-tile {
+            image-rendering: crisp-edges;
+            image-rendering: -webkit-optimize-contrast;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+        <nav>
+      <div class="nav-container">
+        <a href="index.html" class="nav-brand">DANFront</a>
+        <button class="mobile-menu-toggle" aria-label="Toggle menu">
+          <span>☰</span>
+        </button>
+        <ul class="nav-menu">
+          <li><a href="index.html" data-tr="Ana Sayfa" data-en="Home">Ana Sayfa</a></li>
+          <li><a href="about.html" data-tr="Hakkında" data-en="About">Hakkında</a></li>
+          <li><a href="team.html" data-tr="Ekip" data-en="Team">Ekip</a></li>
+          <li><a href="sources.html" data-tr="Kaynaklar" data-en="Sources">Kaynaklar</a></li>
+          <li><a href="methodology.html" data-tr="Metodoloji" data-en="Methodology">Metodoloji</a></li>
+          <li><a href="activities.html" data-tr="Etkinlikler" data-en="Activities">Etkinlikler</a></li>
+          <li class="language-selector">
+            <div class="language-dropdown">
+              <button class="language-toggle" aria-label="Select language">
+                <i class="fas fa-globe"></i>
+                <span class="current-lang">TR</span>
+                <i class="fas fa-chevron-down"></i>
+              </button>
+              <div class="language-menu">
+                <a href="#" class="lang-option" data-lang="tr">
+                  <i class="fas fa-flag"></i> Türkçe
+                </a>
+                <a href="#" class="lang-option" data-lang="en">
+                  <i class="fas fa-flag"></i> English
+                </a>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <section class="section-modern" style="padding-top: 2rem;">
+        <div class="container">
+            <div class="section-header-modern">
+                <h1 class="section-title-modern">
+                    <i class="fas fa-map"></i>
+                    <span data-tr-text="Haritalar" data-en-text="Maps">Maps</span>
+                </h1>
+                <p class="section-subtitle-modern" data-tr-text="Harita görselleştirmeleri ve coğrafi analizler" data-en-text="Map visualizations and geographic analyses">Harita görselleştirmeleri ve coğrafi analizler</p>
+            </div>
+
+            <div class="map-container">
+                <div class="map-info" data-tr-text="Tarihi harita görüntüsü: Osmanlı dönemi Macaristan haritası (EOV10). Haritayı yakınlaştırmak ve kaydırmak için fare veya dokunmatik kontrolleri kullanabilirsiniz." data-en-text="Historical map image: Ottoman period Hungary map (EOV10). You can zoom and pan the map using mouse or touch controls.">
+                    Tarihi harita görüntüsü: Osmanlı dönemi Macaristan haritası (EOV10). Haritayı yakınlaştırmak ve kaydırmak için fare veya dokunmatik kontrolleri kullanabilirsiniz.
+                </div>
+                <div id="map"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3 data-tr-text="Bağlantılar" data-en-text="Links">Bağlantılar</h3>
+          <ul class="footer-links">
+            <li><a href="index.html">Ana Sayfa</a></li>
+            <li><a href="about.html">Hakkında</a></li>
+            <li><a href="visualizations.html" data-tr="Görselleştirmeler" data-en="Visualizations">Görselleştirmeler</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h3 data-tr-text="İletişim" data-en-text="Contact">İletişim</h3>
+          <div class="footer-contact">
+            <p><strong data-tr-text="DANFront Projesi" data-en-text="DANFront Project">DANFront Projesi</strong></p>
+            <p>University of Vienna</p>
+            <p>Department of Near Eastern Studies</p>
+            <p><a href="https://danfront.univie.ac.at/" target="_blank">danfront.univie.ac.at</a></p>
+          </div>
+        </div>
+        <div class="footer-section">
+          <h3 data-tr-text="Proje Hakkında" data-en-text="About the Project">Proje Hakkında</h3>
+          <div class="footer-contact">
+            <p data-tr-text="DANFront: Orta ve Aşağı Tuna'da Erken Modern Osmanlı Askeri Sınırının Çevre Tarihi" data-en-text="DANFront: An Environmental History of the Early-Modern Ottoman Military Frontier in the Middle and Lower Danube">DANFront: Orta ve Aşağı Tuna'da Erken Modern Osmanlı Askeri Sınırının Çevre Tarihi</p>
+            <p>An Environmental History of the Early-Modern Ottoman Military Frontier in the Middle and Lower Danube</p>
+          </div>
+        </div>
+      </div>
+      <div class="footer-copyright">
+        <p>&copy; <span class="current-year">2025</span> <span data-tr-text="DANFront Projesi. Tüm hakları saklıdır." data-en-text="DANFront Project. All rights reserved.">DANFront Projesi. Tüm hakları saklıdır.</span></p>
+      </div>
+    </footer>
+
+    <!-- Leaflet JavaScript -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+            crossorigin=""></script>
+
+    <!-- JavaScript -->
+    <script src="js/garrison-data.js"></script>
+    <script src="js/main.js"></script>
+    
+    <!-- Embedded Garrison Data (avoids CORS issues) -->
+    <script>
+var garrisonData = {
+  "total_garrisons": 210,
+  "garrisons": [
+    {
+      "lat": 47.4956,
+      "lng": 19.0397,
+      "name": {
+        "en": "Buda",
+        "tr": "Buda",
+        "hu": "Buda"
+      },
+      "type": "Fortress",
+      "province": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "sancak": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "date1": "1541-1686",
+      "country": "Hungary",
+      "size": "Military Hub",
+      "source_file": "1budin-hun_2.txt"
+    },
+    {
+      "lat": 47.293,
+      "lng": 19.0319,
+      "name": {
+        "en": "Pest",
+        "tr": "Peşte",
+        "hu": "Pest"
+      },
+      "type": "Fortress",
+      "province": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "sancak": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "date1": "1541-1686",
+      "country": "Hungary",
+      "size": "Military Hub",
+      "source_file": "1budin-hun_2.txt"
+    },
+    {
+      "lat": 47.7719,
+      "lng": 19.1306,
+      "name": {
+        "en": "Vác",
+        "tr": "Vác",
+        "hu": "Vác"
+      },
+      "type": "Fortress",
+      "province": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "sancak": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "date1": "1543-1596",
+      "date2": "1620-1684",
+      "country": "Hungary",
+      "size": "Large",
+      "source_file": "1budin-hun_2.txt"
+    },
+    {
+      "lat": 47.7963,
+      "lng": 18.9773,
+      "name": {
+        "en": "Visegrád",
+        "tr": "Vişegrad",
+        "hu": "Visegrád"
+      },
+      "type": "Fortress",
+      "province": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "sancak": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "date1": "1544–1684",
+      "country": "Hungary",
+      "size": "Large",
+      "source_file": "1budin-hun_2.txt"
+    },
+    {
+      "lat": 47.9113,
+      "lng": 19.4225,
+      "name": {
+        "en": "Szanda",
+        "tr": "Sanda",
+        "hu": "Szanda"
+      },
+      "type": "Fortress",
+      "province": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "sancak": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "date1": "1546-1594",
+      "country": "Hungary",
+      "size": "Large",
+      "source_file": "1budin-hun_2.txt"
+    },
+    {
+      "lat": 47.54,
+      "lng": 18.71,
+      "name": {
+        "en": "Zsámbék",
+        "tr": "Canbek",
+        "hu": "Zsámbék"
+      },
+      "type": "Fortress",
+      "province": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "sancak": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "date1": "1546-1686",
+      "country": "Hungary",
+      "size": "Large",
+      "source_file": "1budin-hun_2.txt"
+    },
+    {
+      "lat": 47.11,
+      "lng": 18.86,
+      "name": {
+        "en": "Adony",
+        "tr": "Cankurtaran",
+        "hu": "Adony"
+      },
+      "type": "Palanka",
+      "province": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "sancak": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "country": "Hungary",
+      "size": "Medium",
+      "source_file": "1budin-hun_2.txt"
+    },
+    {
+      "lat": 47.3588,
+      "lng": 18.6726,
+      "name": {
+        "en": "Vál",
+        "tr": "Val",
+        "hu": "Vál"
+      },
+      "type": "Fortress",
+      "province": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "sancak": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "date1": "1550-1686",
+      "country": "Hungary",
+      "size": "Medium",
+      "source_file": "1budin-hun_2.txt"
+    },
+    {
+      "lat": 46.8085,
+      "lng": 18.9279,
+      "name": {
+        "en": "Földvár (Dunaföldvár)",
+        "tr": "Fedvar",
+        "hu": "Földvár"
+      },
+      "type": "Fortress",
+      "province": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "sancak": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "date1": "1550s-1686",
+      "country": "Hungary",
+      "size": "Small",
+      "source_file": "1budin-hun_2.txt"
+    },
+    {
+      "lat": 47.4932,
+      "lng": 19.184,
+      "name": {
+        "en": "Csővár"
+      },
+      "source_file": "1budin-hun_2.txt"
+    },
+    {
+      "lat": 47.6487,
+      "lng": 18.319,
+      "name": {
+        "en": "Tata",
+        "tr": "Tata",
+        "hu": "Tata"
+      },
+      "type": "Fortress",
+      "province": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "sancak": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "date1": "1557–1566",
+      "date2": "1594–1598",
+      "country": "Hungary",
+      "size": "Large",
+      "source_file": "1budin-hun_2.txt"
+    },
+    {
+      "lat": 47.515,
+      "lng": 18.4145,
+      "name": {
+        "en": "Vitány",
+        "tr": "Vitan",
+        "hu": "Vitány"
+      },
+      "type": "Fortress",
+      "province": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "sancak": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "date1": "1557–1566",
+      "date2": "1594–1598",
+      "country": "Hungary",
+      "size": "Small",
+      "source_file": "1budin-hun_2.txt"
+    },
+    {
+      "lat": 47.4678,
+      "lng": 18.3957,
+      "name": {
+        "en": "Hostišovce (Várgesztes)",
+        "tr": "Gestöş",
+        "hu": "Gesztes"
+      },
+      "type": "Fortress",
+      "province": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "sancak": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "date1": "1557–1598",
+      "country": "Slovakia",
+      "size": "Small",
+      "source_file": "1budin-hun_2.txt"
+    },
+    {
+      "lat": 47.4998,
+      "lng": 19.9085,
+      "name": {
+        "en": "Jászberény",
+        "tr": "Canfeda",
+        "hu": "Jászberény"
+      },
+      "type": "Palanka",
+      "province": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "sancak": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "date1": "1568-1594",
+      "country": "Hungary",
+      "size": "Large",
+      "source_file": "1budin-hun_2.txt"
+    },
+    {
+      "lat": 47.3601,
+      "lng": 18.9318,
+      "name": {
+        "en": "Érd",
+        "tr": "Hamzabey",
+        "hu": "Érd"
+      },
+      "type": "Palanka",
+      "province": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "sancak": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "date1": "1570-1686",
+      "country": "Hungary",
+      "size": "Small",
+      "source_file": "1budin-hun_2.txt"
+    },
+    {
+      "lat": 47.619,
+      "lng": 18.9079,
+      "name": {
+        "en": "Vörösvár (Pilisvörösvár)",
+        "tr": "Kızılhisar",
+        "hu": "Vörösvár"
+      },
+      "type": "Palanka",
+      "province": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "sancak": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "date1": "1570-1686",
+      "country": "Hungary",
+      "size": "Medium",
+      "source_file": "1budin-hun_2.txt"
+    },
+    {
+      "lat": 47.8462,
+      "lng": 18.824,
+      "name": {
+        "en": "Damásd (Ipolydamásd)",
+        "tr": "Derbend",
+        "hu": "Damásd"
+      },
+      "type": "Fortress",
+      "province": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "sancak": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "date1": "1581-1595",
+      "country": "Hungary",
+      "size": "Medium",
+      "source_file": "1budin-hun_2.txt"
+    },
+    {
+      "lat": 47.4869,
+      "lng": 19.047,
+      "name": {
+        "en": "Gellért-hegy",
+        "tr": "Gürz İlyas",
+        "hu": "Gellért"
+      },
+      "type": "Fortress",
+      "province": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "sancak": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "date1": "1593-1686",
+      "country": "Hungary",
+      "size": "Medium",
+      "source_file": "1budin-hun_2.txt"
+    },
+    {
+      "lat": 47.2488,
+      "lng": 18.9078,
+      "name": {
+        "en": "Ercsi",
+        "tr": "Ercin",
+        "hu": "Ercsi"
+      },
+      "type": "Palanka",
+      "province": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "sancak": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "date1": "1627-1686",
+      "country": "Hungary",
+      "size": "Medium",
+      "source_file": "1budin-hun_2.txt"
+    },
+    {
+      "lat": 47.7987,
+      "lng": 18.7366,
+      "name": {
+        "en": "Esztergom",
+        "tr": "Estergon",
+        "hu": "Esztergom"
+      },
+      "type": "Fortress",
+      "province": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "sancak": {
+        "en": "Esztergom",
+        "tr": "Estergon",
+        "hu": "Esztergom"
+      },
+      "date1": "1543-1595",
+      "date2": "1605-1683",
+      "country": "Hungary",
+      "size": "Military Hub",
+      "source_file": "1budin-hun_2.txt"
+    },
+    {
+      "lat": 47.7987,
+      "lng": 18.724,
+      "name": {
+        "en": "Štúrovo",
+        "tr": "Ciğerdelen",
+        "hu": "Párkány"
+      },
+      "type": "Palanka",
+      "province": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "sancak": {
+        "en": "Esztergom",
+        "tr": "Estergon",
+        "hu": "Esztergom"
+      },
+      "date1": "1545-1595",
+      "date2": "1605-1683",
+      "country": "Slovakia",
+      "source_file": "1budin-hun_2.txt"
+    },
+    {
+      "lat": 47.7963,
+      "lng": 18.7421,
+      "name": {
+        "en": "Szenttamás (Esztergom - Szenttamás)",
+        "tr": "Tepedelen",
+        "hu": "Szent Tamás"
+      },
+      "type": "Palanka",
+      "province": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "sancak": {
+        "en": "Esztergom",
+        "tr": "Estergon",
+        "hu": "Esztergom"
+      },
+      "date1": "1594-1595",
+      "date2": "1605-1683",
+      "country": "Hungary",
+      "source_file": "1budin-hun_2.txt"
+    },
+    {
+      "lat": 48.2715,
+      "lng": 19.8252,
+      "name": {
+        "en": "Fiľakovo",
+        "tr": "Filek",
+        "hu": "Fülek"
+      },
+      "type": "Fortress",
+      "province": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "sancak": {
+        "en": "Fiľakovo",
+        "tr": "Filek",
+        "hu": "Fülek"
+      },
+      "date1": "1554–1593",
+      "country": "Slovakia",
+      "size": "Large",
+      "source_file": "1budin-hun_2.txt"
+    },
+    {
+      "lat": 48.38,
+      "lng": 20.01,
+      "name": {
+        "en": "Rimavská Sobota",
+        "tr": "Sobotka",
+        "hu": "Szabadka"
+      },
+      "type": "Fortress",
+      "province": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "sancak": {
+        "en": "Fiľakovo",
+        "tr": "Filek",
+        "hu": "Fülek"
+      },
+      "date1": "1557-1593",
+      "country": "Slovakia",
+      "size": "Small",
+      "source_file": "1budin-hun_2.txt"
+    },
+    {
+      "lat": 48.2182,
+      "lng": 19.9553,
+      "name": {
+        "en": "Hajnáčka",
+        "tr": "Aynaşka",
+        "hu": "Ajnácskő"
+      },
+      "type": "Fortress",
+      "province": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "sancak": {
+        "en": "Fiľakovo",
+        "tr": "Filek",
+        "hu": "Fülek"
+      },
+      "date1": "1566-1593",
+      "country": "Slovakia",
+      "size": "Small",
+      "source_file": "1budin-hun_2.txt"
+    },
+    {
+      "lat": 48.4481,
+      "lng": 19.5331,
+      "name": {
+        "en": "Divín",
+        "tr": "Divin",
+        "hu": "Divény"
+      },
+      "type": "Fortress",
+      "province": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "sancak": {
+        "en": "Fiľakovo",
+        "tr": "Filek",
+        "hu": "Fülek"
+      },
+      "date1": "1575–1593",
+      "country": "Slovakia",
+      "size": "Medium",
+      "source_file": "1budin-hun_2.txt"
+    },
+    {
+      "lat": 48.1714,
+      "lng": 19.857,
+      "name": {
+        "en": "Šomoška",
+        "tr": "Somoşka",
+        "hu": "Somoskő"
+      },
+      "type": "Fortress",
+      "province": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "sancak": {
+        "en": "Fiľakovo",
+        "tr": "Filek",
+        "hu": "Fülek"
+      },
+      "date1": "1575–1593",
+      "country": "Slovakia",
+      "size": "Small",
+      "source_file": "1budin-hun_2.txt"
+    },
+    {
+      "lat": 47.6679,
+      "lng": 19.686,
+      "name": {
+        "en": "Hatvan",
+        "tr": "Hatvan",
+        "hu": "Hatvan"
+      },
+      "type": "Fortress",
+      "province": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "sancak": {
+        "en": "Hatvan",
+        "tr": "Hatvan",
+        "hu": "Hatvan"
+      },
+      "date1": "1544–1686",
+      "country": "Hungary",
+      "size": "Military Hub",
+      "notes": "part of the vilayet of Eger after 1596",
+      "source_file": "1budin-hun_2.txt"
+    },
+    {
+      "lat": 48.1446,
+      "lng": 19.847,
+      "name": {
+        "en": "Salgó",
+        "tr": "Şalgo",
+        "hu": "Salgó"
+      },
+      "type": "Fortress",
+      "province": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "sancak": {
+        "en": "Hatvan",
+        "tr": "Hatvan",
+        "hu": "Hatvan"
+      },
+      "date1": "1554–1593",
+      "country": "Hungary",
+      "size": "Small",
+      "source_file": "1budin-hun_2.txt"
+    },
+    {
+      "lat": 47.1912,
+      "lng": 18.4096,
+      "name": {
+        "en": "Székesfehérvár",
+        "tr": "Istolni Belgrad",
+        "hu": "Székesfehérvár"
+      },
+      "type": "Fortress",
+      "province": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "sancak": {
+        "en": "Hatvan",
+        "tr": "Hatvan",
+        "hu": "Hatvan"
+      },
+      "date1": "1543–1688",
+      "country": "Hungary",
+      "size": "Military Hub",
+      "source_file": "1budin-hun_2.txt"
+    },
+    {
+      "lat": 47.3601,
+      "lng": 18.2771,
+      "name": {
+        "en": "Csókakő",
+        "tr": "Çoka",
+        "hu": "Csókakő"
+      },
+      "type": "Fortress",
+      "province": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "sancak": {
+        "en": "Hatvan",
+        "tr": "Hatvan",
+        "hu": "Hatvan"
+      },
+      "date1": "1544–1687",
+      "country": "Hungary",
+      "size": "Small",
+      "source_file": "1budin-hun_2.txt"
+    },
+    {
+      "lat": 47.096,
+      "lng": 17.9038,
+      "name": {
+        "en": "Veszprém",
+        "tr": "Bespirim",
+        "hu": "Veszprém"
+      },
+      "type": "Fortress",
+      "province": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "sancak": {
+        "en": "Hatvan",
+        "tr": "Hatvan",
+        "hu": "Hatvan"
+      },
+      "date1": "1552–1566",
+      "date2": "1593–1598",
+      "country": "Hungary",
+      "size": "Large",
+      "source_file": "1budin-hun_2.txt"
+    },
+    {
+      "lat": 47.11,
+      "lng": 18.37,
+      "name": {
+        "en": "Bak'an (Szabadbattyán)",
+        "tr": "Battyán",
+        "hu": "Fortress"
+      },
+      "type": "Budin",
+      "province": {
+        "en": "Budin",
+        "tr": "Budai",
+        "hu": "Hatvan"
+      },
+      "sancak": {
+        "en": "Hatvan",
+        "tr": "Hatvan",
+        "hu": "1567-1687"
+      },
+      "date2": "Hungary",
+      "country": "Medium",
+      "source_file": "1budin-hun_2.txt"
+    },
+    {
+      "lat": 47.2006,
+      "lng": 18.139,
+      "name": {
+        "en": "Várpalota",
+        "tr": "Polata",
+        "hu": "Várpalota"
+      },
+      "type": "Fortress",
+      "province": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "sancak": {
+        "en": "Hatvan",
+        "tr": "Hatvan",
+        "hu": "Hatvan"
+      },
+      "date1": "1593–1598",
+      "date2": "1605–1687",
+      "country": "Hungary",
+      "size": "Military Hub",
+      "source_file": "1budin-hun_2.txt"
+    },
+    {
+      "lat": 46.9132,
+      "lng": 17.8882,
+      "name": {
+        "en": "Tihany",
+        "tr": "Tihon",
+        "hu": "Tihany"
+      },
+      "type": "Fortress",
+      "province": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "sancak": {
+        "en": "Hatvan",
+        "tr": "Hatvan",
+        "hu": "Hatvan"
+      },
+      "date1": "1594–1598",
+      "country": "Hungary",
+      "size": "Large",
+      "source_file": "1budin-hun_2.txt"
+    },
+    {
+      "lat": 46.9849,
+      "lng": 17.6957,
+      "name": {
+        "en": "Vázsony, Nagyvázsony"
+      },
+      "source_file": "1budin-hun_2.txt"
+    },
+    {
+      "lat": 46.601,
+      "lng": 18.0497,
+      "name": {
+        "en": "Koppány (Törökkopány)",
+        "tr": "Kopan",
+        "hu": "Koppány"
+      },
+      "type": "Palanka",
+      "province": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "sancak": {
+        "en": "Koppány (?)",
+        "tr": "Kopan",
+        "hu": "Koppány (?)"
+      },
+      "date1": "1566-1686",
+      "country": "Hungary",
+      "size": "Medium",
+      "source_file": "1budin-hun_2.txt"
+    },
+    {
+      "lat": 46.3634,
+      "lng": 18.1234,
+      "name": {
+        "en": "Dombóvár",
+        "tr": "Donbo",
+        "hu": "Dombóvár"
+      },
+      "type": "Fortress",
+      "province": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "sancak": {
+        "en": "Koppány (?)",
+        "tr": "Kopan",
+        "hu": "Koppány (?)"
+      },
+      "date1": "1546–1686",
+      "country": "Hungary",
+      "size": "Medium",
+      "source_file": "1budin-hun_2.txt"
+    },
+    {
+      "lat": 46.69,
+      "lng": 17.84,
+      "name": {
+        "en": "Karád",
+        "tr": "Karad",
+        "hu": "Karád"
+      },
+      "type": "Fortress",
+      "province": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "sancak": {
+        "en": "Koppány (?)",
+        "tr": "Kopan",
+        "hu": "Koppány (?)"
+      },
+      "date1": "1555–1686",
+      "country": "Hungary",
+      "size": "Small",
+      "source_file": "1budin-hun_2.txt"
+    },
+    {
+      "lat": 46.3624,
+      "lng": 17.377,
+      "name": {
+        "en": "Lak (Öreglak)",
+        "tr": "Lak",
+        "hu": "Lak"
+      },
+      "type": "Fortress",
+      "province": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "sancak": {
+        "en": "Koppány (?)",
+        "tr": "Kopan",
+        "hu": "Koppány (?)"
+      },
+      "date1": "1566–1686",
+      "country": "Hungary",
+      "size": "Medium",
+      "source_file": "1budin-hun_2.txt"
+    },
+    {
+      "lat": 46.8132,
+      "lng": 17.7809,
+      "name": {
+        "en": "Bolondvár (Balatonszemes)",
+        "tr": "Bolondvar",
+        "hu": "Bolondvár"
+      },
+      "type": "Fortress",
+      "province": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "sancak": {
+        "en": "Koppány (?)",
+        "tr": "Kopan",
+        "hu": "Koppány (?)"
+      },
+      "date1": "1570-?",
+      "country": "Hungary",
+      "size": "Small",
+      "source_file": "1budin-hun_2.txt"
+    },
+    {
+      "lat": 46.9048,
+      "lng": 18.0503,
+      "name": {
+        "en": "Siófok",
+        "tr": "Foka",
+        "hu": "Siófok"
+      },
+      "type": "Fortress",
+      "province": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "sancak": {
+        "en": "Koppány (?)",
+        "tr": "Kopan",
+        "hu": "Koppány (?)"
+      },
+      "date1": "?-1684",
+      "country": "Hungary",
+      "size": "Medium",
+      "source_file": "1budin-hun_2.txt"
+    },
+    {
+      "lat": 46.59,
+      "lng": 18.19,
+      "name": {
+        "en": "Kónyi",
+        "tr": "Koni",
+        "hu": "Kónyi"
+      },
+      "type": "Palanka",
+      "province": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "sancak": {
+        "en": "Koppány (?)",
+        "tr": "Kopan",
+        "hu": "Koppány (?)"
+      },
+      "date1": "1610s?",
+      "country": "Hungary",
+      "size": "Small",
+      "source_file": "1budin-hun_2.txt"
+    },
+    {
+      "lat": 47.906,
+      "lng": 19.0435,
+      "name": {
+        "en": "Nógrád",
+        "tr": "Novigrad",
+        "hu": "Nógrád"
+      },
+      "type": "Fortress",
+      "province": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "sancak": {
+        "en": "Nógrád",
+        "tr": "Novigrad",
+        "hu": "Nógrád"
+      },
+      "country": "Hungary",
+      "size": "Medium",
+      "source_file": "1budin-hun_2.txt"
+    },
+    {
+      "lat": 48.0164,
+      "lng": 19.036,
+      "name": {
+        "en": "Drégely",
+        "tr": "Diregel",
+        "hu": "Drégely"
+      },
+      "type": "Fortress",
+      "province": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "sancak": {
+        "en": "Nógrád",
+        "tr": "Novigrad",
+        "hu": "Nógrád"
+      },
+      "date1": "1552–1593",
+      "country": "Hungary",
+      "size": "Large",
+      "source_file": "1budin-hun_2.txt"
+    },
+    {
+      "lat": 48.0516,
+      "lng": 19.0453,
+      "name": {
+        "en": "Drégelypalánk",
+        "tr": "Bö?ürdelen",
+        "hu": "Drégelypalánk"
+      },
+      "type": "Palanka",
+      "province": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "sancak": {
+        "en": "Nógrád",
+        "tr": "Novigrad",
+        "hu": "Nógrád"
+      },
+      "date1": "1575-1593",
+      "date2": "1663–1685(?)",
+      "country": "Hungary",
+      "size": "Medium",
+      "source_file": "1budin-hun_2.txt"
+    },
+    {
+      "lat": 46.0763,
+      "lng": 18.228,
+      "name": {
+        "en": "Pécs",
+        "tr": "Peçuy",
+        "hu": "Pécs"
+      },
+      "type": "Fortress",
+      "province": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "sancak": {
+        "en": "Pécs",
+        "tr": "Peçuy",
+        "hu": "Pécs"
+      },
+      "date1": "1543–1686",
+      "country": "Hungary",
+      "size": "Military Hub",
+      "notes": "part of the vilayet of Kanitza after 1600",
+      "source_file": "1budin-hun_2.txt"
+    },
+    {
+      "lat": 46.2743,
+      "lng": 18.3778,
+      "name": {
+        "en": "Szászvár",
+        "tr": "Sas",
+        "hu": "Szászvár"
+      },
+      "type": "Fortress",
+      "province": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "sancak": {
+        "en": "Pécs",
+        "tr": "Peçuy",
+        "hu": "Pécs"
+      },
+      "date1": "1540s",
+      "country": "Hungary",
+      "size": "Medium",
+      "source_file": "1budin-hun_2.txt"
+    },
+    {
+      "lat": 46.03,
+      "lng": 17.71,
+      "name": {
+        "en": "Görösgál (Nemeske)",
+        "tr": "Göröşgal",
+        "hu": "Görösgál"
+      },
+      "type": "Fortress",
+      "province": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "sancak": {
+        "en": "Pécs",
+        "tr": "Peçuy",
+        "hu": "Pécs"
+      },
+      "date1": "1544-1559",
+      "country": "Hungary",
+      "size": "Medium",
+      "source_file": "1budin-hun_2.txt"
+    },
+    {
+      "lat": 46.2252,
+      "lng": 18.3221,
+      "name": {
+        "en": "Márévár",
+        "tr": "Malvar",
+        "hu": "Márévár"
+      },
+      "type": "Fortress",
+      "province": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "sancak": {
+        "en": "Pécs",
+        "tr": "Peçuy",
+        "hu": "Pécs"
+      },
+      "date1": "?-1546",
+      "country": "Hungary",
+      "source_file": "1budin-hun_2.txt"
+    },
+    {
+      "lat": 46.0582,
+      "lng": 17.989,
+      "name": {
+        "en": "Szentlőrinc",
+        "tr": "Senlörinç",
+        "hu": "Szentlőrinc"
+      },
+      "type": "Fortress",
+      "province": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "sancak": {
+        "en": "Pécs",
+        "tr": "Peçuy",
+        "hu": "Pécs"
+      },
+      "date1": "1551-1559",
+      "country": "Hungary",
+      "size": "Medium",
+      "source_file": "1budin-hun_2.txt"
+    },
+    {
+      "lat": 46.2689,
+      "lng": 18.0052,
+      "name": {
+        "en": "Szentmárton (Gödreszentmárton)",
+        "tr": "Senmartin",
+        "hu": "Szentmárton"
+      },
+      "type": "Palanka",
+      "province": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "sancak": {
+        "en": "Pécs",
+        "tr": "Peçuy",
+        "hu": "Pécs"
+      },
+      "date1": "1552-1599",
+      "country": "Hungary",
+      "size": "Medium",
+      "source_file": "1budin-hun_2.txt"
+    },
+    {
+      "lat": 46.3551,
+      "lng": 17.7806,
+      "name": {
+        "en": "Kaposvár",
+        "tr": "Kapoşvar",
+        "hu": "Kaposvár"
+      },
+      "type": "Fortress",
+      "province": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "sancak": {
+        "en": "Pécs",
+        "tr": "Peçuy",
+        "hu": "Pécs"
+      },
+      "date1": "1555-1686",
+      "country": "Hungary",
+      "size": "Large",
+      "source_file": "1budin-hun_2.txt"
+    },
+    {
+      "lat": 45.8723,
+      "lng": 17.8419,
+      "name": {
+        "en": "Sellye",
+        "tr": "Şelin",
+        "hu": "Sellye"
+      },
+      "type": "Palanka",
+      "province": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "sancak": {
+        "en": "Pécs",
+        "tr": "Peçuy",
+        "hu": "Pécs"
+      },
+      "date1": "1550s-1559",
+      "country": "Hungary",
+      "size": "Small",
+      "source_file": "1budin-hun_2.txt"
+    },
+    {
+      "lat": 46.226,
+      "lng": 18.4746,
+      "name": {
+        "en": "Nádasd (Mecseknádasd)",
+        "tr": "Nadaj",
+        "hu": "Nádasd"
+      },
+      "type": "Palanka",
+      "province": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "sancak": {
+        "en": "Pécs",
+        "tr": "Peçuy",
+        "hu": "Pécs"
+      },
+      "date1": "1570-1686",
+      "country": "Hungary",
+      "size": "Medium",
+      "notes": "part of the vilayet of Kanitza after 1600",
+      "source_file": "1budin-hun_2.txt"
+    },
+    {
+      "lat": 46.5519,
+      "lng": 17.2902,
+      "name": {
+        "en": "Szőcsény (Somogyzsitfa)",
+        "tr": "Söçin",
+        "hu": "Szőcsény"
+      },
+      "type": "Palanka",
+      "province": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "sancak": {
+        "en": "Pécs",
+        "tr": "Peçuy",
+        "hu": "Pécs"
+      },
+      "date1": "1574-1592?",
+      "country": "Hungary",
+      "size": "Small",
+      "source_file": "1budin-hun_2.txt"
+    },
+    {
+      "lat": 46.2528,
+      "lng": 20.1523,
+      "name": {
+        "en": "Szeged",
+        "tr": "Segedin",
+        "hu": "Szeged"
+      },
+      "type": "Fortress",
+      "province": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "sancak": {
+        "en": "Szeged",
+        "tr": "Segedin",
+        "hu": "Szeged"
+      },
+      "date1": "1543-1686",
+      "country": "Hungary",
+      "size": "Large",
+      "source_file": "1budin-hun_2.txt"
+    },
+    {
+      "lat": 45.2039,
+      "lng": 20.3056,
+      "name": {
+        "en": "Titel",
+        "tr": "Titel",
+        "hu": "Titel"
+      },
+      "type": "Fortress",
+      "province": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "sancak": {
+        "en": "Szeged",
+        "tr": "Segedin",
+        "hu": "Szeged"
+      },
+      "date1": "1526-1688",
+      "country": "Serbia",
+      "size": "Large",
+      "source_file": "1budin-hun_2.txt"
+    },
+    {
+      "lat": 46.5275,
+      "lng": 18.9764,
+      "name": {
+        "en": "Kalocsa",
+        "tr": "Kalaça",
+        "hu": "Kalocsa"
+      },
+      "type": "Fortress",
+      "province": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "sancak": {
+        "en": "Szeged",
+        "tr": "Segedin",
+        "hu": "Szeged"
+      },
+      "date1": "1541-1686",
+      "country": "Hungary",
+      "size": "Large",
+      "source_file": "1budin-hun_2.txt"
+    },
+    {
+      "lat": 45.47,
+      "lng": 19.07,
+      "name": {
+        "en": "Sombor",
+        "tr": "Sombor",
+        "hu": "Zombor"
+      },
+      "type": "Fortress",
+      "province": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "sancak": {
+        "en": "Szeged",
+        "tr": "Segedin",
+        "hu": "Szeged"
+      },
+      "date1": "1542-1686",
+      "country": "Serbia",
+      "size": "Small",
+      "source_file": "1budin-hun_2.txt"
+    },
+    {
+      "lat": 45.3929,
+      "lng": 19.2215,
+      "name": {
+        "en": "Bač",
+        "tr": "Baç",
+        "hu": "Bács"
+      },
+      "type": "Fortress",
+      "province": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "sancak": {
+        "en": "Szeged",
+        "tr": "Segedin",
+        "hu": "Szeged"
+      },
+      "date1": "1543(?)-1686",
+      "country": "Serbia",
+      "size": "Medium",
+      "source_file": "1budin-hun_2.txt"
+    },
+    {
+      "lat": 46.1014,
+      "lng": 19.664,
+      "name": {
+        "en": "Subotica",
+        "tr": "Sobotka",
+        "hu": "Szabadka"
+      },
+      "type": "Fortress",
+      "province": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "sancak": {
+        "en": "Szeged",
+        "tr": "Segedin",
+        "hu": "Szeged"
+      },
+      "date1": "1544-1686",
+      "country": "Hungary",
+      "size": "Small",
+      "source_file": "1budin-hun_2.txt"
+    },
+    {
+      "lat": 46.178,
+      "lng": 18.9513,
+      "name": {
+        "en": "Baja",
+        "tr": "Baya",
+        "hu": "Baja"
+      },
+      "type": "Palanka",
+      "province": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "sancak": {
+        "en": "Szeged",
+        "tr": "Segedin",
+        "hu": "Szeged"
+      },
+      "date1": "1550s-1686",
+      "country": "Serbia",
+      "size": "Medium",
+      "source_file": "1budin-hun_2.txt"
+    },
+    {
+      "lat": 46.6145,
+      "lng": 20.0327,
+      "name": {
+        "en": "Tömörkény",
+        "tr": "Tömörkin",
+        "hu": "Tömörkény"
+      },
+      "type": "Palanka",
+      "province": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "sancak": {
+        "en": "Szeged",
+        "tr": "Segedin",
+        "hu": "Szeged"
+      },
+      "date1": "1561-?",
+      "country": "Hungary",
+      "size": "Medium",
+      "source_file": "1budin-hun_2.txt"
+    },
+    {
+      "lat": 46.9248,
+      "lng": 19.9291,
+      "name": {
+        "en": "Szentkirály",
+        "tr": "Senkiral",
+        "hu": "Szentkirály"
+      },
+      "type": "Palanka",
+      "province": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "sancak": {
+        "en": "Szeged",
+        "tr": "Segedin",
+        "hu": "Szeged"
+      },
+      "date1": "1570-?",
+      "country": "Hungary",
+      "size": "Medium",
+      "source_file": "1budin-hun_2.txt"
+    },
+    {
+      "lat": 46.0628,
+      "lng": 20.0546,
+      "name": {
+        "en": "Martonoš",
+        "tr": "Martonoş",
+        "hu": "Martonos"
+      },
+      "type": "Palanka",
+      "province": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "sancak": {
+        "en": "Szeged",
+        "tr": "Segedin",
+        "hu": "Szeged"
+      },
+      "date1": "1590-1686(?)",
+      "country": "Serbia",
+      "size": "Small",
+      "source_file": "1budin-hun_2.txt"
+    },
+    {
+      "lat": 45.2361,
+      "lng": 19.7202,
+      "name": {
+        "en": "Futog",
+        "tr": "Futok",
+        "hu": "Futak"
+      },
+      "type": "Palanka",
+      "province": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "sancak": {
+        "en": "Szeged",
+        "tr": "Segedin",
+        "hu": "Szeged"
+      },
+      "date1": "?-1686",
+      "country": "Serbia",
+      "size": "Small",
+      "source_file": "1budin-hun_2.txt"
+    },
+    {
+      "lat": 46.0477,
+      "lng": 19.3181,
+      "name": {
+        "en": "Madaras",
+        "tr": "Madaraş",
+        "hu": "Madaras"
+      },
+      "type": "Palanka",
+      "province": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "sancak": {
+        "en": "Szeged",
+        "tr": "Segedin",
+        "hu": "Szeged"
+      },
+      "date1": "?-?",
+      "country": "Hungary",
+      "size": "Medium",
+      "source_file": "1budin-hun_2.txt"
+    },
+    {
+      "lat": 45.3004,
+      "lng": 20.1722,
+      "name": {
+        "en": "Mošorin",
+        "tr": "Moşorin",
+        "hu": "Mozsor"
+      },
+      "type": "Palanka",
+      "province": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "sancak": {
+        "en": "Szeged",
+        "tr": "Segedin",
+        "hu": "Szeged"
+      },
+      "date1": "?-?",
+      "country": "Hungary",
+      "size": "Small",
+      "source_file": "1budin-hun_2.txt"
+    },
+    {
+      "lat": 45.2136,
+      "lng": 20.0355,
+      "name": {
+        "en": "Kabol (Kovilj)",
+        "tr": "Kobila",
+        "hu": "Kabol"
+      },
+      "type": "Palanka",
+      "province": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "sancak": {
+        "en": "Szeged",
+        "tr": "Segedin",
+        "hu": "Szeged"
+      },
+      "date1": "?-1686",
+      "country": "Hungary",
+      "size": "Small",
+      "source_file": "1budin-hun_2.txt"
+    },
+    {
+      "lat": 45.2528,
+      "lng": 19.3798,
+      "name": {
+        "en": "Peste (Bačka Palanka)",
+        "tr": "Peşte",
+        "hu": "Pest"
+      },
+      "type": "Palanka",
+      "province": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "sancak": {
+        "en": "Szeged",
+        "tr": "Segedin",
+        "hu": "Szeged"
+      },
+      "date1": "1610-?",
+      "country": "Hungary",
+      "size": "Small",
+      "source_file": "1budin-hun_2.txt"
+    },
+    {
+      "lat": 46.0882,
+      "lng": 18.7616,
+      "name": {
+        "en": "Szekcső (Dunaszekcső)",
+        "tr": "Sekçöy",
+        "hu": "Szekcső"
+      },
+      "type": "Fortress",
+      "province": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "sancak": {
+        "en": "Szekcső",
+        "tr": "Sekçöy",
+        "hu": "Szekcső"
+      },
+      "date1": "1541-1686",
+      "country": "Hungary",
+      "size": "Small",
+      "source_file": "1budin-hun_2.txt"
+    },
+    {
+      "lat": 45.7861,
+      "lng": 18.6044,
+      "name": {
+        "en": "Branjin Vrh",
+        "tr": "Baranvar",
+        "hu": "Baranyavár"
+      },
+      "type": "Fortress",
+      "province": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "sancak": {
+        "en": "Szekcső",
+        "tr": "Sekçöy",
+        "hu": "Szekcső"
+      },
+      "date1": "1544–1686",
+      "country": "Croatia",
+      "size": "Small",
+      "source_file": "1budin-hun_2.txt"
+    },
+    {
+      "lat": 46.0036,
+      "lng": 18.6828,
+      "name": {
+        "en": "Mohács",
+        "tr": "Mohaç",
+        "hu": "Mohács"
+      },
+      "type": "Palanka",
+      "province": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "sancak": {
+        "en": "Szekcső",
+        "tr": "Sekçöy",
+        "hu": "Szekcső"
+      },
+      "date1": "1560-1686",
+      "country": "Hungary",
+      "size": "Medium",
+      "source_file": "1budin-hun_2.txt"
+    },
+    {
+      "lat": 45.7996,
+      "lng": 18.8061,
+      "name": {
+        "en": "Zmajevac",
+        "tr": "Feleşmarta",
+        "hu": "Vörösmart"
+      },
+      "type": "Palanka",
+      "province": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "sancak": {
+        "en": "Szekcső",
+        "tr": "Sekçöy",
+        "hu": "Szekcső"
+      },
+      "date1": "?-1663",
+      "country": "Croatia",
+      "source_file": "1budin-hun_2.txt"
+    },
+    {
+      "lat": 45.62,
+      "lng": 18.69,
+      "name": {
+        "en": "Dárda",
+        "tr": "Darda",
+        "hu": "Dárda"
+      },
+      "type": "Palanka",
+      "province": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "sancak": {
+        "en": "Szekcső",
+        "tr": "Sekçöy",
+        "hu": "Szekcső"
+      },
+      "date1": "?-1686",
+      "country": "Croatia",
+      "size": "Medium",
+      "source_file": "1budin-hun_2.txt"
+    },
+    {
+      "lat": 46.35,
+      "lng": 18.7,
+      "name": {
+        "en": "Szekszárd",
+        "tr": "Seksar",
+        "hu": "Szekszárd"
+      },
+      "type": "Fortress",
+      "province": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "sancak": {
+        "en": "Szekszárd",
+        "tr": "Seksar",
+        "hu": "Szekszárd"
+      },
+      "date1": "1541-1686",
+      "country": "Hungary",
+      "size": "Large",
+      "source_file": "1budin-hun_2.txt"
+    },
+    {
+      "lat": 46.1878,
+      "lng": 18.726,
+      "name": {
+        "en": "Bátaszék",
+        "tr": "Batasek",
+        "hu": "Bátaszék"
+      },
+      "type": "Palanka",
+      "province": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "sancak": {
+        "en": "Szekszárd",
+        "tr": "Seksar",
+        "hu": "Szekszárd"
+      },
+      "date1": "1550s-1686",
+      "country": "Hungary",
+      "size": "Medium",
+      "source_file": "1budin-hun_2.txt"
+    },
+    {
+      "lat": 46.629,
+      "lng": 18.8678,
+      "name": {
+        "en": "Paks",
+        "tr": "Pakşa",
+        "hu": "Paks"
+      },
+      "type": "Palanka",
+      "province": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "sancak": {
+        "en": "Szekszárd",
+        "tr": "Seksar",
+        "hu": "Szekszárd"
+      },
+      "date1": "1565-1686",
+      "country": "Hungary",
+      "size": "Medium",
+      "source_file": "1budin-hun_2.txt"
+    },
+    {
+      "lat": 46.3801,
+      "lng": 18.712,
+      "name": {
+        "en": "Szerdahely (Szekszárd)",
+        "tr": "Serdahel",
+        "hu": "Szerdahely (Jenipalánk)"
+      },
+      "type": "Palanka",
+      "province": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "sancak": {
+        "en": "Szekszárd",
+        "tr": "Seksar",
+        "hu": "Szekszárd"
+      },
+      "date1": "1600s-1686",
+      "country": "Hungary",
+      "size": "Medium",
+      "source_file": "1budin-hun_2.txt"
+    },
+    {
+      "lat": 46.4229,
+      "lng": 18.7942,
+      "name": {
+        "en": "Tolna",
+        "tr": "Tolna",
+        "hu": "Tolna"
+      },
+      "type": "Palanka",
+      "province": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "sancak": {
+        "en": "Szekszárd",
+        "tr": "Seksar",
+        "hu": "Szekszárd"
+      },
+      "date1": "1600s-1686",
+      "country": "Hungary",
+      "size": "Medium",
+      "source_file": "1budin-hun_2.txt"
+    },
+    {
+      "lat": 48.0829,
+      "lng": 19.5189,
+      "name": {
+        "en": "Szécsény",
+        "tr": "Siçen",
+        "hu": "Szécsény"
+      },
+      "type": "Fortress",
+      "province": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "sancak": {
+        "en": "Szekszárd",
+        "tr": "Seksar",
+        "hu": "Szekszárd"
+      },
+      "date1": "1552-1593",
+      "date2": "1663-1683",
+      "country": "Hungary",
+      "size": "Large",
+      "source_file": "1budin-hun_2.txt"
+    },
+    {
+      "lat": 47.9976,
+      "lng": 19.5818,
+      "name": {
+        "en": "Hollókő",
+        "tr": "Holloka",
+        "hu": "Hollókő"
+      },
+      "type": "Fortress",
+      "province": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "sancak": {
+        "en": "Szekszárd",
+        "tr": "Seksar",
+        "hu": "Szekszárd"
+      },
+      "date1": "1552-1593",
+      "date2": "1663-1683",
+      "country": "Hungary",
+      "size": "medium",
+      "source_file": "1budin-hun_2.txt"
+    },
+    {
+      "lat": 47.8982,
+      "lng": 19.5345,
+      "name": {
+        "en": "Buják",
+        "tr": "Buyak",
+        "hu": "Buják"
+      },
+      "type": "Fortress",
+      "province": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "sancak": {
+        "en": "Szekszárd",
+        "tr": "Seksar",
+        "hu": "Szekszárd"
+      },
+      "date1": "1552-1593",
+      "date2": "1663-1685",
+      "country": "Hungary",
+      "size": "Medium",
+      "source_file": "1budin-hun_2.txt"
+    },
+    {
+      "lat": 48.2392,
+      "lng": 19.3364,
+      "name": {
+        "en": "Modrý Kameň",
+        "tr": "Keköy",
+        "hu": "Kékkő"
+      },
+      "type": "Fortress",
+      "province": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "sancak": {
+        "en": "Szekszárd",
+        "tr": "Seksar",
+        "hu": "Szekszárd"
+      },
+      "date1": "1575-1593",
+      "country": "Slovakia",
+      "size": "Medium",
+      "source_file": "1budin-hun_2.txt"
+    },
+    {
+      "lat": 46.0507,
+      "lng": 17.7969,
+      "name": {
+        "en": "Szigetvár",
+        "tr": "Sigetvar",
+        "hu": "Szigetvár"
+      },
+      "type": "Fortress",
+      "province": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "sancak": {
+        "en": "Szigetvár",
+        "tr": "Sigetvar",
+        "hu": "Szigetvár"
+      },
+      "date1": "1566-1689",
+      "country": "Hungary",
+      "size": "Military Hub",
+      "notes": "part of the vilayet of Kanitza after 1600",
+      "source_file": "1budin-hun_2.txt"
+    },
+    {
+      "lat": 45.852,
+      "lng": 18.2958,
+      "name": {
+        "en": "Siklós",
+        "tr": "Şikloş",
+        "hu": "Siklós"
+      },
+      "type": "Fortress",
+      "province": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "sancak": {
+        "en": "Szigetvár",
+        "tr": "Sigetvar",
+        "hu": "Szigetvár"
+      },
+      "date1": "1543-1686",
+      "country": "Hungary",
+      "size": "Military Hub",
+      "notes": "part of the sancak of Peçuy before 1566. part of the sancak of Szigetvár after 1566; part of the vilayet of Kanitza after 1600",
+      "source_file": "1budin-hun_2.txt"
+    },
+    {
+      "lat": 46.0394,
+      "lng": 17.3469,
+      "name": {
+        "en": "Babócsa",
+        "tr": "Bobofça",
+        "hu": "Babócsa"
+      },
+      "type": "Fortress",
+      "province": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "sancak": {
+        "en": "Szigetvár",
+        "tr": "Sigetvar",
+        "hu": "Szigetvár"
+      },
+      "date1": "1555-1556",
+      "date2": "1566-1686",
+      "country": "Hungary",
+      "size": "Military Hub",
+      "notes": "part of the vilayet of Kanitza after 1600",
+      "source_file": "1budin-hun_2.txt"
+    },
+    {
+      "lat": 46.21,
+      "lng": 17.15,
+      "name": {
+        "en": "Berzence",
+        "tr": "Berzenç",
+        "hu": "Berzence"
+      },
+      "type": "Fortress",
+      "province": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "sancak": {
+        "en": "Szigetvár",
+        "tr": "Sigetvar",
+        "hu": "Szigetvár"
+      },
+      "date1": "1566-1686",
+      "country": "Hungary",
+      "size": "Large",
+      "notes": "part of the vilayet of Kanitza after 1600",
+      "source_file": "1budin-hun_2.txt"
+    },
+    {
+      "lat": 46.3562,
+      "lng": 17.3485,
+      "name": {
+        "en": "Segesd (Felsősegesd)",
+        "tr": "Segeş",
+        "hu": "Segesd"
+      },
+      "type": "Palanka",
+      "province": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "sancak": {
+        "en": "Szigetvár",
+        "tr": "Sigetvar",
+        "hu": "Szigetvár"
+      },
+      "date1": "1566-1686",
+      "country": "Hungary",
+      "size": "Large",
+      "source_file": "1budin-hun_2.txt"
+    },
+    {
+      "lat": 45.9602,
+      "lng": 17.4606,
+      "name": {
+        "en": "Barcs",
+        "tr": "Barça",
+        "hu": "Barcs"
+      },
+      "type": "Palanka",
+      "province": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "sancak": {
+        "en": "Szigetvár",
+        "tr": "Sigetvar",
+        "hu": "Szigetvár"
+      },
+      "date1": "1567-1664",
+      "country": "Hungary",
+      "size": "Large",
+      "notes": "part of the vilayet of Kanitza after 1600",
+      "source_file": "1budin-hun_2.txt"
+    },
+    {
+      "lat": 46.7527,
+      "lng": 18.5525,
+      "name": {
+        "en": "Simontornya",
+        "tr": "Şimontorna",
+        "hu": "Simontornya"
+      },
+      "type": "Fortress",
+      "province": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "sancak": {
+        "en": "Simontornya",
+        "tr": "Şimontorna",
+        "hu": "Simontornya"
+      },
+      "date1": "1545-1686",
+      "country": "Hungary",
+      "size": "Medium",
+      "source_file": "1budin-hun_2.txt"
+    },
+    {
+      "lat": 46.4317,
+      "lng": 18.6608,
+      "name": {
+        "en": "Anyavár (Sióagárd)",
+        "tr": "Anyavar",
+        "hu": "Anyavár"
+      },
+      "type": "Fortress",
+      "province": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "sancak": {
+        "en": "Simontornya",
+        "tr": "Şimontorna",
+        "hu": "Simontornya"
+      },
+      "date1": "1545-1566",
+      "country": "Hungary",
+      "size": "Small",
+      "source_file": "1budin-hun_2.txt"
+    },
+    {
+      "lat": 46.8356,
+      "lng": 17.9726,
+      "name": {
+        "en": "Balatonendréd",
+        "tr": "Endrik",
+        "hu": "Endréd"
+      },
+      "type": "Fortress",
+      "province": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "sancak": {
+        "en": "Simontornya",
+        "tr": "Şimontorna",
+        "hu": "Simontornya"
+      },
+      "date1": "1544-1686",
+      "country": "Hungary",
+      "size": "Medium",
+      "source_file": "1budin-hun_2.txt"
+    },
+    {
+      "lat": 46.7527,
+      "lng": 18.4011,
+      "name": {
+        "en": "Ozora",
+        "tr": "Ozora",
+        "hu": "Ozora"
+      },
+      "type": "Fortress",
+      "province": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "sancak": {
+        "en": "Simontornya",
+        "tr": "Şimontorna",
+        "hu": "Simontornya"
+      },
+      "date1": "1545-1686",
+      "country": "Hungary",
+      "size": "Medium",
+      "source_file": "1budin-hun_2.txt"
+    },
+    {
+      "lat": 46.6228,
+      "lng": 18.2877,
+      "name": {
+        "en": "Tamási",
+        "tr": "Tomaşin",
+        "hu": "Tamási"
+      },
+      "type": "Fortress",
+      "province": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "sancak": {
+        "en": "Simontornya",
+        "tr": "Şimontorna",
+        "hu": "Simontornya"
+      },
+      "date1": "1545-1686",
+      "country": "Hungary",
+      "size": "Medium",
+      "source_file": "1budin-hun_2.txt"
+    },
+    {
+      "lat": 46.4218,
+      "lng": 18.2548,
+      "name": {
+        "en": "Döbrököz",
+        "tr": "Döbrekös",
+        "hu": "Döbrököz"
+      },
+      "type": "Fortress",
+      "province": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "sancak": {
+        "en": "Simontornya",
+        "tr": "Şimontorna",
+        "hu": "Simontornya"
+      },
+      "date1": "1545-1686",
+      "country": "Hungary",
+      "size": "Large",
+      "source_file": "1budin-hun_2.txt"
+    },
+    {
+      "lat": 46.8162,
+      "lng": 18.2999,
+      "name": {
+        "en": "Hidvég (Szabadhídvég)",
+        "tr": "Hidvig",
+        "hu": "Hidvég"
+      },
+      "type": "Palanka",
+      "province": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "sancak": {
+        "en": "Simontornya",
+        "tr": "Şimontorna",
+        "hu": "Simontornya"
+      },
+      "date1": "1565-1686",
+      "country": "Hungary",
+      "size": "Small",
+      "source_file": "1budin-hun_2.txt"
+    },
+    {
+      "lat": 46.8723,
+      "lng": 18.5528,
+      "name": {
+        "en": "Sárbogárd",
+        "tr": "Bogar",
+        "hu": "Bogárd"
+      },
+      "type": "Palanka",
+      "province": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "sancak": {
+        "en": "Simontornya",
+        "tr": "Şimontorna",
+        "hu": "Simontornya"
+      },
+      "date1": "1608-?",
+      "country": "Hungary",
+      "size": "Small",
+      "source_file": "1budin-hun_2.txt"
+    },
+    {
+      "lat": 46.6799,
+      "lng": 18.4386,
+      "name": {
+        "en": "Pincehely",
+        "tr": "Pinçehel",
+        "hu": "Pincehely"
+      },
+      "type": "Palanka",
+      "province": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "sancak": {
+        "en": "Simontornya",
+        "tr": "Şimontorna",
+        "hu": "Simontornya"
+      },
+      "date1": "1615-?",
+      "country": "Hungary",
+      "size": "Small",
+      "source_file": "1budin-hun_2.txt"
+    },
+    {
+      "lat": 47.1735,
+      "lng": 20.204,
+      "name": {
+        "en": "Szolnok",
+        "tr": "Solnok",
+        "hu": "Szolnok"
+      },
+      "type": "Palanka",
+      "province": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "sancak": {
+        "en": "Szolnok",
+        "tr": "Solnok",
+        "hu": "Szolnok"
+      },
+      "date1": "1552-1585",
+      "country": "Hungary",
+      "size": "Military Hub",
+      "notes": "part of the vilayet of Eger after 1596",
+      "source_file": "1budin-hun_2.txt"
+    },
+    {
+      "lat": 47.1788,
+      "lng": 20.4027,
+      "name": {
+        "en": "Törökszentmiklós",
+        "tr": "Senmikloş",
+        "hu": "Törökszentmiklós"
+      },
+      "type": "Palanka",
+      "province": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "sancak": {
+        "en": "Szolnok",
+        "tr": "Solnok",
+        "hu": "Szolnok"
+      },
+      "date1": "1554-1595",
+      "date2": "1596-1685",
+      "country": "Hungary",
+      "size": "Large",
+      "notes": "part of the vilayet of Eger after 1596",
+      "source_file": "1budin-hun_2.txt"
+    },
+    {
+      "lat": 46.7107,
+      "lng": 20.1663,
+      "name": {
+        "en": "Csongrád",
+        "tr": "Çongrad",
+        "hu": "Csongrád"
+      },
+      "type": "Palanka",
+      "province": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "sancak": {
+        "en": "Szolnok",
+        "tr": "Solnok",
+        "hu": "Szolnok"
+      },
+      "date1": "1561-1681",
+      "country": "Hungary",
+      "size": "Medium",
+      "notes": "part of the vilayet of Eger after 1596",
+      "source_file": "1budin-hun_2.txt"
+    },
+    {
+      "lat": 45.756,
+      "lng": 21.229,
+      "name": {
+        "en": "Timişioara",
+        "tr": "Temeşvar",
+        "hu": "Temesvár"
+      },
+      "type": "Fortress",
+      "province": {
+        "en": "Timişioara",
+        "tr": "Temeşvar",
+        "hu": "Temesvár"
+      },
+      "sancak": {
+        "en": "Timişioara",
+        "tr": "Temeşvar",
+        "hu": "Temesvár"
+      },
+      "date1": "1552–1716",
+      "date2": "Romania",
+      "country": "Military Hub",
+      "source_file": "2temesvar_hun_2.txt"
+    },
+    {
+      "lat": 45.1227,
+      "lng": 21.3255,
+      "name": {
+        "en": "Vršac",
+        "tr": "Virşiç",
+        "hu": "Versec"
+      },
+      "type": "Fortress",
+      "province": {
+        "en": "Timişioara",
+        "tr": "Temeşvar",
+        "hu": "Temesvár"
+      },
+      "sancak": {
+        "en": "Timişioara",
+        "tr": "Temeşvar",
+        "hu": "Temesvár"
+      },
+      "date1": "1552–1716",
+      "date2": "Serbia",
+      "country": "Medium",
+      "source_file": "2temesvar_hun_2.txt"
+    },
+    {
+      "lat": 46.1173,
+      "lng": 21.1449,
+      "name": {
+        "en": "Felnac (Faget)",
+        "tr": "Felnak",
+        "hu": "Felnak (Facsád)"
+      },
+      "type": "Fortress",
+      "province": {
+        "en": "Timişioara",
+        "tr": "Temeşvar",
+        "hu": "Temesvár"
+      },
+      "sancak": {
+        "en": "Timişioara",
+        "tr": "Temeşvar",
+        "hu": "Temesvár"
+      },
+      "date1": "1552–1595. 1598–1716",
+      "date2": "Romania",
+      "country": "Small",
+      "source_file": "2temesvar_hun_2.txt"
+    },
+    {
+      "lat": 45.8661,
+      "lng": 22.1742,
+      "name": {
+        "en": "Facset",
+        "tr": "Façet",
+        "hu": "Facset"
+      },
+      "type": "Fortress",
+      "province": {
+        "en": "Timişioara",
+        "tr": "Temeşvar",
+        "hu": "Temesvár"
+      },
+      "sancak": {
+        "en": "Timişioara",
+        "tr": "Temeşvar",
+        "hu": "Temesvár"
+      },
+      "date1": "1552–1595. 1616–1716",
+      "date2": "Romania",
+      "country": "Small",
+      "source_file": "2temesvar_hun_2.txt"
+    },
+    {
+      "lat": 45.3865,
+      "lng": 21.7447,
+      "name": {
+        "en": "Bocşa",
+        "tr": "Bokça",
+        "hu": "Bogsán (Boksánbánya)"
+      },
+      "type": "Fortress",
+      "province": {
+        "en": "Timişioara",
+        "tr": "Temeşvar",
+        "hu": "Temesvár"
+      },
+      "sancak": {
+        "en": "Timişioara",
+        "tr": "Temeşvar",
+        "hu": "Temesvár"
+      },
+      "date1": "1552–1595. 1607–1716",
+      "date2": "Romania",
+      "country": "Small",
+      "source_file": "2temesvar_hun_2.txt"
+    },
+    {
+      "lat": 45.5149,
+      "lng": 21.1224,
+      "name": {
+        "en": "Ciacova",
+        "tr": "Çakova",
+        "hu": "Csákova (Csák)"
+      },
+      "type": "Fortress",
+      "province": {
+        "en": "Timişioara",
+        "tr": "Temeşvar",
+        "hu": "Temesvár"
+      },
+      "sancak": {
+        "en": "Timişioara",
+        "tr": "Temeşvar",
+        "hu": "Temesvár"
+      },
+      "date1": "1552–?",
+      "date2": "Romania",
+      "country": "Small",
+      "source_file": "2temesvar_hun_2.txt"
+    },
+    {
+      "lat": 44.8715,
+      "lng": 20.6367,
+      "name": {
+        "en": "Pančevo",
+        "tr": "Pançova",
+        "hu": "Pancsova (Ópakánk)"
+      },
+      "type": "Palanka",
+      "province": {
+        "en": "Timişioara",
+        "tr": "Temeşvar",
+        "hu": "Temesvár"
+      },
+      "sancak": {
+        "en": "Timişioara",
+        "tr": "Temeşvar",
+        "hu": "Temesvár"
+      },
+      "date1": "1566–1716",
+      "date2": "Serbia",
+      "country": "Small",
+      "source_file": "2temesvar_hun_2.txt"
+    },
+    {
+      "lat": 44.6939,
+      "lng": 20.9439,
+      "name": {
+        "en": "Kovin",
+        "tr": "Köfin",
+        "hu": "Keve (Kevevára)"
+      },
+      "type": "Palanka",
+      "province": {
+        "en": "Timişioara",
+        "tr": "Temeşvar",
+        "hu": "Temesvár"
+      },
+      "sancak": {
+        "en": "Timişioara",
+        "tr": "Temeşvar",
+        "hu": "Temesvár"
+      },
+      "date1": "?–1630",
+      "date2": "Serbia",
+      "country": "Small",
+      "source_file": "2temesvar_hun_2.txt"
+    },
+    {
+      "lat": 45.359,
+      "lng": 21.2483,
+      "name": {
+        "en": "Denta",
+        "tr": "Denta",
+        "hu": "Denta"
+      },
+      "type": "Palanka",
+      "province": {
+        "en": "Timişioara",
+        "tr": "Temeşvar",
+        "hu": "Temesvár"
+      },
+      "sancak": {
+        "en": "Timişioara",
+        "tr": "Temeşvar",
+        "hu": "Temesvár"
+      },
+      "date1": "?–1716",
+      "date2": "Romania",
+      "country": "Medium",
+      "source_file": "2temesvar_hun_2.txt"
+    },
+    {
+      "lat": 45.7704,
+      "lng": 21.675,
+      "name": {
+        "en": "Iktár",
+        "tr": "İktar",
+        "hu": "Iktár"
+      },
+      "type": "Palanka",
+      "province": {
+        "en": "Timişioara",
+        "tr": "Temeşvar",
+        "hu": "Temesvár"
+      },
+      "sancak": {
+        "en": "Timişioara",
+        "tr": "Temeşvar",
+        "hu": "Temesvár"
+      },
+      "date1": "?–?",
+      "date2": "Romania",
+      "country": "Medium",
+      "source_file": "2temesvar_hun_2.txt"
+    },
+    {
+      "lat": 45.793,
+      "lng": 20.719,
+      "name": {
+        "en": "Jimbolia",
+        "tr": "Çonbol",
+        "hu": "Zsombolya"
+      },
+      "type": "Palanka",
+      "province": {
+        "en": "Timişioara",
+        "tr": "Temeşvar",
+        "hu": "Temesvár"
+      },
+      "sancak": {
+        "en": "Timişioara",
+        "tr": "Temeşvar",
+        "hu": "Temesvár"
+      },
+      "date1": "?–?",
+      "date2": "Romania",
+      "country": "Small",
+      "source_file": "2temesvar_hun_2.txt"
+    },
+    {
+      "lat": 45.4953,
+      "lng": 21.0097,
+      "name": {
+        "en": "Rudna",
+        "tr": "Rudna",
+        "hu": "Rudna"
+      },
+      "type": "Palanka",
+      "province": {
+        "en": "Timişioara",
+        "tr": "Temeşvar",
+        "hu": "Temesvár"
+      },
+      "sancak": {
+        "en": "Timişioara",
+        "tr": "Temeşvar",
+        "hu": "Temesvár"
+      },
+      "date1": "?–?",
+      "date2": "Romania",
+      "country": "Small",
+      "source_file": "2temesvar_hun_2.txt"
+    },
+    {
+      "lat": 45.8717,
+      "lng": 21.3457,
+      "name": {
+        "en": "Sárád",
+        "tr": "Şarad",
+        "hu": "Sárád"
+      },
+      "type": "Palanka",
+      "province": {
+        "en": "Timişioara",
+        "tr": "Temeşvar",
+        "hu": "Temesvár"
+      },
+      "sancak": {
+        "en": "Timişioara",
+        "tr": "Temeşvar",
+        "hu": "Temesvár"
+      },
+      "date1": "?–?",
+      "date2": "Romania",
+      "country": "Small",
+      "source_file": "2temesvar_hun_2.txt"
+    },
+    {
+      "lat": 46.1343,
+      "lng": 20.5762,
+      "name": {
+        "en": "Cenad",
+        "tr": "Çanad",
+        "hu": "Csanád (Nagycsanád)"
+      },
+      "type": "Fortress",
+      "province": {
+        "en": "Timişioara",
+        "tr": "Temeşvar",
+        "hu": "Temesvár"
+      },
+      "sancak": {
+        "en": "Cenad",
+        "tr": "Çanad",
+        "hu": "Csanád"
+      },
+      "date1": "1552–1595. 1598–1716",
+      "date2": "Romania",
+      "country": "Medium",
+      "source_file": "2temesvar_hun_2.txt"
+    },
+    {
+      "lat": 45.3837,
+      "lng": 20.3905,
+      "name": {
+        "en": "Zrenjanin",
+        "tr": "Beçkerek",
+        "hu": "Becskerek (Nagybecskerek)"
+      },
+      "type": "Fortress",
+      "province": {
+        "en": "Timişioara",
+        "tr": "Temeşvar",
+        "hu": "Temesvár"
+      },
+      "sancak": {
+        "en": "Cenad",
+        "tr": "Çanad",
+        "hu": "Csanád"
+      },
+      "date1": "1551–1716",
+      "date2": "Serbia",
+      "country": "Military Hub",
+      "source_file": "2temesvar_hun_2.txt"
+    },
+    {
+      "lat": 45.5948,
+      "lng": 20.1194,
+      "name": {
+        "en": "Bečej",
+        "tr": "Beçey",
+        "hu": "Becse (Törökbecse)"
+      },
+      "type": "Fortress",
+      "province": {
+        "en": "Timişioara",
+        "tr": "Temeşvar",
+        "hu": "Temesvár"
+      },
+      "sancak": {
+        "en": "Cenad",
+        "tr": "Çanad",
+        "hu": "Csanád"
+      },
+      "date1": "1551–1716",
+      "date2": "Serbia",
+      "country": "Military Hub",
+      "source_file": "2temesvar_hun_2.txt"
+    },
+    {
+      "lat": 45.644,
+      "lng": 20.2728,
+      "name": {
+        "en": "Arača, Vranjevo",
+        "tr": "Araç",
+        "hu": "Aracs"
+      },
+      "type": "Fortress",
+      "province": {
+        "en": "Timişioara",
+        "tr": "Temeşvar",
+        "hu": "Temesvár"
+      },
+      "sancak": {
+        "en": "Cenad",
+        "tr": "Çanad",
+        "hu": "Csanád"
+      },
+      "date1": "1551",
+      "date2": "Serbia",
+      "country": "Large",
+      "source_file": "2temesvar_hun_2.txt"
+    },
+    {
+      "lat": 46.0448,
+      "lng": 20.473,
+      "name": {
+        "en": "Viișoara (Comuna Dudeștii Vechi)",
+        "tr": "Beşenova",
+        "hu": "Besenyő (Óbesenyő)"
+      },
+      "type": "Palanka",
+      "province": {
+        "en": "Timişioara",
+        "tr": "Temeşvar",
+        "hu": "Temesvár"
+      },
+      "sancak": {
+        "en": "Cenad",
+        "tr": "Çanad",
+        "hu": "Csanád"
+      },
+      "date1": "?–?",
+      "date2": "Romania",
+      "country": "Medium",
+      "source_file": "2temesvar_hun_2.txt"
+    },
+    {
+      "lat": 46.6464,
+      "lng": 21.2864,
+      "name": {
+        "en": "Gyula",
+        "tr": "G’ula",
+        "hu": "Gyula"
+      },
+      "type": "Fortress",
+      "province": {
+        "en": "Timişioara",
+        "tr": "Temeşvar",
+        "hu": "Temesvár"
+      },
+      "sancak": {
+        "en": "Gyula",
+        "tr": "G’ula",
+        "hu": "Gyula"
+      },
+      "date1": "1566–1695",
+      "date2": "Hungary",
+      "country": "Military Hub",
+      "source_file": "2temesvar_hun_2.txt"
+    },
+    {
+      "lat": 46.1699,
+      "lng": 21.3279,
+      "name": {
+        "en": "Arad (Oradea)",
+        "tr": "Arad",
+        "hu": "Arad"
+      },
+      "type": "Palanka",
+      "province": {
+        "en": "Timişioara",
+        "tr": "Temeşvar",
+        "hu": "Temesvár"
+      },
+      "sancak": {
+        "en": "Gyula",
+        "tr": "G’ula",
+        "hu": "Gyula"
+      },
+      "date1": "1555–1595. 1658–1685",
+      "date2": "Romania",
+      "country": "Small",
+      "source_file": "2temesvar_hun_2.txt"
+    },
+    {
+      "lat": 46.5187,
+      "lng": 21.5133,
+      "name": {
+        "en": "Erdőhegy",
+        "tr": "Erdöheg’",
+        "hu": "Erdőhegy"
+      },
+      "type": "Palanka",
+      "province": {
+        "en": "Timişioara",
+        "tr": "Temeşvar",
+        "hu": "Temesvár"
+      },
+      "sancak": {
+        "en": "Gyula",
+        "tr": "G’ula",
+        "hu": "Gyula"
+      },
+      "date1": "1571–1595",
+      "date2": "Romania",
+      "country": "Medium",
+      "source_file": "2temesvar_hun_2.txt"
+    },
+    {
+      "lat": 46.7714,
+      "lng": 21.1325,
+      "name": {
+        "en": "Békés",
+        "tr": "Bekeş",
+        "hu": "Békés"
+      },
+      "type": "Palanka",
+      "province": {
+        "en": "Timişioara",
+        "tr": "Temeşvar",
+        "hu": "Temesvár"
+      },
+      "sancak": {
+        "en": "Gyula",
+        "tr": "G’ula",
+        "hu": "Gyula"
+      },
+      "date1": "1576–1595",
+      "date2": "Hungary",
+      "country": "Medium",
+      "source_file": "2temesvar_hun_2.txt"
+    },
+    {
+      "lat": 46.8652,
+      "lng": 20.5416,
+      "name": {
+        "en": "Szarvas",
+        "tr": "Sarvaş",
+        "hu": "Szarvas"
+      },
+      "type": "Palanka",
+      "province": {
+        "en": "Timişioara",
+        "tr": "Temeşvar",
+        "hu": "Temesvár"
+      },
+      "sancak": {
+        "en": "Gyula",
+        "tr": "G’ula",
+        "hu": "Gyula"
+      },
+      "date1": "1584–1595. 1670–1685",
+      "date2": "Hungary",
+      "country": "Medium",
+      "source_file": "2temesvar_hun_2.txt"
+    },
+    {
+      "lat": 45.9008,
+      "lng": 21.6557,
+      "name": {
+        "en": "Hodos",
+        "tr": "Hodoş",
+        "hu": "Hodos"
+      },
+      "type": "Palanka",
+      "province": {
+        "en": "Timişioara",
+        "tr": "Temeşvar",
+        "hu": "Temesvár"
+      },
+      "sancak": {
+        "en": "Gyula",
+        "tr": "G’ula",
+        "hu": "Gyula"
+      },
+      "date1": "?–?",
+      "date2": "Romania",
+      "country": "Medium",
+      "source_file": "2temesvar_hun_2.txt"
+    },
+    {
+      "lat": 46.0886,
+      "lng": 21.6916,
+      "name": {
+        "en": "Lipova",
+        "tr": "Lipova",
+        "hu": "Lippa"
+      },
+      "type": "Fortress",
+      "province": {
+        "en": "Timişioara",
+        "tr": "Temeşvar",
+        "hu": "Temesvár"
+      },
+      "sancak": {
+        "en": "Lipova",
+        "tr": "Lipova",
+        "hu": "Lippa"
+      },
+      "date1": "1552–1595. 1616–1716",
+      "date2": "Romania",
+      "country": "Medium",
+      "source_file": "2temesvar_hun_2.txt"
+    },
+    {
+      "lat": 46.1088,
+      "lng": 21.723,
+      "name": {
+        "en": "Șoimoș",
+        "tr": "Şolmoş",
+        "hu": "Solymos"
+      },
+      "type": "Fortress",
+      "province": {
+        "en": "Timişioara",
+        "tr": "Temeşvar",
+        "hu": "Temesvár"
+      },
+      "sancak": {
+        "en": "Lipova",
+        "tr": "Lipova",
+        "hu": "Lippa"
+      },
+      "date1": "1552–1595. 1616–1688",
+      "date2": "Romania",
+      "country": "Small",
+      "source_file": "2temesvar_hun_2.txt"
+    },
+    {
+      "lat": 46.0888,
+      "lng": 21.8823,
+      "name": {
+        "en": "Chelmac",
+        "tr": "Viziaş",
+        "hu": "Eperjes (Maroseperjes)"
+      },
+      "type": "Fortress",
+      "province": {
+        "en": "Timişioara",
+        "tr": "Temeşvar",
+        "hu": "Temesvár"
+      },
+      "sancak": {
+        "en": "Lipova",
+        "tr": "Lipova",
+        "hu": "Lippa"
+      },
+      "date1": "1552–1595. 1616–1660",
+      "date2": "Hungary",
+      "country": "Small",
+      "source_file": "2temesvar_hun_2.txt"
+    },
+    {
+      "lat": 46.1068,
+      "lng": 21.8184,
+      "name": {
+        "en": "Odvoş",
+        "tr": "Viziaş",
+        "hu": "Odvos"
+      },
+      "source_file": "2temesvar_hun_2.txt"
+    },
+    {
+      "lat": 46.2666,
+      "lng": 21.6568,
+      "name": {
+        "en": "Şiria",
+        "tr": "Vilagoş",
+        "hu": "Világos"
+      },
+      "type": "Fortress",
+      "province": {
+        "en": "Timişioara",
+        "tr": "Temeşvar",
+        "hu": "Temesvár"
+      },
+      "sancak": {
+        "en": "Lipova",
+        "tr": "Lipova",
+        "hu": "Lippa"
+      },
+      "date1": "1566–1595. 1605(?)–169",
+      "date2": "Romania",
+      "country": "Small",
+      "source_file": "2temesvar_hun_2.txt"
+    },
+    {
+      "lat": 46.0009,
+      "lng": 22.1629,
+      "name": {
+        "en": "Vărădia de Mure",
+        "tr": "Varadya",
+        "hu": "Tótvárad"
+      },
+      "type": "Palanka",
+      "province": {
+        "en": "Timişioara",
+        "tr": "Temeşvar",
+        "hu": "Temesvár"
+      },
+      "sancak": {
+        "en": "Lipova",
+        "tr": "Lipova",
+        "hu": "Lippa"
+      },
+      "date1": "?–1595. 1616–1665",
+      "date2": "Romania",
+      "country": "Small",
+      "source_file": "2temesvar_hun_2.txt"
+    },
+    {
+      "lat": 44.7239,
+      "lng": 21.6191,
+      "name": {
+        "en": "Moldova Veche",
+        "tr": "Modava",
+        "hu": "Modava"
+      },
+      "type": "Palanka",
+      "province": {
+        "en": "Timişioara",
+        "tr": "Temeşvar",
+        "hu": "Temesvár"
+      },
+      "sancak": {
+        "en": "Moldova Veche",
+        "tr": "Modava",
+        "hu": "Modava"
+      },
+      "date1": "1559(?)–1716",
+      "date2": "Romania",
+      "country": "Medium",
+      "source_file": "2temesvar_hun_2.txt"
+    },
+    {
+      "lat": 44.7149,
+      "lng": 22.4529,
+      "name": {
+        "en": "Orşova",
+        "tr": "Irşova",
+        "hu": "Orsova"
+      },
+      "type": "Fortress",
+      "province": {
+        "en": "Timişioara",
+        "tr": "Temeşvar",
+        "hu": "Temesvár"
+      },
+      "sancak": {
+        "en": "Moldova Veche",
+        "tr": "Modava",
+        "hu": "Modava"
+      },
+      "date1": "1522–1718",
+      "date2": "Romania",
+      "country": "Medium",
+      "source_file": "2temesvar_hun_2.txt"
+    },
+    {
+      "lat": 44.8254,
+      "lng": 21.3337,
+      "name": {
+        "en": "Strata Palanka",
+        "tr": "Haram",
+        "hu": "Haram (Ópalánka)"
+      },
+      "province": {
+        "en": "Timişioara",
+        "tr": "Temeşvar",
+        "hu": "Temesvár"
+      },
+      "sancak": {
+        "en": "Moldova Veche",
+        "tr": "Modava",
+        "hu": "Modava"
+      },
+      "date1": "1520s–?",
+      "country": "Medium",
+      "source_file": "2temesvar_hun_2.txt"
+    },
+    {
+      "lat": 45.15,
+      "lng": 19.24,
+      "name": {
+        "en": "Bačka Palanka",
+        "tr": "Haram-? Cedid",
+        "hu": "Palánka"
+      },
+      "province": {
+        "en": "Timişioara",
+        "tr": "Temeşvar",
+        "hu": "Temesvár"
+      },
+      "sancak": {
+        "en": "Moldova Veche",
+        "tr": "Modava",
+        "hu": "Modava"
+      },
+      "date1": "?–1716",
+      "date2": "Serbia",
+      "country": "Small",
+      "source_file": "2temesvar_hun_2.txt"
+    },
+    {
+      "lat": 44.3605,
+      "lng": 22.2634,
+      "name": {
+        "en": "Dubova",
+        "tr": "Daudabad",
+        "hu": "Daudábád (Dunatölgyes)"
+      },
+      "type": "Timişioara",
+      "province": {
+        "en": "Temeşvar",
+        "tr": "Temesvár",
+        "hu": "Moldova Veche"
+      },
+      "sancak": {
+        "en": "Modava",
+        "tr": "Modava"
+      },
+      "date2": "Small",
+      "source_file": "2temesvar_hun_2.txt"
+    },
+    {
+      "lat": 44.6577,
+      "lng": 21.8932,
+      "name": {
+        "en": "Liubcova",
+        "tr": "Lupkova",
+        "hu": "Alsólupkó"
+      },
+      "type": "Palanka",
+      "province": {
+        "en": "Timişioara",
+        "tr": "Temeşvar",
+        "hu": "Temesvár"
+      },
+      "sancak": {
+        "en": "Moldova Veche",
+        "tr": "Modava",
+        "hu": "Modava"
+      },
+      "date1": "?–1680s",
+      "date2": "Romania",
+      "country": "Medium",
+      "source_file": "2temesvar_hun_2.txt"
+    },
+    {
+      "lat": 44.5468,
+      "lng": 22.3708,
+      "name": {
+        "en": "Mehadia",
+        "tr": "Mehadia",
+        "hu": "Mehádia"
+      },
+      "type": "Fortress",
+      "province": {
+        "en": "Timişioara",
+        "tr": "Temeşvar",
+        "hu": "Temesvár"
+      },
+      "sancak": {
+        "en": "Moldova Veche",
+        "tr": "Modava",
+        "hu": "Modava"
+      },
+      "date1": "1607–1716",
+      "date2": "Romania",
+      "country": "Medium",
+      "source_file": "2temesvar_hun_2.txt"
+    },
+    {
+      "lat": 44.6354,
+      "lng": 21.9752,
+      "name": {
+        "en": "Drencova",
+        "tr": "Drenkova",
+        "hu": "Drankó"
+      },
+      "type": "Palanka",
+      "province": {
+        "en": "Timişioara",
+        "tr": "Temeşvar",
+        "hu": "Temesvár"
+      },
+      "sancak": {
+        "en": "Moldova Veche",
+        "tr": "Modava",
+        "hu": "Modava"
+      },
+      "date2": "Romania",
+      "country": "Small",
+      "source_file": "2temesvar_hun_2.txt"
+    },
+    {
+      "lat": 46.4282,
+      "lng": 21.8409,
+      "name": {
+        "en": "Ineu",
+        "tr": "Yanova",
+        "hu": "Borosjenő"
+      },
+      "type": "Fortress",
+      "province": {
+        "en": "Timişioara",
+        "tr": "Temeşvar",
+        "hu": "Temesvár"
+      },
+      "sancak": {
+        "en": "Ineu",
+        "tr": "Yanova",
+        "hu": "Borosjenő"
+      },
+      "date1": "1566–1595. 1658–1693",
+      "date2": "Romania",
+      "country": "Small",
+      "source_file": "2temesvar_hun_2.txt"
+    },
+    {
+      "lat": 46.2851,
+      "lng": 21.911,
+      "name": {
+        "en": "Taut",
+        "tr": "Totinç",
+        "hu": "Feltót"
+      },
+      "type": "Fortress",
+      "province": {
+        "en": "Timişioara",
+        "tr": "Temeşvar",
+        "hu": "Temesvár"
+      },
+      "sancak": {
+        "en": "Ineu",
+        "tr": "Yanova",
+        "hu": "Borosjenő"
+      },
+      "date1": "1552–1595",
+      "date2": "Romania",
+      "country": "Small",
+      "source_file": "2temesvar_hun_2.txt"
+    },
+    {
+      "lat": 47.6872,
+      "lng": 17.6353,
+      "name": {
+        "en": "Győr",
+        "tr": "Yanık",
+        "hu": "Győr"
+      },
+      "type": "Fortress",
+      "province": {
+        "en": "Győr",
+        "tr": "Yanık",
+        "hu": "Győr"
+      },
+      "sancak": {
+        "en": "Győr",
+        "tr": "Yanık",
+        "hu": "Győr"
+      },
+      "date1": "1594–1598",
+      "date2": "Hungary",
+      "country": "Military Hub",
+      "source_file": "3yanik_and_papa_hun_2.txt"
+    },
+    {
+      "lat": 47.33,
+      "lng": 17.4644,
+      "name": {
+        "en": "Pápa",
+        "tr": "Papa",
+        "hu": "Pápa"
+      },
+      "type": "Fortress",
+      "province": {
+        "en": "Papa",
+        "tr": "Pápa",
+        "hu": "Pápa"
+      },
+      "sancak": {
+        "en": "Papa",
+        "tr": "Pápa",
+        "hu": "Pápa"
+      },
+      "date1": "1594–1597",
+      "date2": "Hungary",
+      "country": "?",
+      "source_file": "3yanik_and_papa_hun_2.txt"
+    },
+    {
+      "lat": 47.9041,
+      "lng": 20.3775,
+      "name": {
+        "en": "Eger",
+        "tr": "Eğri",
+        "hu": "Eger"
+      },
+      "type": "Fortress",
+      "province": {
+        "en": "Eger",
+        "tr": "Eğri",
+        "hu": "Eger"
+      },
+      "sancak": {
+        "en": "Eger",
+        "tr": "Eğri",
+        "hu": "Eger"
+      },
+      "date1": "1596–1687",
+      "date2": "Hungary",
+      "country": "Military Hub",
+      "source_file": "4egri_2.txt"
+    },
+    {
+      "lat": 47.6666,
+      "lng": 19.6837,
+      "name": {
+        "en": "Hatvan",
+        "tr": "Hatvan",
+        "hu": "Hatvan"
+      },
+      "type": "Fortress",
+      "province": {
+        "en": "Eger",
+        "tr": "Eğri",
+        "hu": "Eger"
+      },
+      "sancak": {
+        "en": "Hatvan",
+        "tr": "Hatvan",
+        "hu": "Hatvan"
+      },
+      "date1": "1544–1686",
+      "date2": "Hungary",
+      "country": "Military Hub",
+      "size": "part of the vilayet of Budin before 1596",
+      "source_file": "4egri_2.txt"
+    },
+    {
+      "lat": 47.9389,
+      "lng": 20.1958,
+      "name": {
+        "en": "Sirok",
+        "tr": "Şirok",
+        "hu": "Sirok"
+      },
+      "type": "Fortress",
+      "province": {
+        "en": "Eger",
+        "tr": "Eğri",
+        "hu": "Eger"
+      },
+      "sancak": {
+        "en": "Hatvan",
+        "tr": "Hatvan",
+        "hu": "Hatvan"
+      },
+      "date1": "1596–1687",
+      "date2": "Hungary",
+      "country": "Medium",
+      "source_file": "4egri_2.txt"
+    },
+    {
+      "lat": 47.9906,
+      "lng": 20.3287,
+      "name": {
+        "en": "Szarvaskő",
+        "tr": "Sarvaşka",
+        "hu": "Szarvaskő"
+      },
+      "type": "Fortress",
+      "province": {
+        "en": "Eger",
+        "tr": "Eğri",
+        "hu": "Eger"
+      },
+      "sancak": {
+        "en": "Hatvan",
+        "tr": "Hatvan",
+        "hu": "Hatvan"
+      },
+      "date1": "1596–1687",
+      "date2": "Hungary",
+      "country": "Medium",
+      "source_file": "4egri_2.txt"
+    },
+    {
+      "lat": 47.9329,
+      "lng": 20.5666,
+      "name": {
+        "en": "Cserép",
+        "tr": "Çerep",
+        "hu": "Cserép (Cserépváralja)"
+      },
+      "type": "Fortress",
+      "province": {
+        "en": "Eger",
+        "tr": "Eğri",
+        "hu": "Eger"
+      },
+      "sancak": {
+        "en": "Hatvan",
+        "tr": "Hatvan",
+        "hu": "Hatvan"
+      },
+      "date1": "1596–1687",
+      "date2": "Hungary",
+      "country": "Medium",
+      "source_file": "4egri_2.txt"
+    },
+    {
+      "lat": 47.5952,
+      "lng": 20.2872,
+      "name": {
+        "en": "Heves",
+        "tr": "Heveş",
+        "hu": "Heves"
+      },
+      "type": "Palanka",
+      "province": {
+        "en": "Eger",
+        "tr": "Eğri",
+        "hu": "Eger"
+      },
+      "sancak": {
+        "en": "Hatvan",
+        "tr": "Hatvan",
+        "hu": "Hatvan"
+      },
+      "date1": "1606–1687",
+      "date2": "Hungary",
+      "country": "?",
+      "source_file": "4egri_2.txt"
+    },
+    {
+      "lat": 47.1737,
+      "lng": 20.2051,
+      "name": {
+        "en": "Szolnok",
+        "tr": "Solnok",
+        "hu": "Szolnok"
+      },
+      "type": "Parkan",
+      "province": {
+        "en": "Eger",
+        "tr": "Eğri",
+        "hu": "Eger"
+      },
+      "sancak": {
+        "en": "Szolnok",
+        "tr": "Solnok",
+        "hu": "Szolnok"
+      },
+      "date1": "1552-1585",
+      "date2": "Hungary",
+      "country": "Large",
+      "size": "part of the vilayet of Budin before 1596",
+      "source_file": "4egri_2.txt"
+    },
+    {
+      "lat": 47.1788,
+      "lng": 20.4028,
+      "name": {
+        "en": "Törökszentmiklós",
+        "tr": "Senmikloş",
+        "hu": "Törökszentmiklós"
+      },
+      "type": "Parkan",
+      "province": {
+        "en": "Eger",
+        "tr": "Eğri",
+        "hu": "Eger"
+      },
+      "sancak": {
+        "en": "Szolnok",
+        "tr": "Solnok",
+        "hu": "Szolnok"
+      },
+      "date1": "1554-1595. 1596-1685",
+      "date2": "Hungary",
+      "country": "Medium",
+      "size": "part of the vilayet of Budin before 1596",
+      "source_file": "4egri_2.txt"
+    },
+    {
+      "lat": 46.7111,
+      "lng": 20.1572,
+      "name": {
+        "en": "Csongrád",
+        "tr": "Çongrad",
+        "hu": "Csongrád"
+      },
+      "type": "Parkan",
+      "province": {
+        "en": "Eger",
+        "tr": "Eğri",
+        "hu": "Eger"
+      },
+      "sancak": {
+        "en": "Szolnok",
+        "tr": "Solnok",
+        "hu": "Szolnok"
+      },
+      "date1": "1561-1681",
+      "date2": "Hungary",
+      "country": "Medium",
+      "size": "part of the vilayet of Budin before 1596",
+      "source_file": "4egri_2.txt"
+    },
+    {
+      "lat": 46.456,
+      "lng": 16.9799,
+      "name": {
+        "en": "Kanizsa (Nagykanizsa)",
+        "tr": "Kanija",
+        "hu": "Kanizsa"
+      },
+      "type": "Fortress",
+      "province": {
+        "en": "Kanije",
+        "tr": "Kanija",
+        "hu": "Kanizsa"
+      },
+      "sancak": {
+        "en": "Kanije",
+        "tr": "Kanija",
+        "hu": "Kanizsa"
+      },
+      "date1": "1600–1690",
+      "date2": "Hungary",
+      "country": "Military Hub",
+      "source_file": "5kanija_2.txt"
+    },
+    {
+      "lat": 46.0763,
+      "lng": 18.228,
+      "name": {
+        "en": "Pécs",
+        "tr": "Peçuy",
+        "hu": "Pécs"
+      },
+      "type": "Fortress",
+      "province": {
+        "en": "Kanije",
+        "tr": "Kanija",
+        "hu": "Kanizsa"
+      },
+      "sancak": {
+        "en": "Pécs",
+        "tr": "Peçuy",
+        "hu": "Pécs"
+      },
+      "date1": "1543–1686",
+      "date2": "Hungary",
+      "country": "Large",
+      "size": "part of the vilayet of Budin before 1600",
+      "source_file": "5kanija_2.txt"
+    },
+    {
+      "lat": 46.3551,
+      "lng": 17.7806,
+      "name": {
+        "en": "Kaposvár",
+        "tr": "Kapoşvar",
+        "hu": "Kaposvár"
+      },
+      "type": "Fortress",
+      "province": {
+        "en": "Kanije",
+        "tr": "Kanija",
+        "hu": "Kanizsa"
+      },
+      "sancak": {
+        "en": "Pécs",
+        "tr": "Peçuy",
+        "hu": "Pécs"
+      },
+      "date1": "1555–1686",
+      "date2": "Hungary",
+      "country": "Large",
+      "size": "part of the vilayet of Budin before 1600",
+      "source_file": "5kanija_2.txt"
+    },
+    {
+      "lat": 46.226,
+      "lng": 18.4746,
+      "name": {
+        "en": "Nádasd (Mecseknádasd)",
+        "tr": "Nadaj",
+        "hu": "Nádasd"
+      },
+      "type": "Parkan",
+      "province": {
+        "en": "Kanije",
+        "tr": "Kanija",
+        "hu": "Kanizsa"
+      },
+      "sancak": {
+        "en": "Pécs",
+        "tr": "Peçuy",
+        "hu": "Pécs"
+      },
+      "date1": "1570-1686",
+      "date2": "Hungary",
+      "country": "Small",
+      "size": "part of the vilayet of Budin before 1600",
+      "source_file": "5kanija_2.txt"
+    },
+    {
+      "lat": 45.5607,
+      "lng": 18.6956,
+      "name": {
+        "en": "Osijek",
+        "tr": "Cisr-i Ösek",
+        "hu": "Eszék"
+      },
+      "province": {
+        "en": "Kanije",
+        "tr": "Kanija",
+        "hu": "Kanizsa"
+      },
+      "sancak": {
+        "en": "Pécs",
+        "tr": "Peçuy",
+        "hu": "Pécs"
+      },
+      "date2": "Hungary",
+      "country": "Small",
+      "source_file": "5kanija_2.txt"
+    },
+    {
+      "lat": 46.2429,
+      "lng": 18.0919,
+      "name": {
+        "en": "Sásd",
+        "tr": "Sas",
+        "hu": "Sásd"
+      },
+      "type": "Parkan",
+      "province": {
+        "en": "Kanije",
+        "tr": "Kanija",
+        "hu": "Kanizsa"
+      },
+      "sancak": {
+        "en": "Pécs",
+        "tr": "Peçuy",
+        "hu": "Pécs"
+      },
+      "date1": "1540s",
+      "date2": "Hungary",
+      "country": "Medium",
+      "size": "part of the vilayet of Budin before 1600",
+      "source_file": "5kanija_2.txt"
+    },
+    {
+      "lat": 46.0507,
+      "lng": 17.7969,
+      "name": {
+        "en": "Szigetvár",
+        "tr": "Sigetvar",
+        "hu": "Szigetvár"
+      },
+      "type": "Fortress",
+      "province": {
+        "en": "Kanije",
+        "tr": "Kanija",
+        "hu": "Kanizsa"
+      },
+      "sancak": {
+        "en": "Szigetvár",
+        "tr": "Sigetvar",
+        "hu": "Szigetvár"
+      },
+      "date1": "1566-1689",
+      "date2": "Hungary",
+      "country": "Large",
+      "size": "part of the vilayet of Budin before 1600",
+      "source_file": "5kanija_2.txt"
+    },
+    {
+      "lat": 45.852,
+      "lng": 18.2958,
+      "name": {
+        "en": "Siklós",
+        "tr": "Şikloş",
+        "hu": "Siklós"
+      },
+      "type": "Fortress",
+      "province": {
+        "en": "Kanije",
+        "tr": "Kanija",
+        "hu": "Kanizsa"
+      },
+      "sancak": {
+        "en": "Szigetvár",
+        "tr": "Sigetvar",
+        "hu": "Szigetvár"
+      },
+      "date1": "1543-1686",
+      "date2": "Hungary",
+      "country": "Medium",
+      "size": "part of the vilayet of Budin before 1600",
+      "source_file": "5kanija_2.txt"
+    },
+    {
+      "lat": 46.0394,
+      "lng": 17.3469,
+      "name": {
+        "en": "Babócsa",
+        "tr": "Bobofça",
+        "hu": "Babócsa"
+      },
+      "type": "Fortress",
+      "province": {
+        "en": "Kanije",
+        "tr": "Kanija",
+        "hu": "Kanizsa"
+      },
+      "sancak": {
+        "en": "Szigetvár",
+        "tr": "Sigetvar",
+        "hu": "Szigetvár"
+      },
+      "date1": "1555-1556. 1566-1686",
+      "date2": "Hungary",
+      "country": "Large",
+      "size": "part of the vilayet of Budin before 1600",
+      "source_file": "5kanija_2.txt"
+    },
+    {
+      "lat": 46.21,
+      "lng": 17.15,
+      "name": {
+        "en": "Berzence",
+        "tr": "Berzenç",
+        "hu": "Berzence"
+      },
+      "type": "Fortress",
+      "province": {
+        "en": "Kanije",
+        "tr": "Kanija",
+        "hu": "Kanizsa"
+      },
+      "sancak": {
+        "en": "Szigetvár",
+        "tr": "Sigetvar",
+        "hu": "Szigetvár"
+      },
+      "date1": "1566-1686",
+      "date2": "Hungary",
+      "country": "Large",
+      "size": "part of the vilayet of Budin before 1600",
+      "source_file": "5kanija_2.txt"
+    },
+    {
+      "lat": 45.9602,
+      "lng": 17.4606,
+      "name": {
+        "en": "Barcs",
+        "tr": "Barça",
+        "hu": "Barcs"
+      },
+      "type": "Parkan",
+      "province": {
+        "en": "Kanije",
+        "tr": "Kanija",
+        "hu": "Kanizsa"
+      },
+      "sancak": {
+        "en": "Szigetvár",
+        "tr": "Sigetvar",
+        "hu": "Szigetvár"
+      },
+      "date1": "1567-1664",
+      "date2": "Hungary",
+      "country": "Medium",
+      "source_file": "5kanija_2.txt"
+    },
+    {
+      "lat": 46.3562,
+      "lng": 17.3485,
+      "name": {
+        "en": "Segesd",
+        "tr": "Şegeş",
+        "hu": "Segesd"
+      },
+      "type": "Parkan",
+      "province": {
+        "en": "Kanije",
+        "tr": "Kanija",
+        "hu": "Kanizsa"
+      },
+      "sancak": {
+        "en": "Szigetvár",
+        "tr": "Sigetvar",
+        "hu": "Szigetvár"
+      },
+      "date1": "1566–1686",
+      "date2": "Hungary",
+      "country": "Large",
+      "source_file": "5kanija_2.txt"
+    },
+    {
+      "lat": 46.5425,
+      "lng": 17.174,
+      "name": {
+        "en": "Zalakomár",
+        "tr": "Komar",
+        "hu": "Kiskomárom"
+      },
+      "type": "Fortress",
+      "province": {
+        "en": "Kanije",
+        "tr": "Kanija",
+        "hu": "Kanizsa"
+      },
+      "sancak": {
+        "en": "Szigetvár",
+        "tr": "Sigetvar",
+        "hu": "Szigetvár"
+      },
+      "date1": "1600–1601",
+      "date2": "Hungary",
+      "country": "?",
+      "source_file": "5kanija_2.txt"
+    },
+    {
+      "lat": 45.9415,
+      "lng": 17.5668,
+      "name": {
+        "en": "Drávatamási",
+        "tr": "Tomaşin",
+        "hu": "Drávatamási"
+      },
+      "type": "Fortress",
+      "province": {
+        "en": "Kanije",
+        "tr": "Kanija",
+        "hu": "Kanizsa"
+      },
+      "sancak": {
+        "en": "Szigetvár",
+        "tr": "Sigetvar",
+        "hu": "Szigetvár"
+      },
+      "date1": "1600–1603",
+      "date2": "Hungary",
+      "country": "?",
+      "source_file": "5kanija_2.txt"
+    },
+    {
+      "lat": 47.0516,
+      "lng": 21.9428,
+      "name": {
+        "en": "Oradea",
+        "tr": "Varad",
+        "hu": "Várad"
+      },
+      "type": "Fortress",
+      "province": {
+        "en": "Varat",
+        "tr": "Varad",
+        "hu": "Várad"
+      },
+      "sancak": {
+        "en": "Varat",
+        "tr": "Varad",
+        "hu": "Várad"
+      },
+      "date1": "1660–1692",
+      "date2": "Hungary",
+      "country": "Military Hub",
+      "source_file": "6varad_2.txt"
+    },
+    {
+      "lat": 47.2588,
+      "lng": 22.1331,
+      "name": {
+        "en": "Sâniob",
+        "tr": "Şeng'ob",
+        "hu": "Szentjobb"
+      },
+      "type": "Fortress",
+      "province": {
+        "en": "Varat",
+        "tr": "Varad",
+        "hu": "Várad"
+      },
+      "sancak": {
+        "en": "Sâniob",
+        "tr": "Şeng'ob",
+        "hu": "Szentjobb"
+      },
+      "date1": "1661–1686",
+      "date2": "Hungary",
+      "country": "Medium",
+      "source_file": "6varad_2.txt"
+    },
+    {
+      "lat": 47.1103,
+      "lng": 22.3846,
+      "name": {
+        "en": "Peştiş",
+        "tr": "Şolomki",
+        "hu": "Sólyomkő (Sólyomkőpestes)"
+      },
+      "type": "Fortress",
+      "province": {
+        "en": "Varat",
+        "tr": "Varad",
+        "hu": "Várad"
+      },
+      "sancak": {
+        "en": "Varat",
+        "tr": "Varad",
+        "hu": "Várad"
+      },
+      "date1": "1661–1686(?)",
+      "date2": "Romania",
+      "country": "Medium",
+      "source_file": "6varad_2.txt"
+    },
+    {
+      "lat": 46.7913,
+      "lng": 22.2918,
+      "name": {
+        "en": "Papmező",
+        "tr": "Papmezö",
+        "hu": "Papmező (Kispapmező)"
+      },
+      "type": "Fortress",
+      "province": {
+        "en": "Varat",
+        "tr": "Varad",
+        "hu": "Várad"
+      },
+      "sancak": {
+        "en": "Varat",
+        "tr": "Varad",
+        "hu": "Várad"
+      },
+      "date1": "1661–1687(?)",
+      "date2": "Romania",
+      "country": "Medium",
+      "source_file": "6varad_2.txt"
+    },
+    {
+      "lat": 46.6925,
+      "lng": 22.1158,
+      "name": {
+        "en": "Sânnicolau de Beiuş",
+        "tr": "Belenöş",
+        "hu": "Belényes (Belényesszentmiklós)"
+      },
+      "type": "Fortress",
+      "province": {
+        "en": "Varat",
+        "tr": "Varad",
+        "hu": "Várad"
+      },
+      "sancak": {
+        "en": "Varat",
+        "tr": "Varad",
+        "hu": "Várad"
+      },
+      "date1": "1661–1687",
+      "date2": "Romania",
+      "country": "Large",
+      "source_file": "6varad_2.txt"
+    },
+    {
+      "lat": 47.986,
+      "lng": 18.1639,
+      "name": {
+        "en": "Nové Zámky",
+        "tr": "Uyvar",
+        "hu": "Érsekújvár"
+      },
+      "type": "Fortress",
+      "province": {
+        "en": "Uyvar",
+        "tr": "Uyvar",
+        "hu": "Uyvar"
+      },
+      "sancak": {
+        "en": "Uyvar",
+        "tr": "Uyvar",
+        "hu": "Uyvar"
+      },
+      "date1": "1663–1685",
+      "date2": "Slovakia",
+      "country": "Military Hub",
+      "source_file": "7uyvar_2.txt"
+    },
+    {
+      "lat": 48.0852,
+      "lng": 18.1913,
+      "name": {
+        "en": "Šurany",
+        "tr": "Şuran",
+        "hu": "Surány (Nagysurány)"
+      },
+      "type": "Fortress",
+      "province": {
+        "en": "Uyvar",
+        "tr": "Uyvar",
+        "hu": "Uyvar"
+      },
+      "sancak": {
+        "en": "Uyvar",
+        "tr": "Uyvar",
+        "hu": "Uyvar"
+      },
+      "date1": "1663–1685",
+      "date2": "Slovakia",
+      "country": "Small",
+      "source_file": "7uyvar_2.txt"
+    },
+    {
+      "lat": 44.8245,
+      "lng": 20.448,
+      "type": "Fortress",
+      "country": "Serbia",
+      "source_file": "8Rumili and Özi_2.txt"
+    },
+    {
+      "lat": 44.6612,
+      "lng": 21.6787,
+      "type": "Fortress",
+      "country": "Serbia",
+      "source_file": "8Rumili and Özi_2.txt"
+    },
+    {
+      "lat": 44.7151,
+      "lng": 21.0414,
+      "type": "Palanka/Fortress",
+      "country": "Serbia",
+      "source_file": "8Rumili and Özi_2.txt"
+    },
+    {
+      "lat": 44.8129,
+      "lng": 21.3301,
+      "type": "Palanka/Fortress",
+      "country": "Serbia",
+      "source_file": "8Rumili and Özi_2.txt"
+    },
+    {
+      "lat": 44.0602,
+      "lng": 21.281,
+      "type": "Fortress",
+      "country": "Serbia",
+      "source_file": "8Rumili and Özi_2.txt"
+    },
+    {
+      "lat": 44.6887,
+      "lng": 20.5161,
+      "type": "Fortress",
+      "country": "Serbia",
+      "source_file": "8Rumili and Özi_2.txt"
+    },
+    {
+      "lat": 43.8518,
+      "lng": 19.8286,
+      "type": "Fortress",
+      "country": "Serbia",
+      "source_file": "8Rumili and Özi_2.txt"
+    },
+    {
+      "lat": 44.7857,
+      "lng": 15.8953,
+      "type": "Rumelia/Silistra",
+      "country": "Burasi mi. emin olamadim: https://en.wikipedia.org/wiki/Sokol_(Konavle)",
+      "source_file": "8Rumili and Özi_2.txt"
+    },
+    {
+      "lat": 43.6145,
+      "lng": 20.5523,
+      "type": "Fortress",
+      "country": "Serbia",
+      "source_file": "8Rumili and Özi_2.txt"
+    },
+    {
+      "lat": 44.1691,
+      "lng": 20.4605,
+      "type": "Fortress",
+      "country": "Serbia",
+      "source_file": "8Rumili and Özi_2.txt"
+    },
+    {
+      "lat": 44.6695,
+      "lng": 20.9278,
+      "type": "Fortress",
+      "country": "Serbia",
+      "source_file": "8Rumili and Özi_2.txt"
+    },
+    {
+      "lat": 44.6661,
+      "lng": 20.9264,
+      "type": "Palanka",
+      "country": "Serbia",
+      "source_file": "8Rumili and Özi_2.txt"
+    },
+    {
+      "lat": 45.1451,
+      "lng": 20.2534,
+      "type": "Fortress",
+      "country": "Serbia",
+      "source_file": "8Rumili and Özi_2.txt"
+    },
+    {
+      "lat": 45.224,
+      "lng": 19.3761,
+      "type": "Fortress",
+      "country": "Croatia",
+      "source_file": "8Rumili and Özi_2.txt"
+    },
+    {
+      "lat": 45.1399,
+      "lng": 19.037,
+      "type": "Fortress",
+      "country": "Croatia",
+      "source_file": "8Rumili and Özi_2.txt"
+    },
+    {
+      "lat": 45.2516,
+      "lng": 19.8648,
+      "type": "Fortress",
+      "country": "Serbia",
+      "source_file": "8Rumili and Özi_2.txt"
+    },
+    {
+      "lat": 43.5844,
+      "lng": 21.3217,
+      "type": "Fortress",
+      "country": "Serbia",
+      "source_file": "8Rumili and Özi_2.txt"
+    },
+    {
+      "lat": 44.1342,
+      "lng": 22.858,
+      "type": "Fortress",
+      "country": "Bulgaria",
+      "source_file": "8Rumili and Özi_2.txt"
+    },
+    {
+      "lat": 44.6155,
+      "lng": 22.6019,
+      "type": "Fortress",
+      "country": "Serbia",
+      "source_file": "8Rumili and Özi_2.txt"
+    },
+    {
+      "lat": 43.9919,
+      "lng": 22.8815,
+      "type": "Fortress",
+      "country": "Bulgaria",
+      "source_file": "8Rumili and Özi_2.txt"
+    },
+    {
+      "lat": 43.6348,
+      "lng": 21.8931,
+      "type": "Fortress",
+      "country": "Serbia",
+      "source_file": "8Rumili and Özi_2.txt"
+    },
+    {
+      "lat": 43.4743,
+      "lng": 22.0953,
+      "type": "Fortress",
+      "country": "Serbia",
+      "source_file": "8Rumili and Özi_2.txt"
+    },
+    {
+      "lat": 43.7032,
+      "lng": 24.8927,
+      "type": "Fortress",
+      "country": "Bulgaria",
+      "source_file": "8Rumili and Özi_2.txt"
+    },
+    {
+      "lat": 43.7211,
+      "lng": 24.8612,
+      "type": "Fortress",
+      "country": "Romania",
+      "source_file": "8Rumili and Özi_2.txt"
+    },
+    {
+      "lat": 43.7396,
+      "lng": 23.9474,
+      "type": "Fortress",
+      "country": "Bulgaria",
+      "source_file": "8Rumili and Özi_2.txt"
+    },
+    {
+      "lat": 44.0471,
+      "lng": 26.6117,
+      "type": "Fortress",
+      "country": "Bulgaria",
+      "source_file": "8Rumili and Özi_2.txt"
+    },
+    {
+      "lat": 43.893,
+      "lng": 25.9651,
+      "type": "Fortress",
+      "country": "Romania",
+      "source_file": "8Rumili and Özi_2.txt"
+    },
+    {
+      "lat": 43.8499,
+      "lng": 25.9469,
+      "type": "Fortress",
+      "country": "Bulgaria",
+      "source_file": "8Rumili and Özi_2.txt"
+    },
+    {
+      "lat": 43.6216,
+      "lng": 25.3443,
+      "type": "Fortress",
+      "country": "Bulgaria",
+      "source_file": "8Rumili and Özi_2.txt"
+    },
+    {
+      "lat": 44.1172,
+      "lng": 27.2608,
+      "type": "Fortress",
+      "country": "Bulgaria",
+      "source_file": "8Rumili and Özi_2.txt"
+    },
+    {
+      "lat": 46.2006,
+      "lng": 30.3494,
+      "type": "Fortress",
+      "country": "Ukraine",
+      "source_file": "8Rumili and Özi_2.txt"
+    },
+    {
+      "lat": 45.4339,
+      "lng": 29.2684,
+      "type": "Fortress",
+      "country": "Ukraine",
+      "source_file": "8Rumili and Özi_2.txt"
+    },
+    {
+      "lat": 45.272,
+      "lng": 27.9747,
+      "type": "Fortress",
+      "country": "Romania",
+      "source_file": "8Rumili and Özi_2.txt"
+    },
+    {
+      "lat": 44.6816,
+      "lng": 27.9525,
+      "type": "Fortress",
+      "country": "Romania",
+      "source_file": "8Rumili and Özi_2.txt"
+    },
+    {
+      "lat": 45.3392,
+      "lng": 28.8066,
+      "type": "Fortress",
+      "country": "Romania",
+      "source_file": "8Rumili and Özi_2.txt"
+    }
+  ]
+};
+    </script>
+    
+        <!-- Map Initialization -->
+    <script>
+        // Initialize map when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get current language (default to Turkish) - check both possible keys
+            var currentLang = localStorage.getItem('siteLanguage') || localStorage.getItem('language') || 'tr';
+            
+            // Approximate center for Hungary/former Ottoman territories
+            // Adjust these coordinates based on your ECW file's actual extent
+            var map = L.map('map', {
+                center: [47.5, 19.0], // Approximate center of Hungary
+                zoom: 7,
+                minZoom: 6,
+                maxZoom: 14,
+                zoomControl: true,
+                attributionControl: true
+            });
+            
+            // Add base street map layer (OpenStreetMap)
+            var osmLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+                maxZoom: 19
+            });
+            
+            // Add terrain/topographic map layer (OpenTopoMap)
+            var topoLayer = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+                attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)',
+                maxZoom: 17
+            });
+            
+            // Add satellite imagery layer (Esri World Imagery)
+            var satelliteLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+                attribution: 'Tiles &copy; Esri &mdash; Source: Esri, Maxar, GeoEye, Earthstar Geographics, CNES/Airbus DS, USDA, USGS, AeroGRID, IGN, IGP, and the GIS User Community',
+                maxZoom: 19
+            });
+            
+            // Add light/minimal style layer (CartoDB Positron)
+            var positronLayer = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+                subdomains: 'abcd',
+                maxZoom: 19
+            });
+            
+            // Add dark style layer (CartoDB Dark Matter)
+            var darkMatterLayer = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+                subdomains: 'abcd',
+                maxZoom: 19
+            });
+            
+            // Add custom historical tile layer as overlay (semi-transparent)
+            var historicalMapLayer = L.tileLayer('https://pub-74451cb9d483481b80963df84d8ab5c6.r2.dev/tiles/{z}/{x}/{y}.png', {
+                attribution: 'Historical Map (EOV10) - DANFront Project | &copy; <a href="https://danfront.univie.ac.at/" target="_blank">DANFront Project</a>',
+                minZoom: 6,
+                maxZoom: 14,
+                tms: false,
+                noWrap: true,
+                opacity: 0.7  // Semi-transparent so street map shows through
+            });
+            
+            // Create a separate instance for "Historical Map Only" base layer (fully opaque)
+            var historicalMapOnlyLayer = L.tileLayer('https://pub-74451cb9d483481b80963df84d8ab5c6.r2.dev/tiles/{z}/{x}/{y}.png', {
+                attribution: 'Historical Map (EOV10) - DANFront Project | &copy; <a href="https://danfront.univie.ac.at/" target="_blank">DANFront Project</a>',
+                minZoom: 6,
+                maxZoom: 14,
+                tms: false,
+                noWrap: true,
+                opacity: 1.0  // Fully opaque when used as base layer
+            });
+            
+            // Add base layer to map (street map)
+            osmLayer.addTo(map);
+            
+            // Add historical map as overlay (on top of street map)
+            historicalMapLayer.addTo(map);
+            
+            // Add error handling for missing tiles (suppress verbose logging)
+            var historicalTileErrorLogged = false;
+            historicalMapLayer.on('tileerror', function(error, tile) {
+                // Only log once to avoid console spam
+                if (!historicalTileErrorLogged) {
+                    console.info('Historical map tiles not found - this is normal if tiles haven\'t been generated yet');
+                    historicalTileErrorLogged = true;
+                }
+            });
+            
+            // Add error handling for external tile layers (suppress verbose logging)
+            var externalTileErrorsLogged = {};
+            function logTileErrorOnce(layerName) {
+                if (!externalTileErrorsLogged[layerName]) {
+                    console.info(layerName + ' tiles failed to load - check internet connection');
+                    externalTileErrorsLogged[layerName] = true;
+                }
+            }
+            
+            topoLayer.on('tileerror', function() { logTileErrorOnce('OpenTopoMap'); });
+            satelliteLayer.on('tileerror', function() { logTileErrorOnce('Satellite'); });
+            positronLayer.on('tileerror', function() { logTileErrorOnce('CartoDB Positron'); });
+            darkMatterLayer.on('tileerror', function() { logTileErrorOnce('CartoDB Dark Matter'); });
+            
+            // Marker styling based on garrison type
+            function getMarkerColor(type) {
+                if (!type) return '#3388ff';
+                var typeLower = type.toLowerCase();
+                if (typeLower.includes('fortress')) return '#d73027';      // Red
+                if (typeLower.includes('palanka') || typeLower.includes('parkan')) return '#fee08b'; // Yellow
+                return '#91bfdb'; // Blue for others
+            }
+            
+            function getMarkerSize(size) {
+                if (!size) return 8;
+                var sizeLower = size.toLowerCase();
+                if (sizeLower.includes('military hub')) return 12;
+                if (sizeLower.includes('large')) return 10;
+                if (sizeLower.includes('medium')) return 8;
+                if (sizeLower.includes('small')) return 6;
+                return 8;
+            }
+            
+            // Create marker layer for garrisons (use featureGroup for getBounds support)
+            var garrisonMarkers = L.featureGroup();
+            // Store marker-garrison associations for language updates
+            var markerGarrisonMap = new Map();
+            
+            // Helper function to normalize garrison names for comparison
+            function normalizeGarrisonName(name) {
+                return name.toLowerCase().replace(/[\s\-_]/g, '').replace(/categorized$/i, '');
+            }
+            
+            // Helper function to check if garrison exists in database
+            function garrisonExistsInDatabase(garrison) {
+                if (typeof GARRISON_METADATA === 'undefined' || !GARRISON_METADATA.garrisons) {
+                    return false;
+                }
+                
+                // Try both Turkish and English names
+                var trName = garrison.name && garrison.name.tr ? garrison.name.tr : '';
+                var enName = garrison.name && garrison.name.en ? garrison.name.en : '';
+                
+                // Normalize for comparison
+                var normalizedTr = normalizeGarrisonName(trName);
+                var normalizedEn = normalizeGarrisonName(enName);
+                
+                // Check if any database garrison matches
+                return GARRISON_METADATA.garrisons.some(function(dbGarrison) {
+                    var normalizedDbName = normalizeGarrisonName(dbGarrison.garrison_name);
+                    
+                    // 1. Exact match (highest priority)
+                    if (normalizedDbName === normalizedTr || normalizedDbName === normalizedEn) {
+                        return true;
+                    }
+                    
+                    // 2. Partial match - but only if strings are similar in length (avoid false positives)
+                    // Example: "Belgrad" shouldn't match "IstolniBelgrad"
+                    var lengthRatio = Math.min(normalizedDbName.length, normalizedTr.length) / 
+                                     Math.max(normalizedDbName.length, normalizedTr.length);
+                    
+                    if (lengthRatio > 0.7) { // At least 70% similar in length
+                        if (normalizedDbName.includes(normalizedTr) || normalizedTr.includes(normalizedDbName)) {
+                            return true;
+                        }
+                    }
+                    
+                    // Check English name with same logic
+                    if (normalizedEn) {
+                        var lengthRatioEn = Math.min(normalizedDbName.length, normalizedEn.length) / 
+                                           Math.max(normalizedDbName.length, normalizedEn.length);
+                        
+                        if (lengthRatioEn > 0.7) {
+                            if (normalizedDbName.includes(normalizedEn) || normalizedEn.includes(normalizedDbName)) {
+                                return true;
+                            }
+                        }
+                    }
+                    
+                    return false;
+                });
+            }
+            
+            // Function to create popup content
+            function createPopupContent(garrison) {
+                // Get current language from localStorage (check both possible keys)
+                var lang = localStorage.getItem('siteLanguage') || localStorage.getItem('language') || 'tr';
+                var name = garrison.name && garrison.name[lang] 
+                    ? garrison.name[lang] 
+                    : (garrison.name && garrison.name.en ? garrison.name.en : 'Unknown');
+                
+                var html = '<div style="min-width: 200px;">';
+                html += '<h3 style="margin: 0 0 10px 0; font-size: 1.1em; font-weight: bold;">' + name + '</h3>';
+                
+                if (garrison.type) {
+                    html += '<p style="margin: 5px 0;"><strong>Type:</strong> ' + garrison.type + '</p>';
+                }
+                
+                if (garrison.size) {
+                    html += '<p style="margin: 5px 0;"><strong>Size:</strong> ' + garrison.size + '</p>';
+                }
+                
+                if (garrison.date1) {
+                    var dates = garrison.date1;
+                    if (garrison.date2) {
+                        dates += ' / ' + garrison.date2;
+                    }
+                    html += '<p style="margin: 5px 0;"><strong>Dates:</strong> ' + dates + '</p>';
+                }
+                
+                if (garrison.country) {
+                    html += '<p style="margin: 5px 0;"><strong>Country:</strong> ' + garrison.country + '</p>';
+                }
+                
+                if (garrison.province) {
+                    var provinceName = garrison.province[lang] || garrison.province.en || '';
+                    if (provinceName) {
+                        html += '<p style="margin: 5px 0;"><strong>Province:</strong> ' + provinceName + '</p>';
+                    }
+                }
+                
+                if (garrison.sancak) {
+                    var sancakName = garrison.sancak[lang] || garrison.sancak.en || '';
+                    if (sancakName) {
+                        html += '<p style="margin: 5px 0;"><strong>Sancak:</strong> ' + sancakName + '</p>';
+                    }
+                }
+                
+                if (garrison.notes) {
+                    html += '<p style="margin: 5px 0; font-size: 0.9em; color: #666;"><em>' + garrison.notes + '</em></p>';
+                }
+                
+                // Only add database link button if garrison exists in database
+                if (garrisonExistsInDatabase(garrison)) {
+                    var dbButtonText = lang === 'tr' ? 'Veri Setine Git' : 'View Database';
+                    // Get garrison name for URL parameter - use Turkish name to match database garrison_name
+                    var garrisonNameForUrl = '';
+                    if (garrison.name && garrison.name.tr) {
+                        garrisonNameForUrl = encodeURIComponent(garrison.name.tr);
+                    } else if (garrison.name && garrison.name.en) {
+                        // Fallback to English if Turkish not available
+                        garrisonNameForUrl = encodeURIComponent(garrison.name.en);
+                    } else if (garrison.name && typeof garrison.name === 'string') {
+                        garrisonNameForUrl = encodeURIComponent(garrison.name);
+                    }
+                    
+                    if (garrisonNameForUrl) {
+                        html += '<div style="margin-top: 15px; padding-top: 10px; border-top: 1px solid #ddd;">';
+                        html += '<a href="database.html?garrison=' + garrisonNameForUrl + '" ';
+                        html += 'style="display: inline-block; padding: 8px 12px; background-color: #2a5298; color: white; ';
+                        html += 'text-decoration: none; border-radius: 4px; font-size: 12px; font-weight: 500; ';
+                        html += 'transition: background-color 0.2s;">';
+                        html += '<i class="fas fa-database" style="margin-right: 5px;"></i>' + dbButtonText;
+                        html += '</a>';
+                        html += '</div>';
+                    }
+                }
+                
+                html += '</div>';
+                return html;
+            }
+            
+            // Use embedded garrison coordinates (no fetch needed - avoids CORS)
+            // Data is embedded directly in the HTML
+            (function() {
+                var data = garrisonData;
+                    console.log('Loaded ' + data.total_garrisons + ' garrisons');
+                    
+                    // Create markers for each garrison
+                    data.garrisons.forEach(function(garrison) {
+                        if (garrison.lat && garrison.lng) {
+                            var marker = L.circleMarker([garrison.lat, garrison.lng], {
+                                radius: getMarkerSize(garrison.size),
+                                fillColor: getMarkerColor(garrison.type),
+                                color: '#333',
+                                weight: 1,
+                                opacity: 1,
+                                fillOpacity: 0.7
+                            });
+                            
+                            // Store marker-garrison association
+                            markerGarrisonMap.set(marker, garrison);
+                            
+                            // Add popup
+                            marker.bindPopup(createPopupContent(garrison));
+                            
+                            // Add to layer group
+                            marker.addTo(garrisonMarkers);
+                        }
+                    });
+                    
+                    // Add garrison markers layer to map
+                    garrisonMarkers.addTo(map);
+                    
+                    // Fit map bounds to show all markers if available
+                    if (garrisonMarkers.getLayers().length > 0) {
+                        try {
+                            var bounds = garrisonMarkers.getBounds();
+                            if (bounds.isValid()) {
+                                map.fitBounds(bounds, { padding: [50, 50] });
+                            }
+                        } catch (e) {
+                            console.warn('Could not fit bounds:', e);
+                        }
+                    }
+            })(); // End of embedded data function
+            
+            // Error handling (should not be needed with embedded data)
+            if (typeof garrisonData === 'undefined') {
+                var errorDiv = document.createElement('div');
+                errorDiv.className = 'map-info';
+                errorDiv.style.color = '#d73027';
+                errorDiv.style.backgroundColor = '#fff3cd';
+                errorDiv.style.padding = '10px';
+                errorDiv.style.borderRadius = '5px';
+                errorDiv.style.marginBottom = '10px';
+                errorDiv.innerHTML = '<strong>Error:</strong> Garrison data not found.';
+                document.querySelector('.map-container').insertBefore(errorDiv, document.getElementById('map'));
+                return;
+            }
+            
+            // Process embedded data
+            var data = garrisonData;
+            
+            // Original processing code:
+            (function() {
+                    console.error('Error loading garrison coordinates:', error);
+                    // Show user-friendly message with troubleshooting
+                    var errorDiv = document.createElement('div');
+                    errorDiv.className = 'map-info';
+                    errorDiv.style.color = '#d73027';
+                    errorDiv.style.backgroundColor = '#fff3cd';
+                    errorDiv.style.padding = '10px';
+                    errorDiv.style.borderRadius = '5px';
+                    errorDiv.style.marginBottom = '10px';
+                    errorDiv.innerHTML = '<strong>Warning:</strong> Could not load garrison coordinates.<br>' +
+                        'This is usually because the page is opened directly (file://).<br>' +
+                        '<strong>Solution:</strong> Serve the files through a web server:<br>' +
+                        '1. Open terminal in this directory<br>' +
+                        '2. Run: <code>python -m http.server 8000</code><br>' +
+                        '3. Open: <code>http://localhost:8000/maps.html</code>';
+                    document.querySelector('.map-container').insertBefore(errorDiv, document.getElementById('map'));
+                });
+            
+            // Add layer control
+            var baseLayers = {
+                "OpenStreetMap": osmLayer,
+                "Terrain/Topographic": topoLayer,
+                "Satellite Imagery": satelliteLayer,
+                "Light (Minimal)": positronLayer,
+                "Dark Style": darkMatterLayer,
+                "Historical Map Only": historicalMapOnlyLayer
+            };
+            
+            var overlayLayers = {
+                "Historical Map Overlay": historicalMapLayer,
+                "Garrison Locations": garrisonMarkers
+            };
+            
+            L.control.layers(baseLayers, overlayLayers, {
+                position: 'topright',
+                collapsed: true
+            }).addTo(map);
+            
+            // Add opacity control for historical map overlay
+            var opacityControl = L.control({ position: 'topright' });
+            opacityControl.onAdd = function(map) {
+                var container = L.DomUtil.create('div', 'leaflet-control-opacity');
+                container.style.backgroundColor = 'white';
+                container.style.padding = '10px';
+                container.style.borderRadius = '4px';
+                container.style.boxShadow = '0 1px 5px rgba(0,0,0,0.4)';
+                container.style.marginTop = '10px';
+                
+                var label = L.DomUtil.create('label', '', container);
+                label.innerHTML = 'Historical Map Opacity: ';
+                label.style.fontSize = '12px';
+                label.style.display = 'block';
+                label.style.marginBottom = '5px';
+                
+                var slider = L.DomUtil.create('input', '', container);
+                slider.type = 'range';
+                slider.min = '0';
+                slider.max = '1';
+                slider.step = '0.1';
+                slider.value = '0.7';
+                slider.style.width = '150px';
+                
+                var valueDisplay = L.DomUtil.create('span', '', container);
+                valueDisplay.innerHTML = '70%';
+                valueDisplay.style.marginLeft = '10px';
+                valueDisplay.style.fontSize = '12px';
+                
+                // Update opacity when slider changes
+                slider.addEventListener('input', function() {
+                    var opacity = parseFloat(this.value);
+                    historicalMapLayer.setOpacity(opacity);
+                    valueDisplay.innerHTML = Math.round(opacity * 100) + '%';
+                });
+                
+                // Prevent map click/drag when interacting with control
+                L.DomEvent.disableClickPropagation(container);
+                L.DomEvent.disableScrollPropagation(container);
+                
+                return container;
+            };
+            opacityControl.addTo(map);
+            
+            // Add legend control for marker colors
+            var legendControl = L.control({ position: 'bottomright' });
+            var legendContainer = null;
+            
+            // Function to update legend text based on current language
+            function updateLegendText() {
+                if (!legendContainer) return;
+                
+                var lang = localStorage.getItem('siteLanguage') || localStorage.getItem('language') || 'tr';
+                var titleText = lang === 'tr' ? 'Garnizon Tipleri' : 'Garrison Types';
+                var fortressText = lang === 'tr' ? 'Kale' : 'Fortress';
+                var palankaText = lang === 'tr' ? 'Palanka/Parkan' : 'Palanka/Parkan';
+                var otherText = lang === 'tr' ? 'Diğer' : 'Other';
+                
+                var html = '<div style="font-weight: bold; margin-bottom: 8px;">' + titleText + '</div>';
+                
+                // Fortress (Red)
+                html += '<div style="display: flex; align-items: center; margin-bottom: 5px;">';
+                html += '<span style="display: inline-block; width: 12px; height: 12px; border-radius: 50%; background-color: #d73027; border: 1px solid #333; margin-right: 8px;"></span>';
+                html += '<span>' + fortressText + '</span>';
+                html += '</div>';
+                
+                // Palanka/Parkan (Yellow)
+                html += '<div style="display: flex; align-items: center; margin-bottom: 5px;">';
+                html += '<span style="display: inline-block; width: 12px; height: 12px; border-radius: 50%; background-color: #fee08b; border: 1px solid #333; margin-right: 8px;"></span>';
+                html += '<span>' + palankaText + '</span>';
+                html += '</div>';
+                
+                // Other (Blue)
+                html += '<div style="display: flex; align-items: center;">';
+                html += '<span style="display: inline-block; width: 12px; height: 12px; border-radius: 50%; background-color: #91bfdb; border: 1px solid #333; margin-right: 8px;"></span>';
+                html += '<span>' + otherText + '</span>';
+                html += '</div>';
+                
+                legendContainer.innerHTML = html;
+            }
+            
+            legendControl.onAdd = function(map) {
+                legendContainer = L.DomUtil.create('div', 'leaflet-control-legend');
+                legendContainer.style.backgroundColor = 'white';
+                legendContainer.style.padding = '10px';
+                legendContainer.style.borderRadius = '4px';
+                legendContainer.style.boxShadow = '0 1px 5px rgba(0,0,0,0.4)';
+                legendContainer.style.fontSize = '12px';
+                
+                // Initial text
+                updateLegendText();
+                
+                // Prevent map click/drag when interacting with control
+                L.DomEvent.disableClickPropagation(legendContainer);
+                L.DomEvent.disableScrollPropagation(legendContainer);
+                
+                return legendContainer;
+            };
+            legendControl.addTo(map);
+            
+            // Listen for language changes and update legend and popups
+            document.addEventListener('languageChanged', function() {
+                updateLegendText();
+                // Also update currentLang variable
+                currentLang = localStorage.getItem('siteLanguage') || localStorage.getItem('language') || 'tr';
+                
+                // Update all marker popups with new language
+                markerGarrisonMap.forEach(function(garrison, marker) {
+                    marker.setPopupContent(createPopupContent(garrison));
+                });
+            });
+        });
+    </script>
+</body>
+</html>
+
