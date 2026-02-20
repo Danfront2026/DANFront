@@ -4646,8 +4646,36 @@ var garrisonData = {
                 maxZoom: 19
             });
             
+            // Define valid tile ranges per zoom level to avoid unnecessary 404 requests
+            var historicalTileBounds = {
+                6:  { xMin: 34,   xMax: 36,   yMin: 22,   yMax: 22 },
+                7:  { xMin: 69,   xMax: 72,   yMin: 44,   yMax: 45 },
+                8:  { xMin: 139,  xMax: 144,  yMin: 88,   yMax: 91 },
+                9:  { xMin: 278,  xMax: 288,  yMin: 176,  yMax: 182 },
+                10: { xMin: 557,  xMax: 577,  yMin: 353,  yMax: 365 },
+                11: { xMin: 1115, xMax: 1154, yMin: 706,  yMax: 731 },
+                12: { xMin: 2230, xMax: 2309, yMin: 1413, yMax: 1462 },
+                13: { xMin: 4460, xMax: 4619, yMin: 2826, yMax: 2925 },
+                14: { xMin: 8920, xMax: 9238, yMin: 5652, yMax: 5850 }
+            };
+            
+            // Custom TileLayer that only requests tiles within valid bounds
+            var BoundedTileLayer = L.TileLayer.extend({
+                _isValidTile: function(coords) {
+                    // First run the default Leaflet validity check
+                    if (!L.TileLayer.prototype._isValidTile.call(this, coords)) {
+                        return false;
+                    }
+                    // Then check against our known tile bounds
+                    var bounds = historicalTileBounds[coords.z];
+                    if (!bounds) return false; // No tiles at this zoom
+                    return coords.x >= bounds.xMin && coords.x <= bounds.xMax &&
+                           coords.y >= bounds.yMin && coords.y <= bounds.yMax;
+                }
+            });
+            
             // Add custom historical tile layer as overlay (semi-transparent)
-            var historicalMapLayer = L.tileLayer('https://danfront-tiles.odulsuzkisafilm.workers.dev/tiles/{z}/{x}/{y}.png', {
+            var historicalMapLayer = new BoundedTileLayer('https://danfront-tiles.odulsuzkisafilm.workers.dev/tiles/{z}/{x}/{y}.png', {
                 attribution: 'Historical Map (EOV10) - DANFront Project | &copy; <a href="https://danfront.univie.ac.at/" target="_blank">DANFront Project</a>',
                 minZoom: 6,
                 maxZoom: 14,
@@ -4657,7 +4685,7 @@ var garrisonData = {
             });
             
             // Create a separate instance for "Historical Map Only" base layer (fully opaque)
-            var historicalMapOnlyLayer = L.tileLayer('https://danfront-tiles.odulsuzkisafilm.workers.dev/tiles/{z}/{x}/{y}.png', {
+            var historicalMapOnlyLayer = new BoundedTileLayer('https://danfront-tiles.odulsuzkisafilm.workers.dev/tiles/{z}/{x}/{y}.png', {
                 attribution: 'Historical Map (EOV10) - DANFront Project | &copy; <a href="https://danfront.univie.ac.at/" target="_blank">DANFront Project</a>',
                 minZoom: 6,
                 maxZoom: 14,
