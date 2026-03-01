@@ -561,7 +561,16 @@ class GarrisonTable {
         }
     }
 
+    // Normalize strings with NFC to handle composed vs decomposed Unicode
+    normalizeNFC(str) {
+        const s = str.toLowerCase().trim();
+        return (typeof s.normalize === 'function') ? s.normalize('NFC') : s;
+    }
+
     autoSelectGarrison(searchName) {
+        // Apply NFC normalization to the search term
+        const searchNFC = this.normalizeNFC(searchName);
+
         // Search both data stores for a matching garrison
         const catStore = (typeof GARRISON_DATA_CATEGORIZED !== 'undefined') ? GARRISON_DATA_CATEGORIZED : {};
         const rawStore = (typeof GARRISON_DATA_RAW !== 'undefined') ? GARRISON_DATA_RAW : {};
@@ -574,8 +583,8 @@ class GarrisonTable {
 
         for (const { store, view } of stores) {
             for (const [key, data] of Object.entries(store)) {
-                const name = (data.garrison_name || '').toLowerCase();
-                if (name === searchName || name.includes(searchName) || searchName.includes(name)) {
+                const name = this.normalizeNFC(data.garrison_name || '');
+                if (name === searchNFC || name.includes(searchNFC) || searchNFC.includes(name)) {
                     // Found a match - switch to appropriate view
                     if (this.currentView !== view) {
                         // Force view switch (bypass early-return by setting different value first)

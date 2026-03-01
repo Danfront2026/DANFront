@@ -67,6 +67,238 @@
             image-rendering: crisp-edges;
             image-rendering: -webkit-optimize-contrast;
         }
+
+        /* ===== Map Wrapper ===== */
+        .map-wrapper {
+            position: relative;
+        }
+
+        /* ===== Filter Panel ===== */
+        .filter-panel-toggle {
+            position: absolute;
+            left: 10px;
+            top: 10px;
+            z-index: 1001;
+            background: white;
+            border: 2px solid rgba(0,0,0,0.15);
+            border-radius: 6px;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+            font-size: 16px;
+            color: #2a5298;
+            transition: all 0.2s;
+        }
+        .filter-panel-toggle:hover { background: #f0f0f0; }
+        .filter-panel-toggle.active { background: #2a5298; color: white; border-color: #2a5298; }
+
+        .filter-panel {
+            position: absolute;
+            left: 10px;
+            top: 56px;
+            z-index: 1000;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.18);
+            width: 280px;
+            max-height: calc(100% - 130px);
+            overflow-y: auto;
+            font-size: 13px;
+            display: none;
+        }
+        .filter-panel.open { display: block; }
+
+        .filter-panel-header {
+            padding: 10px 14px;
+            background: #2a5298;
+            color: white;
+            border-radius: 8px 8px 0 0;
+            font-weight: 600;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .filter-category { border-bottom: 1px solid #eee; }
+        .filter-category:last-child { border-bottom: none; }
+
+        .filter-category-header {
+            padding: 9px 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+            color: #333;
+            user-select: none;
+            transition: background 0.15s;
+            font-size: 13px;
+        }
+        .filter-category-header:hover { background: #f8f9fa; }
+        .filter-category-header .fa-chevron-right {
+            font-size: 9px;
+            transition: transform 0.2s;
+            color: #999;
+            width: 10px;
+        }
+        .filter-category.expanded .filter-category-header .fa-chevron-right {
+            transform: rotate(90deg);
+        }
+
+        .filter-subcategories {
+            padding: 0 14px 10px 34px;
+            display: none;
+        }
+        .filter-category.expanded .filter-subcategories { display: block; }
+
+        .filter-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 3px 0;
+            font-size: 12.5px;
+        }
+        .filter-item input[type="checkbox"] {
+            margin: 0;
+            cursor: pointer;
+            accent-color: #2a5298;
+            width: 14px;
+            height: 14px;
+        }
+        .filter-item label {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            flex: 1;
+            line-height: 1.3;
+        }
+        .filter-item.disabled { opacity: 0.45; }
+        .filter-item.disabled label { cursor: default; }
+
+        .filter-sub-items {
+            padding-left: 18px;
+            margin-top: 2px;
+        }
+
+        .color-dot {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            border: 1px solid #555;
+            flex-shrink: 0;
+        }
+
+        .coming-soon-badge {
+            font-size: 9px;
+            color: #aaa;
+            font-style: italic;
+            margin-left: 2px;
+        }
+
+        .filter-count {
+            font-size: 10.5px;
+            color: #999;
+            margin-left: auto;
+            font-weight: 400;
+            white-space: nowrap;
+        }
+
+        /* ===== Time Slider ===== */
+        .time-slider-container {
+            position: absolute;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            background: white;
+            padding: 10px 16px;
+            border-radius: 8px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.18);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            width: calc(100% - 40px);
+            max-width: 580px;
+        }
+        .time-slider-container .time-label {
+            font-size: 11px;
+            color: #999;
+            white-space: nowrap;
+            font-variant-numeric: tabular-nums;
+        }
+        .time-slider-container .time-year-display {
+            font-size: 1.25em;
+            font-weight: 700;
+            color: #2a5298;
+            min-width: 42px;
+            text-align: center;
+            font-variant-numeric: tabular-nums;
+        }
+        .time-slider-range {
+            flex: 1;
+            -webkit-appearance: none;
+            appearance: none;
+            height: 5px;
+            background: #ddd;
+            border-radius: 3px;
+            outline: none;
+            cursor: pointer;
+        }
+        .time-slider-range::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 16px;
+            height: 16px;
+            background: #2a5298;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid white;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+        }
+        .time-slider-range::-moz-range-thumb {
+            width: 16px;
+            height: 16px;
+            background: #2a5298;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid white;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+        }
+        .time-slider-btn {
+            background: #2a5298;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 5px 9px;
+            cursor: pointer;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            white-space: nowrap;
+            transition: background 0.2s;
+        }
+        .time-slider-btn:hover { background: #1e3d73; }
+        .time-slider-btn.playing { background: #d73027; }
+        .time-slider-btn.show-all-active { background: #28a745; }
+
+        /* ===== Responsive ===== */
+        @media (max-width: 768px) {
+            .filter-panel { width: 250px; font-size: 12px; }
+            .time-slider-container {
+                flex-wrap: wrap;
+                padding: 8px 12px;
+                gap: 6px;
+                max-width: calc(100% - 20px);
+            }
+            .time-slider-range { order: 3; width: 100%; flex: none; }
+        }
     </style>
 </head>
 <body>
@@ -120,7 +352,159 @@
                 <div class="map-info" data-tr-text="Tarihi harita görüntüsü: Osmanlı dönemi Macaristan haritası (EOV10). Haritayı yakınlaştırmak ve kaydırmak için fare veya dokunmatik kontrolleri kullanabilirsiniz." data-en-text="Historical map image: Ottoman period Hungary map (EOV10). You can zoom and pan the map using mouse or touch controls.">
                     Tarihi harita görüntüsü: Osmanlı dönemi Macaristan haritası (EOV10). Haritayı yakınlaştırmak ve kaydırmak için fare veya dokunmatik kontrolleri kullanabilirsiniz.
                 </div>
-                <div id="map"></div>
+                <div class="map-wrapper">
+                    <!-- Filter Panel Toggle -->
+                    <button class="filter-panel-toggle" id="filter-toggle" title="Toggle Layers &amp; Filters">
+                        <i class="fas fa-layer-group"></i>
+                    </button>
+
+                    <!-- Filter Panel -->
+                    <div class="filter-panel" id="filter-panel">
+                        <div class="filter-panel-header">
+                            <i class="fas fa-layer-group"></i>
+                            <span data-tr-text="Katmanlar ve Filtreler" data-en-text="Layers &amp; Filters">Layers &amp; Filters</span>
+                        </div>
+
+                        <!-- Military Infrastructure -->
+                        <div class="filter-category expanded" data-category="military">
+                            <div class="filter-category-header">
+                                <i class="fas fa-chevron-right"></i>
+                                <input type="checkbox" id="cat-military" checked>
+                                <label for="cat-military"><i class="fas fa-shield-alt" style="color:#8b4513;margin-right:2px;"></i> <span data-tr-text="Askeri Altyapı" data-en-text="Military Infrastructure">Military Infrastructure</span></label>
+                            </div>
+                            <div class="filter-subcategories">
+                                <div class="filter-item">
+                                    <input type="checkbox" id="layer-garrisons" checked>
+                                    <label for="layer-garrisons"><span data-tr-text="Garnizonlar" data-en-text="Garrisons">Garrisons</span></label>
+                                    <span class="filter-count" id="garrison-count"></span>
+                                </div>
+                                <div class="filter-sub-items" id="garrison-type-filters">
+                                    <div class="filter-item">
+                                        <input type="checkbox" id="layer-fortress" checked>
+                                        <span class="color-dot" style="background:#d73027;"></span>
+                                        <label for="layer-fortress"><span data-tr-text="Kale" data-en-text="Fortress">Fortress</span></label>
+                                        <span class="filter-count" id="fortress-count"></span>
+                                    </div>
+                                    <div class="filter-item">
+                                        <input type="checkbox" id="layer-palanka" checked>
+                                        <span class="color-dot" style="background:#fee08b;"></span>
+                                        <label for="layer-palanka">Palanka / Parkan</label>
+                                        <span class="filter-count" id="palanka-count"></span>
+                                    </div>
+                                    <div class="filter-item">
+                                        <input type="checkbox" id="layer-other-garrison" checked>
+                                        <span class="color-dot" style="background:#91bfdb;"></span>
+                                        <label for="layer-other-garrison"><span data-tr-text="Diğer" data-en-text="Other">Other</span></label>
+                                        <span class="filter-count" id="other-count"></span>
+                                    </div>
+                                </div>
+                                <div class="filter-item disabled">
+                                    <input type="checkbox" disabled>
+                                    <label><span data-tr-text="Tersaneler" data-en-text="Shipyards">Shipyards</span> <span class="coming-soon-badge">Coming soon</span></label>
+                                </div>
+                                <div class="filter-item disabled">
+                                    <input type="checkbox" disabled>
+                                    <label><span data-tr-text="Köprüler" data-en-text="Bridges">Bridges</span> <span class="coming-soon-badge">Coming soon</span></label>
+                                </div>
+                                <div class="filter-item disabled">
+                                    <input type="checkbox" disabled>
+                                    <label><span data-tr-text="Barut Değirmenleri" data-en-text="Powder Mills">Powder Mills</span> <span class="coming-soon-badge">Coming soon</span></label>
+                                </div>
+                                <div class="filter-item disabled">
+                                    <input type="checkbox" disabled>
+                                    <label><span data-tr-text="Su Değirmenleri" data-en-text="Water Mills">Water Mills</span> <span class="coming-soon-badge">Coming soon</span></label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Natural Environment -->
+                        <div class="filter-category" data-category="natural">
+                            <div class="filter-category-header">
+                                <i class="fas fa-chevron-right"></i>
+                                <input type="checkbox" id="cat-natural" disabled>
+                                <label for="cat-natural"><i class="fas fa-leaf" style="color:#28a745;margin-right:2px;"></i> <span data-tr-text="Doğal Çevre" data-en-text="Natural Environment">Natural Environment</span></label>
+                            </div>
+                            <div class="filter-subcategories">
+                                <div class="filter-item disabled">
+                                    <input type="checkbox" disabled>
+                                    <label><span data-tr-text="Nehirler" data-en-text="Rivers">Rivers</span> <span class="coming-soon-badge">Coming soon</span></label>
+                                </div>
+                                <div class="filter-item disabled">
+                                    <input type="checkbox" disabled>
+                                    <label><span data-tr-text="Adalar" data-en-text="Islands">Islands</span> <span class="coming-soon-badge">Coming soon</span></label>
+                                </div>
+                                <div class="filter-item disabled">
+                                    <input type="checkbox" disabled>
+                                    <label><span data-tr-text="Göller" data-en-text="Lakes">Lakes</span> <span class="coming-soon-badge">Coming soon</span></label>
+                                </div>
+                                <div class="filter-item disabled">
+                                    <input type="checkbox" disabled>
+                                    <label><span data-tr-text="Bataklıklar" data-en-text="Marshes">Marshes</span> <span class="coming-soon-badge">Coming soon</span></label>
+                                </div>
+                                <div class="filter-item disabled">
+                                    <input type="checkbox" disabled>
+                                    <label><span data-tr-text="Ormanlar" data-en-text="Forests">Forests</span> <span class="coming-soon-badge">Coming soon</span></label>
+                                </div>
+                                <div class="filter-item disabled">
+                                    <input type="checkbox" disabled>
+                                    <label><span data-tr-text="Madenler" data-en-text="Mines">Mines</span> <span class="coming-soon-badge">Coming soon</span></label>
+                                </div>
+                                <div class="filter-item disabled">
+                                    <input type="checkbox" disabled>
+                                    <label><span data-tr-text="Yollar" data-en-text="Roads">Roads</span> <span class="coming-soon-badge">Coming soon</span></label>
+                                </div>
+                                <div class="filter-item disabled">
+                                    <input type="checkbox" disabled>
+                                    <label><span data-tr-text="Köprüler" data-en-text="Bridges">Bridges</span> <span class="coming-soon-badge">Coming soon</span></label>
+                                </div>
+                                <div class="filter-item disabled">
+                                    <input type="checkbox" disabled>
+                                    <label><span data-tr-text="Su Yolları" data-en-text="Waterways">Waterways</span> <span class="coming-soon-badge">Coming soon</span></label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Natural Events -->
+                        <div class="filter-category" data-category="events">
+                            <div class="filter-category-header">
+                                <i class="fas fa-chevron-right"></i>
+                                <input type="checkbox" id="cat-events" disabled>
+                                <label for="cat-events"><i class="fas fa-cloud-showers-heavy" style="color:#17a2b8;margin-right:2px;"></i> <span data-tr-text="Doğal Olaylar" data-en-text="Natural Events">Natural Events</span></label>
+                            </div>
+                            <div class="filter-subcategories">
+                                <div class="filter-item disabled">
+                                    <input type="checkbox" disabled>
+                                    <label><span data-tr-text="Seller" data-en-text="Floods">Floods</span> <span class="coming-soon-badge">Coming soon</span></label>
+                                </div>
+                                <div class="filter-item disabled">
+                                    <input type="checkbox" disabled>
+                                    <label><span data-tr-text="Buz Tıkanıklıkları" data-en-text="Ice Blocks">Ice Blocks</span> <span class="coming-soon-badge">Coming soon</span></label>
+                                </div>
+                                <div class="filter-item disabled">
+                                    <input type="checkbox" disabled>
+                                    <label><span data-tr-text="Orman Yangınları" data-en-text="Wild Fires">Wild Fires</span> <span class="coming-soon-badge">Coming soon</span></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Map -->
+                    <div id="map"></div>
+
+                    <!-- Time Slider -->
+                    <div class="time-slider-container" id="time-slider-container">
+                        <button class="time-slider-btn" id="time-play" title="Play/Pause">
+                            <i class="fas fa-play" id="time-play-icon"></i>
+                        </button>
+                        <span class="time-label">1450</span>
+                        <input type="range" class="time-slider-range" id="time-slider-range" min="1450" max="1700" value="1700" step="1">
+                        <span class="time-year-display" id="time-year-display">&#10038;</span>
+                        <button class="time-slider-btn show-all-active" id="time-show-all" title="Show All">
+                            <i class="fas fa-eye"></i> <span data-tr-text="Tümü" data-en-text="All">All</span>
+                        </button>
+                        <span class="time-label">1700</span>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -175,55 +559,45 @@ var garrisonData = (typeof garrisonMapData !== "undefined") ? garrisonMapData : 
     
         <!-- Map Initialization -->
     <script>
-        // Initialize map when DOM is loaded
         document.addEventListener('DOMContentLoaded', function() {
-            // Get current language (default to Turkish) - check both possible keys
+            // ===== LANGUAGE =====
             var currentLang = localStorage.getItem('siteLanguage') || localStorage.getItem('language') || 'tr';
-            
-            // Approximate center for Hungary/former Ottoman territories
-            // Adjust these coordinates based on your ECW file's actual extent
+
+            // ===== MAP INITIALIZATION =====
             var map = L.map('map', {
-                center: [47.5, 19.0], // Approximate center of Hungary
+                center: [47.5, 19.0],
                 zoom: 7,
                 minZoom: 6,
                 maxZoom: 14,
                 zoomControl: true,
                 attributionControl: true
             });
-            
-            // Add base street map layer (OpenStreetMap)
+
+            // ===== TILE LAYERS =====
             var osmLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
                 maxZoom: 19
             });
-            
-            // Add terrain/topographic map layer (OpenTopoMap)
             var topoLayer = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
                 attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)',
                 maxZoom: 17
             });
-            
-            // Add satellite imagery layer (Esri World Imagery)
             var satelliteLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
                 attribution: 'Tiles &copy; Esri &mdash; Source: Esri, Maxar, GeoEye, Earthstar Geographics, CNES/Airbus DS, USDA, USGS, AeroGRID, IGN, IGP, and the GIS User Community',
                 maxZoom: 19
             });
-            
-            // Add light/minimal style layer (CartoDB Positron)
             var positronLayer = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
                 attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
                 subdomains: 'abcd',
                 maxZoom: 19
             });
-            
-            // Add dark style layer (CartoDB Dark Matter)
             var darkMatterLayer = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
                 attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
                 subdomains: 'abcd',
                 maxZoom: 19
             });
-            
-            // Define valid tile ranges per zoom level to avoid unnecessary 404 requests
+
+            // ===== HISTORICAL MAP TILE LAYER =====
             var historicalTileBounds = {
                 6:  { xMin: 34,   xMax: 36,   yMin: 22,   yMax: 22 },
                 7:  { xMin: 69,   xMax: 72,   yMin: 44,   yMax: 45 },
@@ -235,122 +609,87 @@ var garrisonData = (typeof garrisonMapData !== "undefined") ? garrisonMapData : 
                 13: { xMin: 4460, xMax: 4619, yMin: 2826, yMax: 2925 },
                 14: { xMin: 8920, xMax: 9238, yMin: 5652, yMax: 5850 }
             };
-            
-            // Custom TileLayer that only requests tiles within valid bounds
             var BoundedTileLayer = L.TileLayer.extend({
                 _isValidTile: function(coords) {
-                    // First run the default Leaflet validity check
-                    if (!L.TileLayer.prototype._isValidTile.call(this, coords)) {
-                        return false;
-                    }
-                    // Then check against our known tile bounds
+                    if (!L.TileLayer.prototype._isValidTile.call(this, coords)) return false;
                     var bounds = historicalTileBounds[coords.z];
-                    if (!bounds) return false; // No tiles at this zoom
+                    if (!bounds) return false;
                     return coords.x >= bounds.xMin && coords.x <= bounds.xMax &&
                            coords.y >= bounds.yMin && coords.y <= bounds.yMax;
                 }
             });
-            
-            // Add custom historical tile layer as overlay (semi-transparent)
             var historicalMapLayer = new BoundedTileLayer('https://danfront-tiles.odulsuzkisafilm.workers.dev/tiles/{z}/{x}/{y}.png', {
                 attribution: 'Historical Map (EOV10) - DANFront Project | &copy; <a href="https://danfront.univie.ac.at/" target="_blank">DANFront Project</a>',
-                minZoom: 6,
-                maxZoom: 14,
-                tms: false,
-                noWrap: true,
-                opacity: 0.7  // Semi-transparent so street map shows through
+                minZoom: 6, maxZoom: 14, tms: false, noWrap: true, opacity: 0.7
             });
-            
-            // Create a separate instance for "Historical Map Only" base layer (fully opaque)
             var historicalMapOnlyLayer = new BoundedTileLayer('https://danfront-tiles.odulsuzkisafilm.workers.dev/tiles/{z}/{x}/{y}.png', {
                 attribution: 'Historical Map (EOV10) - DANFront Project | &copy; <a href="https://danfront.univie.ac.at/" target="_blank">DANFront Project</a>',
-                minZoom: 6,
-                maxZoom: 14,
-                tms: false,
-                noWrap: true,
-                opacity: 1.0  // Fully opaque when used as base layer
+                minZoom: 6, maxZoom: 14, tms: false, noWrap: true, opacity: 1.0
             });
-            
-            // Add base layer to map (street map)
+
+            // Add default layers
             osmLayer.addTo(map);
-            
-            // Add historical map as overlay (on top of street map)
             historicalMapLayer.addTo(map);
-            
-            // Add error handling for missing tiles (suppress verbose logging)
+
+            // Tile error handling
             var historicalTileErrorLogged = false;
-            historicalMapLayer.on('tileerror', function(error, tile) {
-                // Only log once to avoid console spam
-                if (!historicalTileErrorLogged) {
-                    console.info('Historical map tiles not found - this is normal if tiles haven\'t been generated yet');
-                    historicalTileErrorLogged = true;
-                }
+            historicalMapLayer.on('tileerror', function() {
+                if (!historicalTileErrorLogged) { console.info('Historical map tiles not found - normal if not generated yet'); historicalTileErrorLogged = true; }
             });
-            
-            // Add error handling for external tile layers (suppress verbose logging)
             var externalTileErrorsLogged = {};
-            function logTileErrorOnce(layerName) {
-                if (!externalTileErrorsLogged[layerName]) {
-                    console.info(layerName + ' tiles failed to load - check internet connection');
-                    externalTileErrorsLogged[layerName] = true;
-                }
-            }
-            
+            function logTileErrorOnce(name) { if (!externalTileErrorsLogged[name]) { console.info(name + ' tiles failed to load'); externalTileErrorsLogged[name] = true; } }
             topoLayer.on('tileerror', function() { logTileErrorOnce('OpenTopoMap'); });
             satelliteLayer.on('tileerror', function() { logTileErrorOnce('Satellite'); });
             positronLayer.on('tileerror', function() { logTileErrorOnce('CartoDB Positron'); });
             darkMatterLayer.on('tileerror', function() { logTileErrorOnce('CartoDB Dark Matter'); });
-            
-            // Marker styling based on garrison type
+
+            // ===== MARKER UTILITIES =====
             function getMarkerColor(type) {
                 if (!type) return '#3388ff';
-                var typeLower = type.toLowerCase();
-                if (typeLower.includes('fortress')) return '#d73027';      // Red
-                if (typeLower.includes('palanka') || typeLower.includes('parkan')) return '#fee08b'; // Yellow
-                return '#91bfdb'; // Blue for others
+                var t = type.toLowerCase();
+                if (t.includes('fortress')) return '#d73027';
+                if (t.includes('palanka') || t.includes('parkan')) return '#fee08b';
+                return '#91bfdb';
             }
-            
             function getMarkerSize(size) {
                 if (!size) return 8;
-                var sizeLower = size.toLowerCase();
-                if (sizeLower.includes('military hub')) return 12;
-                if (sizeLower.includes('large')) return 10;
-                if (sizeLower.includes('medium')) return 8;
-                if (sizeLower.includes('small')) return 6;
+                var s = size.toLowerCase();
+                if (s.includes('military hub')) return 12;
+                if (s.includes('large')) return 10;
+                if (s.includes('medium')) return 8;
+                if (s.includes('small')) return 6;
                 return 8;
             }
-            
-            // Create marker layer for garrisons (use featureGroup for getBounds support)
-            var garrisonMarkers = L.featureGroup();
-            // Store marker-garrison associations for language updates
-            var markerGarrisonMap = new Map();
-            
-            // Helper function to normalize garrison names for comparison
-            function normalizeGarrisonName(name) {
-                return name.toLowerCase().replace(/[\s\-_]/g, '').replace(/categorized$/i, '');
+            function getGarrisonTypeKey(type) {
+                if (!type) return 'other';
+                var t = type.toLowerCase();
+                if (t.includes('fortress')) return 'fortress';
+                if (t.includes('palanka') || t.includes('parkan')) return 'palanka';
+                return 'other';
             }
-            
-            // Helper: collect all garrison names (original + normalized) from the new hierarchical metadata
+
+            // ===== DATABASE MATCHING =====
+            var markerGarrisonMap = new Map();
+
+            function normalizeGarrisonName(name) {
+                var normalized = name.toLowerCase().replace(/[\s\-_]/g, '').replace(/categorized$/i, '');
+                if (typeof normalized.normalize === 'function') normalized = normalized.normalize('NFC');
+                return normalized;
+            }
+
             function getAllDatabaseGarrisonEntries() {
-                var entries = []; // {original: string, normalized: string}
+                var entries = [];
                 function addGarrisons(garrisons) {
                     (garrisons || []).forEach(function(g) {
-                        entries.push({
-                            original: g.garrison_name,
-                            normalized: normalizeGarrisonName(g.garrison_name)
-                        });
+                        entries.push({ original: g.garrison_name, normalized: normalizeGarrisonName(g.garrison_name) });
                     });
                 }
                 if (typeof GARRISON_METADATA_CATEGORIZED !== 'undefined' && GARRISON_METADATA_CATEGORIZED.eyalets) {
-                    GARRISON_METADATA_CATEGORIZED.eyalets.forEach(function(eyalet) {
-                        addGarrisons(eyalet.garrisons);
-                    });
+                    GARRISON_METADATA_CATEGORIZED.eyalets.forEach(function(eyalet) { addGarrisons(eyalet.garrisons); });
                 }
                 if (typeof GARRISON_METADATA_RAW !== 'undefined' && GARRISON_METADATA_RAW.eyalets) {
                     GARRISON_METADATA_RAW.eyalets.forEach(function(eyalet) {
-                        (eyalet.sancaks || []).forEach(function(sancak) {
-                            addGarrisons(sancak.garrisons);
-                        });
+                        (eyalet.sancaks || []).forEach(function(sancak) { addGarrisons(sancak.garrisons); });
                         addGarrisons(eyalet.garrisons);
                     });
                 }
@@ -358,16 +697,13 @@ var garrisonData = (typeof garrisonMapData !== "undefined") ? garrisonMapData : 
             }
             var _dbGarrisonEntries = getAllDatabaseGarrisonEntries();
 
-            // Returns the matched DB garrison name (original) or null if not found
             function findMatchingDatabaseGarrison(garrison) {
                 if (_dbGarrisonEntries.length === 0) return null;
-
                 var trName = garrison.name && garrison.name.tr ? garrison.name.tr : '';
                 var enName = garrison.name && garrison.name.en ? garrison.name.en : '';
                 var huName = garrison.name && garrison.name.hu ? garrison.name.hu : '';
                 var candidates = [trName, enName, huName].filter(function(n) { return n; });
                 var normalizedCandidates = candidates.map(normalizeGarrisonName);
-
                 for (var i = 0; i < _dbGarrisonEntries.length; i++) {
                     var entry = _dbGarrisonEntries[i];
                     for (var j = 0; j < normalizedCandidates.length; j++) {
@@ -375,172 +711,324 @@ var garrisonData = (typeof garrisonMapData !== "undefined") ? garrisonMapData : 
                         if (!nc) continue;
                         if (entry.normalized === nc) return entry.original;
                         var ratio = Math.min(entry.normalized.length, nc.length) / Math.max(entry.normalized.length, nc.length);
-                        if (ratio > 0.7 && (entry.normalized.includes(nc) || nc.includes(entry.normalized))) {
-                            return entry.original;
-                        }
+                        if (ratio > 0.7 && (entry.normalized.includes(nc) || nc.includes(entry.normalized))) return entry.original;
                     }
                 }
                 return null;
             }
 
-            // Backward-compatible boolean wrapper
             function garrisonExistsInDatabase(garrison) {
                 return findMatchingDatabaseGarrison(garrison) !== null;
             }
-            
-            // Function to create popup content
+
+            // ===== POPUP =====
             function createPopupContent(garrison) {
-                // Get current language from localStorage (check both possible keys)
                 var lang = localStorage.getItem('siteLanguage') || localStorage.getItem('language') || 'tr';
-                var name = garrison.name && garrison.name[lang] 
-                    ? garrison.name[lang] 
+                var name = garrison.name && garrison.name[lang]
+                    ? garrison.name[lang]
                     : (garrison.name && garrison.name.en ? garrison.name.en : 'Unknown');
-                
+
                 var html = '<div style="min-width: 200px;">';
                 html += '<h3 style="margin: 0 0 10px 0; font-size: 1.1em; font-weight: bold;">' + name + '</h3>';
-                
-                if (garrison.type) {
-                    html += '<p style="margin: 5px 0;"><strong>Type:</strong> ' + garrison.type + '</p>';
-                }
-                
-                if (garrison.size) {
-                    html += '<p style="margin: 5px 0;"><strong>Size:</strong> ' + garrison.size + '</p>';
-                }
-                
+                if (garrison.type) html += '<p style="margin: 5px 0;"><strong>Type:</strong> ' + garrison.type + '</p>';
+                if (garrison.size) html += '<p style="margin: 5px 0;"><strong>Size:</strong> ' + garrison.size + '</p>';
                 if (garrison.date1) {
                     var dates = garrison.date1;
-                    if (garrison.date2) {
-                        dates += ' / ' + garrison.date2;
+                    if (garrison.date2) dates += ' / ' + garrison.date2;
+                    html += '<p style="margin: 5px 0;"><strong>' + (lang === 'tr' ? 'Tarih:' : 'Dates:') + '</strong> ' + dates + '</p>';
+                    // Show active/inactive status based on time slider
+                    if (!showAllMode) {
+                        var active = isGarrisonActiveInYear(garrison, currentYear);
+                        var statusColor = active ? '#28a745' : '#dc3545';
+                        var statusIcon = active ? '●' : '○';
+                        var statusText = active
+                            ? (lang === 'tr' ? currentYear + ' yılında aktif' : 'Active in ' + currentYear)
+                            : (lang === 'tr' ? currentYear + ' yılında aktif değil' : 'Not active in ' + currentYear);
+                        html += '<p style="margin: 3px 0; font-size: 0.85em; color: ' + statusColor + ';">';
+                        html += '<span style="margin-right: 4px;">' + statusIcon + '</span>' + statusText + '</p>';
                     }
-                    html += '<p style="margin: 5px 0;"><strong>Dates:</strong> ' + dates + '</p>';
                 }
-                
-                if (garrison.country) {
-                    html += '<p style="margin: 5px 0;"><strong>Country:</strong> ' + garrison.country + '</p>';
-                }
-                
+                if (garrison.country) html += '<p style="margin: 5px 0;"><strong>Country:</strong> ' + garrison.country + '</p>';
                 if (garrison.province) {
-                    var provinceName = garrison.province[lang] || garrison.province.en || '';
-                    if (provinceName) {
-                        html += '<p style="margin: 5px 0;"><strong>Province:</strong> ' + provinceName + '</p>';
-                    }
+                    var pn = garrison.province[lang] || garrison.province.en || '';
+                    if (pn) html += '<p style="margin: 5px 0;"><strong>Province:</strong> ' + pn + '</p>';
                 }
-                
                 if (garrison.sancak) {
-                    var sancakName = garrison.sancak[lang] || garrison.sancak.en || '';
-                    if (sancakName) {
-                        html += '<p style="margin: 5px 0;"><strong>Sancak:</strong> ' + sancakName + '</p>';
-                    }
+                    var sn = garrison.sancak[lang] || garrison.sancak.en || '';
+                    if (sn) html += '<p style="margin: 5px 0;"><strong>Sancak:</strong> ' + sn + '</p>';
                 }
-                
-                if (garrison.notes) {
-                    html += '<p style="margin: 5px 0; font-size: 0.9em; color: #666;"><em>' + garrison.notes + '</em></p>';
-                }
-                
-                // Only add database link button if garrison exists in database
+                if (garrison.notes) html += '<p style="margin: 5px 0; font-size: 0.9em; color: #666;"><em>' + garrison.notes + '</em></p>';
+
                 var matchedDbName = findMatchingDatabaseGarrison(garrison);
                 if (matchedDbName) {
                     var dbButtonText = lang === 'tr' ? 'Veri Setine Git' : 'View Database';
-                    // Use the actual matched DB garrison name for accurate auto-selection
                     var garrisonNameForUrl = encodeURIComponent(matchedDbName);
-                    
                     html += '<div style="margin-top: 15px; padding-top: 10px; border-top: 1px solid #ddd;">';
                     html += '<a href="database.html?garrison=' + garrisonNameForUrl + '" ';
                     html += 'style="display: inline-block; padding: 8px 12px; background-color: #2a5298; color: white; ';
                     html += 'text-decoration: none; border-radius: 4px; font-size: 12px; font-weight: 500; ';
                     html += 'transition: background-color 0.2s;">';
                     html += '<i class="fas fa-database" style="margin-right: 5px;"></i>' + dbButtonText;
-                    html += '</a>';
-                    html += '</div>';
+                    html += '</a></div>';
                 }
-                
                 html += '</div>';
                 return html;
             }
-            
-            // Use embedded garrison coordinates (no fetch needed - avoids CORS)
-            // Data is embedded directly in the HTML
+
+            // ===== TIME SLIDER UTILITIES =====
+            function parseDateRanges(garrison) {
+                var ranges = [];
+                function parseRange(str) {
+                    if (!str) return null;
+                    str = str.replace(/[–—]/g, '-'); // normalize dashes
+                    var parts = str.split('-');
+                    if (parts.length >= 2) {
+                        var start = parseInt(parts[0].replace(/\D/g, ''));
+                        var end = parseInt(parts[parts.length - 1].replace(/\D/g, ''));
+                        if (!isNaN(start) && !isNaN(end)) return { start: start, end: end };
+                    }
+                    return null;
+                }
+                var r1 = parseRange(garrison.date1);
+                if (r1) ranges.push(r1);
+                var r2 = parseRange(garrison.date2);
+                if (r2) ranges.push(r2);
+                return ranges;
+            }
+
+            function isGarrisonActiveInYear(garrison, year) {
+                var ranges = parseDateRanges(garrison);
+                if (ranges.length === 0) return true; // no date info → always show
+                for (var i = 0; i < ranges.length; i++) {
+                    if (year >= ranges[i].start && year <= ranges[i].end) return true;
+                }
+                return false;
+            }
+
+            // ===== GARRISON MARKER DATA =====
+            var allMarkerData = []; // { marker, garrison, typeKey }
+            var showAllMode = true;
+            var currentYear = 1700;
+            var isPlaying = false;
+            var playInterval = null;
+
+            // Create markers
             (function() {
                 var data = garrisonData;
-                    console.log('Loaded ' + data.total_garrisons + ' garrisons');
-                    
-                    // Create markers for each garrison
-                    data.garrisons.forEach(function(garrison) {
-                        if (garrison.lat && garrison.lng) {
-                            var marker = L.circleMarker([garrison.lat, garrison.lng], {
-                                radius: getMarkerSize(garrison.size),
-                                fillColor: getMarkerColor(garrison.type),
-                                color: '#333',
-                                weight: 1,
-                                opacity: 1,
-                                fillOpacity: 0.7
-                            });
-                            
-                            // Store marker-garrison association
-                            markerGarrisonMap.set(marker, garrison);
-                            
-                            // Add popup
-                            marker.bindPopup(createPopupContent(garrison));
-                            
-                            // Add to layer group
-                            marker.addTo(garrisonMarkers);
-                        }
-                    });
-                    
-                    // Add garrison markers layer to map
-                    garrisonMarkers.addTo(map);
-                    
-                    // Fit map bounds to show all markers if available
-                    if (garrisonMarkers.getLayers().length > 0) {
-                        try {
-                            var bounds = garrisonMarkers.getBounds();
-                            if (bounds.isValid()) {
-                                map.fitBounds(bounds, { padding: [50, 50] });
-                            }
-                        } catch (e) {
-                            console.warn('Could not fit bounds:', e);
-                        }
+                if (!data || !data.garrisons) { console.warn('No garrison data available'); return; }
+                console.log('Loaded ' + data.total_garrisons + ' garrisons');
+
+                data.garrisons.forEach(function(garrison) {
+                    if (garrison.lat && garrison.lng) {
+                        var typeKey = getGarrisonTypeKey(garrison.type);
+                        var marker = L.circleMarker([garrison.lat, garrison.lng], {
+                            radius: getMarkerSize(garrison.size),
+                            fillColor: getMarkerColor(garrison.type),
+                            color: '#333',
+                            weight: 1,
+                            opacity: 1,
+                            fillOpacity: 0.7
+                        });
+                        markerGarrisonMap.set(marker, garrison);
+                        marker.bindPopup(createPopupContent(garrison));
+                        marker.addTo(map);
+                        allMarkerData.push({ marker: marker, garrison: garrison, typeKey: typeKey });
                     }
-            })(); // End of embedded data function
-            
-            // Error handling (should not be needed with embedded data)
-            if (typeof garrisonData === 'undefined') {
-                var errorDiv = document.createElement('div');
-                errorDiv.className = 'map-info';
-                errorDiv.style.color = '#d73027';
-                errorDiv.style.backgroundColor = '#fff3cd';
-                errorDiv.style.padding = '10px';
-                errorDiv.style.borderRadius = '5px';
-                errorDiv.style.marginBottom = '10px';
-                errorDiv.innerHTML = '<strong>Error:</strong> Garrison data not found.';
-                document.querySelector('.map-container').insertBefore(errorDiv, document.getElementById('map'));
-                return;
-            }
-            
-            // Process embedded data
-            var data = garrisonData;
-            
-            // Original processing code:
-            (function() {
-                    console.error('Error loading garrison coordinates:', error);
-                    // Show user-friendly message with troubleshooting
-                    var errorDiv = document.createElement('div');
-                    errorDiv.className = 'map-info';
-                    errorDiv.style.color = '#d73027';
-                    errorDiv.style.backgroundColor = '#fff3cd';
-                    errorDiv.style.padding = '10px';
-                    errorDiv.style.borderRadius = '5px';
-                    errorDiv.style.marginBottom = '10px';
-                    errorDiv.innerHTML = '<strong>Warning:</strong> Could not load garrison coordinates.<br>' +
-                        'This is usually because the page is opened directly (file://).<br>' +
-                        '<strong>Solution:</strong> Serve the files through a web server:<br>' +
-                        '1. Open terminal in this directory<br>' +
-                        '2. Run: <code>python -m http.server 8000</code><br>' +
-                        '3. Open: <code>http://localhost:8000/maps.html</code>';
-                    document.querySelector('.map-container').insertBefore(errorDiv, document.getElementById('map'));
                 });
-            
-            // Add layer control
+
+                // Fit bounds
+                if (allMarkerData.length > 0) {
+                    try {
+                        var lats = allMarkerData.map(function(d) { return d.garrison.lat; });
+                        var lngs = allMarkerData.map(function(d) { return d.garrison.lng; });
+                        var bounds = L.latLngBounds(
+                            [Math.min.apply(null, lats), Math.min.apply(null, lngs)],
+                            [Math.max.apply(null, lats), Math.max.apply(null, lngs)]
+                        );
+                        if (bounds.isValid()) map.fitBounds(bounds, { padding: [50, 50] });
+                    } catch (e) { console.warn('Could not fit bounds:', e); }
+                }
+            })();
+
+            // ===== FILTER / VISIBILITY LOGIC =====
+            function updateMarkerVisibility() {
+                var milChecked = document.getElementById('cat-military').checked;
+                var garrisonsChecked = document.getElementById('layer-garrisons').checked;
+                var fortressChecked = document.getElementById('layer-fortress').checked;
+                var palankaChecked = document.getElementById('layer-palanka').checked;
+                var otherChecked = document.getElementById('layer-other-garrison').checked;
+
+                var visibleCount = 0, fortressVis = 0, palankaVis = 0, otherVis = 0;
+
+                allMarkerData.forEach(function(item) {
+                    var typeVisible = false;
+                    if (milChecked && garrisonsChecked) {
+                        if (item.typeKey === 'fortress' && fortressChecked) typeVisible = true;
+                        if (item.typeKey === 'palanka' && palankaChecked) typeVisible = true;
+                        if (item.typeKey === 'other' && otherChecked) typeVisible = true;
+                    }
+                    var timeVisible = showAllMode || isGarrisonActiveInYear(item.garrison, currentYear);
+                    var visible = typeVisible && timeVisible;
+
+                    if (visible && !map.hasLayer(item.marker)) {
+                        item.marker.addTo(map);
+                    } else if (!visible && map.hasLayer(item.marker)) {
+                        map.removeLayer(item.marker);
+                    }
+
+                    if (visible) {
+                        visibleCount++;
+                        if (item.typeKey === 'fortress') fortressVis++;
+                        if (item.typeKey === 'palanka') palankaVis++;
+                        if (item.typeKey === 'other') otherVis++;
+                    }
+                });
+
+                // Refresh any open popup so the active/inactive badge updates
+                markerGarrisonMap.forEach(function(garrison, marker) {
+                    if (marker.isPopupOpen()) {
+                        marker.setPopupContent(createPopupContent(garrison));
+                    }
+                });
+
+                // Update counts in filter panel
+                document.getElementById('garrison-count').textContent = visibleCount + '/' + allMarkerData.length;
+                document.getElementById('fortress-count').textContent = fortressVis;
+                document.getElementById('palanka-count').textContent = palankaVis;
+                document.getElementById('other-count').textContent = otherVis;
+            }
+
+            // Initial count
+            updateMarkerVisibility();
+
+            // ===== FILTER PANEL TOGGLE =====
+            var filterToggle = document.getElementById('filter-toggle');
+            var filterPanel = document.getElementById('filter-panel');
+
+            filterToggle.addEventListener('click', function() {
+                filterPanel.classList.toggle('open');
+                filterToggle.classList.toggle('active');
+            });
+
+            // Prevent map interactions when using filter panel
+            L.DomEvent.disableClickPropagation(filterPanel);
+            L.DomEvent.disableScrollPropagation(filterPanel);
+            L.DomEvent.disableClickPropagation(filterToggle);
+
+            // Category expand/collapse
+            document.querySelectorAll('.filter-category-header').forEach(function(header) {
+                header.addEventListener('click', function(e) {
+                    // Don't toggle if clicking a checkbox
+                    if (e.target.tagName === 'INPUT') return;
+                    var category = header.closest('.filter-category');
+                    category.classList.toggle('expanded');
+                });
+            });
+
+            // Master checkbox: Military Infrastructure
+            document.getElementById('cat-military').addEventListener('change', function() {
+                var checked = this.checked;
+                document.getElementById('layer-garrisons').checked = checked;
+                document.getElementById('layer-fortress').checked = checked;
+                document.getElementById('layer-palanka').checked = checked;
+                document.getElementById('layer-other-garrison').checked = checked;
+                updateMarkerVisibility();
+            });
+
+            // Garrisons parent checkbox
+            document.getElementById('layer-garrisons').addEventListener('change', function() {
+                var checked = this.checked;
+                document.getElementById('layer-fortress').checked = checked;
+                document.getElementById('layer-palanka').checked = checked;
+                document.getElementById('layer-other-garrison').checked = checked;
+                updateMarkerVisibility();
+            });
+
+            // Individual type checkboxes
+            ['layer-fortress', 'layer-palanka', 'layer-other-garrison'].forEach(function(id) {
+                document.getElementById(id).addEventListener('change', function() {
+                    updateMarkerVisibility();
+                    // Update parent checkbox state
+                    var f = document.getElementById('layer-fortress').checked;
+                    var p = document.getElementById('layer-palanka').checked;
+                    var o = document.getElementById('layer-other-garrison').checked;
+                    document.getElementById('layer-garrisons').checked = f || p || o;
+                    document.getElementById('layer-garrisons').indeterminate = (f || p || o) && !(f && p && o);
+                });
+            });
+
+            // ===== TIME SLIDER =====
+            var timeSlider = document.getElementById('time-slider-range');
+            var timeYearDisplay = document.getElementById('time-year-display');
+            var timePlayBtn = document.getElementById('time-play');
+            var timePlayIcon = document.getElementById('time-play-icon');
+            var timeShowAllBtn = document.getElementById('time-show-all');
+            var timeSliderContainer = document.getElementById('time-slider-container');
+
+            // Prevent map interactions when using time slider
+            L.DomEvent.disableClickPropagation(timeSliderContainer);
+            L.DomEvent.disableScrollPropagation(timeSliderContainer);
+
+            // Slider input
+            timeSlider.addEventListener('input', function() {
+                currentYear = parseInt(this.value);
+                timeYearDisplay.textContent = currentYear;
+                if (showAllMode) {
+                    showAllMode = false;
+                    timeShowAllBtn.classList.remove('show-all-active');
+                }
+                updateMarkerVisibility();
+            });
+
+            // Show All toggle
+            timeShowAllBtn.addEventListener('click', function() {
+                showAllMode = !showAllMode;
+                this.classList.toggle('show-all-active', showAllMode);
+                if (showAllMode) {
+                    timeYearDisplay.innerHTML = '&#10038;';
+                    stopPlaying();
+                } else {
+                    currentYear = parseInt(timeSlider.value);
+                    timeYearDisplay.textContent = currentYear;
+                }
+                updateMarkerVisibility();
+            });
+
+            // Play / Pause
+            function startPlaying() {
+                if (isPlaying) return;
+                isPlaying = true;
+                if (showAllMode) {
+                    showAllMode = false;
+                    timeShowAllBtn.classList.remove('show-all-active');
+                }
+                timePlayBtn.classList.add('playing');
+                timePlayIcon.className = 'fas fa-pause';
+
+                playInterval = setInterval(function() {
+                    currentYear++;
+                    if (currentYear > 1700) currentYear = 1450;
+                    timeSlider.value = currentYear;
+                    timeYearDisplay.textContent = currentYear;
+                    updateMarkerVisibility();
+                }, 150);
+            }
+
+            function stopPlaying() {
+                if (!isPlaying) return;
+                isPlaying = false;
+                clearInterval(playInterval);
+                playInterval = null;
+                timePlayBtn.classList.remove('playing');
+                timePlayIcon.className = 'fas fa-play';
+            }
+
+            timePlayBtn.addEventListener('click', function() {
+                if (isPlaying) stopPlaying();
+                else startPlaying();
+            });
+
+            // ===== LAYER CONTROL (base maps + historical overlay) =====
             var baseLayers = {
                 "OpenStreetMap": osmLayer,
                 "Terrain/Topographic": topoLayer,
@@ -549,128 +1037,116 @@ var garrisonData = (typeof garrisonMapData !== "undefined") ? garrisonMapData : 
                 "Dark Style": darkMatterLayer,
                 "Historical Map Only": historicalMapOnlyLayer
             };
-            
             var overlayLayers = {
-                "Historical Map Overlay": historicalMapLayer,
-                "Garrison Locations": garrisonMarkers
+                "Historical Map Overlay": historicalMapLayer
             };
-            
             L.control.layers(baseLayers, overlayLayers, {
                 position: 'topright',
                 collapsed: true
             }).addTo(map);
-            
-            // Add opacity control for historical map overlay
+
+            // ===== OPACITY CONTROL =====
             var opacityControl = L.control({ position: 'topright' });
-            opacityControl.onAdd = function(map) {
+            opacityControl.onAdd = function() {
                 var container = L.DomUtil.create('div', 'leaflet-control-opacity');
                 container.style.backgroundColor = 'white';
                 container.style.padding = '10px';
                 container.style.borderRadius = '4px';
                 container.style.boxShadow = '0 1px 5px rgba(0,0,0,0.4)';
                 container.style.marginTop = '10px';
-                
+
                 var label = L.DomUtil.create('label', '', container);
                 label.innerHTML = 'Historical Map Opacity: ';
                 label.style.fontSize = '12px';
                 label.style.display = 'block';
                 label.style.marginBottom = '5px';
-                
+
                 var slider = L.DomUtil.create('input', '', container);
-                slider.type = 'range';
-                slider.min = '0';
-                slider.max = '1';
-                slider.step = '0.1';
-                slider.value = '0.7';
+                slider.type = 'range'; slider.min = '0'; slider.max = '1'; slider.step = '0.1'; slider.value = '0.7';
                 slider.style.width = '150px';
-                
+
                 var valueDisplay = L.DomUtil.create('span', '', container);
                 valueDisplay.innerHTML = '70%';
                 valueDisplay.style.marginLeft = '10px';
                 valueDisplay.style.fontSize = '12px';
-                
-                // Update opacity when slider changes
+
                 slider.addEventListener('input', function() {
                     var opacity = parseFloat(this.value);
                     historicalMapLayer.setOpacity(opacity);
                     valueDisplay.innerHTML = Math.round(opacity * 100) + '%';
                 });
-                
-                // Prevent map click/drag when interacting with control
                 L.DomEvent.disableClickPropagation(container);
                 L.DomEvent.disableScrollPropagation(container);
-                
                 return container;
             };
             opacityControl.addTo(map);
-            
-            // Add legend control for marker colors
+
+            // ===== LEGEND =====
             var legendControl = L.control({ position: 'bottomright' });
             var legendContainer = null;
-            
-            // Function to update legend text based on current language
+
             function updateLegendText() {
                 if (!legendContainer) return;
-                
                 var lang = localStorage.getItem('siteLanguage') || localStorage.getItem('language') || 'tr';
                 var titleText = lang === 'tr' ? 'Garnizon Tipleri' : 'Garrison Types';
                 var fortressText = lang === 'tr' ? 'Kale' : 'Fortress';
                 var palankaText = lang === 'tr' ? 'Palanka/Parkan' : 'Palanka/Parkan';
                 var otherText = lang === 'tr' ? 'Diğer' : 'Other';
-                
+
                 var html = '<div style="font-weight: bold; margin-bottom: 8px;">' + titleText + '</div>';
-                
-                // Fortress (Red)
                 html += '<div style="display: flex; align-items: center; margin-bottom: 5px;">';
                 html += '<span style="display: inline-block; width: 12px; height: 12px; border-radius: 50%; background-color: #d73027; border: 1px solid #333; margin-right: 8px;"></span>';
-                html += '<span>' + fortressText + '</span>';
-                html += '</div>';
-                
-                // Palanka/Parkan (Yellow)
+                html += '<span>' + fortressText + '</span></div>';
                 html += '<div style="display: flex; align-items: center; margin-bottom: 5px;">';
                 html += '<span style="display: inline-block; width: 12px; height: 12px; border-radius: 50%; background-color: #fee08b; border: 1px solid #333; margin-right: 8px;"></span>';
-                html += '<span>' + palankaText + '</span>';
-                html += '</div>';
-                
-                // Other (Blue)
+                html += '<span>' + palankaText + '</span></div>';
                 html += '<div style="display: flex; align-items: center;">';
                 html += '<span style="display: inline-block; width: 12px; height: 12px; border-radius: 50%; background-color: #91bfdb; border: 1px solid #333; margin-right: 8px;"></span>';
-                html += '<span>' + otherText + '</span>';
-                html += '</div>';
-                
+                html += '<span>' + otherText + '</span></div>';
                 legendContainer.innerHTML = html;
             }
-            
-            legendControl.onAdd = function(map) {
+
+            legendControl.onAdd = function() {
                 legendContainer = L.DomUtil.create('div', 'leaflet-control-legend');
                 legendContainer.style.backgroundColor = 'white';
                 legendContainer.style.padding = '10px';
                 legendContainer.style.borderRadius = '4px';
                 legendContainer.style.boxShadow = '0 1px 5px rgba(0,0,0,0.4)';
                 legendContainer.style.fontSize = '12px';
-                
-                // Initial text
                 updateLegendText();
-                
-                // Prevent map click/drag when interacting with control
                 L.DomEvent.disableClickPropagation(legendContainer);
                 L.DomEvent.disableScrollPropagation(legendContainer);
-                
                 return legendContainer;
             };
             legendControl.addTo(map);
-            
-            // Listen for language changes and update legend and popups
+
+            // ===== LANGUAGE CHANGE LISTENER =====
             document.addEventListener('languageChanged', function() {
                 updateLegendText();
-                // Also update currentLang variable
                 currentLang = localStorage.getItem('siteLanguage') || localStorage.getItem('language') || 'tr';
-                
-                // Update all marker popups with new language
                 markerGarrisonMap.forEach(function(garrison, marker) {
                     marker.setPopupContent(createPopupContent(garrison));
                 });
             });
+
+            // ===== LAYER REGISTRY (extensible for future layers) =====
+            // To add a new layer in the future:
+            // 1. Load GeoJSON/data in a <script> tag
+            // 2. Register it: layerRegistry['myLayer'] = { group: L.featureGroup(), enabled: true };
+            // 3. Add markers/features to the group
+            // 4. Wire the checkbox to toggle group visibility
+            var layerRegistry = {
+                garrisons: {
+                    markers: allMarkerData,
+                    enabled: true,
+                    description: 'Ottoman garrison locations with type sub-filters and time filtering'
+                }
+                // Future layers will be registered here:
+                // shipyards: { group: L.featureGroup(), enabled: false },
+                // rivers: { group: L.featureGroup(), enabled: false },
+                // floods: { group: L.featureGroup(), enabled: false },
+            };
+
         });
     </script>
 </body>
