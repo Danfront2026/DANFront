@@ -1,5 +1,11 @@
-{
-  "total_garrisons": 210,
+/**
+ * Garrison Map Data
+ * Coordinates and metadata for map display.
+ * Generated automatically by convert_garrisons.py - do not edit manually.
+ */
+
+var garrisonMapData = {
+  "total_garrisons": 209,
   "garrisons": [
     {
       "lat": 47.4956,
@@ -21,9 +27,11 @@
         "hu": "Budai"
       },
       "date1": "1541-1686",
+      "date2": "",
       "country": "Hungary",
       "size": "Military Hub",
-      "source_file": "1budin-hun_2.txt"
+      "notes": "",
+      "source_sheet": "Budin"
     },
     {
       "lat": 47.293,
@@ -45,9 +53,11 @@
         "hu": "Budai"
       },
       "date1": "1541-1686",
+      "date2": "",
       "country": "Hungary",
       "size": "Military Hub",
-      "source_file": "1budin-hun_2.txt"
+      "notes": "",
+      "source_sheet": "Budin"
     },
     {
       "lat": 47.7719,
@@ -72,7 +82,8 @@
       "date2": "1620-1684",
       "country": "Hungary",
       "size": "Large",
-      "source_file": "1budin-hun_2.txt"
+      "notes": "",
+      "source_sheet": "Budin"
     },
     {
       "lat": 47.7963,
@@ -94,9 +105,11 @@
         "hu": "Budai"
       },
       "date1": "1544–1684",
+      "date2": "",
       "country": "Hungary",
       "size": "Large",
-      "source_file": "1budin-hun_2.txt"
+      "notes": "",
+      "source_sheet": "Budin"
     },
     {
       "lat": 47.9113,
@@ -118,9 +131,11 @@
         "hu": "Budai"
       },
       "date1": "1546-1594",
+      "date2": "",
       "country": "Hungary",
       "size": "Large",
-      "source_file": "1budin-hun_2.txt"
+      "notes": "",
+      "source_sheet": "Budin"
     },
     {
       "lat": 47.54,
@@ -142,9 +157,11 @@
         "hu": "Budai"
       },
       "date1": "1546-1686",
+      "date2": "",
       "country": "Hungary",
       "size": "Large",
-      "source_file": "1budin-hun_2.txt"
+      "notes": "",
+      "source_sheet": "Budin"
     },
     {
       "lat": 47.11,
@@ -165,9 +182,12 @@
         "tr": "Budin",
         "hu": "Budai"
       },
+      "date1": "1549-1686",
+      "date2": "",
       "country": "Hungary",
       "size": "Medium",
-      "source_file": "1budin-hun_2.txt"
+      "notes": "",
+      "source_sheet": "Budin"
     },
     {
       "lat": 47.3588,
@@ -189,9 +209,11 @@
         "hu": "Budai"
       },
       "date1": "1550-1686",
+      "date2": "",
       "country": "Hungary",
       "size": "Medium",
-      "source_file": "1budin-hun_2.txt"
+      "notes": "",
+      "source_sheet": "Budin"
     },
     {
       "lat": 46.8085,
@@ -213,17 +235,37 @@
         "hu": "Budai"
       },
       "date1": "1550s-1686",
+      "date2": "",
       "country": "Hungary",
       "size": "Small",
-      "source_file": "1budin-hun_2.txt"
+      "notes": "",
+      "source_sheet": "Budin"
     },
     {
       "lat": 47.4932,
       "lng": 19.184,
       "name": {
-        "en": "Csővár"
+        "en": "Csővár",
+        "tr": "Çövar",
+        "hu": ""
       },
-      "source_file": "1budin-hun_2.txt"
+      "type": "Fortress",
+      "province": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "sancak": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "date1": "1541-1554",
+      "date2": "",
+      "country": "Hungary",
+      "size": "Small",
+      "notes": "",
+      "source_sheet": "Budin"
     },
     {
       "lat": 47.6487,
@@ -248,7 +290,8 @@
       "date2": "1594–1598",
       "country": "Hungary",
       "size": "Large",
-      "source_file": "1budin-hun_2.txt"
+      "notes": "",
+      "source_sheet": "Budin"
     },
     {
       "lat": 47.515,
@@ -273,7 +316,8 @@
       "date2": "1594–1598",
       "country": "Hungary",
       "size": "Small",
-      "source_file": "1budin-hun_2.txt"
+      "notes": "",
+      "source_sheet": "Budin"
     },
     {
       "lat": 47.4678,
@@ -295,9 +339,11 @@
         "hu": "Budai"
       },
       "date1": "1557–1598",
+      "date2": "",
       "country": "Slovakia",
       "size": "Small",
-      "source_file": "1budin-hun_2.txt"
+      "notes": "",
+      "source_sheet": "Budin"
     },
     {
       "lat": 47.4998,
@@ -319,9 +365,11 @@
         "hu": "Budai"
       },
       "date1": "1568-1594",
+      "date2": "",
       "country": "Hungary",
       "size": "Large",
-      "source_file": "1budin-hun_2.txt"
+      "notes": "",
+      "source_sheet": "Budin"
     },
     {
       "lat": 47.3601,
@@ -343,9 +391,11 @@
         "hu": "Budai"
       },
       "date1": "1570-1686",
+      "date2": "",
       "country": "Hungary",
       "size": "Small",
-      "source_file": "1budin-hun_2.txt"
+      "notes": "",
+      "source_sheet": "Budin"
     },
     {
       "lat": 47.619,
@@ -367,9 +417,11 @@
         "hu": "Budai"
       },
       "date1": "1570-1686",
+      "date2": "",
       "country": "Hungary",
       "size": "Medium",
-      "source_file": "1budin-hun_2.txt"
+      "notes": "",
+      "source_sheet": "Budin"
     },
     {
       "lat": 47.8462,
@@ -391,9 +443,11 @@
         "hu": "Budai"
       },
       "date1": "1581-1595",
+      "date2": "",
       "country": "Hungary",
       "size": "Medium",
-      "source_file": "1budin-hun_2.txt"
+      "notes": "",
+      "source_sheet": "Budin"
     },
     {
       "lat": 47.4869,
@@ -415,9 +469,11 @@
         "hu": "Budai"
       },
       "date1": "1593-1686",
+      "date2": "",
       "country": "Hungary",
       "size": "Medium",
-      "source_file": "1budin-hun_2.txt"
+      "notes": "",
+      "source_sheet": "Budin"
     },
     {
       "lat": 47.2488,
@@ -439,9 +495,11 @@
         "hu": "Budai"
       },
       "date1": "1627-1686",
+      "date2": "",
       "country": "Hungary",
       "size": "Medium",
-      "source_file": "1budin-hun_2.txt"
+      "notes": "",
+      "source_sheet": "Budin"
     },
     {
       "lat": 47.7987,
@@ -466,7 +524,8 @@
       "date2": "1605-1683",
       "country": "Hungary",
       "size": "Military Hub",
-      "source_file": "1budin-hun_2.txt"
+      "notes": "",
+      "source_sheet": "Budin"
     },
     {
       "lat": 47.7987,
@@ -490,7 +549,9 @@
       "date1": "1545-1595",
       "date2": "1605-1683",
       "country": "Slovakia",
-      "source_file": "1budin-hun_2.txt"
+      "size": "Medium",
+      "notes": "",
+      "source_sheet": "Budin"
     },
     {
       "lat": 47.7963,
@@ -514,7 +575,9 @@
       "date1": "1594-1595",
       "date2": "1605-1683",
       "country": "Hungary",
-      "source_file": "1budin-hun_2.txt"
+      "size": "Small",
+      "notes": "",
+      "source_sheet": "Budin"
     },
     {
       "lat": 48.2715,
@@ -536,9 +599,11 @@
         "hu": "Fülek"
       },
       "date1": "1554–1593",
+      "date2": "",
       "country": "Slovakia",
       "size": "Large",
-      "source_file": "1budin-hun_2.txt"
+      "notes": "",
+      "source_sheet": "Budin"
     },
     {
       "lat": 48.38,
@@ -560,9 +625,11 @@
         "hu": "Fülek"
       },
       "date1": "1557-1593",
+      "date2": "",
       "country": "Slovakia",
       "size": "Small",
-      "source_file": "1budin-hun_2.txt"
+      "notes": "",
+      "source_sheet": "Budin"
     },
     {
       "lat": 48.2182,
@@ -584,9 +651,11 @@
         "hu": "Fülek"
       },
       "date1": "1566-1593",
+      "date2": "",
       "country": "Slovakia",
       "size": "Small",
-      "source_file": "1budin-hun_2.txt"
+      "notes": "",
+      "source_sheet": "Budin"
     },
     {
       "lat": 48.4481,
@@ -608,9 +677,11 @@
         "hu": "Fülek"
       },
       "date1": "1575–1593",
+      "date2": "",
       "country": "Slovakia",
       "size": "Medium",
-      "source_file": "1budin-hun_2.txt"
+      "notes": "",
+      "source_sheet": "Budin"
     },
     {
       "lat": 48.1714,
@@ -632,9 +703,11 @@
         "hu": "Fülek"
       },
       "date1": "1575–1593",
+      "date2": "",
       "country": "Slovakia",
       "size": "Small",
-      "source_file": "1budin-hun_2.txt"
+      "notes": "",
+      "source_sheet": "Budin"
     },
     {
       "lat": 47.6679,
@@ -656,10 +729,11 @@
         "hu": "Hatvan"
       },
       "date1": "1544–1686",
+      "date2": "",
       "country": "Hungary",
       "size": "Military Hub",
       "notes": "part of the vilayet of Eger after 1596",
-      "source_file": "1budin-hun_2.txt"
+      "source_sheet": "Budin"
     },
     {
       "lat": 48.1446,
@@ -681,9 +755,11 @@
         "hu": "Hatvan"
       },
       "date1": "1554–1593",
+      "date2": "",
       "country": "Hungary",
       "size": "Small",
-      "source_file": "1budin-hun_2.txt"
+      "notes": "",
+      "source_sheet": "Budin"
     },
     {
       "lat": 47.1912,
@@ -700,14 +776,16 @@
         "hu": "Budai"
       },
       "sancak": {
-        "en": "Hatvan",
-        "tr": "Hatvan",
-        "hu": "Hatvan"
+        "en": "Székesfehérvár",
+        "tr": "Istolni Belgrad",
+        "hu": "Székesfehérvár"
       },
       "date1": "1543–1688",
+      "date2": "",
       "country": "Hungary",
       "size": "Military Hub",
-      "source_file": "1budin-hun_2.txt"
+      "notes": "",
+      "source_sheet": "Budin"
     },
     {
       "lat": 47.3601,
@@ -724,14 +802,16 @@
         "hu": "Budai"
       },
       "sancak": {
-        "en": "Hatvan",
-        "tr": "Hatvan",
-        "hu": "Hatvan"
+        "en": "Székesfehérvár",
+        "tr": "Istolni Belgrad",
+        "hu": "Székesfehérvár"
       },
       "date1": "1544–1687",
+      "date2": "",
       "country": "Hungary",
       "size": "Small",
-      "source_file": "1budin-hun_2.txt"
+      "notes": "",
+      "source_sheet": "Budin"
     },
     {
       "lat": 47.096,
@@ -748,15 +828,16 @@
         "hu": "Budai"
       },
       "sancak": {
-        "en": "Hatvan",
-        "tr": "Hatvan",
-        "hu": "Hatvan"
+        "en": "Székesfehérvár",
+        "tr": "Istolni Belgrad",
+        "hu": "Székesfehérvár"
       },
       "date1": "1552–1566",
       "date2": "1593–1598",
       "country": "Hungary",
       "size": "Large",
-      "source_file": "1budin-hun_2.txt"
+      "notes": "",
+      "source_sheet": "Budin"
     },
     {
       "lat": 47.11,
@@ -764,22 +845,25 @@
       "name": {
         "en": "Bak'an (Szabadbattyán)",
         "tr": "Battyán",
-        "hu": "Fortress"
+        "hu": ""
       },
-      "type": "Budin",
+      "type": "Fortress",
       "province": {
         "en": "Budin",
         "tr": "Budai",
-        "hu": "Hatvan"
+        "hu": "Budai"
       },
       "sancak": {
-        "en": "Hatvan",
-        "tr": "Hatvan",
-        "hu": "1567-1687"
+        "en": "Székesfehérvár",
+        "tr": "Istolni Belgrad",
+        "hu": "Székesfehérvár"
       },
-      "date2": "Hungary",
-      "country": "Medium",
-      "source_file": "1budin-hun_2.txt"
+      "date1": "1567-1687",
+      "date2": "",
+      "country": "Hungary",
+      "size": "Medium",
+      "notes": "",
+      "source_sheet": "Budin"
     },
     {
       "lat": 47.2006,
@@ -796,15 +880,16 @@
         "hu": "Budai"
       },
       "sancak": {
-        "en": "Hatvan",
-        "tr": "Hatvan",
-        "hu": "Hatvan"
+        "en": "Székesfehérvár",
+        "tr": "Istolni Belgrad",
+        "hu": "Székesfehérvár"
       },
       "date1": "1593–1598",
       "date2": "1605–1687",
       "country": "Hungary",
       "size": "Military Hub",
-      "source_file": "1budin-hun_2.txt"
+      "notes": "",
+      "source_sheet": "Budin"
     },
     {
       "lat": 46.9132,
@@ -821,22 +906,42 @@
         "hu": "Budai"
       },
       "sancak": {
-        "en": "Hatvan",
-        "tr": "Hatvan",
-        "hu": "Hatvan"
+        "en": "Székesfehérvár",
+        "tr": "Istolni Belgrad",
+        "hu": "Székesfehérvár"
       },
       "date1": "1594–1598",
+      "date2": "",
       "country": "Hungary",
       "size": "Large",
-      "source_file": "1budin-hun_2.txt"
+      "notes": "",
+      "source_sheet": "Budin"
     },
     {
       "lat": 46.9849,
       "lng": 17.6957,
       "name": {
-        "en": "Vázsony, Nagyvázsony"
+        "en": "Vázsony, Nagyvázsony",
+        "tr": "Vajon",
+        "hu": ""
       },
-      "source_file": "1budin-hun_2.txt"
+      "type": "Fortress",
+      "province": {
+        "en": "Budin",
+        "tr": "Budin",
+        "hu": "Budai"
+      },
+      "sancak": {
+        "en": "Székesfehérvár",
+        "tr": "Istolni Belgrad",
+        "hu": "Székesfehérvár"
+      },
+      "date1": "1594–1598",
+      "date2": "",
+      "country": "Hungary",
+      "size": "Unknown",
+      "notes": "",
+      "source_sheet": "Budin"
     },
     {
       "lat": 46.601,
@@ -858,9 +963,11 @@
         "hu": "Koppány (?)"
       },
       "date1": "1566-1686",
+      "date2": "",
       "country": "Hungary",
       "size": "Medium",
-      "source_file": "1budin-hun_2.txt"
+      "notes": "",
+      "source_sheet": "Budin"
     },
     {
       "lat": 46.3634,
@@ -882,9 +989,11 @@
         "hu": "Koppány (?)"
       },
       "date1": "1546–1686",
+      "date2": "",
       "country": "Hungary",
       "size": "Medium",
-      "source_file": "1budin-hun_2.txt"
+      "notes": "",
+      "source_sheet": "Budin"
     },
     {
       "lat": 46.69,
@@ -906,9 +1015,11 @@
         "hu": "Koppány (?)"
       },
       "date1": "1555–1686",
+      "date2": "",
       "country": "Hungary",
       "size": "Small",
-      "source_file": "1budin-hun_2.txt"
+      "notes": "",
+      "source_sheet": "Budin"
     },
     {
       "lat": 46.3624,
@@ -930,9 +1041,11 @@
         "hu": "Koppány (?)"
       },
       "date1": "1566–1686",
+      "date2": "",
       "country": "Hungary",
       "size": "Medium",
-      "source_file": "1budin-hun_2.txt"
+      "notes": "",
+      "source_sheet": "Budin"
     },
     {
       "lat": 46.8132,
@@ -954,9 +1067,11 @@
         "hu": "Koppány (?)"
       },
       "date1": "1570-?",
+      "date2": "",
       "country": "Hungary",
       "size": "Small",
-      "source_file": "1budin-hun_2.txt"
+      "notes": "",
+      "source_sheet": "Budin"
     },
     {
       "lat": 46.9048,
@@ -978,9 +1093,11 @@
         "hu": "Koppány (?)"
       },
       "date1": "?-1684",
+      "date2": "",
       "country": "Hungary",
       "size": "Medium",
-      "source_file": "1budin-hun_2.txt"
+      "notes": "",
+      "source_sheet": "Budin"
     },
     {
       "lat": 46.59,
@@ -1002,9 +1119,11 @@
         "hu": "Koppány (?)"
       },
       "date1": "1610s?",
+      "date2": "",
       "country": "Hungary",
       "size": "Small",
-      "source_file": "1budin-hun_2.txt"
+      "notes": "",
+      "source_sheet": "Budin"
     },
     {
       "lat": 47.906,
@@ -1025,9 +1144,12 @@
         "tr": "Novigrad",
         "hu": "Nógrád"
       },
+      "date1": "",
+      "date2": "",
       "country": "Hungary",
       "size": "Medium",
-      "source_file": "1budin-hun_2.txt"
+      "notes": "",
+      "source_sheet": "Budin"
     },
     {
       "lat": 48.0164,
@@ -1049,16 +1171,18 @@
         "hu": "Nógrád"
       },
       "date1": "1552–1593",
+      "date2": "",
       "country": "Hungary",
       "size": "Large",
-      "source_file": "1budin-hun_2.txt"
+      "notes": "",
+      "source_sheet": "Budin"
     },
     {
       "lat": 48.0516,
       "lng": 19.0453,
       "name": {
         "en": "Drégelypalánk",
-        "tr": "Bö?ürdelen",
+        "tr": "Böğürdelen",
         "hu": "Drégelypalánk"
       },
       "type": "Palanka",
@@ -1076,7 +1200,8 @@
       "date2": "1663–1685(?)",
       "country": "Hungary",
       "size": "Medium",
-      "source_file": "1budin-hun_2.txt"
+      "notes": "",
+      "source_sheet": "Budin"
     },
     {
       "lat": 46.0763,
@@ -1098,10 +1223,11 @@
         "hu": "Pécs"
       },
       "date1": "1543–1686",
+      "date2": "",
       "country": "Hungary",
       "size": "Military Hub",
       "notes": "part of the vilayet of Kanitza after 1600",
-      "source_file": "1budin-hun_2.txt"
+      "source_sheet": "Budin"
     },
     {
       "lat": 46.2743,
@@ -1123,9 +1249,11 @@
         "hu": "Pécs"
       },
       "date1": "1540s",
+      "date2": "",
       "country": "Hungary",
       "size": "Medium",
-      "source_file": "1budin-hun_2.txt"
+      "notes": "",
+      "source_sheet": "Budin"
     },
     {
       "lat": 46.03,
@@ -1147,9 +1275,11 @@
         "hu": "Pécs"
       },
       "date1": "1544-1559",
+      "date2": "",
       "country": "Hungary",
       "size": "Medium",
-      "source_file": "1budin-hun_2.txt"
+      "notes": "",
+      "source_sheet": "Budin"
     },
     {
       "lat": 46.2252,
@@ -1171,8 +1301,11 @@
         "hu": "Pécs"
       },
       "date1": "?-1546",
+      "date2": "",
       "country": "Hungary",
-      "source_file": "1budin-hun_2.txt"
+      "size": "Small",
+      "notes": "",
+      "source_sheet": "Budin"
     },
     {
       "lat": 46.0582,
@@ -1194,9 +1327,11 @@
         "hu": "Pécs"
       },
       "date1": "1551-1559",
+      "date2": "",
       "country": "Hungary",
       "size": "Medium",
-      "source_file": "1budin-hun_2.txt"
+      "notes": "",
+      "source_sheet": "Budin"
     },
     {
       "lat": 46.2689,
@@ -1218,9 +1353,11 @@
         "hu": "Pécs"
       },
       "date1": "1552-1599",
+      "date2": "",
       "country": "Hungary",
       "size": "Medium",
-      "source_file": "1budin-hun_2.txt"
+      "notes": "",
+      "source_sheet": "Budin"
     },
     {
       "lat": 46.3551,
@@ -1242,9 +1379,11 @@
         "hu": "Pécs"
       },
       "date1": "1555-1686",
+      "date2": "",
       "country": "Hungary",
       "size": "Large",
-      "source_file": "1budin-hun_2.txt"
+      "notes": "",
+      "source_sheet": "Budin"
     },
     {
       "lat": 45.8723,
@@ -1266,9 +1405,11 @@
         "hu": "Pécs"
       },
       "date1": "1550s-1559",
+      "date2": "",
       "country": "Hungary",
       "size": "Small",
-      "source_file": "1budin-hun_2.txt"
+      "notes": "",
+      "source_sheet": "Budin"
     },
     {
       "lat": 46.226,
@@ -1290,10 +1431,11 @@
         "hu": "Pécs"
       },
       "date1": "1570-1686",
+      "date2": "",
       "country": "Hungary",
       "size": "Medium",
       "notes": "part of the vilayet of Kanitza after 1600",
-      "source_file": "1budin-hun_2.txt"
+      "source_sheet": "Budin"
     },
     {
       "lat": 46.5519,
@@ -1315,9 +1457,11 @@
         "hu": "Pécs"
       },
       "date1": "1574-1592?",
+      "date2": "",
       "country": "Hungary",
       "size": "Small",
-      "source_file": "1budin-hun_2.txt"
+      "notes": "",
+      "source_sheet": "Budin"
     },
     {
       "lat": 46.2528,
@@ -1339,9 +1483,11 @@
         "hu": "Szeged"
       },
       "date1": "1543-1686",
+      "date2": "",
       "country": "Hungary",
       "size": "Large",
-      "source_file": "1budin-hun_2.txt"
+      "notes": "",
+      "source_sheet": "Budin"
     },
     {
       "lat": 45.2039,
@@ -1363,9 +1509,11 @@
         "hu": "Szeged"
       },
       "date1": "1526-1688",
+      "date2": "",
       "country": "Serbia",
       "size": "Large",
-      "source_file": "1budin-hun_2.txt"
+      "notes": "",
+      "source_sheet": "Budin"
     },
     {
       "lat": 46.5275,
@@ -1387,9 +1535,11 @@
         "hu": "Szeged"
       },
       "date1": "1541-1686",
+      "date2": "",
       "country": "Hungary",
       "size": "Large",
-      "source_file": "1budin-hun_2.txt"
+      "notes": "",
+      "source_sheet": "Budin"
     },
     {
       "lat": 45.47,
@@ -1411,9 +1561,11 @@
         "hu": "Szeged"
       },
       "date1": "1542-1686",
+      "date2": "",
       "country": "Serbia",
       "size": "Small",
-      "source_file": "1budin-hun_2.txt"
+      "notes": "",
+      "source_sheet": "Budin"
     },
     {
       "lat": 45.3929,
@@ -1435,9 +1587,11 @@
         "hu": "Szeged"
       },
       "date1": "1543(?)-1686",
+      "date2": "",
       "country": "Serbia",
       "size": "Medium",
-      "source_file": "1budin-hun_2.txt"
+      "notes": "",
+      "source_sheet": "Budin"
     },
     {
       "lat": 46.1014,
@@ -1459,9 +1613,11 @@
         "hu": "Szeged"
       },
       "date1": "1544-1686",
+      "date2": "",
       "country": "Hungary",
       "size": "Small",
-      "source_file": "1budin-hun_2.txt"
+      "notes": "",
+      "source_sheet": "Budin"
     },
     {
       "lat": 46.178,
@@ -1483,9 +1639,11 @@
         "hu": "Szeged"
       },
       "date1": "1550s-1686",
+      "date2": "",
       "country": "Serbia",
       "size": "Medium",
-      "source_file": "1budin-hun_2.txt"
+      "notes": "",
+      "source_sheet": "Budin"
     },
     {
       "lat": 46.6145,
@@ -1507,9 +1665,11 @@
         "hu": "Szeged"
       },
       "date1": "1561-?",
+      "date2": "",
       "country": "Hungary",
       "size": "Medium",
-      "source_file": "1budin-hun_2.txt"
+      "notes": "",
+      "source_sheet": "Budin"
     },
     {
       "lat": 46.9248,
@@ -1531,9 +1691,11 @@
         "hu": "Szeged"
       },
       "date1": "1570-?",
+      "date2": "",
       "country": "Hungary",
       "size": "Medium",
-      "source_file": "1budin-hun_2.txt"
+      "notes": "",
+      "source_sheet": "Budin"
     },
     {
       "lat": 46.0628,
@@ -1555,9 +1717,11 @@
         "hu": "Szeged"
       },
       "date1": "1590-1686(?)",
+      "date2": "",
       "country": "Serbia",
       "size": "Small",
-      "source_file": "1budin-hun_2.txt"
+      "notes": "",
+      "source_sheet": "Budin"
     },
     {
       "lat": 45.2361,
@@ -1579,9 +1743,11 @@
         "hu": "Szeged"
       },
       "date1": "?-1686",
+      "date2": "",
       "country": "Serbia",
       "size": "Small",
-      "source_file": "1budin-hun_2.txt"
+      "notes": "",
+      "source_sheet": "Budin"
     },
     {
       "lat": 46.0477,
@@ -1603,9 +1769,11 @@
         "hu": "Szeged"
       },
       "date1": "?-?",
+      "date2": "",
       "country": "Hungary",
       "size": "Medium",
-      "source_file": "1budin-hun_2.txt"
+      "notes": "",
+      "source_sheet": "Budin"
     },
     {
       "lat": 45.3004,
@@ -1627,9 +1795,11 @@
         "hu": "Szeged"
       },
       "date1": "?-?",
+      "date2": "",
       "country": "Hungary",
       "size": "Small",
-      "source_file": "1budin-hun_2.txt"
+      "notes": "",
+      "source_sheet": "Budin"
     },
     {
       "lat": 45.2136,
@@ -1651,9 +1821,11 @@
         "hu": "Szeged"
       },
       "date1": "?-1686",
+      "date2": "",
       "country": "Hungary",
       "size": "Small",
-      "source_file": "1budin-hun_2.txt"
+      "notes": "",
+      "source_sheet": "Budin"
     },
     {
       "lat": 45.2528,
@@ -1675,9 +1847,11 @@
         "hu": "Szeged"
       },
       "date1": "1610-?",
+      "date2": "",
       "country": "Hungary",
       "size": "Small",
-      "source_file": "1budin-hun_2.txt"
+      "notes": "",
+      "source_sheet": "Budin"
     },
     {
       "lat": 46.0882,
@@ -1699,9 +1873,11 @@
         "hu": "Szekcső"
       },
       "date1": "1541-1686",
+      "date2": "",
       "country": "Hungary",
       "size": "Small",
-      "source_file": "1budin-hun_2.txt"
+      "notes": "",
+      "source_sheet": "Budin"
     },
     {
       "lat": 45.7861,
@@ -1723,9 +1899,11 @@
         "hu": "Szekcső"
       },
       "date1": "1544–1686",
+      "date2": "",
       "country": "Croatia",
       "size": "Small",
-      "source_file": "1budin-hun_2.txt"
+      "notes": "",
+      "source_sheet": "Budin"
     },
     {
       "lat": 46.0036,
@@ -1747,9 +1925,11 @@
         "hu": "Szekcső"
       },
       "date1": "1560-1686",
+      "date2": "",
       "country": "Hungary",
       "size": "Medium",
-      "source_file": "1budin-hun_2.txt"
+      "notes": "",
+      "source_sheet": "Budin"
     },
     {
       "lat": 45.7996,
@@ -1771,8 +1951,11 @@
         "hu": "Szekcső"
       },
       "date1": "?-1663",
+      "date2": "",
       "country": "Croatia",
-      "source_file": "1budin-hun_2.txt"
+      "size": "Small",
+      "notes": "",
+      "source_sheet": "Budin"
     },
     {
       "lat": 45.62,
@@ -1794,9 +1977,11 @@
         "hu": "Szekcső"
       },
       "date1": "?-1686",
+      "date2": "",
       "country": "Croatia",
       "size": "Medium",
-      "source_file": "1budin-hun_2.txt"
+      "notes": "",
+      "source_sheet": "Budin"
     },
     {
       "lat": 46.35,
@@ -1818,9 +2003,11 @@
         "hu": "Szekszárd"
       },
       "date1": "1541-1686",
+      "date2": "",
       "country": "Hungary",
       "size": "Large",
-      "source_file": "1budin-hun_2.txt"
+      "notes": "",
+      "source_sheet": "Budin"
     },
     {
       "lat": 46.1878,
@@ -1842,9 +2029,11 @@
         "hu": "Szekszárd"
       },
       "date1": "1550s-1686",
+      "date2": "",
       "country": "Hungary",
       "size": "Medium",
-      "source_file": "1budin-hun_2.txt"
+      "notes": "",
+      "source_sheet": "Budin"
     },
     {
       "lat": 46.629,
@@ -1866,9 +2055,11 @@
         "hu": "Szekszárd"
       },
       "date1": "1565-1686",
+      "date2": "",
       "country": "Hungary",
       "size": "Medium",
-      "source_file": "1budin-hun_2.txt"
+      "notes": "",
+      "source_sheet": "Budin"
     },
     {
       "lat": 46.3801,
@@ -1890,9 +2081,11 @@
         "hu": "Szekszárd"
       },
       "date1": "1600s-1686",
+      "date2": "",
       "country": "Hungary",
       "size": "Medium",
-      "source_file": "1budin-hun_2.txt"
+      "notes": "",
+      "source_sheet": "Budin"
     },
     {
       "lat": 46.4229,
@@ -1914,9 +2107,11 @@
         "hu": "Szekszárd"
       },
       "date1": "1600s-1686",
+      "date2": "",
       "country": "Hungary",
       "size": "Medium",
-      "source_file": "1budin-hun_2.txt"
+      "notes": "",
+      "source_sheet": "Budin"
     },
     {
       "lat": 48.0829,
@@ -1941,7 +2136,8 @@
       "date2": "1663-1683",
       "country": "Hungary",
       "size": "Large",
-      "source_file": "1budin-hun_2.txt"
+      "notes": "",
+      "source_sheet": "Budin"
     },
     {
       "lat": 47.9976,
@@ -1965,8 +2161,9 @@
       "date1": "1552-1593",
       "date2": "1663-1683",
       "country": "Hungary",
-      "size": "medium",
-      "source_file": "1budin-hun_2.txt"
+      "size": "Medium",
+      "notes": "",
+      "source_sheet": "Budin"
     },
     {
       "lat": 47.8982,
@@ -1991,7 +2188,8 @@
       "date2": "1663-1685",
       "country": "Hungary",
       "size": "Medium",
-      "source_file": "1budin-hun_2.txt"
+      "notes": "",
+      "source_sheet": "Budin"
     },
     {
       "lat": 48.2392,
@@ -2013,9 +2211,11 @@
         "hu": "Szekszárd"
       },
       "date1": "1575-1593",
+      "date2": "",
       "country": "Slovakia",
       "size": "Medium",
-      "source_file": "1budin-hun_2.txt"
+      "notes": "",
+      "source_sheet": "Budin"
     },
     {
       "lat": 46.0507,
@@ -2037,10 +2237,11 @@
         "hu": "Szigetvár"
       },
       "date1": "1566-1689",
+      "date2": "",
       "country": "Hungary",
       "size": "Military Hub",
       "notes": "part of the vilayet of Kanitza after 1600",
-      "source_file": "1budin-hun_2.txt"
+      "source_sheet": "Budin"
     },
     {
       "lat": 45.852,
@@ -2062,10 +2263,11 @@
         "hu": "Szigetvár"
       },
       "date1": "1543-1686",
+      "date2": "",
       "country": "Hungary",
       "size": "Military Hub",
       "notes": "part of the sancak of Peçuy before 1566. part of the sancak of Szigetvár after 1566; part of the vilayet of Kanitza after 1600",
-      "source_file": "1budin-hun_2.txt"
+      "source_sheet": "Budin"
     },
     {
       "lat": 46.0394,
@@ -2091,7 +2293,7 @@
       "country": "Hungary",
       "size": "Military Hub",
       "notes": "part of the vilayet of Kanitza after 1600",
-      "source_file": "1budin-hun_2.txt"
+      "source_sheet": "Budin"
     },
     {
       "lat": 46.21,
@@ -2113,10 +2315,11 @@
         "hu": "Szigetvár"
       },
       "date1": "1566-1686",
+      "date2": "",
       "country": "Hungary",
       "size": "Large",
       "notes": "part of the vilayet of Kanitza after 1600",
-      "source_file": "1budin-hun_2.txt"
+      "source_sheet": "Budin"
     },
     {
       "lat": 46.3562,
@@ -2138,9 +2341,11 @@
         "hu": "Szigetvár"
       },
       "date1": "1566-1686",
+      "date2": "",
       "country": "Hungary",
       "size": "Large",
-      "source_file": "1budin-hun_2.txt"
+      "notes": "",
+      "source_sheet": "Budin"
     },
     {
       "lat": 45.9602,
@@ -2162,10 +2367,11 @@
         "hu": "Szigetvár"
       },
       "date1": "1567-1664",
+      "date2": "",
       "country": "Hungary",
       "size": "Large",
       "notes": "part of the vilayet of Kanitza after 1600",
-      "source_file": "1budin-hun_2.txt"
+      "source_sheet": "Budin"
     },
     {
       "lat": 46.7527,
@@ -2187,9 +2393,11 @@
         "hu": "Simontornya"
       },
       "date1": "1545-1686",
+      "date2": "",
       "country": "Hungary",
       "size": "Medium",
-      "source_file": "1budin-hun_2.txt"
+      "notes": "",
+      "source_sheet": "Budin"
     },
     {
       "lat": 46.4317,
@@ -2211,9 +2419,11 @@
         "hu": "Simontornya"
       },
       "date1": "1545-1566",
+      "date2": "",
       "country": "Hungary",
       "size": "Small",
-      "source_file": "1budin-hun_2.txt"
+      "notes": "",
+      "source_sheet": "Budin"
     },
     {
       "lat": 46.8356,
@@ -2235,9 +2445,11 @@
         "hu": "Simontornya"
       },
       "date1": "1544-1686",
+      "date2": "",
       "country": "Hungary",
       "size": "Medium",
-      "source_file": "1budin-hun_2.txt"
+      "notes": "",
+      "source_sheet": "Budin"
     },
     {
       "lat": 46.7527,
@@ -2259,9 +2471,11 @@
         "hu": "Simontornya"
       },
       "date1": "1545-1686",
+      "date2": "",
       "country": "Hungary",
       "size": "Medium",
-      "source_file": "1budin-hun_2.txt"
+      "notes": "",
+      "source_sheet": "Budin"
     },
     {
       "lat": 46.6228,
@@ -2283,9 +2497,11 @@
         "hu": "Simontornya"
       },
       "date1": "1545-1686",
+      "date2": "",
       "country": "Hungary",
       "size": "Medium",
-      "source_file": "1budin-hun_2.txt"
+      "notes": "",
+      "source_sheet": "Budin"
     },
     {
       "lat": 46.4218,
@@ -2307,9 +2523,11 @@
         "hu": "Simontornya"
       },
       "date1": "1545-1686",
+      "date2": "",
       "country": "Hungary",
       "size": "Large",
-      "source_file": "1budin-hun_2.txt"
+      "notes": "",
+      "source_sheet": "Budin"
     },
     {
       "lat": 46.8162,
@@ -2331,9 +2549,11 @@
         "hu": "Simontornya"
       },
       "date1": "1565-1686",
+      "date2": "",
       "country": "Hungary",
       "size": "Small",
-      "source_file": "1budin-hun_2.txt"
+      "notes": "",
+      "source_sheet": "Budin"
     },
     {
       "lat": 46.8723,
@@ -2355,9 +2575,11 @@
         "hu": "Simontornya"
       },
       "date1": "1608-?",
+      "date2": "",
       "country": "Hungary",
       "size": "Small",
-      "source_file": "1budin-hun_2.txt"
+      "notes": "",
+      "source_sheet": "Budin"
     },
     {
       "lat": 46.6799,
@@ -2379,9 +2601,11 @@
         "hu": "Simontornya"
       },
       "date1": "1615-?",
+      "date2": "",
       "country": "Hungary",
       "size": "Small",
-      "source_file": "1budin-hun_2.txt"
+      "notes": "",
+      "source_sheet": "Budin"
     },
     {
       "lat": 47.1735,
@@ -2403,10 +2627,11 @@
         "hu": "Szolnok"
       },
       "date1": "1552-1585",
+      "date2": "",
       "country": "Hungary",
       "size": "Military Hub",
       "notes": "part of the vilayet of Eger after 1596",
-      "source_file": "1budin-hun_2.txt"
+      "source_sheet": "Budin"
     },
     {
       "lat": 47.1788,
@@ -2432,7 +2657,7 @@
       "country": "Hungary",
       "size": "Large",
       "notes": "part of the vilayet of Eger after 1596",
-      "source_file": "1budin-hun_2.txt"
+      "source_sheet": "Budin"
     },
     {
       "lat": 46.7107,
@@ -2454,10 +2679,11 @@
         "hu": "Szolnok"
       },
       "date1": "1561-1681",
+      "date2": "",
       "country": "Hungary",
       "size": "Medium",
       "notes": "part of the vilayet of Eger after 1596",
-      "source_file": "1budin-hun_2.txt"
+      "source_sheet": "Budin"
     },
     {
       "lat": 45.756,
@@ -2479,9 +2705,11 @@
         "hu": "Temesvár"
       },
       "date1": "1552–1716",
-      "date2": "Romania",
-      "country": "Military Hub",
-      "source_file": "2temesvar_hun_2.txt"
+      "date2": "",
+      "country": "Romania",
+      "size": "Military Hub",
+      "notes": "",
+      "source_sheet": "Temesvar"
     },
     {
       "lat": 45.1227,
@@ -2503,9 +2731,11 @@
         "hu": "Temesvár"
       },
       "date1": "1552–1716",
-      "date2": "Serbia",
-      "country": "Medium",
-      "source_file": "2temesvar_hun_2.txt"
+      "date2": "",
+      "country": "Serbia",
+      "size": "Medium",
+      "notes": "",
+      "source_sheet": "Temesvar"
     },
     {
       "lat": 46.1173,
@@ -2527,9 +2757,11 @@
         "hu": "Temesvár"
       },
       "date1": "1552–1595. 1598–1716",
-      "date2": "Romania",
-      "country": "Small",
-      "source_file": "2temesvar_hun_2.txt"
+      "date2": "",
+      "country": "Romania",
+      "size": "Small",
+      "notes": "",
+      "source_sheet": "Temesvar"
     },
     {
       "lat": 45.8661,
@@ -2551,9 +2783,11 @@
         "hu": "Temesvár"
       },
       "date1": "1552–1595. 1616–1716",
-      "date2": "Romania",
-      "country": "Small",
-      "source_file": "2temesvar_hun_2.txt"
+      "date2": "",
+      "country": "Romania",
+      "size": "Small",
+      "notes": "",
+      "source_sheet": "Temesvar"
     },
     {
       "lat": 45.3865,
@@ -2575,9 +2809,11 @@
         "hu": "Temesvár"
       },
       "date1": "1552–1595. 1607–1716",
-      "date2": "Romania",
-      "country": "Small",
-      "source_file": "2temesvar_hun_2.txt"
+      "date2": "",
+      "country": "Romania",
+      "size": "Small",
+      "notes": "",
+      "source_sheet": "Temesvar"
     },
     {
       "lat": 45.5149,
@@ -2599,9 +2835,11 @@
         "hu": "Temesvár"
       },
       "date1": "1552–?",
-      "date2": "Romania",
-      "country": "Small",
-      "source_file": "2temesvar_hun_2.txt"
+      "date2": "",
+      "country": "Romania",
+      "size": "Small",
+      "notes": "",
+      "source_sheet": "Temesvar"
     },
     {
       "lat": 44.8715,
@@ -2623,9 +2861,11 @@
         "hu": "Temesvár"
       },
       "date1": "1566–1716",
-      "date2": "Serbia",
-      "country": "Small",
-      "source_file": "2temesvar_hun_2.txt"
+      "date2": "",
+      "country": "Serbia",
+      "size": "Small",
+      "notes": "",
+      "source_sheet": "Temesvar"
     },
     {
       "lat": 44.6939,
@@ -2647,9 +2887,11 @@
         "hu": "Temesvár"
       },
       "date1": "?–1630",
-      "date2": "Serbia",
-      "country": "Small",
-      "source_file": "2temesvar_hun_2.txt"
+      "date2": "",
+      "country": "Serbia",
+      "size": "Small",
+      "notes": "",
+      "source_sheet": "Temesvar"
     },
     {
       "lat": 45.359,
@@ -2671,9 +2913,11 @@
         "hu": "Temesvár"
       },
       "date1": "?–1716",
-      "date2": "Romania",
-      "country": "Medium",
-      "source_file": "2temesvar_hun_2.txt"
+      "date2": "",
+      "country": "Romania",
+      "size": "Medium",
+      "notes": "",
+      "source_sheet": "Temesvar"
     },
     {
       "lat": 45.7704,
@@ -2695,9 +2939,11 @@
         "hu": "Temesvár"
       },
       "date1": "?–?",
-      "date2": "Romania",
-      "country": "Medium",
-      "source_file": "2temesvar_hun_2.txt"
+      "date2": "",
+      "country": "Romania",
+      "size": "Medium",
+      "notes": "",
+      "source_sheet": "Temesvar"
     },
     {
       "lat": 45.793,
@@ -2719,9 +2965,11 @@
         "hu": "Temesvár"
       },
       "date1": "?–?",
-      "date2": "Romania",
-      "country": "Small",
-      "source_file": "2temesvar_hun_2.txt"
+      "date2": "",
+      "country": "Romania",
+      "size": "Small",
+      "notes": "",
+      "source_sheet": "Temesvar"
     },
     {
       "lat": 45.4953,
@@ -2743,9 +2991,11 @@
         "hu": "Temesvár"
       },
       "date1": "?–?",
-      "date2": "Romania",
-      "country": "Small",
-      "source_file": "2temesvar_hun_2.txt"
+      "date2": "",
+      "country": "Romania",
+      "size": "Small",
+      "notes": "",
+      "source_sheet": "Temesvar"
     },
     {
       "lat": 45.8717,
@@ -2767,9 +3017,11 @@
         "hu": "Temesvár"
       },
       "date1": "?–?",
-      "date2": "Romania",
-      "country": "Small",
-      "source_file": "2temesvar_hun_2.txt"
+      "date2": "",
+      "country": "Romania",
+      "size": "Small",
+      "notes": "",
+      "source_sheet": "Temesvar"
     },
     {
       "lat": 46.1343,
@@ -2791,9 +3043,11 @@
         "hu": "Csanád"
       },
       "date1": "1552–1595. 1598–1716",
-      "date2": "Romania",
-      "country": "Medium",
-      "source_file": "2temesvar_hun_2.txt"
+      "date2": "",
+      "country": "Romania",
+      "size": "Medium",
+      "notes": "",
+      "source_sheet": "Temesvar"
     },
     {
       "lat": 45.3837,
@@ -2815,9 +3069,11 @@
         "hu": "Csanád"
       },
       "date1": "1551–1716",
-      "date2": "Serbia",
-      "country": "Military Hub",
-      "source_file": "2temesvar_hun_2.txt"
+      "date2": "",
+      "country": "Serbia",
+      "size": "Military Hub",
+      "notes": "",
+      "source_sheet": "Temesvar"
     },
     {
       "lat": 45.5948,
@@ -2839,9 +3095,11 @@
         "hu": "Csanád"
       },
       "date1": "1551–1716",
-      "date2": "Serbia",
-      "country": "Military Hub",
-      "source_file": "2temesvar_hun_2.txt"
+      "date2": "",
+      "country": "Serbia",
+      "size": "Military Hub",
+      "notes": "",
+      "source_sheet": "Temesvar"
     },
     {
       "lat": 45.644,
@@ -2862,10 +3120,12 @@
         "tr": "Çanad",
         "hu": "Csanád"
       },
-      "date1": "1551",
-      "date2": "Serbia",
-      "country": "Large",
-      "source_file": "2temesvar_hun_2.txt"
+      "date1": "1551.0",
+      "date2": "",
+      "country": "Serbia",
+      "size": "Large",
+      "notes": "",
+      "source_sheet": "Temesvar"
     },
     {
       "lat": 46.0448,
@@ -2887,9 +3147,11 @@
         "hu": "Csanád"
       },
       "date1": "?–?",
-      "date2": "Romania",
-      "country": "Medium",
-      "source_file": "2temesvar_hun_2.txt"
+      "date2": "",
+      "country": "Romania",
+      "size": "Medium",
+      "notes": "",
+      "source_sheet": "Temesvar"
     },
     {
       "lat": 46.6464,
@@ -2911,9 +3173,11 @@
         "hu": "Gyula"
       },
       "date1": "1566–1695",
-      "date2": "Hungary",
-      "country": "Military Hub",
-      "source_file": "2temesvar_hun_2.txt"
+      "date2": "",
+      "country": "Hungary",
+      "size": "Military Hub",
+      "notes": "",
+      "source_sheet": "Temesvar"
     },
     {
       "lat": 46.1699,
@@ -2935,9 +3199,11 @@
         "hu": "Gyula"
       },
       "date1": "1555–1595. 1658–1685",
-      "date2": "Romania",
-      "country": "Small",
-      "source_file": "2temesvar_hun_2.txt"
+      "date2": "",
+      "country": "Romania",
+      "size": "Small",
+      "notes": "",
+      "source_sheet": "Temesvar"
     },
     {
       "lat": 46.5187,
@@ -2959,9 +3225,11 @@
         "hu": "Gyula"
       },
       "date1": "1571–1595",
-      "date2": "Romania",
-      "country": "Medium",
-      "source_file": "2temesvar_hun_2.txt"
+      "date2": "",
+      "country": "Romania",
+      "size": "Medium",
+      "notes": "",
+      "source_sheet": "Temesvar"
     },
     {
       "lat": 46.7714,
@@ -2983,9 +3251,11 @@
         "hu": "Gyula"
       },
       "date1": "1576–1595",
-      "date2": "Hungary",
-      "country": "Medium",
-      "source_file": "2temesvar_hun_2.txt"
+      "date2": "",
+      "country": "Hungary",
+      "size": "Medium",
+      "notes": "",
+      "source_sheet": "Temesvar"
     },
     {
       "lat": 46.8652,
@@ -3007,9 +3277,11 @@
         "hu": "Gyula"
       },
       "date1": "1584–1595. 1670–1685",
-      "date2": "Hungary",
-      "country": "Medium",
-      "source_file": "2temesvar_hun_2.txt"
+      "date2": "",
+      "country": "Hungary",
+      "size": "Medium",
+      "notes": "",
+      "source_sheet": "Temesvar"
     },
     {
       "lat": 45.9008,
@@ -3031,9 +3303,11 @@
         "hu": "Gyula"
       },
       "date1": "?–?",
-      "date2": "Romania",
-      "country": "Medium",
-      "source_file": "2temesvar_hun_2.txt"
+      "date2": "",
+      "country": "Romania",
+      "size": "Medium",
+      "notes": "",
+      "source_sheet": "Temesvar"
     },
     {
       "lat": 46.0886,
@@ -3055,9 +3329,11 @@
         "hu": "Lippa"
       },
       "date1": "1552–1595. 1616–1716",
-      "date2": "Romania",
-      "country": "Medium",
-      "source_file": "2temesvar_hun_2.txt"
+      "date2": "",
+      "country": "Romania",
+      "size": "Medium",
+      "notes": "",
+      "source_sheet": "Temesvar"
     },
     {
       "lat": 46.1088,
@@ -3079,9 +3355,11 @@
         "hu": "Lippa"
       },
       "date1": "1552–1595. 1616–1688",
-      "date2": "Romania",
-      "country": "Small",
-      "source_file": "2temesvar_hun_2.txt"
+      "date2": "",
+      "country": "Romania",
+      "size": "Small",
+      "notes": "",
+      "source_sheet": "Temesvar"
     },
     {
       "lat": 46.0888,
@@ -3103,19 +3381,11 @@
         "hu": "Lippa"
       },
       "date1": "1552–1595. 1616–1660",
-      "date2": "Hungary",
-      "country": "Small",
-      "source_file": "2temesvar_hun_2.txt"
-    },
-    {
-      "lat": 46.1068,
-      "lng": 21.8184,
-      "name": {
-        "en": "Odvoş",
-        "tr": "Viziaş",
-        "hu": "Odvos"
-      },
-      "source_file": "2temesvar_hun_2.txt"
+      "date2": "",
+      "country": "Hungary",
+      "size": "Small",
+      "notes": "",
+      "source_sheet": "Temesvar"
     },
     {
       "lat": 46.2666,
@@ -3137,9 +3407,11 @@
         "hu": "Lippa"
       },
       "date1": "1566–1595. 1605(?)–169",
-      "date2": "Romania",
-      "country": "Small",
-      "source_file": "2temesvar_hun_2.txt"
+      "date2": "",
+      "country": "Romania",
+      "size": "Small",
+      "notes": "",
+      "source_sheet": "Temesvar"
     },
     {
       "lat": 46.0009,
@@ -3161,9 +3433,11 @@
         "hu": "Lippa"
       },
       "date1": "?–1595. 1616–1665",
-      "date2": "Romania",
-      "country": "Small",
-      "source_file": "2temesvar_hun_2.txt"
+      "date2": "",
+      "country": "Romania",
+      "size": "Small",
+      "notes": "",
+      "source_sheet": "Temesvar"
     },
     {
       "lat": 44.7239,
@@ -3185,9 +3459,11 @@
         "hu": "Modava"
       },
       "date1": "1559(?)–1716",
-      "date2": "Romania",
-      "country": "Medium",
-      "source_file": "2temesvar_hun_2.txt"
+      "date2": "",
+      "country": "Romania",
+      "size": "Medium",
+      "notes": "",
+      "source_sheet": "Temesvar"
     },
     {
       "lat": 44.7149,
@@ -3209,9 +3485,11 @@
         "hu": "Modava"
       },
       "date1": "1522–1718",
-      "date2": "Romania",
-      "country": "Medium",
-      "source_file": "2temesvar_hun_2.txt"
+      "date2": "",
+      "country": "Romania",
+      "size": "Medium",
+      "notes": "",
+      "source_sheet": "Temesvar"
     },
     {
       "lat": 44.8254,
@@ -3221,6 +3499,7 @@
         "tr": "Haram",
         "hu": "Haram (Ópalánka)"
       },
+      "type": "",
       "province": {
         "en": "Timişioara",
         "tr": "Temeşvar",
@@ -3232,17 +3511,21 @@
         "hu": "Modava"
       },
       "date1": "1520s–?",
-      "country": "Medium",
-      "source_file": "2temesvar_hun_2.txt"
+      "date2": "",
+      "country": "",
+      "size": "Medium",
+      "notes": "",
+      "source_sheet": "Temesvar"
     },
     {
       "lat": 45.15,
       "lng": 19.24,
       "name": {
         "en": "Bačka Palanka",
-        "tr": "Haram-? Cedid",
+        "tr": "Haram-i Cedid",
         "hu": "Palánka"
       },
+      "type": "",
       "province": {
         "en": "Timişioara",
         "tr": "Temeşvar",
@@ -3254,9 +3537,11 @@
         "hu": "Modava"
       },
       "date1": "?–1716",
-      "date2": "Serbia",
-      "country": "Small",
-      "source_file": "2temesvar_hun_2.txt"
+      "date2": "",
+      "country": "Serbia",
+      "size": "Small",
+      "notes": "",
+      "source_sheet": "Temesvar"
     },
     {
       "lat": 44.3605,
@@ -3274,10 +3559,15 @@
       },
       "sancak": {
         "en": "Modava",
-        "tr": "Modava"
+        "tr": "Modava",
+        "hu": "Modava"
       },
-      "date2": "Small",
-      "source_file": "2temesvar_hun_2.txt"
+      "date1": "",
+      "date2": "",
+      "country": "Romania",
+      "size": "Small",
+      "notes": "",
+      "source_sheet": "Temesvar"
     },
     {
       "lat": 44.6577,
@@ -3299,9 +3589,11 @@
         "hu": "Modava"
       },
       "date1": "?–1680s",
-      "date2": "Romania",
-      "country": "Medium",
-      "source_file": "2temesvar_hun_2.txt"
+      "date2": "",
+      "country": "Romania",
+      "size": "Medium",
+      "notes": "",
+      "source_sheet": "Temesvar"
     },
     {
       "lat": 44.5468,
@@ -3323,9 +3615,11 @@
         "hu": "Modava"
       },
       "date1": "1607–1716",
-      "date2": "Romania",
-      "country": "Medium",
-      "source_file": "2temesvar_hun_2.txt"
+      "date2": "",
+      "country": "Romania",
+      "size": "Medium",
+      "notes": "",
+      "source_sheet": "Temesvar"
     },
     {
       "lat": 44.6354,
@@ -3346,9 +3640,12 @@
         "tr": "Modava",
         "hu": "Modava"
       },
-      "date2": "Romania",
-      "country": "Small",
-      "source_file": "2temesvar_hun_2.txt"
+      "date1": "",
+      "date2": "",
+      "country": "Romania",
+      "size": "Small",
+      "notes": "",
+      "source_sheet": "Temesvar"
     },
     {
       "lat": 46.4282,
@@ -3370,9 +3667,11 @@
         "hu": "Borosjenő"
       },
       "date1": "1566–1595. 1658–1693",
-      "date2": "Romania",
-      "country": "Small",
-      "source_file": "2temesvar_hun_2.txt"
+      "date2": "",
+      "country": "Romania",
+      "size": "Small",
+      "notes": "",
+      "source_sheet": "Temesvar"
     },
     {
       "lat": 46.2851,
@@ -3394,9 +3693,11 @@
         "hu": "Borosjenő"
       },
       "date1": "1552–1595",
-      "date2": "Romania",
-      "country": "Small",
-      "source_file": "2temesvar_hun_2.txt"
+      "date2": "",
+      "country": "Romania",
+      "size": "Small",
+      "notes": "",
+      "source_sheet": "Temesvar"
     },
     {
       "lat": 47.6872,
@@ -3418,9 +3719,11 @@
         "hu": "Győr"
       },
       "date1": "1594–1598",
-      "date2": "Hungary",
-      "country": "Military Hub",
-      "source_file": "3yanik_and_papa_hun_2.txt"
+      "date2": "",
+      "country": "Hungary",
+      "size": "Military Hub",
+      "notes": "",
+      "source_sheet": "Yanik_and_Pápa"
     },
     {
       "lat": 47.33,
@@ -3442,9 +3745,11 @@
         "hu": "Pápa"
       },
       "date1": "1594–1597",
-      "date2": "Hungary",
-      "country": "?",
-      "source_file": "3yanik_and_papa_hun_2.txt"
+      "date2": "",
+      "country": "Hungary",
+      "size": "?",
+      "notes": "",
+      "source_sheet": "Yanik_and_Pápa"
     },
     {
       "lat": 47.9041,
@@ -3466,9 +3771,11 @@
         "hu": "Eger"
       },
       "date1": "1596–1687",
-      "date2": "Hungary",
-      "country": "Military Hub",
-      "source_file": "4egri_2.txt"
+      "date2": "",
+      "country": "Hungary",
+      "size": "Military Hub",
+      "notes": "",
+      "source_sheet": "Eger"
     },
     {
       "lat": 47.6666,
@@ -3490,10 +3797,11 @@
         "hu": "Hatvan"
       },
       "date1": "1544–1686",
-      "date2": "Hungary",
-      "country": "Military Hub",
-      "size": "part of the vilayet of Budin before 1596",
-      "source_file": "4egri_2.txt"
+      "date2": "",
+      "country": "Hungary",
+      "size": "Military Hub",
+      "notes": "part of the vilayet of Budin before 1596",
+      "source_sheet": "Eger"
     },
     {
       "lat": 47.9389,
@@ -3515,9 +3823,11 @@
         "hu": "Hatvan"
       },
       "date1": "1596–1687",
-      "date2": "Hungary",
-      "country": "Medium",
-      "source_file": "4egri_2.txt"
+      "date2": "",
+      "country": "Hungary",
+      "size": "Medium",
+      "notes": "",
+      "source_sheet": "Eger"
     },
     {
       "lat": 47.9906,
@@ -3539,9 +3849,11 @@
         "hu": "Hatvan"
       },
       "date1": "1596–1687",
-      "date2": "Hungary",
-      "country": "Medium",
-      "source_file": "4egri_2.txt"
+      "date2": "",
+      "country": "Hungary",
+      "size": "Medium",
+      "notes": "",
+      "source_sheet": "Eger"
     },
     {
       "lat": 47.9329,
@@ -3563,9 +3875,11 @@
         "hu": "Hatvan"
       },
       "date1": "1596–1687",
-      "date2": "Hungary",
-      "country": "Medium",
-      "source_file": "4egri_2.txt"
+      "date2": "",
+      "country": "Hungary",
+      "size": "Medium",
+      "notes": "",
+      "source_sheet": "Eger"
     },
     {
       "lat": 47.5952,
@@ -3587,9 +3901,11 @@
         "hu": "Hatvan"
       },
       "date1": "1606–1687",
-      "date2": "Hungary",
-      "country": "?",
-      "source_file": "4egri_2.txt"
+      "date2": "",
+      "country": "Hungary",
+      "size": "Small",
+      "notes": "",
+      "source_sheet": "Eger"
     },
     {
       "lat": 47.1737,
@@ -3611,10 +3927,11 @@
         "hu": "Szolnok"
       },
       "date1": "1552-1585",
-      "date2": "Hungary",
-      "country": "Large",
-      "size": "part of the vilayet of Budin before 1596",
-      "source_file": "4egri_2.txt"
+      "date2": "",
+      "country": "Hungary",
+      "size": "Large",
+      "notes": "part of the vilayet of Budin before 1596",
+      "source_sheet": "Eger"
     },
     {
       "lat": 47.1788,
@@ -3635,11 +3952,12 @@
         "tr": "Solnok",
         "hu": "Szolnok"
       },
-      "date1": "1554-1595. 1596-1685",
-      "date2": "Hungary",
-      "country": "Medium",
-      "size": "part of the vilayet of Budin before 1596",
-      "source_file": "4egri_2.txt"
+      "date1": "1554-1595",
+      "date2": "1596-1685",
+      "country": "Hungary",
+      "size": "Medium",
+      "notes": "part of the vilayet of Budin before 1596",
+      "source_sheet": "Eger"
     },
     {
       "lat": 46.7111,
@@ -3661,10 +3979,11 @@
         "hu": "Szolnok"
       },
       "date1": "1561-1681",
-      "date2": "Hungary",
-      "country": "Medium",
-      "size": "part of the vilayet of Budin before 1596",
-      "source_file": "4egri_2.txt"
+      "date2": "",
+      "country": "Hungary",
+      "size": "Medium",
+      "notes": "part of the vilayet of Budin before 1596",
+      "source_sheet": "Eger"
     },
     {
       "lat": 46.456,
@@ -3686,9 +4005,11 @@
         "hu": "Kanizsa"
       },
       "date1": "1600–1690",
-      "date2": "Hungary",
-      "country": "Military Hub",
-      "source_file": "5kanija_2.txt"
+      "date2": "",
+      "country": "Hungary",
+      "size": "Military Hub",
+      "notes": "",
+      "source_sheet": "Kanizsa"
     },
     {
       "lat": 46.0763,
@@ -3710,10 +4031,11 @@
         "hu": "Pécs"
       },
       "date1": "1543–1686",
-      "date2": "Hungary",
-      "country": "Large",
-      "size": "part of the vilayet of Budin before 1600",
-      "source_file": "5kanija_2.txt"
+      "date2": "",
+      "country": "Hungary",
+      "size": "Large",
+      "notes": "part of the vilayet of Budin before 1600",
+      "source_sheet": "Kanizsa"
     },
     {
       "lat": 46.3551,
@@ -3735,10 +4057,11 @@
         "hu": "Pécs"
       },
       "date1": "1555–1686",
-      "date2": "Hungary",
-      "country": "Large",
-      "size": "part of the vilayet of Budin before 1600",
-      "source_file": "5kanija_2.txt"
+      "date2": "",
+      "country": "Hungary",
+      "size": "Large",
+      "notes": "part of the vilayet of Budin before 1600",
+      "source_sheet": "Kanizsa"
     },
     {
       "lat": 46.226,
@@ -3760,10 +4083,11 @@
         "hu": "Pécs"
       },
       "date1": "1570-1686",
-      "date2": "Hungary",
-      "country": "Small",
-      "size": "part of the vilayet of Budin before 1600",
-      "source_file": "5kanija_2.txt"
+      "date2": "",
+      "country": "Hungary",
+      "size": "Small",
+      "notes": "part of the vilayet of Budin before 1600",
+      "source_sheet": "Kanizsa"
     },
     {
       "lat": 45.5607,
@@ -3773,6 +4097,7 @@
         "tr": "Cisr-i Ösek",
         "hu": "Eszék"
       },
+      "type": "",
       "province": {
         "en": "Kanije",
         "tr": "Kanija",
@@ -3783,9 +4108,12 @@
         "tr": "Peçuy",
         "hu": "Pécs"
       },
-      "date2": "Hungary",
-      "country": "Small",
-      "source_file": "5kanija_2.txt"
+      "date1": "",
+      "date2": "",
+      "country": "Hungary",
+      "size": "Small",
+      "notes": "",
+      "source_sheet": "Kanizsa"
     },
     {
       "lat": 46.2429,
@@ -3807,10 +4135,11 @@
         "hu": "Pécs"
       },
       "date1": "1540s",
-      "date2": "Hungary",
-      "country": "Medium",
-      "size": "part of the vilayet of Budin before 1600",
-      "source_file": "5kanija_2.txt"
+      "date2": "",
+      "country": "Hungary",
+      "size": "Medium",
+      "notes": "part of the vilayet of Budin before 1600",
+      "source_sheet": "Kanizsa"
     },
     {
       "lat": 46.0507,
@@ -3832,10 +4161,11 @@
         "hu": "Szigetvár"
       },
       "date1": "1566-1689",
-      "date2": "Hungary",
-      "country": "Large",
-      "size": "part of the vilayet of Budin before 1600",
-      "source_file": "5kanija_2.txt"
+      "date2": "",
+      "country": "Hungary",
+      "size": "Large",
+      "notes": "part of the vilayet of Budin before 1600",
+      "source_sheet": "Kanizsa"
     },
     {
       "lat": 45.852,
@@ -3857,10 +4187,11 @@
         "hu": "Szigetvár"
       },
       "date1": "1543-1686",
-      "date2": "Hungary",
-      "country": "Medium",
-      "size": "part of the vilayet of Budin before 1600",
-      "source_file": "5kanija_2.txt"
+      "date2": "",
+      "country": "Hungary",
+      "size": "Medium",
+      "notes": "part of the vilayet of Budin before 1600",
+      "source_sheet": "Kanizsa"
     },
     {
       "lat": 46.0394,
@@ -3882,10 +4213,11 @@
         "hu": "Szigetvár"
       },
       "date1": "1555-1556. 1566-1686",
-      "date2": "Hungary",
-      "country": "Large",
-      "size": "part of the vilayet of Budin before 1600",
-      "source_file": "5kanija_2.txt"
+      "date2": "",
+      "country": "Hungary",
+      "size": "Large",
+      "notes": "part of the vilayet of Budin before 1600",
+      "source_sheet": "Kanizsa"
     },
     {
       "lat": 46.21,
@@ -3907,10 +4239,11 @@
         "hu": "Szigetvár"
       },
       "date1": "1566-1686",
-      "date2": "Hungary",
-      "country": "Large",
-      "size": "part of the vilayet of Budin before 1600",
-      "source_file": "5kanija_2.txt"
+      "date2": "",
+      "country": "Hungary",
+      "size": "Large",
+      "notes": "part of the vilayet of Budin before 1600",
+      "source_sheet": "Kanizsa"
     },
     {
       "lat": 45.9602,
@@ -3932,9 +4265,11 @@
         "hu": "Szigetvár"
       },
       "date1": "1567-1664",
-      "date2": "Hungary",
-      "country": "Medium",
-      "source_file": "5kanija_2.txt"
+      "date2": "",
+      "country": "Hungary",
+      "size": "Medium",
+      "notes": "",
+      "source_sheet": "Kanizsa"
     },
     {
       "lat": 46.3562,
@@ -3956,9 +4291,11 @@
         "hu": "Szigetvár"
       },
       "date1": "1566–1686",
-      "date2": "Hungary",
-      "country": "Large",
-      "source_file": "5kanija_2.txt"
+      "date2": "",
+      "country": "Hungary",
+      "size": "Large",
+      "notes": "",
+      "source_sheet": "Kanizsa"
     },
     {
       "lat": 46.5425,
@@ -3980,9 +4317,11 @@
         "hu": "Szigetvár"
       },
       "date1": "1600–1601",
-      "date2": "Hungary",
-      "country": "?",
-      "source_file": "5kanija_2.txt"
+      "date2": "",
+      "country": "Hungary",
+      "size": "Unknown",
+      "notes": "",
+      "source_sheet": "Kanizsa"
     },
     {
       "lat": 45.9415,
@@ -4004,9 +4343,11 @@
         "hu": "Szigetvár"
       },
       "date1": "1600–1603",
-      "date2": "Hungary",
-      "country": "?",
-      "source_file": "5kanija_2.txt"
+      "date2": "",
+      "country": "Hungary",
+      "size": "Unknown",
+      "notes": "",
+      "source_sheet": "Kanizsa"
     },
     {
       "lat": 47.0516,
@@ -4028,9 +4369,11 @@
         "hu": "Várad"
       },
       "date1": "1660–1692",
-      "date2": "Hungary",
-      "country": "Military Hub",
-      "source_file": "6varad_2.txt"
+      "date2": "",
+      "country": "Hungary",
+      "size": "Military Hub",
+      "notes": "",
+      "source_sheet": "Várad"
     },
     {
       "lat": 47.2588,
@@ -4052,9 +4395,11 @@
         "hu": "Szentjobb"
       },
       "date1": "1661–1686",
-      "date2": "Hungary",
-      "country": "Medium",
-      "source_file": "6varad_2.txt"
+      "date2": "",
+      "country": "Hungary",
+      "size": "Medium",
+      "notes": "",
+      "source_sheet": "Várad"
     },
     {
       "lat": 47.1103,
@@ -4076,9 +4421,11 @@
         "hu": "Várad"
       },
       "date1": "1661–1686(?)",
-      "date2": "Romania",
-      "country": "Medium",
-      "source_file": "6varad_2.txt"
+      "date2": "",
+      "country": "Romania",
+      "size": "Medium",
+      "notes": "",
+      "source_sheet": "Várad"
     },
     {
       "lat": 46.7913,
@@ -4100,9 +4447,11 @@
         "hu": "Várad"
       },
       "date1": "1661–1687(?)",
-      "date2": "Romania",
-      "country": "Medium",
-      "source_file": "6varad_2.txt"
+      "date2": "",
+      "country": "Romania",
+      "size": "Medium",
+      "notes": "",
+      "source_sheet": "Várad"
     },
     {
       "lat": 46.6925,
@@ -4124,9 +4473,11 @@
         "hu": "Várad"
       },
       "date1": "1661–1687",
-      "date2": "Romania",
-      "country": "Large",
-      "source_file": "6varad_2.txt"
+      "date2": "",
+      "country": "Romania",
+      "size": "Large",
+      "notes": "",
+      "source_sheet": "Várad"
     },
     {
       "lat": 47.986,
@@ -4148,9 +4499,11 @@
         "hu": "Uyvar"
       },
       "date1": "1663–1685",
-      "date2": "Slovakia",
-      "country": "Military Hub",
-      "source_file": "7uyvar_2.txt"
+      "date2": "",
+      "country": "Slovakia",
+      "size": "Military Hub",
+      "notes": "",
+      "source_sheet": "Újvár"
     },
     {
       "lat": 48.0852,
@@ -4172,254 +4525,921 @@
         "hu": "Uyvar"
       },
       "date1": "1663–1685",
-      "date2": "Slovakia",
-      "country": "Small",
-      "source_file": "7uyvar_2.txt"
+      "date2": "",
+      "country": "Slovakia",
+      "size": "Small",
+      "notes": "",
+      "source_sheet": "Újvár"
     },
     {
       "lat": 44.8245,
       "lng": 20.448,
+      "name": {
+        "en": "Belgrade",
+        "tr": "Belgrad",
+        "hu": "Beograd"
+      },
       "type": "Fortress",
+      "province": {
+        "en": "Rumelia/Silistra",
+        "tr": "Rumeli/Silistre",
+        "hu": "Rumelia/Silistra"
+      },
+      "sancak": {
+        "en": "Smederevo",
+        "tr": "Semendire",
+        "hu": "Smederevo"
+      },
+      "date1": "",
+      "date2": "",
       "country": "Serbia",
-      "source_file": "8Rumili and Özi_2.txt"
+      "size": "",
+      "notes": "",
+      "source_sheet": "Rumili and Özi"
     },
     {
       "lat": 44.6612,
       "lng": 21.6787,
+      "name": {
+        "en": "Golubac",
+        "tr": "Güvercinlik",
+        "hu": "Golubac"
+      },
       "type": "Fortress",
+      "province": {
+        "en": "Rumelia/Silistra",
+        "tr": "Rumeli/Silistre",
+        "hu": "Rumelia/Silistra"
+      },
+      "sancak": {
+        "en": "Smederevo",
+        "tr": "Semendire",
+        "hu": "Smederevo"
+      },
+      "date1": "",
+      "date2": "",
       "country": "Serbia",
-      "source_file": "8Rumili and Özi_2.txt"
+      "size": "",
+      "notes": "",
+      "source_sheet": "Rumili and Özi"
     },
     {
       "lat": 44.7151,
       "lng": 21.0414,
+      "name": {
+        "en": "Kulič",
+        "tr": "Koyluca",
+        "hu": "Kulič"
+      },
       "type": "Palanka/Fortress",
+      "province": {
+        "en": "Rumelia/Silistra",
+        "tr": "Rumeli/Silistre",
+        "hu": "Rumelia/Silistra"
+      },
+      "sancak": {
+        "en": "Smederevo",
+        "tr": "Semendire",
+        "hu": "Smederevo"
+      },
+      "date1": "",
+      "date2": "",
       "country": "Serbia",
-      "source_file": "8Rumili and Özi_2.txt"
+      "size": "",
+      "notes": "",
+      "source_sheet": "Rumili and Özi"
     },
     {
       "lat": 44.8129,
       "lng": 21.3301,
+      "name": {
+        "en": "Ram",
+        "tr": "Hram",
+        "hu": "Ram"
+      },
       "type": "Palanka/Fortress",
+      "province": {
+        "en": "Rumelia/Silistra",
+        "tr": "Rumeli/Silistre",
+        "hu": "Rumelia/Silistra"
+      },
+      "sancak": {
+        "en": "Smederevo",
+        "tr": "Semendire",
+        "hu": "Smederevo"
+      },
+      "date1": "",
+      "date2": "",
       "country": "Serbia",
-      "source_file": "8Rumili and Özi_2.txt"
+      "size": "",
+      "notes": "",
+      "source_sheet": "Rumili and Özi"
     },
     {
       "lat": 44.0602,
       "lng": 21.281,
+      "name": {
+        "en": "Resava",
+        "tr": "Resava",
+        "hu": "Resava"
+      },
       "type": "Fortress",
+      "province": {
+        "en": "Rumelia/Silistra",
+        "tr": "Rumeli/Silistre",
+        "hu": "Rumelia/Silistra"
+      },
+      "sancak": {
+        "en": "Smederevo",
+        "tr": "Semendire",
+        "hu": "Smederevo"
+      },
+      "date1": "",
+      "date2": "",
       "country": "Serbia",
-      "source_file": "8Rumili and Özi_2.txt"
+      "size": "",
+      "notes": "",
+      "source_sheet": "Rumili and Özi"
     },
     {
       "lat": 44.6887,
       "lng": 20.5161,
+      "name": {
+        "en": "Žrnov",
+        "tr": "Avala-Havale-Güzelcehisar",
+        "hu": "Žrnov"
+      },
       "type": "Fortress",
+      "province": {
+        "en": "Rumelia/Silistra",
+        "tr": "Rumeli/Silistre",
+        "hu": "Rumelia/Silistra"
+      },
+      "sancak": {
+        "en": "Smederevo",
+        "tr": "Semendire",
+        "hu": "Smederevo"
+      },
+      "date1": "",
+      "date2": "",
       "country": "Serbia",
-      "source_file": "8Rumili and Özi_2.txt"
+      "size": "",
+      "notes": "",
+      "source_sheet": "Rumili and Özi"
     },
     {
       "lat": 43.8518,
       "lng": 19.8286,
+      "name": {
+        "en": "Stari Grad. Užice",
+        "tr": "Uziçe-Ujiçe",
+        "hu": "Stari Grad. Užice"
+      },
       "type": "Fortress",
+      "province": {
+        "en": "Rumelia/Silistra",
+        "tr": "Rumeli/Silistre",
+        "hu": "Rumelia/Silistra"
+      },
+      "sancak": {
+        "en": "Smederevo",
+        "tr": "Semendire",
+        "hu": "Smederevo"
+      },
+      "date1": "",
+      "date2": "",
       "country": "Serbia",
-      "source_file": "8Rumili and Özi_2.txt"
+      "size": "",
+      "notes": "",
+      "source_sheet": "Rumili and Özi"
     },
     {
       "lat": 44.7857,
       "lng": 15.8953,
-      "type": "Rumelia/Silistra",
+      "name": {
+        "en": "Sokol",
+        "tr": "Sokolac?",
+        "hu": ""
+      },
+      "type": "Fortress",
+      "province": {
+        "en": "Rumelia/Silistra",
+        "tr": "Rumeli/Silistre",
+        "hu": "Rumelia/Silistra"
+      },
+      "sancak": {
+        "en": "Smederevo",
+        "tr": "Semendire",
+        "hu": "Smederevo"
+      },
+      "date1": "",
+      "date2": "",
       "country": "Burasi mi. emin olamadim: https://en.wikipedia.org/wiki/Sokol_(Konavle)",
-      "source_file": "8Rumili and Özi_2.txt"
+      "size": "",
+      "notes": "",
+      "source_sheet": "Rumili and Özi"
     },
     {
       "lat": 43.6145,
       "lng": 20.5523,
+      "name": {
+        "en": "Maglič",
+        "tr": "Maglic",
+        "hu": "Maglič"
+      },
       "type": "Fortress",
+      "province": {
+        "en": "Rumelia/Silistra",
+        "tr": "Rumeli/Silistre",
+        "hu": "Rumelia/Silistra"
+      },
+      "sancak": {
+        "en": "Smederevo",
+        "tr": "Semendire",
+        "hu": "Smederevo"
+      },
+      "date1": "",
+      "date2": "",
       "country": "Serbia",
-      "source_file": "8Rumili and Özi_2.txt"
+      "size": "",
+      "notes": "",
+      "source_sheet": "Rumili and Özi"
     },
     {
       "lat": 44.1691,
       "lng": 20.4605,
+      "name": {
+        "en": "Ostrovica",
+        "tr": "Sivricehisar",
+        "hu": "Ostrovica"
+      },
       "type": "Fortress",
+      "province": {
+        "en": "Rumelia/Silistra",
+        "tr": "Rumeli/Silistre",
+        "hu": "Rumelia/Silistra"
+      },
+      "sancak": {
+        "en": "Smederevo",
+        "tr": "Semendire",
+        "hu": "Smederevo"
+      },
+      "date1": "",
+      "date2": "",
       "country": "Serbia",
-      "source_file": "8Rumili and Özi_2.txt"
+      "size": "",
+      "notes": "",
+      "source_sheet": "Rumili and Özi"
     },
     {
       "lat": 44.6695,
       "lng": 20.9278,
+      "name": {
+        "en": "Smederevo",
+        "tr": "Semendire",
+        "hu": "Smederevo"
+      },
       "type": "Fortress",
+      "province": {
+        "en": "Rumelia/Silistra",
+        "tr": "Rumeli/Silistre",
+        "hu": "Rumelia/Silistra"
+      },
+      "sancak": {
+        "en": "Smederevo",
+        "tr": "Semendire",
+        "hu": "Smederevo"
+      },
+      "date1": "",
+      "date2": "",
       "country": "Serbia",
-      "source_file": "8Rumili and Özi_2.txt"
+      "size": "",
+      "notes": "",
+      "source_sheet": "Rumili and Özi"
     },
     {
       "lat": 44.6661,
       "lng": 20.9264,
+      "name": {
+        "en": "Smederevska Palanka",
+        "tr": "Hasanpaşa Palankası",
+        "hu": "Smederevska Palanka"
+      },
       "type": "Palanka",
+      "province": {
+        "en": "Rumelia/Silistra",
+        "tr": "Rumeli/Silistre",
+        "hu": "Rumelia/Silistra"
+      },
+      "sancak": {
+        "en": "Smederevo",
+        "tr": "Semendire",
+        "hu": "Smederevo"
+      },
+      "date1": "",
+      "date2": "",
       "country": "Serbia",
-      "source_file": "8Rumili and Özi_2.txt"
+      "size": "",
+      "notes": "Topçular Katibi Abdülkadir Efendi s.192",
+      "source_sheet": "Rumili and Özi"
     },
     {
       "lat": 45.1451,
       "lng": 20.2534,
+      "name": {
+        "en": "Stari Slankamen",
+        "tr": "İslankamen",
+        "hu": "Stari Slankamen"
+      },
       "type": "Fortress",
+      "province": {
+        "en": "Rumelia/Silistra",
+        "tr": "Rumeli/Silistre",
+        "hu": "Rumelia/Silistra"
+      },
+      "sancak": {
+        "en": "Syrmia",
+        "tr": "Sirem",
+        "hu": "Srem"
+      },
+      "date1": "",
+      "date2": "",
       "country": "Serbia",
-      "source_file": "8Rumili and Özi_2.txt"
+      "size": "",
+      "notes": "Sirem Sancağı mufassal tahrir defteri",
+      "source_sheet": "Rumili and Özi"
     },
     {
       "lat": 45.224,
       "lng": 19.3761,
+      "name": {
+        "en": "Ilok",
+        "tr": "Uyluk",
+        "hu": "Ilok"
+      },
       "type": "Fortress",
+      "province": {
+        "en": "Rumelia/Silistra",
+        "tr": "Rumeli/Silistre",
+        "hu": "Rumelia/Silistra"
+      },
+      "sancak": {
+        "en": "Syrmia",
+        "tr": "Sirem",
+        "hu": "Srem"
+      },
+      "date1": "",
+      "date2": "",
       "country": "Croatia",
-      "source_file": "8Rumili and Özi_2.txt"
+      "size": "",
+      "notes": "Sirem Sancağı mufassal tahrir defteri",
+      "source_sheet": "Rumili and Özi"
     },
     {
       "lat": 45.1399,
       "lng": 19.037,
+      "name": {
+        "en": "Nijemci",
+        "tr": "Nemçi",
+        "hu": "Nijemci"
+      },
       "type": "Fortress",
+      "province": {
+        "en": "Rumelia/Silistra",
+        "tr": "Rumeli/Silistre",
+        "hu": "Rumelia/Silistra"
+      },
+      "sancak": {
+        "en": "Syrmia",
+        "tr": "Sirem",
+        "hu": "Srem"
+      },
+      "date1": "",
+      "date2": "",
       "country": "Croatia",
-      "source_file": "8Rumili and Özi_2.txt"
+      "size": "",
+      "notes": "",
+      "source_sheet": "Rumili and Özi"
     },
     {
       "lat": 45.2516,
       "lng": 19.8648,
+      "name": {
+        "en": "Petrovaradin",
+        "tr": "Petrovaradin",
+        "hu": "Petrovaradin"
+      },
       "type": "Fortress",
+      "province": {
+        "en": "Rumelia/Silistra",
+        "tr": "Rumeli/Silistre",
+        "hu": "Rumelia/Silistra"
+      },
+      "sancak": {
+        "en": "Syrmia",
+        "tr": "Sirem",
+        "hu": "Srem"
+      },
+      "date1": "",
+      "date2": "",
       "country": "Serbia",
-      "source_file": "8Rumili and Özi_2.txt"
+      "size": "",
+      "notes": "Sirem Sancağı mufassal tahrir defteri",
+      "source_sheet": "Rumili and Özi"
     },
     {
       "lat": 43.5844,
       "lng": 21.3217,
+      "name": {
+        "en": "Kruševac",
+        "tr": "Kluçevaç",
+        "hu": "Kruševac"
+      },
       "type": "Fortress",
+      "province": {
+        "en": "Rumelia/Silistra",
+        "tr": "Rumeli/Silistre",
+        "hu": "Rumelia/Silistra"
+      },
+      "sancak": {
+        "en": "Bosnia",
+        "tr": "Bosna",
+        "hu": "Bosnia"
+      },
+      "date1": "",
+      "date2": "",
       "country": "Serbia",
-      "source_file": "8Rumili and Özi_2.txt"
+      "size": "",
+      "notes": "",
+      "source_sheet": "Rumili and Özi"
     },
     {
       "lat": 44.1342,
       "lng": 22.858,
+      "name": {
+        "en": "Florentin",
+        "tr": "Filordin",
+        "hu": "Florentin"
+      },
       "type": "Fortress",
+      "province": {
+        "en": "Rumelia/Silistra",
+        "tr": "Rumeli/Silistre",
+        "hu": "Rumelia/Silistra"
+      },
+      "sancak": {
+        "en": "Vidin",
+        "tr": "Vidin",
+        "hu": "Vidin"
+      },
+      "date1": "",
+      "date2": "",
       "country": "Bulgaria",
-      "source_file": "8Rumili and Özi_2.txt"
+      "size": "",
+      "notes": "",
+      "source_sheet": "Rumili and Özi"
     },
     {
       "lat": 44.6155,
       "lng": 22.6019,
+      "name": {
+        "en": "Kladovo",
+        "tr": "Feth-i İslam",
+        "hu": "Kladovo"
+      },
       "type": "Fortress",
+      "province": {
+        "en": "Rumelia/Silistra",
+        "tr": "Rumeli/Silistre",
+        "hu": "Rumelia/Silistra"
+      },
+      "sancak": {
+        "en": "Vidin",
+        "tr": "Vidin",
+        "hu": "Vidin"
+      },
+      "date1": "",
+      "date2": "",
       "country": "Serbia",
-      "source_file": "8Rumili and Özi_2.txt"
+      "size": "",
+      "notes": "",
+      "source_sheet": "Rumili and Özi"
     },
     {
       "lat": 43.9919,
       "lng": 22.8815,
+      "name": {
+        "en": "Vidin",
+        "tr": "Vidin",
+        "hu": "Vidin"
+      },
       "type": "Fortress",
+      "province": {
+        "en": "Rumelia/Silistra",
+        "tr": "Rumeli/Silistre",
+        "hu": "Rumelia/Silistra"
+      },
+      "sancak": {
+        "en": "Vidin",
+        "tr": "Vidin",
+        "hu": "Vidin"
+      },
+      "date1": "",
+      "date2": "",
       "country": "Bulgaria",
-      "source_file": "8Rumili and Özi_2.txt"
+      "size": "",
+      "notes": "",
+      "source_sheet": "Rumili and Özi"
     },
     {
       "lat": 43.6348,
       "lng": 21.8931,
+      "name": {
+        "en": "Sokobanja",
+        "tr": "Bane",
+        "hu": "Sokobanja"
+      },
       "type": "Fortress",
+      "province": {
+        "en": "Rumelia/Silistra",
+        "tr": "Rumeli/Silistre",
+        "hu": "Rumelia/Silistra"
+      },
+      "sancak": {
+        "en": "Vidin",
+        "tr": "Vidin",
+        "hu": "Vidin"
+      },
+      "date1": "",
+      "date2": "",
       "country": "Serbia",
-      "source_file": "8Rumili and Özi_2.txt"
+      "size": "",
+      "notes": "",
+      "source_sheet": "Rumili and Özi"
     },
     {
       "lat": 43.4743,
       "lng": 22.0953,
+      "name": {
+        "en": "Svrljig",
+        "tr": "İsfirlik",
+        "hu": "Svrljig"
+      },
       "type": "Fortress",
+      "province": {
+        "en": "Rumelia/Silistra",
+        "tr": "Rumeli/Silistre",
+        "hu": "Rumelia/Silistra"
+      },
+      "sancak": {
+        "en": "Vidin",
+        "tr": "Vidin",
+        "hu": "Vidin"
+      },
+      "date1": "",
+      "date2": "",
       "country": "Serbia",
-      "source_file": "8Rumili and Özi_2.txt"
+      "size": "",
+      "notes": "",
+      "source_sheet": "Rumili and Özi"
     },
     {
       "lat": 43.7032,
       "lng": 24.8927,
+      "name": {
+        "en": "Nikopol",
+        "tr": "Niğbolu",
+        "hu": "Nikopol"
+      },
       "type": "Fortress",
+      "province": {
+        "en": "Rumelia/Silistra",
+        "tr": "Rumeli/Silistre",
+        "hu": "Rumelia/Silistra"
+      },
+      "sancak": {
+        "en": "Nikopol",
+        "tr": "Niğbolu",
+        "hu": "Nikopol"
+      },
+      "date1": "",
+      "date2": "",
       "country": "Bulgaria",
-      "source_file": "8Rumili and Özi_2.txt"
+      "size": "",
+      "notes": "MAD 11",
+      "source_sheet": "Rumili and Özi"
     },
     {
       "lat": 43.7211,
       "lng": 24.8612,
+      "name": {
+        "en": "Turnu Măgurele",
+        "tr": "Holovnik",
+        "hu": "Turnu Măgurele"
+      },
       "type": "Fortress",
+      "province": {
+        "en": "Rumelia/Silistra",
+        "tr": "Rumeli/Silistre",
+        "hu": "Rumelia/Silistra"
+      },
+      "sancak": {
+        "en": "Nikopol",
+        "tr": "Niğbolu",
+        "hu": "Nikopol"
+      },
+      "date1": "",
+      "date2": "",
       "country": "Romania",
-      "source_file": "8Rumili and Özi_2.txt"
+      "size": "",
+      "notes": "MAD 11",
+      "source_sheet": "Rumili and Özi"
     },
     {
       "lat": 43.7396,
       "lng": 23.9474,
+      "name": {
+        "en": "Oryahovo",
+        "tr": "Rahova",
+        "hu": "Oryahovo"
+      },
       "type": "Fortress",
+      "province": {
+        "en": "Rumelia/Silistra",
+        "tr": "Rumeli/Silistre",
+        "hu": "Rumelia/Silistra"
+      },
+      "sancak": {
+        "en": "Nikopol",
+        "tr": "Niğbolu",
+        "hu": "Nikopol"
+      },
+      "date1": "",
+      "date2": "",
       "country": "Bulgaria",
-      "source_file": "8Rumili and Özi_2.txt"
+      "size": "",
+      "notes": "MAD 11",
+      "source_sheet": "Rumili and Özi"
     },
     {
       "lat": 44.0471,
       "lng": 26.6117,
+      "name": {
+        "en": "Tutrakan",
+        "tr": "Tutrakan",
+        "hu": "Tutrakan"
+      },
       "type": "Fortress",
+      "province": {
+        "en": "Rumelia/Silistra",
+        "tr": "Rumeli/Silistre",
+        "hu": "Rumelia/Silistra"
+      },
+      "sancak": {
+        "en": "Nikopol",
+        "tr": "Niğbolu",
+        "hu": "Nikopol"
+      },
+      "date1": "",
+      "date2": "",
       "country": "Bulgaria",
-      "source_file": "8Rumili and Özi_2.txt"
+      "size": "",
+      "notes": "MAD 11",
+      "source_sheet": "Rumili and Özi"
     },
     {
       "lat": 43.893,
       "lng": 25.9651,
+      "name": {
+        "en": "Giurgiu",
+        "tr": "Yergöğü",
+        "hu": "Giurgiu"
+      },
       "type": "Fortress",
+      "province": {
+        "en": "Rumelia/Silistra",
+        "tr": "Rumeli/Silistre",
+        "hu": "Rumelia/Silistra"
+      },
+      "sancak": {
+        "en": "Nikopol",
+        "tr": "Niğbolu",
+        "hu": "Nikopol"
+      },
+      "date1": "",
+      "date2": "",
       "country": "Romania",
-      "source_file": "8Rumili and Özi_2.txt"
+      "size": "",
+      "notes": "MAD 11",
+      "source_sheet": "Rumili and Özi"
     },
     {
       "lat": 43.8499,
       "lng": 25.9469,
+      "name": {
+        "en": "Ruse",
+        "tr": "Rusçuk",
+        "hu": "Ruse"
+      },
       "type": "Fortress",
+      "province": {
+        "en": "Rumelia/Silistra",
+        "tr": "Rumeli/Silistre",
+        "hu": "Rumelia/Silistra"
+      },
+      "sancak": {
+        "en": "Nikopol",
+        "tr": "Niğbolu",
+        "hu": "Nikopol"
+      },
+      "date1": "",
+      "date2": "",
       "country": "Bulgaria",
-      "source_file": "8Rumili and Özi_2.txt"
+      "size": "",
+      "notes": "MAD 11",
+      "source_sheet": "Rumili and Özi"
     },
     {
       "lat": 43.6216,
       "lng": 25.3443,
+      "name": {
+        "en": "Svishtov",
+        "tr": "Ziştovi",
+        "hu": "Svishtov"
+      },
       "type": "Fortress",
+      "province": {
+        "en": "Rumelia/Silistra",
+        "tr": "Rumeli/Silistre",
+        "hu": "Rumelia/Silistra"
+      },
+      "sancak": {
+        "en": "Nikopol",
+        "tr": "Niğbolu",
+        "hu": "Nikopol"
+      },
+      "date1": "",
+      "date2": "",
       "country": "Bulgaria",
-      "source_file": "8Rumili and Özi_2.txt"
+      "size": "",
+      "notes": "MAD 11",
+      "source_sheet": "Rumili and Özi"
     },
     {
       "lat": 44.1172,
       "lng": 27.2608,
+      "name": {
+        "en": "Silistra",
+        "tr": "Silistre",
+        "hu": "Silistra"
+      },
       "type": "Fortress",
+      "province": {
+        "en": "Rumelia/Silistra",
+        "tr": "Rumeli/Silistre",
+        "hu": "Rumelia/Silistra"
+      },
+      "sancak": {
+        "en": "Silistra",
+        "tr": "Silistre",
+        "hu": "Silistra"
+      },
+      "date1": "",
+      "date2": "",
       "country": "Bulgaria",
-      "source_file": "8Rumili and Özi_2.txt"
+      "size": "",
+      "notes": "",
+      "source_sheet": "Rumili and Özi"
     },
     {
       "lat": 46.2006,
       "lng": 30.3494,
+      "name": {
+        "en": "Bilhorod-Dnistrovskyi",
+        "tr": "Akkirman",
+        "hu": "Bilhorod-Dnistrovskyi Dnyeszterfehérvár"
+      },
       "type": "Fortress",
+      "province": {
+        "en": "Rumelia/Silistra",
+        "tr": "Rumeli/Silistre",
+        "hu": "Rumelia/Silistra"
+      },
+      "sancak": {
+        "en": "Silistra",
+        "tr": "Silistre",
+        "hu": "Silistra"
+      },
+      "date1": "",
+      "date2": "",
       "country": "Ukraine",
-      "source_file": "8Rumili and Özi_2.txt"
+      "size": "",
+      "notes": "37 numaralı muhasebe",
+      "source_sheet": "Rumili and Özi"
     },
     {
       "lat": 45.4339,
       "lng": 29.2684,
+      "name": {
+        "en": "Kiliia",
+        "tr": "Kili",
+        "hu": "Kiliia"
+      },
       "type": "Fortress",
+      "province": {
+        "en": "Rumelia/Silistra",
+        "tr": "Rumeli/Silistre",
+        "hu": "Rumelia/Silistra"
+      },
+      "sancak": {
+        "en": "Silistra",
+        "tr": "Silistre",
+        "hu": "Silistra"
+      },
+      "date1": "",
+      "date2": "",
       "country": "Ukraine",
-      "source_file": "8Rumili and Özi_2.txt"
+      "size": "",
+      "notes": "37 numaralı muhasebe",
+      "source_sheet": "Rumili and Özi"
     },
     {
       "lat": 45.272,
       "lng": 27.9747,
+      "name": {
+        "en": "Brăila",
+        "tr": "İbrail",
+        "hu": "Brăila"
+      },
       "type": "Fortress",
+      "province": {
+        "en": "Rumelia/Silistra",
+        "tr": "Rumeli/Silistre",
+        "hu": "Rumelia/Silistra"
+      },
+      "sancak": {
+        "en": "Silistra",
+        "tr": "Silistre",
+        "hu": "Silistra"
+      },
+      "date1": "",
+      "date2": "",
       "country": "Romania",
-      "source_file": "8Rumili and Özi_2.txt"
+      "size": "",
+      "notes": "37 numaralı muhasebe",
+      "source_sheet": "Rumili and Özi"
     },
     {
       "lat": 44.6816,
       "lng": 27.9525,
+      "name": {
+        "en": "Hârșova",
+        "tr": "Harşova",
+        "hu": "Hârșova"
+      },
       "type": "Fortress",
+      "province": {
+        "en": "Rumelia/Silistra",
+        "tr": "Rumeli/Silistre",
+        "hu": "Rumelia/Silistra"
+      },
+      "sancak": {
+        "en": "Silistra",
+        "tr": "Silistre",
+        "hu": "Silistra"
+      },
+      "date1": "",
+      "date2": "",
       "country": "Romania",
-      "source_file": "8Rumili and Özi_2.txt"
+      "size": "",
+      "notes": "37 numaralı muhasebe",
+      "source_sheet": "Rumili and Özi"
     },
     {
       "lat": 45.3392,
       "lng": 28.8066,
+      "name": {
+        "en": "Izmail",
+        "tr": "İsmail",
+        "hu": "Izmail"
+      },
       "type": "Fortress",
+      "province": {
+        "en": "Rumelia/Silistra",
+        "tr": "Rumeli/Silistre",
+        "hu": "Rumelia/Silistra"
+      },
+      "sancak": {
+        "en": "Silistra",
+        "tr": "Silistre",
+        "hu": "Silistra"
+      },
+      "date1": "",
+      "date2": "",
       "country": "Romania",
-      "source_file": "8Rumili and Özi_2.txt"
+      "size": "",
+      "notes": "37 numaralı muhasebe",
+      "source_sheet": "Rumili and Özi"
     }
   ]
-}
+};

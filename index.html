@@ -30,7 +30,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Bitcount+Grid+Single:wght@100..900&display=swap" rel="stylesheet">
 
     <!-- Stylesheets -->
-    <link rel="stylesheet" href="css/main.css?v=2">
+    <link rel="stylesheet" href="css/main.css?v=3">
 
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -39,7 +39,10 @@
     <!-- Navigation -->
             <nav>
       <div class="nav-container">
-        <a href="index.html" class="nav-brand">DANFront</a>
+        <a href="index.html" class="nav-brand">
+          <img src="images/danfront_logo.png" alt="DANFront Logo" class="nav-logo">
+          DANFront
+        </a>
         <button class="mobile-menu-toggle" aria-label="Toggle menu">
           <span>☰</span>
         </button>
@@ -73,26 +76,34 @@
 
     <!-- Hero Section -->
     <section class="hero-modern">
-    <div class="container">
+        <div class="container">
             <div class="hero-content-modern">
                 <h1 class="hero-title-modern">
-                    <i class="fas fa-fort"></i>
-                    <span data-tr-text="DANFront: Orta ve Aşağı Tuna'da Erken Modern Osmanlı Askeri Sınırının Çevre Tarihi" data-en-text="DANFront: An Environmental History of the Early-Modern Ottoman Military Frontier in the Middle and Lower Danube">DANFront: Orta ve Aşağı Tuna'da Erken Modern Osmanlı Askeri Sınırının Çevre Tarihi</span>
-            </h1>
-                <p class="hero-description-modern" data-tr-text="DANFront projesi, 16. ve 17. yüzyıllarda Osmanlı İmparatorluğu'nun Orta Avrupa'ya askeri genişlemesinde Tuna Nehri'nin rolünü ve bu genişlemenin nehir çevresindeki etkilerini incelemeyi amaçlamaktadır. Proje, Osmanlıların askeri ve sosyo-ekonomik ihtiyaçları için Tuna'yı nasıl kullandığını ve Güneydoğu ve Orta Avrupa'daki etkilerini genişletmek için nasıl kullandığını ortaya çıkarmayı hedeflemektedir." data-en-text="The DANFront project aims to examine the role of the Danube River in the Ottoman Empire's military expansion into Central Europe in the 16th and 17th centuries and the effects of this expansion on the river environment. The project aims to reveal how the Ottomans used the Danube for their military and socio-economic needs and how they used it to expand their influence in Southeast and Central Europe.">
-                    DANFront projesi, 16. ve 17. yüzyıllarda Osmanlı İmparatorluğu'nun Orta Avrupa'ya 
-                    askeri genişlemesinde Tuna Nehri'nin rolünü ve bu genişlemenin nehir çevresindeki 
-                    etkilerini incelemeyi amaçlamaktadır. Proje, Osmanlıların askeri ve sosyo-ekonomik 
-                    ihtiyaçları için Tuna'yı nasıl kullandığını ve Güneydoğu ve Orta Avrupa'daki 
-                    etkilerini genişletmek için nasıl kullandığını ortaya çıkarmayı hedeflemektedir.
-                </p>
-                <p class="hero-description-modern" style="margin-top: 1.5rem;" data-tr-text="Proje, birbiriyle örtüşen iki ayrı bileşene sahiptir. Birincisi, Tuna boyunca Osmanlı askeri organizasyonu ve bunun çevre üzerindeki etkileriyle ilgilidir. İkincisi, Tuna Nehri'nin ortaya çıkardığı çevresel zorluklar ve Osmanlıların bu zorlukların üstesinden gelmek için geliştirdiği politikalar, kurumlar ve stratejiler etrafında dönmektedir." data-en-text="The project has two overlapping components. The first concerns the Ottoman military organization along the Danube and its effects on the environment. The second revolves around the environmental challenges posed by the Danube River and the policies, institutions, and strategies developed by the Ottomans to overcome these challenges.">
-                    Proje, birbiriyle örtüşen iki ayrı bileşene sahiptir. Birincisi, Tuna boyunca 
-                    Osmanlı askeri organizasyonu ve bunun çevre üzerindeki etkileriyle ilgilidir. 
-                    İkincisi, Tuna Nehri'nin ortaya çıkardığı çevresel zorluklar ve Osmanlıların 
-                    bu zorlukların üstesinden gelmek için geliştirdiği politikalar, kurumlar ve 
-                    stratejiler etrafında dönmektedir.
-                </p>
+                    DANFront
+                </h1>
+            </div>
+        </div>
+        <div class="hero-image-credit">
+            <a href="https://viewer.acdh.oeaw.ac.at/viewer/image/AC09051110/199/" target="_blank" rel="noopener noreferrer">Image: Joan Blaeu and Willem Janszoon Blaeu, <em>Theatrum Orbis Terrarum, sive Atlas novus</em> Pars 1 (Amsterdam, 1635) &copy; Austrian Academy of Sciences, K-V: WE 84 (1)</a>
+        </div>
+    </section>
+
+    <!-- Main Navigation Buttons -->
+    <section class="section-modern">
+        <div class="container">
+            <div class="main-nav-buttons">
+                <a href="database.html" class="main-nav-button main-nav-button-database">
+                    <i class="fas fa-database"></i>
+                    <h3 data-tr-text="Veri Setleri" data-en-text="Databases">Databases</h3>
+                </a>
+                <a href="visualizations.html" class="main-nav-button main-nav-button-visualizations">
+                    <i class="fas fa-chart-bar"></i>
+                    <h3 data-tr-text="Görselleştirmeler" data-en-text="Visualizations">Visualizations</h3>
+                </a>
+                <a href="maps.html" class="main-nav-button main-nav-button-maps">
+                    <i class="fas fa-map"></i>
+                    <h3 data-tr-text="Haritalar" data-en-text="Maps">Maps</h3>
+                </a>
             </div>
         </div>
     </section>
@@ -104,7 +115,7 @@
                 <h2 class="stats-title-modern">
                     <i class="fas fa-database"></i>
                     <span data-tr-text="Veri Seti Özeti" data-en-text="Dataset Summary">Veri Seti Özeti</span>
-            </h2>
+                </h2>
                 <p class="stats-subtitle-modern" data-tr-text="Kapsamlı veri analizi ve görselleştirme" data-en-text="Comprehensive data analysis and visualization">Kapsamlı veri analizi ve görselleştirme</p>
             </div>
             <div class="stats-grid-modern">
@@ -115,21 +126,12 @@
                     <div class="stat-number-modern">586</div>
                     <div class="stat-label-modern" data-tr-text="Toplam Veri Kaydı" data-en-text="Total Data Records">Toplam Veri Kaydı</div>
                 </div>
-                <div class="stat-card-modern highlight-primary">
+                <div class="stat-card-modern">
                     <div class="stat-icon-modern">
-                        <i class="fas fa-arrow-up"></i>
+                        <i class="fas fa-layer-group"></i>
                     </div>
-                    <div class="stat-number-modern">165,605</div>
-                    <div class="stat-label-modern" data-tr-text="En Yüksek Personel" data-en-text="Highest Personnel">En Yüksek Personel</div>
-                    <div class="stat-meta-modern" data-tr-text="1541 yılında" data-en-text="in 1541">1541 yılında</div>
-                </div>
-                <div class="stat-card-modern highlight-secondary">
-                    <div class="stat-icon-modern">
-                        <i class="fas fa-arrow-down"></i>
-                    </div>
-                    <div class="stat-number-modern">1,234</div>
-                    <div class="stat-label-modern" data-tr-text="En Düşük Personel" data-en-text="Lowest Personnel">En Düşük Personel</div>
-                    <div class="stat-meta-modern" data-tr-text="1454 yılında" data-en-text="in 1454">1454 yılında</div>
+                    <div class="stat-number-modern">5</div>
+                    <div class="stat-label-modern" data-tr-text="Veri Seti Sayısı" data-en-text="Number of Datasets">Veri Seti Sayısı</div>
                 </div>
                 <div class="stat-card-modern">
                     <div class="stat-icon-modern">
@@ -156,21 +158,18 @@
         </div>
     </section>
 
-    <!-- Main Navigation Buttons -->
-    <section class="section-modern">
+    <!-- Partner Logos -->
+    <section class="partner-logos-section">
         <div class="container">
-            <div class="main-nav-buttons">
-                <a href="database.html" class="main-nav-button main-nav-button-database">
-                    <i class="fas fa-database"></i>
-                    <h3 data-tr-text="Veri Seti" data-en-text="Database">Database</h3>
+            <div class="partner-logos">
+                <a href="https://www.univie.ac.at/" target="_blank" rel="noopener noreferrer" class="partner-logo-link">
+                    <img src="images/univie.svg" alt="University of Vienna" class="partner-logo">
                 </a>
-                <a href="visualizations.html" class="main-nav-button main-nav-button-visualizations">
-                    <i class="fas fa-chart-bar"></i>
-                    <h3 data-tr-text="Görselleştirmeler" data-en-text="Visualizations">Visualizations</h3>
+                <a href="https://www.fwf.ac.at/" target="_blank" rel="noopener noreferrer" class="partner-logo-link">
+                    <img src="images/FWF_Logo_Zusatz_Dunkelblau_RGB_EN.svg" alt="FWF - Austrian Science Fund" class="partner-logo">
                 </a>
-                <a href="maps.html" class="main-nav-button main-nav-button-maps">
-                    <i class="fas fa-map"></i>
-                    <h3 data-tr-text="Haritalar" data-en-text="Maps">Maps</h3>
+                <a href="https://www.oeaw.ac.at/en/eurasia" target="_blank" rel="noopener noreferrer" class="partner-logo-link">
+                    <img src="images/csm_EurAsia-Logo_Erlaeuterung_rgb_1612x680_98f183be3b.jpg" alt="EurAsia - Eurasian Transformations" class="partner-logo">
                 </a>
             </div>
         </div>

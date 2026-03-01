@@ -34,6 +34,116 @@
 
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* View Toggle */
+        .view-toggle {
+            display: flex;
+            gap: 0;
+            margin-bottom: 1.5rem;
+            border: 2px solid #2a5298;
+            border-radius: 8px;
+            overflow: hidden;
+            max-width: 500px;
+        }
+        .view-toggle-btn {
+            flex: 1;
+            padding: 0.75rem 1.25rem;
+            border: none;
+            background: #fff;
+            color: #2a5298;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        .view-toggle-btn:not(:last-child) {
+            border-right: 2px solid #2a5298;
+        }
+        .view-toggle-btn.active {
+            background: #2a5298;
+            color: #fff;
+        }
+        .view-toggle-btn:hover:not(.active) {
+            background: #eef2f9;
+        }
+
+        /* Cascading Dropdowns */
+        .cascade-controls {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+        }
+        .cascade-controls .control-group {
+            flex: 1;
+            min-width: 200px;
+        }
+        .cascade-controls label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #555;
+            margin-bottom: 0.35rem;
+        }
+        .cascade-controls select {
+            width: 100%;
+            padding: 0.6rem 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            background: #fff;
+            color: #333;
+            transition: border-color 0.2s;
+        }
+        .cascade-controls select:focus {
+            outline: none;
+            border-color: #2a5298;
+            box-shadow: 0 0 0 3px rgba(42, 82, 152, 0.1);
+        }
+        .cascade-controls select:disabled {
+            background: #f5f5f5;
+            color: #999;
+        }
+
+        /* Search + Actions Row */
+        .search-actions-row {
+            display: flex;
+            gap: 1rem;
+            align-items: flex-end;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+        }
+        .search-actions-row .control-group {
+            flex: 1;
+            min-width: 200px;
+        }
+        .search-actions-row label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #555;
+            margin-bottom: 0.35rem;
+        }
+
+        /* Info badge */
+        .db-info-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.35rem 0.75rem;
+            background: #eef2f9;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            color: #2a5298;
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+    </style>
 </head>
 <body>
     <!-- Navigation -->
@@ -41,11 +151,11 @@
       <div class="nav-container">
         <a href="index.html" class="nav-brand">DANFront</a>
         <button class="mobile-menu-toggle" aria-label="Toggle menu">
-          <span>☰</span>
+          <span>&#9776;</span>
         </button>
         <ul class="nav-menu">
           <li><a href="index.html" data-tr="Ana Sayfa" data-en="Home">Ana Sayfa</a></li>
-          <li><a href="about.html" data-tr="Hakkında" data-en="About">Hakkında</a></li>
+          <li><a href="about.html" data-tr="Hakk&#305;nda" data-en="About">Hakk&#305;nda</a></li>
           <li><a href="team.html" data-tr="Ekip" data-en="Team">Ekip</a></li>
           <li><a href="sources.html" data-tr="Kaynaklar" data-en="Sources">Kaynaklar</a></li>
           <li><a href="methodology.html" data-tr="Metodoloji" data-en="Methodology">Metodoloji</a></li>
@@ -59,7 +169,7 @@
               </button>
               <div class="language-menu">
                 <a href="#" class="lang-option" data-lang="tr">
-                  <i class="fas fa-flag"></i> Türkçe
+                  <i class="fas fa-flag"></i> T&#252;rk&#231;e
                 </a>
                 <a href="#" class="lang-option" data-lang="en">
                   <i class="fas fa-flag"></i> English
@@ -79,42 +189,83 @@
                     <i class="fas fa-database"></i>
                     <span data-tr-text="Veri Seti" data-en-text="Database">Database</span>
                 </h1>
-                <p class="section-subtitle-modern" data-tr-text="Veri seti bilgileri ve erişim" data-en-text="Dataset information and access">Veri seti bilgileri ve erişim</p>
+                <p class="section-subtitle-modern" data-tr-text="Veri seti bilgileri ve eri&#351;im" data-en-text="Dataset information and access">Veri seti bilgileri ve eri&#351;im</p>
             </div>
 
             <!-- Database Interface -->
             <div class="database-interface">
                 <div class="database-description">
-                    <p data-tr-text="Osmanlı garnizonları hakkında kapsamlı veri seti. 586 veri kaydı, 23 garnizon, 37 askeri kategori ve 1454-1662 yılları arası bilgileri içermektedir." data-en-text="Comprehensive dataset about Ottoman garrisons. Contains 586 data records, 23 garrisons, 37 military categories and information from 1454-1662.">
-                        Osmanlı garnizonları hakkında kapsamlı veri seti. 586 veri kaydı, 23 garnizon, 37 askeri kategori ve 1454-1662 yılları arası bilgileri içermektedir.
+                    <p data-tr-text="Osmanl&#305; garnizonlar&#305; hakk&#305;nda kapsaml&#305; veri seti. 210 garnizon, 7 eyalet ve 1454-1662 y&#305;llar&#305; aras&#305; bilgileri i&#231;ermektedir." 
+                       data-en-text="Comprehensive dataset about Ottoman garrisons. Covers 210 garrisons across 7 provinces, spanning the years 1454-1662.">
+                        Comprehensive dataset about Ottoman garrisons. Covers 210 garrisons across 7 provinces, spanning the years 1454-1662.
                     </p>
                 </div>
 
-                <!-- Controls -->
-                <div class="database-controls">
+                <!-- View Toggle -->
+                <div class="view-toggle" id="view-toggle">
+                    <button class="view-toggle-btn active" data-view="raw" id="btn-view-raw">
+                        <i class="fas fa-list-ul"></i>
+                        <span data-tr-text="Detayl&#305;" data-en-text="Detailed">Detailed</span>
+                    </button>
+                    <button class="view-toggle-btn" data-view="categorized" id="btn-view-categorized">
+                        <i class="fas fa-layer-group"></i>
+                        <span data-tr-text="Kategorize" data-en-text="Categorized">Categorized</span>
+                    </button>
+                </div>
+
+                <!-- Info Badge -->
+                <div class="db-info-badge" id="db-info-badge">
+                    <i class="fas fa-info-circle"></i>
+                    <span id="db-info-text"></span>
+                </div>
+
+                <!-- Cascading Dropdowns -->
+                <div class="cascade-controls">
                     <div class="control-group">
-                        <label for="garrison-select" data-tr-text="Garnizon Seçin" data-en-text="Select Garrison">
-                            <i class="fas fa-fort"></i> Garnizon Seçin
+                        <label for="eyalet-select">
+                            <i class="fas fa-map"></i>
+                            <span data-tr-text="Eyalet" data-en-text="Province">Province</span>
                         </label>
-                        <select id="garrison-select" class="garrison-select">
-                            <option value="" data-tr-text="-- Garnizon Seçin --" data-en-text="-- Select a Garrison --">-- Loading --</option>
+                        <select id="eyalet-select">
+                            <option value="" data-tr-text="-- Eyalet Se&#231;in --" data-en-text="-- Select Province --">-- Select Province --</option>
                         </select>
                     </div>
-                    
+                    <div class="control-group" id="sancak-group">
+                        <label for="sancak-select">
+                            <i class="fas fa-map-pin"></i>
+                            <span data-tr-text="Sancak" data-en-text="Sancak">Sancak</span>
+                        </label>
+                        <select id="sancak-select" disabled>
+                            <option value="" data-tr-text="-- Sancak Se&#231;in --" data-en-text="-- Select Sancak --">-- Select Sancak --</option>
+                        </select>
+                    </div>
                     <div class="control-group">
-                        <label for="garrison-search" data-tr-text="Ara" data-en-text="Search">
-                            <i class="fas fa-search"></i> Ara
+                        <label for="garrison-select">
+                            <i class="fas fa-fort-awesome"></i>
+                            <span data-tr-text="Garnizon" data-en-text="Garrison">Garrison</span>
+                        </label>
+                        <select id="garrison-select" disabled>
+                            <option value="" data-tr-text="-- Garnizon Se&#231;in --" data-en-text="-- Select Garrison --">-- Select Garrison --</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Search + Actions -->
+                <div class="search-actions-row">
+                    <div class="control-group">
+                        <label for="garrison-search">
+                            <i class="fas fa-search"></i>
+                            <span data-tr-text="Ara" data-en-text="Search">Search</span>
                         </label>
                         <input 
                             type="text" 
                             id="garrison-search" 
                             class="garrison-search" 
-                            placeholder="Tabloda ara..."
+                            placeholder="Search in table..."
                             disabled
                         >
                     </div>
-                    
-                    <div class="control-group">
+                    <div class="control-group" style="flex: 0; min-width: auto;">
                         <label>&nbsp;</label>
                         <button 
                             id="download-excel" 
@@ -123,7 +274,7 @@
                             data-tr-text="Excel'e Aktar" 
                             data-en-text="Export to Excel"
                         >
-                            <i class="fas fa-file-excel"></i> Excel'e Aktar
+                            <i class="fas fa-file-excel"></i> Export to Excel
                         </button>
                     </div>
                 </div>
@@ -131,7 +282,7 @@
                 <!-- Loading Indicator -->
                 <div id="garrison-loading" class="loading-indicator" style="display: none;">
                     <i class="fas fa-spinner fa-spin"></i>
-                    <span data-tr-text="Yükleniyor..." data-en-text="Loading...">Yükleniyor...</span>
+                    <span data-tr-text="Y&#252;kleniyor..." data-en-text="Loading...">Loading...</span>
                 </div>
 
                 <!-- Error Message -->
@@ -150,32 +301,31 @@
     <footer>
       <div class="footer-content">
         <div class="footer-section">
-          <h3 data-tr-text="Bağlantılar" data-en-text="Links">Bağlantılar</h3>
+          <h3 data-tr-text="Ba&#287;lant&#305;lar" data-en-text="Links">Links</h3>
           <ul class="footer-links">
             <li><a href="index.html">Ana Sayfa</a></li>
-            <li><a href="about.html">Hakkında</a></li>
-            <li><a href="visualizations.html" data-tr="Görselleştirmeler" data-en="Visualizations">Görselleştirmeler</a></li>
+            <li><a href="about.html">Hakk&#305;nda</a></li>
+            <li><a href="visualizations.html" data-tr="G&#246;rselle&#351;tirmeler" data-en="Visualizations">Visualizations</a></li>
           </ul>
         </div>
         <div class="footer-section">
-          <h3 data-tr-text="İletişim" data-en-text="Contact">İletişim</h3>
+          <h3 data-tr-text="&#304;leti&#351;im" data-en-text="Contact">Contact</h3>
           <div class="footer-contact">
-            <p><strong data-tr-text="DANFront Projesi" data-en-text="DANFront Project">DANFront Projesi</strong></p>
+            <p><strong data-tr-text="DANFront Projesi" data-en-text="DANFront Project">DANFront Project</strong></p>
             <p>University of Vienna</p>
             <p>Department of Near Eastern Studies</p>
             <p><a href="https://danfront.univie.ac.at/" target="_blank">danfront.univie.ac.at</a></p>
           </div>
         </div>
         <div class="footer-section">
-          <h3 data-tr-text="Proje Hakkında" data-en-text="About the Project">Proje Hakkında</h3>
+          <h3 data-tr-text="Proje Hakk&#305;nda" data-en-text="About the Project">About the Project</h3>
           <div class="footer-contact">
-            <p data-tr-text="DANFront: Orta ve Aşağı Tuna'da Erken Modern Osmanlı Askeri Sınırının Çevre Tarihi" data-en-text="DANFront: An Environmental History of the Early-Modern Ottoman Military Frontier in the Middle and Lower Danube">DANFront: Orta ve Aşağı Tuna'da Erken Modern Osmanlı Askeri Sınırının Çevre Tarihi</p>
-            <p>An Environmental History of the Early-Modern Ottoman Military Frontier in the Middle and Lower Danube</p>
+            <p data-tr-text="DANFront: Orta ve A&#351;a&#287;&#305; Tuna'da Erken Modern Osmanl&#305; Askeri S&#305;n&#305;r&#305;n&#305;n &#199;evre Tarihi" data-en-text="DANFront: An Environmental History of the Early-Modern Ottoman Military Frontier in the Middle and Lower Danube">DANFront: An Environmental History of the Early-Modern Ottoman Military Frontier in the Middle and Lower Danube</p>
           </div>
         </div>
       </div>
       <div class="footer-copyright">
-        <p>&copy; <span class="current-year">2025</span> <span data-tr-text="DANFront Projesi. Tüm hakları saklıdır." data-en-text="DANFront Project. All rights reserved.">DANFront Projesi. Tüm hakları saklıdır.</span></p>
+        <p>&copy; <span class="current-year">2025</span> <span data-tr-text="DANFront Projesi. T&#252;m haklar&#305; sakl&#305;d&#305;r." data-en-text="DANFront Project. All rights reserved.">DANFront Project. All rights reserved.</span></p>
       </div>
     </footer>
 
@@ -187,4 +337,3 @@
     <script src="js/garrison-table.js"></script>
 </body>
 </html>
-

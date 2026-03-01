@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="DANFront Project Sources - Ottoman and European Archival Materials, Historical Cartography">
+    <meta name="keywords" content="DANFront, Sources, Ottoman, Archives, Cartography, Tahrir, Mühimme, Travelogues">
+    <meta name="author" content="DANFront Project">
+    
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="DANFront - Sources">
+    <meta property="og:description" content="DANFront Project: Ottoman and European Archival Materials, Historical Cartography">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="DANFront - Sources">
+    <meta name="twitter:description" content="DANFront Project: Ottoman and European Archival Materials, Historical Cartography">
+    
+    <title>Sources - DANFront</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="apple-touch-icon" href="favicon.ico">
+
+    <!-- Google Fonts for Logo -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bitcount+Grid+Single:wght@100..900&display=swap" rel="stylesheet">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/main.css">
+
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        .source-section {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+            border: 1px solid var(--border-color);
+        }
+        .source-section h2 {
+            color: var(--primary-color);
+            margin-bottom: 1.25rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .source-section h2 i {
+            color: var(--accent-color);
+            font-size: 1.5rem;
+        }
+        .source-section h3 {
+            color: var(--primary-color);
+            margin-top: 1.75rem;
+            margin-bottom: 0.75rem;
+            font-size: 1.3rem;
+        }
+        .source-section h3:first-child {
+            margin-top: 0;
+        }
+        .source-section p {
+            color: var(--text-primary);
+            line-height: 1.85;
+            margin-bottom: 1rem;
+        }
+        .source-intro {
+            font-size: 1.1rem;
+            color: var(--text-primary);
+            line-height: 1.85;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: var(--hover-bg);
+            border-radius: var(--radius-md);
+            border-left: 4px solid var(--accent-color);
+        }
+        .subsource {
+            margin-top: 1.5rem;
+            padding: 1.5rem;
+            background: var(--hover-bg);
+            border-radius: var(--radius-md);
+            border-left: 4px solid var(--accent-color);
+        }
+        .subsource h4 {
+            color: var(--primary-color);
+            margin-bottom: 0.75rem;
+            font-size: 1.1rem;
+        }
+        .subsource p {
+            font-size: 0.95rem;
+            margin-bottom: 0.75rem;
+        }
+        .subsource p:last-child {
+            margin-bottom: 0;
+        }
+        .source-with-image {
+            display: flex;
+            gap: 2rem;
+            align-items: stretch;
+            margin-bottom: 1.5rem;
+        }
+        .source-with-image .subsource {
+            flex: 1;
+            margin-top: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+        .source-with-image .figure-right {
+            flex: 0 0 280px;
+            text-align: center;
+        }
+        .source-with-image .figure-right img {
+            width: 100%;
+            border-radius: var(--radius-md);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+            border: 1px solid var(--border-color);
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+        .source-with-image .figure-right img:hover {
+            opacity: 0.85;
+        }
+        .source-with-image .figure-right .figure-caption {
+            margin-top: 0.5rem;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            font-style: italic;
+        }
+        @media (max-width: 768px) {
+            .source-with-image {
+                flex-direction: column;
+            }
+            .source-with-image .figure-right {
+                flex: none;
+                width: 100%;
+                max-width: 300px;
+                margin: 0 auto;
+            }
+        }
+        .figure-container {
+            margin: 2rem 0;
+            text-align: center;
+        }
+        .figure-container img {
+            max-width: 80%;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            border-radius: var(--radius-md);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+            border: 1px solid var(--border-color);
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+        .figure-container img:hover {
+            opacity: 0.85;
+        }
+        .figure-container.figure-small img {
+            max-width: 50%;
+        }
+        .figure-container.figure-medium img {
+            max-width: 85%;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .figure-caption {
+            margin-top: 0.75rem;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            font-style: italic;
+        }
+        /* Lightbox */
+        .lightbox-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+        .lightbox-overlay.active {
+            display: flex;
+        }
+        .lightbox-overlay img {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 8px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+        }
+        .lightbox-close {
+            position: fixed;
+            top: 1.5rem;
+            right: 1.5rem;
+            color: #fff;
+            font-size: 2rem;
+            cursor: pointer;
+            z-index: 10000;
+            background: rgba(0,0,0,0.5);
+            border: none;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+        }
+        .lightbox-close:hover {
+            background: rgba(0,0,0,0.8);
+        }
+        @media (max-width: 768px) {
+            .source-section {
+                padding: 1.5rem;
+            }
+            .subsource {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+      <div class="nav-container">
+        <a href="index.html" class="nav-brand">
+          <img src="images/danfront_logo.png" alt="DANFront Logo" class="nav-logo">
+          DANFront
+        </a>
+        <button class="mobile-menu-toggle" aria-label="Toggle menu">
+          <span>☰</span>
+        </button>
+        <ul class="nav-menu">
+          <li><a href="index.html" data-tr="Ana Sayfa" data-en="Home">Ana Sayfa</a></li>
+          <li><a href="about.html" data-tr="Hakkında" data-en="About">Hakkında</a></li>
+          <li><a href="team.html" data-tr="Ekip" data-en="Team">Ekip</a></li>
+          <li><a href="sources.html" class="active" data-tr="Kaynaklar" data-en="Sources">Kaynaklar</a></li>
+          <li><a href="methodology.html" data-tr="Metodoloji" data-en="Methodology">Metodoloji</a></li>
+          <li><a href="activities.html" data-tr="Etkinlikler" data-en="Activities">Etkinlikler</a></li>
+          <li class="language-selector">
+            <div class="language-dropdown">
+              <button class="language-toggle" aria-label="Select language">
+                <i class="fas fa-globe"></i>
+                <span class="current-lang">TR</span>
+                <i class="fas fa-chevron-down"></i>
+              </button>
+              <div class="language-menu">
+                <a href="#" class="lang-option" data-lang="tr">
+                  <i class="fas fa-flag"></i> Türkçe
+                </a>
+                <a href="#" class="lang-option" data-lang="en">
+                  <i class="fas fa-flag"></i> English
+                </a>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="section-header-modern" style="margin-bottom: 2rem;">
+            <h1 class="section-title-modern">
+                <i class="fas fa-archive"></i>
+                <span data-tr-text="Kaynaklar" data-en-text="Sources">Sources</span>
+            </h1>
+        </div>
+
+        <p class="source-intro">
+            DANFront uses various sets of Ottoman and European archival and published materials, as well as cartographic sources, to extract data.
+        </p>
+
+        <!-- Ottoman Archival Material -->
+        <div class="source-section">
+            <h2><i class="fas fa-scroll"></i> Ottoman Archival Material</h2>
+
+            <div class="source-with-image">
+                <div class="subsource">
+                    <h4>Tax surveys (tahrir defterleri)</h4>
+                    <p>For this project, a substantial corpus of tax survey registers from the Danubian sanjaks of the Ottoman Empire, primarily dating from the sixteenth century, has been examined in order to reconstruct the spatial organization of settlements, the distribution of timars, and the fiscal foundations of the Ottoman military presence along the river. These registers provide detailed information on households, agricultural production, fortress-related timars, and revenue structures, enabling us to situate military infrastructures within their socio-economic context. At the same time, they contain references to flood-related casualties, material damage, and regulations concerning the Danube, allowing us to trace how environmental disturbances were recorded, assessed, and integrated into the fiscal-administrative system.</p>
+                </div>
+                <div class="figure-right">
+                    <img src="images/sources_boa_mad11.png" alt="BOA MAD 11, folio 19B-20A">
+                    <p class="figure-caption">BOA MAD 11, folio 19B-20A.</p>
+                </div>
+            </div>
+
+            <div class="source-with-image">
+                <div class="subsource">
+                    <h4>Registers of important affairs (mühimme defterleri)</h4>
+                    <p>These registers contain the orders of the Imperial Council, confirmed by the sultan, and constitute a central source for understanding the Ottoman state's decision-making processes. These registers provide valuable information on bridge-building, fortress construction and repair, the mobilization of labor and resources, and logistical arrangements along the Danube. They also allow us to identify river-related challenges—such as floods, inundations, navigation problems, and infrastructural damage—and to trace how these disturbances were assessed and addressed at the imperial level.</p>
+                    <p>For the purposes of this project, an extensive corpus of mühimme registers from the mid-sixteenth to the late seventeenth century has been examined to reconstruct patterns of state intervention and contextualize environmental events within broader military and administrative strategies. A significant portion of these registers is available in transliterated form, facilitating systematic keyword searches and comparative analysis.</p>
+                </div>
+                <div class="figure-right">
+                    <img src="images/sources_muhimme.png" alt="A page from a mühimme defteri (A. DVNSMHM.d.00012)">
+                    <p class="figure-caption">A page from a mühimme defteri (A. DVNSMHM.d.00012).</p>
+                </div>
+            </div>
+
+            <div class="source-with-image">
+                <div class="subsource">
+                    <h4>Court records (kadı sicilleri)</h4>
+                    <p>Sicils are records of the legal proceedings made by the judge (kadı) or his scribes. They are court registers that contain information on diverse subjects, including local politics, social stratification, commercial agreements, and conflicts. They also contain invaluable material on settlements' spatial organization, including garrisons, palankas, and water mills.</p>
+                </div>
+                <div class="figure-right">
+                    <img src="images/sources_kadi_sicili.png" alt="An excerpt from a kadı sicili">
+                    <p class="figure-caption">An excerpt from a kadı sicili.</p>
+                </div>
+            </div>
+
+            <div class="source-with-image">
+                <div class="subsource">
+                    <h4>Financial records (muhasebe defterleri)</h4>
+                    <p>The financial records of the Ottoman Empire include several archival documents. One of them is payroll registers. They contain data on payments to garrison forces, including the types and divisions to which they were allocated. Tax surveys and payroll registers are complementary archival documents for extracting data on the garrison forces.</p>
+                    <p>Another financial record to be used for the project is the muqataa registers. They are records of the lease of tax units to private contractors, and they enable tracking of the source of funds and their transfer for the payment of garrisons or for the repair or construction of buildings.</p>
+                    <p>Lastly, we will examine miscellaneous financial records that also include information on payments for the construction and repair of fortresses, bridges, and other fluvial structures; materials used; the sheep tax (adet-i ağnam vergisi); and mine income.</p>
+                </div>
+                <div class="figure-right">
+                    <img src="images/sources_muhasebe.png" alt="A page from a muhasebe defteri (MAD.d 01838)">
+                    <p class="figure-caption">A page from a muhasebe defteri (MAD.d 01838).</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Ottoman Published Material -->
+        <div class="source-section">
+            <h2><i class="fas fa-book"></i> Ottoman Published Material</h2>
+
+            <p>In addition to archival sources, DANFront uses textual sources from the 16th and 17th centuries that provide valuable information on the administration of the Ottoman Empire, social and economic life, and campaigns along the Danubian frontier.</p>
+
+            <div class="subsource">
+                <h4>Chronicles</h4>
+                <p>Chronicles constitute an important narrative source for reconstructing the Danubian socio-natural landscape. They provide detailed accounts of river navigation, environmental characteristics of riverine settlements, alterations to the fluvial landscape, and extraordinary events such as floods, droughts, and icing. Unlike administrative records, which document institutional responses, chronicles often describe how such environmental disturbances were perceived, narrated, and embedded within broader political and military contexts. In this project, chronicles are used to contextualize archival data, to trace the experiential and discursive dimensions of environmental change, and to identify patterns of crisis, adaptation, and continuity along the Ottoman Danube frontier.</p>
+            </div>
+
+            <div class="subsource">
+                <h4>Campaign daybooks (rûznâmes)</h4>
+                <p>Campaign daybooks, such as Sultan Mehmed III's campaign to Eger in 1596, the German campaign of Sultan Süleyman I (1532), as well as Süleymannâmes, contain information about fortresses, campaigns, weather patterns, rainfall, and floods. Furthermore, invaluable information about the Ottoman bureaucracy and campaign preparations, including logistics, campaign routes and bridges, can be found in rûznâmes, such as Abdullah Üsküdari's <em>Vâkı'ât-ı Rûz-merre</em>, which covers the years 1688–1693.</p>
+            </div>
+
+            <div class="subsource">
+                <h4>Geography books</h4>
+                <p>Geography books, such as Aşık Mehmed's <em>Menâzirü'l Avâlim</em> and Kâtip Çelebi's <em>Cihannüma</em>, contain valuable information on the empire's geography and topology. They inform the reader about towns, rivers, islands, lakes, mines, animals and people. Evliya Çelebi's ten-volume <em>Seyahatnâme</em> offers invaluable insights into the Ottoman Danubian environment, settlements, and strongholds. In short, chronicles and travel books are vital sources that complement and corroborate information derived from archival documents.</p>
+            </div>
+
+            <div class="subsource">
+                <h4>Travelogues</h4>
+                <p>Travelogues are one of the most essential source bases of the DANFront project, as they provide contemporary observations of the Danube's landscape, infrastructure, and environmental conditions from the sixteenth and seventeenth centuries. Unlike Ottoman administrative records, which reflect institutional responses, travel accounts capture how ambassadors, merchants, soldiers, and other travelers experienced the river in practice, describing floods, marshlands, whirlpools, fortresses, bridges, shipyards, and patterns of mobility.</p>
+                <p>In DANFront, we systematically analyze a multilingual corpus of travelogues through keyword searches and close reading in order to extract references to environmental events and military infrastructures. These references are then integrated into our database and GIS visualizations, allowing us to cross-check archival material, reconstruct perceptions of risk and navigation, and better understand how the Ottoman Danube frontier functioned as a lived socio-natural environment.</p>
+            </div>
+        </div>
+
+        <!-- European Archival and Published Materials -->
+        <div class="source-section">
+            <h2><i class="fas fa-landmark"></i> European Archival and Published Materials</h2>
+
+            <p>A vast number of European travelers and diplomats used, observed, and reported on the Danube in the early modern period. DANFront uses travelogues and the ambassadorial reports of Habsburg envoys, such as Ogier Ghiselin de Busbecq (1554), Salomon Schweigger (1578), and Reinhold Lubenau (1587), which offer an outsider's perspective on the Ottoman Danube.</p>
+
+            <div class="subsource">
+                <h4>Hungarian National Archives (MNL; Magyar Nemzeti Levéltár), Budapest</h4>
+                <p>At the Hungarian National Archives in Budapest, we have examined the urbaria, gentry censuses, and property and estate valuations dating from 1527 to the 18th century (MNL E 156 Urbaria et Conscriptiones) in the Magyar Kamara Archívuma [Archives of the Hungarian Chamber].</p>
+            </div>
+
+            <div class="subsource">
+                <h4>Nicolae Iorga Institute of History, Bucharest</h4>
+                <p>At the Nicolae Iorga Institute of History in Bucharest, we have consulted the Wallachian charters and writs recorded in Old Church Slavonic and Romanian Cyrillic. There are approximately 2,500 charters from the 16th century and even more from the 17th century. Most of the charters are collected in volumes titled <em>Documenta Romaniae Historica</em> and are available online, enabling keyword searches related to the subject.</p>
+            </div>
+        </div>
+
+        <!-- Historical Cartography -->
+        <div class="source-section">
+            <h2><i class="fas fa-map"></i> Historical Cartography</h2>
+
+            <p>DANFront integrates historical cartographic material into the examination of the military and environmental history of the Lower and Middle Danube in the early modern Ottoman Empire. Historical maps and land surveys include information such as terrain, crossing points, moors, woods, settlements, bridges, roads, etc.</p>
+
+            <p>DANFront has employed two maps to examine the Danube River in relation to its military use.</p>
+
+            <div class="subsource">
+                <h4>The Josephinian Land Survey (Josephinische Landesaufnahme)</h4>
+                <p>It was the first comprehensive land survey and mapping of the Habsburg Empire. The survey was ordered by Holy Roman Empress Maria Theresa after Austria's defeat in the Seven Years' War. It was conducted from 1763 to 1787 (during the reign of Maria Theresa and completed in the reign of Holy Roman Emperor Joseph II). The maps are hand-drawn and were initially at a scale of 1 Viennese inch (approximately 1:28,800). The Josephinian Land Survey ultimately comprised more than 4,000 sheets from 1763 to 1785. The maps are currently stored in the National Archives of Austria.</p>
+                <p>In the project, we have examined 278 sheets from the Banat of Temeswar (1769–1772) and the Kingdom of Hungary (1782–1785).</p>
+            </div>
+
+            <div class="figure-container figure-medium">
+                <img src="images/sources_josephinian_survey.png" alt="An excerpt from the Josephinian Land Survey, showing Vienna and its surrounding">
+                <p class="figure-caption">An excerpt from the Josephinian Land Survey, showing Vienna and its surrounding.</p>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3 data-tr-text="Bağlantılar" data-en-text="Links">Bağlantılar</h3>
+          <ul class="footer-links">
+            <li><a href="index.html">Ana Sayfa</a></li>
+            <li><a href="about.html">Hakkında</a></li>
+            <li><a href="visualizations.html" data-tr="Görselleştirmeler" data-en="Visualizations">Görselleştirmeler</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h3><span data-tr-text="İletişim" data-en-text="Contact">İletişim</span></h3>
+          <div class="footer-contact">
+            <p><strong data-tr-text="DANFront Projesi" data-en-text="DANFront Project">DANFront Projesi</strong></p>
+            <p>University of Vienna</p>
+            <p>Department of Near Eastern Studies</p>
+            <p><a href="https://danfront.univie.ac.at/" target="_blank">danfront.univie.ac.at</a></p>
+          </div>
+        </div>
+        <div class="footer-section">
+          <h3><span data-tr-text="Proje Hakkında" data-en-text="About the Project">Proje Hakkında</span></h3>
+          <div class="footer-contact">
+            <p><span data-tr-text="DANFront: Orta ve Aşağı Tuna'da Erken Modern Osmanlı Askeri Sınırının Çevre Tarihi" data-en-text="DANFront: An Environmental History of the Early-Modern Ottoman Military Frontier in the Middle and Lower Danube">DANFront: Orta ve Aşağı Tuna'da Erken Modern Osmanlı Askeri Sınırının Çevre Tarihi</span></p>
+            <p>An Environmental History of the Early-Modern Ottoman Military Frontier in the Middle and Lower Danube</p>
+          </div>
+        </div>
+      </div>
+      <div class="footer-copyright">
+        <p>&copy; <span class="current-year">2025</span> <span data-tr-text="DANFront Projesi. Tüm hakları saklıdır." data-en-text="DANFront Project. All rights reserved.">DANFront Projesi. Tüm hakları saklıdır.</span></p>
+      </div>
+    </footer>
+
+    <!-- Lightbox -->
+    <div class="lightbox-overlay" id="lightbox">
+        <button class="lightbox-close" id="lightboxClose">&times;</button>
+        <img id="lightboxImg" src="" alt="">
+    </div>
+
+    <!-- JavaScript -->
+    <script src="js/main.js"></script>
+    <script>
+        (function() {
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightboxImg');
+            const lightboxClose = document.getElementById('lightboxClose');
+
+            // Open lightbox on any source image click
+            document.querySelectorAll('.figure-right img, .figure-container img').forEach(function(img) {
+                // Skip nav logo
+                if (img.closest('nav')) return;
+                img.addEventListener('click', function() {
+                    lightboxImg.src = this.src;
+                    lightboxImg.alt = this.alt;
+                    lightbox.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                });
+            });
+
+            // Close lightbox
+            lightboxClose.addEventListener('click', function() {
+                lightbox.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+            lightbox.addEventListener('click', function(e) {
+                if (e.target === lightbox) {
+                    lightbox.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            });
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && lightbox.classList.contains('active')) {
+                    lightbox.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            });
+        })();
+    </script>
+</body>
+</html>
+

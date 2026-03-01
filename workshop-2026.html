@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Mobilizing Nature: The Environmental History of the Ottoman Danubian Frontier - Workshop, Vienna, 12-13 March 2026">
+    <meta name="keywords" content="DANFront, Workshop, Ottoman, Danube, Environmental History, Vienna, 2026">
+    <meta name="author" content="DANFront Project">
+    
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="DANFront Workshop - Mobilizing Nature">
+    <meta property="og:description" content="Mobilizing Nature: The Environmental History of the Ottoman Danubian Frontier, Vienna, 12-13 March 2026">
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="DANFront Workshop - Mobilizing Nature">
+    <meta name="twitter:description" content="Mobilizing Nature: The Environmental History of the Ottoman Danubian Frontier, Vienna, 12-13 March 2026">
+    
+    <title>Workshop: Mobilizing Nature - DANFront</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="apple-touch-icon" href="favicon.ico">
+
+    <!-- Google Fonts for Logo -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bitcount+Grid+Single:wght@100..900&display=swap" rel="stylesheet">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/main.css">
+
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        .workshop-header {
+            text-align: center;
+            padding: 3rem 2rem;
+            background: linear-gradient(135deg, var(--primary-color), #2c3e50);
+            color: var(--white);
+            border-radius: var(--radius-lg);
+            margin-bottom: 2.5rem;
+        }
+        .workshop-header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            line-height: 1.3;
+            color: #ffffff;
+        }
+        .workshop-header .workshop-subtitle {
+            font-size: 1.15rem;
+            color: #ffffff;
+            opacity: 0.9;
+            margin-bottom: 1rem;
+        }
+        .workshop-header .workshop-date {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255,255,255,0.15);
+            padding: 0.5rem 1.25rem;
+            border-radius: 2rem;
+            font-size: 1rem;
+            font-weight: 600;
+        }
+        .day-header {
+            background: var(--primary-color);
+            color: var(--white);
+            padding: 1rem 1.5rem;
+            border-radius: var(--radius-md);
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin: 2.5rem 0 1.5rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .day-header:first-of-type {
+            margin-top: 0;
+        }
+        .panel-block {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+            border: 1px solid var(--border-color);
+        }
+        .panel-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-bottom: 1.25rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+        .panel-title h3 {
+            color: var(--primary-color);
+            font-size: 1.25rem;
+            margin: 0;
+        }
+        .panel-time {
+            background: var(--accent-color);
+            color: var(--white);
+            padding: 0.3rem 0.85rem;
+            border-radius: 2rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+        .speaker-item {
+            padding: 0.85rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .speaker-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+        .speaker-name {
+            font-weight: 600;
+            color: var(--primary-color);
+            font-size: 0.95rem;
+        }
+        .speaker-affiliation {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+        .speaker-talk {
+            color: var(--text-primary);
+            font-style: italic;
+            margin-top: 0.25rem;
+            line-height: 1.6;
+        }
+        .event-block {
+            background: var(--hover-bg);
+            border-radius: var(--radius-md);
+            padding: 1rem 1.5rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .event-block i {
+            font-size: 1.2rem;
+            color: var(--accent-color);
+        }
+        .event-block .event-info {
+            flex: 1;
+        }
+        .event-block .event-name {
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+        .event-block .event-time {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        .separator {
+            text-align: center;
+            font-size: 1.5rem;
+            letter-spacing: 0.5rem;
+            color: var(--text-secondary);
+            margin: 1.5rem 0;
+        }
+        .workshop-note {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem 2rem;
+            margin-top: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+            border: 1px solid var(--border-color);
+            border-left: 5px solid var(--accent-color);
+            color: var(--text-primary);
+            line-height: 1.8;
+        }
+        .workshop-note a {
+            color: var(--accent-color);
+            font-weight: 600;
+        }
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--accent-color);
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .back-link:hover {
+            color: var(--primary-color);
+        }
+        @media (max-width: 768px) {
+            .workshop-header {
+                padding: 2rem 1.25rem;
+            }
+            .workshop-header h1 {
+                font-size: 1.5rem;
+            }
+            .panel-block {
+                padding: 1.25rem;
+            }
+            .panel-title {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+      <div class="nav-container">
+        <a href="index.html" class="nav-brand">
+          <img src="images/danfront_logo.png" alt="DANFront Logo" class="nav-logo">
+          DANFront
+        </a>
+        <button class="mobile-menu-toggle" aria-label="Toggle menu">
+          <span>☰</span>
+        </button>
+        <ul class="nav-menu">
+          <li><a href="index.html" data-tr="Ana Sayfa" data-en="Home">Ana Sayfa</a></li>
+          <li><a href="about.html" data-tr="Hakkında" data-en="About">Hakkında</a></li>
+          <li><a href="team.html" data-tr="Ekip" data-en="Team">Ekip</a></li>
+          <li><a href="sources.html" data-tr="Kaynaklar" data-en="Sources">Kaynaklar</a></li>
+          <li><a href="methodology.html" data-tr="Metodoloji" data-en="Methodology">Metodoloji</a></li>
+          <li><a href="activities.html" class="active" data-tr="Etkinlikler" data-en="Activities">Etkinlikler</a></li>
+          <li class="language-selector">
+            <div class="language-dropdown">
+              <button class="language-toggle" aria-label="Select language">
+                <i class="fas fa-globe"></i>
+                <span class="current-lang">TR</span>
+                <i class="fas fa-chevron-down"></i>
+              </button>
+              <div class="language-menu">
+                <a href="#" class="lang-option" data-lang="tr">
+                  <i class="fas fa-flag"></i> Türkçe
+                </a>
+                <a href="#" class="lang-option" data-lang="en">
+                  <i class="fas fa-flag"></i> English
+                </a>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container">
+
+        <a href="activities.html" class="back-link">
+            <i class="fas fa-arrow-left"></i> Back to Activities
+        </a>
+
+        <div class="workshop-header">
+            <h1>Mobilizing Nature: The Environmental History of the Ottoman Danubian Frontier</h1>
+            <p class="workshop-subtitle">Vienna</p>
+            <span class="workshop-date">
+                <i class="fas fa-calendar-alt"></i> 12–13 March 2026
+            </span>
+        </div>
+
+        <!-- DAY 1 -->
+        <div class="day-header">
+            <i class="fas fa-calendar-day"></i> 12 March 2026
+        </div>
+
+        <div class="event-block">
+            <i class="fas fa-door-open"></i>
+            <div class="event-info">
+                <span class="event-name">Workshop Opening</span>
+                <span class="event-time">16:00–16:15</span>
+            </div>
+        </div>
+
+        <div class="panel-block">
+            <div class="panel-title">
+                <h3>DANFront: An Environmental History of the Early-Modern Ottoman Military Frontier in the Middle and Lower Danube</h3>
+                <span class="panel-time">16:15–16:45</span>
+            </div>
+            <p style="color: var(--text-secondary); font-style: italic; margin-bottom: 1rem;">Project Presentation</p>
+            <div class="speaker-item">
+                <div class="speaker-name">Onur İnal</div>
+                <div class="speaker-affiliation">Project Manager, DANFront, University of Vienna</div>
+            </div>
+            <div class="speaker-item">
+                <div class="speaker-name">Deniz Armağan Akto</div>
+                <div class="speaker-affiliation">Project Researcher, DANFront, University of Vienna</div>
+            </div>
+        </div>
+
+        <div class="panel-block">
+            <div class="panel-title">
+                <h3>Panel 1: The Danube in Early Ottoman Logistics</h3>
+                <span class="panel-time">17:00–18:30</span>
+            </div>
+            <div class="speaker-item">
+                <div class="speaker-name">Faisal H. Husain <span class="speaker-affiliation">(Penn State University, USA)</span></div>
+                <div class="speaker-talk">River Systems and Imperial Strategy in Early Modern Ottoman History</div>
+            </div>
+            <div class="speaker-item">
+                <div class="speaker-name">Gábor Ágoston <span class="speaker-affiliation">(Georgetown University, USA)</span></div>
+                <div class="speaker-talk">The Danube in Ottoman Strategy and Logistics</div>
+            </div>
+            <div class="speaker-item">
+                <div class="speaker-name">Dino Mujadžević <span class="speaker-affiliation">(Croatian Institute of History, Croatia)</span></div>
+                <div class="speaker-talk">Ecological Impacts of Ottoman Military Actions in the Sava-Drava-Danube Interfluve</div>
+            </div>
+        </div>
+
+        <div class="event-block">
+            <i class="fas fa-utensils"></i>
+            <div class="event-info">
+                <span class="event-name">Workshop Dinner</span>
+                <span class="event-time">19:00–21:00</span>
+            </div>
+        </div>
+
+        <div class="separator">***</div>
+
+        <!-- DAY 2 -->
+        <div class="day-header">
+            <i class="fas fa-calendar-day"></i> 13 March 2026
+        </div>
+
+        <div class="panel-block">
+            <div class="panel-title">
+                <h3>Panel 2: Fortifying the Danube: Military, Economic, and Ecological Aspects</h3>
+                <span class="panel-time">09:00–10:30</span>
+            </div>
+            <div class="speaker-item">
+                <div class="speaker-name">Göksel Baş <span class="speaker-affiliation">(Social Sciences University of Ankara, Turkey)</span></div>
+                <div class="speaker-talk">Securing the Danube Frontier: Ottoman Garrisons, Finance and River Fleets (1521–1541)</div>
+            </div>
+            <div class="speaker-item">
+                <div class="speaker-name">Mihai Anatolii Ciobanu <span class="speaker-affiliation">(A. D. Xenopol Institute of History of the Romanian Academy, Iași Branch, Romania)</span></div>
+                <div class="speaker-talk">Environmental History of Ottoman Fortresses in the Lower Danube. Case Studies of Yergöğü, Hârșova, İbrail and Tulça in the 18th–19th Centuries</div>
+            </div>
+            <div class="speaker-item">
+                <div class="speaker-name">Olivier Bouquet <span class="speaker-affiliation">(Université Paris Cité, France)</span></div>
+                <div class="speaker-talk">Bridges and Carts: Mobilizing Timber in 17th-Century Danubian Warfare</div>
+            </div>
+            <div class="speaker-item">
+                <div class="speaker-name">Rossitsa Gradeva <span class="speaker-affiliation">(American University in Bulgaria, Bulgaria)</span></div>
+                <div class="speaker-talk">The Ottoman Danube, Late 14th to Early 18th century: A View from Vidin and Rusçuk</div>
+            </div>
+        </div>
+
+        <div class="panel-block">
+            <div class="panel-title">
+                <h3>Panel 3: Crossing the Danube: Obstacles and Opportunities</h3>
+                <span class="panel-time">11:00–12:30</span>
+            </div>
+            <div class="speaker-item">
+                <div class="speaker-name">M. Fatih Çalışır <span class="speaker-affiliation">(Istanbul University, Turkey)</span></div>
+                <div class="speaker-talk">Mapping the Frontier: Ebū Bekr b. Behrām ed-Dimaşḳī and the Environmental Imagination of the Ottoman Danube</div>
+            </div>
+            <div class="speaker-item">
+                <div class="speaker-name">Dilek Seniha Cenez Ülker <span class="speaker-affiliation">(Istanbul Aydın University, Turkey)</span></div>
+                <div class="speaker-talk">The Operational Role of the Danube in the 1697 Expedition: A Study of Logistics, Strategy, and Geographical Constraints</div>
+            </div>
+            <div class="speaker-item">
+                <div class="speaker-name">Seyfullah Aslan <span class="speaker-affiliation">(Kırklareli University, Turkey)</span></div>
+                <div class="speaker-talk">Echoes of the River: Nature's Dynamics and Logistics along the Ottoman Danube (17th Century)</div>
+            </div>
+            <div class="speaker-item">
+                <div class="speaker-name">Kahraman Şakul <span class="speaker-affiliation">(Istanbul Medeniyet University, Turkey)</span></div>
+                <div class="speaker-talk">The Danube and the Köprülü Campaigns</div>
+            </div>
+        </div>
+
+        <div class="event-block">
+            <i class="fas fa-utensils"></i>
+            <div class="event-info">
+                <span class="event-name">Lunch</span>
+                <span class="event-time">12:30–14:00</span>
+            </div>
+        </div>
+
+        <div class="panel-block">
+            <div class="panel-title">
+                <h3>Panel 4: Perspectives from Across the Ottoman Danube</h3>
+                <span class="panel-time">14:00–15:30</span>
+            </div>
+            <div class="speaker-item">
+                <div class="speaker-name">András Vadas <span class="speaker-affiliation">(Eötvös Loránd University, Hungary)</span></div>
+                <div class="speaker-talk">Plague in Early Modern East Central Europe: The Case of the Hungarian-Ottoman Frontier</div>
+            </div>
+            <div class="speaker-item">
+                <div class="speaker-name">Marian Coman <span class="speaker-affiliation">(University of Bucharest, Romania / Nicolae Iorga Institute of History of the Romanian Academy, Romania)</span></div>
+                <div class="speaker-talk">Pre-emptive Strikes Against the Ottomans on the Lower Danube.</div>
+            </div>
+            <div class="speaker-item">
+                <div class="speaker-name">Michal Celnar <span class="speaker-affiliation">(Slovak Academy of Sciences, Slovakia)</span></div>
+                <div class="speaker-talk">The Danube as a Diplomatic Artery in the Ottoman-Hungarian Borderlands (16th–17th Centuries)</div>
+            </div>
+        </div>
+
+        <div class="event-block">
+            <i class="fas fa-comments"></i>
+            <div class="event-info">
+                <span class="event-name">Discussion and Closing</span>
+                <span class="event-time">15:30–16:00</span>
+            </div>
+        </div>
+
+        <div class="workshop-note">
+            <i class="fas fa-info-circle" style="color: var(--accent-color); margin-right: 0.5rem;"></i>
+            The workshop is a closed event due to the meeting format and the venue's limited capacity. There are a few seats available for the audience. Please contact <a href="mailto:onur.inal@univie.ac.at">onur.inal@univie.ac.at</a> if you have an interest in attending one or more panels.
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3 data-tr-text="Bağlantılar" data-en-text="Links">Bağlantılar</h3>
+          <ul class="footer-links">
+            <li><a href="index.html">Ana Sayfa</a></li>
+            <li><a href="about.html">Hakkında</a></li>
+            <li><a href="visualizations.html" data-tr="Görselleştirmeler" data-en="Visualizations">Görselleştirmeler</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h3><span data-tr-text="İletişim" data-en-text="Contact">İletişim</span></h3>
+          <div class="footer-contact">
+            <p><strong data-tr-text="DANFront Projesi" data-en-text="DANFront Project">DANFront Projesi</strong></p>
+            <p>University of Vienna</p>
+            <p>Department of Near Eastern Studies</p>
+            <p><a href="https://danfront.univie.ac.at/" target="_blank">danfront.univie.ac.at</a></p>
+          </div>
+        </div>
+        <div class="footer-section">
+          <h3><span data-tr-text="Proje Hakkında" data-en-text="About the Project">Proje Hakkında</span></h3>
+          <div class="footer-contact">
+            <p><span data-tr-text="DANFront: Orta ve Aşağı Tuna'da Erken Modern Osmanlı Askeri Sınırının Çevre Tarihi" data-en-text="DANFront: An Environmental History of the Early-Modern Ottoman Military Frontier in the Middle and Lower Danube">DANFront: Orta ve Aşağı Tuna'da Erken Modern Osmanlı Askeri Sınırının Çevre Tarihi</span></p>
+            <p>An Environmental History of the Early-Modern Ottoman Military Frontier in the Middle and Lower Danube</p>
+          </div>
+        </div>
+      </div>
+      <div class="footer-copyright">
+        <p>&copy; <span class="current-year">2025</span> <span data-tr-text="DANFront Projesi. Tüm hakları saklıdır." data-en-text="DANFront Project. All rights reserved.">DANFront Projesi. Tüm hakları saklıdır.</span></p>
+      </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="js/main.js"></script>
+</body>
+</html>
+

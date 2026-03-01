@@ -39,7 +39,10 @@
     <!-- Navigation -->
         <nav>
       <div class="nav-container">
-        <a href="index.html" class="nav-brand">DANFront</a>
+        <a href="index.html" class="nav-brand">
+          <img src="images/danfront_logo.png" alt="DANFront Logo" class="nav-logo">
+          DANFront
+        </a>
         <button class="mobile-menu-toggle" aria-label="Toggle menu">
           <span>☰</span>
         </button>
@@ -77,45 +80,122 @@
             <div class="section-header-modern">
                 <h1 class="section-title-modern">
                     <i class="fas fa-calendar-alt"></i>
-                    <span data-tr-text="Etkinlikler" data-en-text="Activities">Etkinlikler</span>
+                    <span data-tr-text="Etkinlikler" data-en-text="Activities">Activities</span>
                 </h1>
-                <p class="section-subtitle-modern" data-tr-text="Proje etkinlikleri, konferanslar ve yayınlar" data-en-text="Project activities, conferences and publications">Proje etkinlikleri, konferanslar ve yayınlar</p>
             </div>
 
-            <div class="card" style="padding: 2rem; margin: 2rem 0; background: var(--white); border-radius: var(--radius-lg); box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);">
+            <!-- Upcoming Events -->
+            <div class="card" style="padding: 2rem; margin: 2rem 0; background: var(--white); border-radius: var(--radius-lg); box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07); border-left: 5px solid var(--success-color);">
                 <h2 style="color: var(--primary-color); margin-bottom: 1.5rem; font-size: 1.8rem;">
-                    <i class="fas fa-info-circle"></i> <span data-tr-text="Proje Etkinlikleri" data-en-text="Project Activities">Proje Etkinlikleri</span>
+                    <i class="fas fa-bullhorn"></i> <span data-tr-text="Yaklaşan Etkinlikler" data-en-text="Upcoming">Upcoming</span>
                 </h2>
-                <p style="color: var(--text-primary); line-height: 1.8; margin-bottom: 1.5rem;" data-tr-text="DANFront projesi kapsamında düzenlenen etkinlikler, konferanslar, seminerler ve diğer akademik faaliyetler hakkında bilgiler burada yer almaktadır." data-en-text="Information about events, conferences, seminars and other academic activities organized within the scope of the DANFront project is available here.">
-                    DANFront projesi kapsamında düzenlenen etkinlikler, konferanslar, seminerler ve diğer akademik faaliyetler hakkında bilgiler burada yer almaktadır.
-                </p>
-                <p style="color: var(--text-secondary); font-style: italic;" data-tr-text="Etkinlik bilgileri yakında eklenecektir." data-en-text="Event information will be added soon.">
-                    Etkinlik bilgileri yakında eklenecektir.
-                </p>
+                <div style="margin-bottom: 1rem;">
+                    <div style="display: flex; align-items: flex-start; gap: 1rem; padding: 1rem 0;">
+                        <div style="min-width: 50px; text-align: center;">
+                            <i class="fas fa-chalkboard-teacher" style="font-size: 1.5rem; color: var(--success-color);"></i>
+                        </div>
+                        <div>
+                            <h3 style="color: var(--primary-color); font-size: 1.15rem; margin-bottom: 0.3rem;">Workshop</h3>
+                            <p style="color: var(--text-primary); line-height: 1.8; margin-bottom: 0.5rem;">
+                                <a href="workshop-2026.html" style="color: var(--text-primary); text-decoration: none; border-bottom: 2px solid var(--accent-color);">"Mobilizing Nature: The Environmental History of the Ottoman Danubian Frontier," Vienna</a>
+                            </p>
+                            <p style="color: var(--text-secondary); font-size: 0.9rem;">
+                                <i class="fas fa-calendar"></i> 12–13 March 2026
+                            </p>
+                            <a href="workshop-2026.html" style="display: inline-flex; align-items: center; gap: 0.4rem; color: var(--accent-color); font-weight: 600; font-size: 0.9rem; margin-top: 0.5rem; text-decoration: none;">View Program <i class="fas fa-arrow-right" style="font-size: 0.75rem;"></i></a>
+                        </div>
+                    </div>
+                </div>
             </div>
 
+            <!-- Past Events -->
             <div class="card" style="padding: 2rem; margin: 2rem 0; background: var(--white); border-radius: var(--radius-lg); box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);">
                 <h2 style="color: var(--primary-color); margin-bottom: 1.5rem; font-size: 1.8rem;">
-                    <i class="fas fa-microphone"></i> <span data-tr-text="Konferanslar ve Sunumlar" data-en-text="Conferences and Presentations">Konferanslar ve Sunumlar</span>
+                    <i class="fas fa-history"></i> <span data-tr-text="Geçmiş Etkinlikler" data-en-text="Past">Past</span>
                 </h2>
-                <p style="color: var(--text-primary); line-height: 1.8; margin-bottom: 1.5rem;" data-tr-text="Proje ekibinin katıldığı ulusal ve uluslararası konferanslar, sempozyumlar ve akademik toplantılar." data-en-text="National and international conferences, symposia and academic meetings attended by the project team.">
-                    Proje ekibinin katıldığı ulusal ve uluslararası konferanslar, sempozyumlar ve akademik toplantılar.
-                </p>
-                <p style="color: var(--text-secondary); font-style: italic;" data-tr-text="Konferans bilgileri yakında eklenecektir." data-en-text="Conference information will be added soon.">
-                    Konferans bilgileri yakında eklenecektir.
-                </p>
+                <ul style="list-style: none; padding: 0; margin: 0;">
+                    <li style="display: flex; align-items: flex-start; gap: 1rem; padding: 1.25rem 0; border-bottom: 1px solid var(--border-color);">
+                        <div style="min-width: 50px; text-align: center;">
+                            <i class="fas fa-graduation-cap" style="font-size: 1.3rem; color: var(--accent-color);"></i>
+                        </div>
+                        <div>
+                            <p style="color: var(--text-primary); line-height: 1.8; margin-bottom: 0.5rem;">
+                                Deniz Armağan Akto defended his Ph.D thesis at Bilkent University, entitled "The Ottoman Military, Socio-Economic and Administrative Order in the Lower Danube (From the Mid-15th to the End of the 16th Century): The Cases of Vidin and Niğbolu."
+                            </p>
+                            <p style="color: var(--text-secondary); font-size: 0.9rem;">
+                                <i class="fas fa-calendar"></i> 19.12.2025
+                            </p>
+                        </div>
+                    </li>
+                    <li style="display: flex; align-items: flex-start; gap: 1rem; padding: 1.25rem 0; border-bottom: 1px solid var(--border-color);">
+                        <div style="min-width: 50px; text-align: center;">
+                            <i class="fas fa-microphone" style="font-size: 1.3rem; color: var(--accent-color);"></i>
+                        </div>
+                        <div>
+                            <p style="color: var(--text-primary); line-height: 1.8; margin-bottom: 0.5rem;">
+                                Deniz Armağan Akto presented the paper "Ottoman Strategies for Coping with Floods on the Danube River in the 16th and 17th Centuries" at the European Society for Environmental History (ESEH) Conference in Uppsala, Sweden.
+                            </p>
+                            <p style="color: var(--text-secondary); font-size: 0.9rem;">
+                                <i class="fas fa-calendar"></i> 21.08.2025
+                            </p>
+                        </div>
+                    </li>
+                    <li style="display: flex; align-items: flex-start; gap: 1rem; padding: 1.25rem 0; border-bottom: 1px solid var(--border-color);">
+                        <div style="min-width: 50px; text-align: center;">
+                            <i class="fas fa-award" style="font-size: 1.3rem; color: var(--accent-color);"></i>
+                        </div>
+                        <div>
+                            <p style="color: var(--text-primary); line-height: 1.8; margin-bottom: 0.5rem;">
+                                Onur İnal has become an affiliated member of the Cluster of Excellence – Eurasian Transformations.
+                            </p>
+                            <p style="color: var(--text-secondary); font-size: 0.9rem;">
+                                <i class="fas fa-calendar"></i> March 2025
+                            </p>
+                        </div>
+                    </li>
+                    <li style="display: flex; align-items: flex-start; gap: 1rem; padding: 1.25rem 0;">
+                        <div style="min-width: 50px; text-align: center;">
+                            <i class="fas fa-chalkboard-teacher" style="font-size: 1.3rem; color: var(--accent-color);"></i>
+                        </div>
+                        <div>
+                            <p style="color: var(--text-primary); line-height: 1.8; margin-bottom: 0.5rem;">
+                                Our team visited Assoc. Prof. Robyn Dora Radway's (Central European University) "Ottoman Hungary" class as guest lecturers and presented the DANFront project.
+                            </p>
+                            <p style="color: var(--text-secondary); font-size: 0.9rem;">
+                                <i class="fas fa-calendar"></i> 03.12.2024
+                            </p>
+                        </div>
+                    </li>
+                </ul>
             </div>
 
+            <!-- Publications -->
             <div class="card" style="padding: 2rem; margin: 2rem 0; background: var(--white); border-radius: var(--radius-lg); box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);">
                 <h2 style="color: var(--primary-color); margin-bottom: 1.5rem; font-size: 1.8rem;">
-                    <i class="fas fa-book"></i> <span data-tr-text="Yayınlar" data-en-text="Publications">Yayınlar</span>
+                    <i class="fas fa-book"></i> <span data-tr-text="Yayınlar" data-en-text="Publications">Publications</span>
                 </h2>
-                <p style="color: var(--text-primary); line-height: 1.8; margin-bottom: 1.5rem;" data-tr-text="Proje kapsamında yayınlanan makaleler, kitaplar ve diğer akademik çalışmalar." data-en-text="Articles, books and other academic works published within the scope of the project.">
-                    Proje kapsamında yayınlanan makaleler, kitaplar ve diğer akademik çalışmalar.
-                </p>
-                <p style="color: var(--text-secondary); font-style: italic;" data-tr-text="Yayın bilgileri yakında eklenecektir." data-en-text="Publication information will be added soon.">
-                    Yayın bilgileri yakında eklenecektir.
-                </p>
+                <ul style="list-style: none; padding: 0; margin: 0;">
+                    <li style="display: flex; align-items: flex-start; gap: 1rem; padding: 1.25rem 0; border-bottom: 1px solid var(--border-color);">
+                        <div style="min-width: 50px; text-align: center;">
+                            <i class="fas fa-file-alt" style="font-size: 1.3rem; color: var(--secondary-color);"></i>
+                        </div>
+                        <div>
+                            <p style="color: var(--text-primary); line-height: 1.8; margin-bottom: 0;">
+                                Akto, Deniz Armağan and Onur Inal. "Coping with the River: Nature, Empire, and the Making of the Early Ottoman Danube." In <em>Flowing Progress: Transforming the Danube Through Infrastructure</em>, 27–49. Edited by Stefan Dorondel and Luminita Gatejel. West Lafayette: Purdue University Press.
+                            </p>
+                        </div>
+                    </li>
+                    <li style="display: flex; align-items: flex-start; gap: 1rem; padding: 1.25rem 0;">
+                        <div style="min-width: 50px; text-align: center;">
+                            <i class="fas fa-file-alt" style="font-size: 1.3rem; color: var(--secondary-color);"></i>
+                        </div>
+                        <div>
+                            <p style="color: var(--text-primary); line-height: 1.8; margin-bottom: 0;">
+                                Akto, Deniz Armağan. "Nehir ve İmparatorluk: Erken Modern Dönemde Osmanlı Devleti Yönetiminde Tuna Nehri ve Çevresel Problemlerle Mücadele." In <em>Osmanlı'dan Günümüze İnsanın Ayak İzleri: Müdahale, Etkileşim, Mücadele</em>, 307–334. Edited by Deniz Dölek Sever and Özlem Sert. Istanbul: Alfa, 2025.
+                            </p>
+                        </div>
+                    </li>
+                </ul>
             </div>
         </div>
     </section>

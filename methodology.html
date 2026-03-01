@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="DANFront Project Methodology - Environmental History, Digital Humanities, and Glossary">
+    <meta name="keywords" content="DANFront, Methodology, Environmental History, Digital Humanities, Ottoman, Garrison, Glossary">
+    <meta name="author" content="DANFront Project">
+    
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="DANFront - Methodology">
+    <meta property="og:description" content="DANFront Project: Methodology, Environmental History, Digital Humanities, and Military Glossary">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="DANFront - Methodology">
+    <meta name="twitter:description" content="DANFront Project: Methodology, Environmental History, Digital Humanities, and Military Glossary">
+    
+    <title>Methodology - DANFront</title>
+    
+    <!-- Header Includes -->
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="apple-touch-icon" href="favicon.ico">
+
+    <!-- Google Fonts for Logo -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bitcount+Grid+Single:wght@100..900&display=swap" rel="stylesheet">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/main.css">
+
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        .methodology-section {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+            border: 1px solid var(--border-color);
+        }
+        .methodology-section h2 {
+            color: var(--primary-color);
+            margin-bottom: 1.25rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .methodology-section h2 i {
+            color: var(--accent-color);
+            font-size: 1.5rem;
+        }
+        .methodology-section h3 {
+            color: var(--primary-color);
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+            font-size: 1.3rem;
+        }
+        .methodology-section p {
+            color: var(--text-primary);
+            line-height: 1.85;
+            margin-bottom: 1rem;
+        }
+        .methodology-section ul,
+        .methodology-section ol {
+            padding-left: 1.75rem;
+            margin-bottom: 1rem;
+        }
+        .methodology-section li {
+            color: var(--text-primary);
+            line-height: 1.85;
+            margin-bottom: 0.5rem;
+        }
+        .figure-container {
+            margin: 2rem 0;
+            text-align: center;
+        }
+        .figure-container img {
+            max-width: 100%;
+            border-radius: var(--radius-md);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+            border: 1px solid var(--border-color);
+        }
+        .figure-container.figure-wide img {
+            max-width: 85%;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .figure-caption {
+            margin-top: 0.75rem;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            font-style: italic;
+        }
+        .flood-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: var(--white);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+        .flood-table th {
+            background: var(--primary-color);
+            color: var(--white);
+            padding: 0.875rem 1rem;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+        .flood-table td {
+            padding: 0.875rem 1rem;
+            border-bottom: 1px solid var(--border-color);
+            color: var(--text-primary);
+            line-height: 1.7;
+        }
+        .flood-table tr:last-child td {
+            border-bottom: none;
+        }
+        .flood-table tr:hover td {
+            background-color: var(--hover-bg);
+        }
+        .glossary-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+        .glossary-term {
+            padding: 1.25rem 1.5rem;
+            background: var(--hover-bg);
+            border-radius: var(--radius-md);
+            border-left: 4px solid var(--accent-color);
+        }
+        .glossary-term h4 {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+        .glossary-term p {
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+        .glossary-term .sources {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            font-style: italic;
+            margin-top: 0.75rem;
+            padding-top: 0.75rem;
+            border-top: 1px solid var(--border-color);
+        }
+        .glossary-term.empty-term p {
+            color: var(--text-secondary);
+            font-style: italic;
+        }
+        .glossary-category {
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            padding: 0.75rem 1.25rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: var(--white);
+            border-radius: var(--radius-md);
+            font-size: 1.2rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .glossary-category i {
+            font-size: 1rem;
+        }
+        .internal-link {
+            color: var(--accent-color);
+            text-decoration: underline;
+            font-weight: 500;
+        }
+        .internal-link:hover {
+            color: var(--primary-color);
+        }
+        @media (max-width: 768px) {
+            .methodology-section {
+                padding: 1.5rem;
+            }
+            .flood-table {
+                font-size: 0.85rem;
+            }
+            .flood-table th,
+            .flood-table td {
+                padding: 0.6rem 0.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+      <div class="nav-container">
+        <a href="index.html" class="nav-brand">
+          <img src="images/danfront_logo.png" alt="DANFront Logo" class="nav-logo">
+          DANFront
+        </a>
+        <button class="mobile-menu-toggle" aria-label="Toggle menu">
+          <span>☰</span>
+        </button>
+        <ul class="nav-menu">
+          <li><a href="index.html" data-tr="Ana Sayfa" data-en="Home">Ana Sayfa</a></li>
+          <li><a href="about.html" data-tr="Hakkında" data-en="About">Hakkında</a></li>
+          <li><a href="team.html" data-tr="Ekip" data-en="Team">Ekip</a></li>
+          <li><a href="sources.html" data-tr="Kaynaklar" data-en="Sources">Kaynaklar</a></li>
+          <li><a href="methodology.html" class="active" data-tr="Metodoloji" data-en="Methodology">Metodoloji</a></li>
+          <li><a href="activities.html" data-tr="Etkinlikler" data-en="Activities">Etkinlikler</a></li>
+          <li class="language-selector">
+            <div class="language-dropdown">
+              <button class="language-toggle" aria-label="Select language">
+                <i class="fas fa-globe"></i>
+                <span class="current-lang">TR</span>
+                <i class="fas fa-chevron-down"></i>
+              </button>
+              <div class="language-menu">
+                <a href="#" class="lang-option" data-lang="tr">
+                  <i class="fas fa-flag"></i> Türkçe
+                </a>
+                <a href="#" class="lang-option" data-lang="en">
+                  <i class="fas fa-flag"></i> English
+                </a>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="section-header-modern" style="margin-bottom: 2rem;">
+            <h1 class="section-title-modern">
+                <i class="fas fa-flask"></i>
+                <span data-tr-text="Metodoloji" data-en-text="Methodology">Methodology</span>
+            </h1>
+        </div>
+
+        <!-- Environmental History and Military History -->
+        <div class="methodology-section">
+            <h2><i class="fas fa-leaf"></i> Environmental History and Military History</h2>
+            <p>
+                DANFront adopts the conceptual approach of environmental history to analyze Ottoman military progress along the Lower and Middle Danube. The ultimate benefit of applying the analytical tools and framework of environmental history to the study of the Ottoman Danube is that through such research, we gain a broader understanding of the river and of its role in shaping the Ottoman military's complex relationship to its natural environment. In this respect, the project combines the environmental and military histories of the Ottoman Danube with the region's political, social, and economic histories, offering a new interpretation of this frontier zone.
+            </p>
+        </div>
+
+        <!-- Digital Humanities -->
+        <div class="methodology-section">
+            <h2><i class="fas fa-laptop-code"></i> Digital Humanities</h2>
+            <p>
+                DANFront uses digital humanities mapping tools because they enable us to tell more complex stories through maps by adding layers, filters, pop-ups, and annotations. The digital humanities also enable qualitative and quantitative analysis of GIS data to gain complex understandings of spaces. Finally, the digital humanities help us recognize the social constructions of place, rethink the power structures that have historically been part of cartography, and reimagine how we tell stories.
+            </p>
+            <p>
+                In the project, we first extract data on fortresses, garrisons, and other fluvial infrastructure (shipyards, bridges, mills, etc.), as well as data on floods, icing, alluvial deposits, and other riverine features from a range of primary and secondary sources (<a href="sources.html" class="internal-link">Sources</a>). Second, we transcribe extracted historical data into datasets (in the form of spreadsheets and charts) (<a href="database.html" class="internal-link">Database</a>).
+            </p>
+
+            <div class="figure-container">
+                <img src="images/methodology_dataset_excerpt.png" alt="An excerpt from the dataset, listing the Ottoman garrisons in the Budin province">
+                <p class="figure-caption">An excerpt from the dataset, listing the Ottoman garrisons in the Budin province</p>
+            </div>
+
+            <p>
+                Third, we integrate them into interactive maps (<a href="maps.html" class="internal-link">Maps</a>) using Geographical Information Systems (GIS). Researchers can navigate, analyze, download, and use our data, as it is open access.
+            </p>
+
+            <div class="figure-container figure-wide">
+                <img src="images/methodology_qgis_excerpt.png" alt="An excerpt showing the mapping of garrisons, using QGIS">
+                <p class="figure-caption">An excerpt showing the mapping of garrisons, using QGIS</p>
+            </div>
+
+            <p>
+                In the project, we also visualize the datasets graphically (<a href="visualizations.html" class="internal-link">Visualizations</a>). By providing visual representations of historical data, we aim to enable a range of cross-analyses, thereby transcending conventional avenues of inquiry.
+            </p>
+        </div>
+
+        <!-- Garrisons -->
+        <div class="methodology-section">
+            <h2><i class="fas fa-fort-awesome"></i> Garrisons</h2>
+            <p>
+                This project adopts a data-driven institutional approach to the study of Ottoman frontier garrisons. Rather than treating military titles as fixed categories, it analyzes their functional roles within specific archival contexts. By systematically extracting personnel data from pay registers, tax surveys, and imperial council registers, supplementary and secondary sources the project reconstructs the organizational structure of fortress garrisons along the Danube frontier.
+            </p>
+            <p>
+                Military units are categorized into analytically comparable groups (infantry, cavalry, artillery, auxiliary, and service personnel) in order to identify structural patterns across different fortresses and periods. However, in several registers certain units were recorded jointly (e.g., müstahfızan and topçu). Such entries reflect administrative bookkeeping practices rather than operational uniformity. Instead of artificially redistributing these personnel into separate categories, they are treated as composite units in the dataset. This preserves the integrity of the archival record while maintaining analytical transparency.
+            </p>
+            <p>
+                This approach enables a reassessment of the Ottoman frontier not as a vague borderland, but as a structured administrative-military governance system.
+            </p>
+        </div>
+
+        <!-- Identifying and Assessing Flood Events -->
+        <div class="methodology-section">
+            <h2><i class="fas fa-water"></i> Identifying and Assessing Flood Events</h2>
+            <p>
+                Floods along the Danube were not caused solely by precipitation. In addition to heavy rainfall, several natural factors could trigger flooding. These included:
+            </p>
+            <ul>
+                <li>The thawing of ice on frozen rivers</li>
+                <li>The accumulation of alluvial deposits from previous floods</li>
+                <li>The build-up of driftwood and other debris in the river channel</li>
+            </ul>
+            <p>
+                Alongside these natural dynamics, human interventions — such as the construction of mills and other fluvial infrastructure — could also alter water flow and contribute to flooding.
+            </p>
+            <p>
+                In the Ottoman sources, it is not always possible to identify explicit statements about the causes of floods. However, indirect inferences can be made by considering:
+            </p>
+            <ul>
+                <li>The seasonal timing of events</li>
+                <li>References to ice, driftwood, or debris</li>
+                <li>Mentions of damaged mills, bridges, or embankments</li>
+                <li>Repeated flooding in the same locations</li>
+            </ul>
+            <p>
+                To evaluate the intensity of flood events, this project applies the methodology developed by Christian Rohr in his study of the Traun River. (Christian Rohr (2006), "Measuring the frequency and intensity of floods of the Traun River (Upper Austria), 1441–1574," <em>Hydrological Sciences Journal</em> 51: 834–847.)
+            </p>
+            <p>
+                Rohr classifies floods into four intensity categories:
+            </p>
+
+            <table class="flood-table">
+                <thead>
+                    <tr>
+                        <th>Intensity</th>
+                        <th>Classification</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>I</strong></td>
+                        <td>Small or moderate floods</td>
+                        <td>No significant damage recorded.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>II</strong></td>
+                        <td>Major floods</td>
+                        <td>Damage occurs but can typically be repaired within one month.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>III</strong></td>
+                        <td>Very large floods</td>
+                        <td>Severe damage; partial destruction of wooden bridges; recovery usually within three months.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>IV</strong></td>
+                        <td>Extreme floods</td>
+                        <td>Destruction of economic and social infrastructure; perceived as disasters.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p>
+                In this project, flood intensity is assessed based on:
+            </p>
+            <ul>
+                <li>The scale of reported material damage</li>
+                <li>The type of infrastructure affected (mills, bridges, fortifications, settlements)</li>
+                <li>The duration and scale of reconstruction efforts</li>
+                <li>The terminology used in the sources (e.g., expressions indicating devastation or disaster)</li>
+            </ul>
+            <p>
+                Although Ottoman records rarely provide quantitative measurements, applying Rohr's structured typology allows for:
+            </p>
+            <ul>
+                <li>Systematic comparison across different flood events</li>
+                <li>Integration into a digital dataset</li>
+                <li>Visual representation in GIS-based mapping</li>
+            </ul>
+            <p>
+                This approach enables a comparative environmental analysis despite the qualitative nature of the sources.
+            </p>
+        </div>
+
+        <!-- Glossary -->
+        <div class="methodology-section">
+            <h2><i class="fas fa-book-open"></i> Glossary</h2>
+
+            <!-- Combat Classes -->
+            <div class="glossary-category">
+                <i class="fas fa-shield-alt"></i> Combat Classes
+            </div>
+            <div class="glossary-grid">
+
+                <div class="glossary-term">
+                    <h4>Müstahfız (Merdān)</h4>
+                    <p>Müstahfızān or hisar erleri literally mean "guards of the fortress." The terms merd, hisar eri, and müstahfız were used interchangeably in the Ottoman sources and referred to the same category of fortress guards.</p>
+                </div>
+
+                <div class="glossary-term">
+                    <h4>Dizdar</h4>
+                    <p>One of the essential members of the merdān cemāʿat was the dizdar, the commander of the fortress. The dizdar was responsible for the administration of the garrison, the maintenance and supervision of artillery and ammunition, and the repair and upkeep of the fortress infrastructure.</p>
+                    <p>Since many fortresses functioned not only as military strongholds but also as places of detention for captives and criminals, the dizdar was likewise responsible for the custody and supervision of prisoners held within the fortress.</p>
+                    <p>Moreover, a single fortress could have more than one dizdar. In such cases, the hierarchy among them was determined according to the specific military sections or defensive positions for which they were responsible.</p>
+                    <div class="sources">Sources: Orhan Kılıç, "Teşkilat Ve İşleyiş Bakımından Doğu Hududundaki Osmanlı Kaleleri Ve Mevâcib Defterleri," 102–03; İsmail Hakkı Uzunçarşılı, <em>Osmanlı Devleti Teşkilatından Kapıkulu Ocakları</em>, I, 327</div>
+                </div>
+
+                <div class="glossary-term">
+                    <h4>Fāris (Fārisān)</h4>
+                    <p>Fārisān, also referred to as ulufeciyān-ı süvārī, were cavalry units stationed in frontier fortresses. Their primary function was not static defense within the fortress itself, but rather the organization of raids into enemy territory and the prevention of enemy incursions in the surrounding region. Because of this mobile and offensive role, fārisān units were predominantly assigned to border fortresses.</p>
+                    <p>During the sixteenth and seventeenth centuries, they constituted one of the principal cavalry components of frontier garrisons. The composition of these units was mixed: some members held tımars, while others served as salaried (ulufeli) troops.</p>
+                    <p>Scholars have proposed two main interpretations regarding the identity of fārisān in frontier regions. According to one view, they were mounted ʿazeb troops. Another interpretation suggests that they consisted of levends serving in the households of high-ranking officials, who were subsequently incorporated into frontier garrisons under the designation fārisān.</p>
+                    <div class="sources">Sources: Klara Hegyi, <em>The Ottoman Military Organization in Hungary</em>, 130; Abdülkadir Özcan, "Farisan," in <em>TDV İslâm Ansiklopedisi</em> (İstanbul: TDV İslam Araştırmaları Merkezi, 2016).</div>
+                </div>
+
+                <div class="glossary-term empty-term">
+                    <h4>Azab</h4>
+                    <p>Description to be added.</p>
+                </div>
+
+                <div class="glossary-term empty-term">
+                    <h4>Martolos</h4>
+                    <p>Description to be added.</p>
+                </div>
+
+                <div class="glossary-term empty-term">
+                    <h4>Topçu</h4>
+                    <p>Description to be added.</p>
+                </div>
+
+                <div class="glossary-term empty-term">
+                    <h4>Zenberekci</h4>
+                    <p>Description to be added.</p>
+                </div>
+
+                <div class="glossary-term">
+                    <h4>Gönüllü</h4>
+                    <p>Pál Fodor indicates that those who wished to serve as gönüllü (volunteers) in the Ottoman army were required to possess a horse. In addition, they were expected to provide their own proper armor and weapons. However, the obligation to maintain a horse appears to have become strictly enforced after the Long War (1593–1606). Those who failed to meet this requirement were demoted to the rank of yaya (infantryman).</p>
+                    <p>As Fodor correctly observes, the material requirements of serving as a gönüllü could only be met by relatively wealthy members of the reaya or by individuals belonging to the military-administrative class (askeri). Successful gönüllüs might be granted a tımar or admitted into the gureba corps, while others could be assigned to gönüllüyan units stationed in frontier garrisons.</p>
+                    <p>Halil İnalcık further notes that gönüllüyan troops in fortresses were divided into two branches: gönüllüyan-ı yemīn (right wing) and gönüllüyan-ı yesār (left wing). In some major fortresses, there were two separate cemāʿats of gönüllüyan, organized as cavalry and infantry units.</p>
+                    <p>Fodor also draws attention to the resemblance between the terminology used for these volunteers (gönüllü, garib, garib yiğit) and the names of the two cavalry corps of the imperial court (gariban-ı yemīn and gariban-ı yesār). This parallel may serve as an indication for the internal categorization and hierarchical positioning of gönüllü troops within the broader Ottoman military structure.</p>
+                    <div class="sources">Sources: Pál Fodor, "Volunteers in the Ottoman Army," in <em>Ottomans, Hungarians, and Habsburgs in Central Europe: The Military Confines in the Era of Ottoman Conquest</em>, ed. Pál Fodor and Géza Dávid (Leiden: Brill, 2000), 234–51; Caroline Finkel, <em>The Administration of Warfare: The Ottoman Military Campaigns in Hungary, 1593–1606</em>; Halil İnalcık, "Gönüllü," in <em>The Encyclopaedia of Islam New Edition C–G</em>, ed. B. Lewis, Ch. Pellat and J. Schacht (Leiden: E.J. Brill, 1991); Rhoads Murphey, "The Functioning of the Ottoman Army under Murad IV (1623–1639/1032–1049): Key to Understanding of the Relationship between Center and Periphery in Seventeenth-Century Turkey," 177.</div>
+                </div>
+
+                <div class="glossary-term empty-term">
+                    <h4>Yerli Yeniçeri</h4>
+                    <p>Description to be added.</p>
+                </div>
+            </div>
+
+            <!-- Auxiliary -->
+            <div class="glossary-category">
+                <i class="fas fa-cogs"></i> Auxiliary
+            </div>
+            <div class="glossary-grid">
+                <div class="glossary-term empty-term">
+                    <h4>Cebeci</h4>
+                    <p>Description to be added.</p>
+                </div>
+                <div class="glossary-term empty-term">
+                    <h4>Arabacı</h4>
+                    <p>Description to be added.</p>
+                </div>
+                <div class="glossary-term empty-term">
+                    <h4>Humbaracı</h4>
+                    <p>Description to be added.</p>
+                </div>
+            </div>
+
+            <!-- Craftsmen-Servant -->
+            <div class="glossary-category">
+                <i class="fas fa-hammer"></i> Craftsmen-Servant
+            </div>
+            <div class="glossary-grid">
+                <div class="glossary-term empty-term">
+                    <h4>Neccar</h4>
+                    <p>Description to be added.</p>
+                </div>
+                <div class="glossary-term empty-term">
+                    <h4>Bevvab</h4>
+                    <p>Description to be added.</p>
+                </div>
+                <div class="glossary-term empty-term">
+                    <h4>Suryani</h4>
+                    <p>Description to be added.</p>
+                </div>
+                <div class="glossary-term empty-term">
+                    <h4>Tabbal</h4>
+                    <p>Description to be added.</p>
+                </div>
+                <div class="glossary-term empty-term">
+                    <h4>Kalafatçı</h4>
+                    <p>Description to be added.</p>
+                </div>
+                <div class="glossary-term empty-term">
+                    <h4>Mehter</h4>
+                    <p>Description to be added.</p>
+                </div>
+                <div class="glossary-term empty-term">
+                    <h4>Barutçu</h4>
+                    <p>Description to be added.</p>
+                </div>
+                <div class="glossary-term empty-term">
+                    <h4>Limancı</h4>
+                    <p>Description to be added.</p>
+                </div>
+                <div class="glossary-term empty-term">
+                    <h4>Taşçı</h4>
+                    <p>Description to be added.</p>
+                </div>
+                <div class="glossary-term empty-term">
+                    <h4>İmam</h4>
+                    <p>Description to be added.</p>
+                </div>
+                <div class="glossary-term empty-term">
+                    <h4>Haddad</h4>
+                    <p>Description to be added.</p>
+                </div>
+                <div class="glossary-term empty-term">
+                    <h4>Müteferrika</h4>
+                    <p>Description to be added.</p>
+                </div>
+                <div class="glossary-term empty-term">
+                    <h4>Köprücü</h4>
+                    <p>Description to be added.</p>
+                </div>
+            </div>
+
+            <!-- Sultan's Household Troops -->
+            <div class="glossary-category">
+                <i class="fas fa-crown"></i> Sultan's Household Troops
+            </div>
+            <div class="glossary-grid">
+                <div class="glossary-term empty-term">
+                    <h4>Yeniçeri</h4>
+                    <p>Description to be added.</p>
+                </div>
+                <div class="glossary-term empty-term">
+                    <h4>Ulufeciyan-ı Süvari</h4>
+                    <p>Description to be added.</p>
+                </div>
+                <div class="glossary-term empty-term">
+                    <h4>Cebeci</h4>
+                    <p>Description to be added.</p>
+                </div>
+                <div class="glossary-term empty-term">
+                    <h4>Arabacı</h4>
+                    <p>Description to be added.</p>
+                </div>
+                <div class="glossary-term empty-term">
+                    <h4>Topçu</h4>
+                    <p>Description to be added.</p>
+                </div>
+                <div class="glossary-term empty-term">
+                    <h4>Silahdar</h4>
+                    <p>Description to be added.</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3 data-tr-text="Bağlantılar" data-en-text="Links">Bağlantılar</h3>
+          <ul class="footer-links">
+            <li><a href="index.html">Ana Sayfa</a></li>
+            <li><a href="about.html">Hakkında</a></li>
+            <li><a href="visualizations.html" data-tr="Görselleştirmeler" data-en="Visualizations">Görselleştirmeler</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h3><span data-tr-text="İletişim" data-en-text="Contact">İletişim</span></h3>
+          <div class="footer-contact">
+            <p><strong data-tr-text="DANFront Projesi" data-en-text="DANFront Project">DANFront Projesi</strong></p>
+            <p>University of Vienna</p>
+            <p>Department of Near Eastern Studies</p>
+            <p><a href="https://danfront.univie.ac.at/" target="_blank">danfront.univie.ac.at</a></p>
+          </div>
+        </div>
+        <div class="footer-section">
+          <h3><span data-tr-text="Proje Hakkında" data-en-text="About the Project">Proje Hakkında</span></h3>
+          <div class="footer-contact">
+            <p><span data-tr-text="DANFront: Orta ve Aşağı Tuna'da Erken Modern Osmanlı Askeri Sınırının Çevre Tarihi" data-en-text="DANFront: An Environmental History of the Early-Modern Ottoman Military Frontier in the Middle and Lower Danube">DANFront: Orta ve Aşağı Tuna'da Erken Modern Osmanlı Askeri Sınırının Çevre Tarihi</span></p>
+            <p>An Environmental History of the Early-Modern Ottoman Military Frontier in the Middle and Lower Danube</p>
+          </div>
+        </div>
+      </div>
+      <div class="footer-copyright">
+        <p>&copy; <span class="current-year">2025</span> <span data-tr-text="DANFront Projesi. Tüm hakları saklıdır." data-en-text="DANFront Project. All rights reserved.">DANFront Projesi. Tüm hakları saklıdır.</span></p>
+      </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="js/main.js"></script>
+</body>
+</html>
+
