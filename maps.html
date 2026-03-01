@@ -398,6 +398,43 @@
                                         <span class="filter-count" id="other-count"></span>
                                     </div>
                                 </div>
+                                <!-- Garrison Size Filters -->
+                                <div class="filter-item" style="margin-top:6px;">
+                                    <input type="checkbox" id="layer-sizes" checked>
+                                    <label for="layer-sizes"><span data-tr-text="Boyuta Göre" data-en-text="By Size">By Size</span></label>
+                                </div>
+                                <div class="filter-sub-items" id="garrison-size-filters">
+                                    <div class="filter-item">
+                                        <input type="checkbox" id="size-hub" checked>
+                                        <span class="color-dot" style="background:#333;width:12px;height:12px;"></span>
+                                        <label for="size-hub"><span data-tr-text="Askeri Merkez" data-en-text="Military Hub">Military Hub</span></label>
+                                        <span class="filter-count" id="hub-count"></span>
+                                    </div>
+                                    <div class="filter-item">
+                                        <input type="checkbox" id="size-large" checked>
+                                        <span class="color-dot" style="background:#333;width:10px;height:10px;"></span>
+                                        <label for="size-large"><span data-tr-text="Büyük" data-en-text="Large">Large</span></label>
+                                        <span class="filter-count" id="large-count"></span>
+                                    </div>
+                                    <div class="filter-item">
+                                        <input type="checkbox" id="size-medium" checked>
+                                        <span class="color-dot" style="background:#333;width:8px;height:8px;"></span>
+                                        <label for="size-medium"><span data-tr-text="Orta" data-en-text="Medium">Medium</span></label>
+                                        <span class="filter-count" id="medium-count"></span>
+                                    </div>
+                                    <div class="filter-item">
+                                        <input type="checkbox" id="size-small" checked>
+                                        <span class="color-dot" style="background:#333;width:6px;height:6px;"></span>
+                                        <label for="size-small"><span data-tr-text="Küçük" data-en-text="Small">Small</span></label>
+                                        <span class="filter-count" id="small-count"></span>
+                                    </div>
+                                    <div class="filter-item">
+                                        <input type="checkbox" id="size-unknown" checked>
+                                        <span class="color-dot" style="background:#999;width:8px;height:8px;border-style:dashed;"></span>
+                                        <label for="size-unknown"><span data-tr-text="Bilinmeyen" data-en-text="Unknown">Unknown</span></label>
+                                        <span class="filter-count" id="unknown-count"></span>
+                                    </div>
+                                </div>
                                 <div class="filter-item disabled">
                                     <input type="checkbox" disabled>
                                     <label><span data-tr-text="Tersaneler" data-en-text="Shipyards">Shipyards</span> <span class="coming-soon-badge">Coming soon</span></label>
@@ -667,6 +704,15 @@ var garrisonData = (typeof garrisonMapData !== "undefined") ? garrisonMapData : 
                 if (t.includes('palanka') || t.includes('parkan')) return 'palanka';
                 return 'other';
             }
+            function getGarrisonSizeKey(size) {
+                if (!size) return 'unknown';
+                var s = size.toLowerCase();
+                if (s.includes('military hub')) return 'hub';
+                if (s.includes('large')) return 'large';
+                if (s.includes('medium')) return 'medium';
+                if (s.includes('small')) return 'small';
+                return 'unknown';
+            }
 
             // ===== DATABASE MATCHING =====
             var markerGarrisonMap = new Map();
@@ -821,6 +867,7 @@ var garrisonData = (typeof garrisonMapData !== "undefined") ? garrisonMapData : 
                 data.garrisons.forEach(function(garrison) {
                     if (garrison.lat && garrison.lng) {
                         var typeKey = getGarrisonTypeKey(garrison.type);
+                        var sizeKey = getGarrisonSizeKey(garrison.size);
                         var marker = L.circleMarker([garrison.lat, garrison.lng], {
                             radius: getMarkerSize(garrison.size),
                             fillColor: getMarkerColor(garrison.type),
@@ -832,7 +879,7 @@ var garrisonData = (typeof garrisonMapData !== "undefined") ? garrisonMapData : 
                         markerGarrisonMap.set(marker, garrison);
                         marker.bindPopup(createPopupContent(garrison));
                         marker.addTo(map);
-                        allMarkerData.push({ marker: marker, garrison: garrison, typeKey: typeKey });
+                        allMarkerData.push({ marker: marker, garrison: garrison, typeKey: typeKey, sizeKey: sizeKey });
                     }
                 });
 
@@ -858,17 +905,37 @@ var garrisonData = (typeof garrisonMapData !== "undefined") ? garrisonMapData : 
                 var palankaChecked = document.getElementById('layer-palanka').checked;
                 var otherChecked = document.getElementById('layer-other-garrison').checked;
 
+                // Size filters
+                var hubChecked = document.getElementById('size-hub').checked;
+                var largeChecked = document.getElementById('size-large').checked;
+                var mediumChecked = document.getElementById('size-medium').checked;
+                var smallChecked = document.getElementById('size-small').checked;
+                var unknownChecked = document.getElementById('size-unknown').checked;
+
                 var visibleCount = 0, fortressVis = 0, palankaVis = 0, otherVis = 0;
+                var hubVis = 0, largeVis = 0, mediumVis = 0, smallVis = 0, unknownVis = 0;
 
                 allMarkerData.forEach(function(item) {
+                    // Type filter
                     var typeVisible = false;
                     if (milChecked && garrisonsChecked) {
                         if (item.typeKey === 'fortress' && fortressChecked) typeVisible = true;
                         if (item.typeKey === 'palanka' && palankaChecked) typeVisible = true;
                         if (item.typeKey === 'other' && otherChecked) typeVisible = true;
                     }
+
+                    // Size filter
+                    var sizeVisible = false;
+                    if (item.sizeKey === 'hub' && hubChecked) sizeVisible = true;
+                    if (item.sizeKey === 'large' && largeChecked) sizeVisible = true;
+                    if (item.sizeKey === 'medium' && mediumChecked) sizeVisible = true;
+                    if (item.sizeKey === 'small' && smallChecked) sizeVisible = true;
+                    if (item.sizeKey === 'unknown' && unknownChecked) sizeVisible = true;
+
+                    // Time filter
                     var timeVisible = showAllMode || isGarrisonActiveInYear(item.garrison, currentYear);
-                    var visible = typeVisible && timeVisible;
+
+                    var visible = typeVisible && sizeVisible && timeVisible;
 
                     if (visible && !map.hasLayer(item.marker)) {
                         item.marker.addTo(map);
@@ -881,6 +948,11 @@ var garrisonData = (typeof garrisonMapData !== "undefined") ? garrisonMapData : 
                         if (item.typeKey === 'fortress') fortressVis++;
                         if (item.typeKey === 'palanka') palankaVis++;
                         if (item.typeKey === 'other') otherVis++;
+                        if (item.sizeKey === 'hub') hubVis++;
+                        if (item.sizeKey === 'large') largeVis++;
+                        if (item.sizeKey === 'medium') mediumVis++;
+                        if (item.sizeKey === 'small') smallVis++;
+                        if (item.sizeKey === 'unknown') unknownVis++;
                     }
                 });
 
@@ -896,6 +968,11 @@ var garrisonData = (typeof garrisonMapData !== "undefined") ? garrisonMapData : 
                 document.getElementById('fortress-count').textContent = fortressVis;
                 document.getElementById('palanka-count').textContent = palankaVis;
                 document.getElementById('other-count').textContent = otherVis;
+                document.getElementById('hub-count').textContent = hubVis;
+                document.getElementById('large-count').textContent = largeVis;
+                document.getElementById('medium-count').textContent = mediumVis;
+                document.getElementById('small-count').textContent = smallVis;
+                document.getElementById('unknown-count').textContent = unknownVis;
             }
 
             // Initial count
@@ -932,6 +1009,12 @@ var garrisonData = (typeof garrisonMapData !== "undefined") ? garrisonMapData : 
                 document.getElementById('layer-fortress').checked = checked;
                 document.getElementById('layer-palanka').checked = checked;
                 document.getElementById('layer-other-garrison').checked = checked;
+                document.getElementById('layer-sizes').checked = checked;
+                document.getElementById('size-hub').checked = checked;
+                document.getElementById('size-large').checked = checked;
+                document.getElementById('size-medium').checked = checked;
+                document.getElementById('size-small').checked = checked;
+                document.getElementById('size-unknown').checked = checked;
                 updateMarkerVisibility();
             });
 
@@ -954,6 +1037,34 @@ var garrisonData = (typeof garrisonMapData !== "undefined") ? garrisonMapData : 
                     var o = document.getElementById('layer-other-garrison').checked;
                     document.getElementById('layer-garrisons').checked = f || p || o;
                     document.getElementById('layer-garrisons').indeterminate = (f || p || o) && !(f && p && o);
+                });
+            });
+
+            // Size parent checkbox
+            document.getElementById('layer-sizes').addEventListener('change', function() {
+                var checked = this.checked;
+                document.getElementById('size-hub').checked = checked;
+                document.getElementById('size-large').checked = checked;
+                document.getElementById('size-medium').checked = checked;
+                document.getElementById('size-small').checked = checked;
+                document.getElementById('size-unknown').checked = checked;
+                updateMarkerVisibility();
+            });
+
+            // Individual size checkboxes
+            ['size-hub', 'size-large', 'size-medium', 'size-small', 'size-unknown'].forEach(function(id) {
+                document.getElementById(id).addEventListener('change', function() {
+                    updateMarkerVisibility();
+                    // Update parent checkbox state
+                    var h = document.getElementById('size-hub').checked;
+                    var l = document.getElementById('size-large').checked;
+                    var m = document.getElementById('size-medium').checked;
+                    var s = document.getElementById('size-small').checked;
+                    var u = document.getElementById('size-unknown').checked;
+                    var any = h || l || m || s || u;
+                    var all = h && l && m && s && u;
+                    document.getElementById('layer-sizes').checked = any;
+                    document.getElementById('layer-sizes').indeterminate = any && !all;
                 });
             });
 
