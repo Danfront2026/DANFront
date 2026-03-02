@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
@@ -305,17 +305,17 @@
     <!-- Navigation -->
         <nav>
       <div class="nav-container">
-        <a href="index.html" class="nav-brand">DANFront</a>
+        <a href="./" class="nav-brand">DANFront</a>
         <button class="mobile-menu-toggle" aria-label="Toggle menu">
           <span>☰</span>
         </button>
         <ul class="nav-menu">
-          <li><a href="index.html" data-tr="Ana Sayfa" data-en="Home">Ana Sayfa</a></li>
-          <li><a href="about.html" data-tr="Hakkında" data-en="About">Hakkında</a></li>
-          <li><a href="team.html" data-tr="Ekip" data-en="Team">Ekip</a></li>
-          <li><a href="sources.html" data-tr="Kaynaklar" data-en="Sources">Kaynaklar</a></li>
-          <li><a href="methodology.html" data-tr="Metodoloji" data-en="Methodology">Metodoloji</a></li>
-          <li><a href="activities.html" data-tr="Etkinlikler" data-en="Activities">Etkinlikler</a></li>
+          <li><a href="./" data-tr="Ana Sayfa" data-en="Home">Ana Sayfa</a></li>
+          <li><a href="about" data-tr="Hakkında" data-en="About">Hakkında</a></li>
+          <li><a href="team" data-tr="Ekip" data-en="Team">Ekip</a></li>
+          <li><a href="sources" data-tr="Kaynaklar" data-en="Sources">Kaynaklar</a></li>
+          <li><a href="methodology" data-tr="Metodoloji" data-en="Methodology">Metodoloji</a></li>
+          <li><a href="activities" data-tr="Etkinlikler" data-en="Activities">Etkinlikler</a></li>
           <li class="language-selector">
             <div class="language-dropdown">
               <button class="language-toggle" aria-label="Select language">
@@ -552,9 +552,9 @@
         <div class="footer-section">
           <h3 data-tr-text="Bağlantılar" data-en-text="Links">Bağlantılar</h3>
           <ul class="footer-links">
-            <li><a href="index.html">Ana Sayfa</a></li>
-            <li><a href="about.html">Hakkında</a></li>
-            <li><a href="visualizations.html" data-tr="Görselleştirmeler" data-en="Visualizations">Görselleştirmeler</a></li>
+            <li><a href="./">Ana Sayfa</a></li>
+            <li><a href="about">Hakkında</a></li>
+            <li><a href="visualizations" data-tr="Görselleştirmeler" data-en="Visualizations">Görselleştirmeler</a></li>
           </ul>
         </div>
         <div class="footer-section">
@@ -818,7 +818,7 @@ var garrisonData = (typeof garrisonMapData !== "undefined") ? garrisonMapData : 
                     var dbButtonText = lang === 'tr' ? 'Veri Setine Git' : 'View Database';
                     var garrisonNameForUrl = encodeURIComponent(matchedDbName);
                         html += '<div style="margin-top: 15px; padding-top: 10px; border-top: 1px solid #ddd;">';
-                        html += '<a href="database.html?garrison=' + garrisonNameForUrl + '" ';
+                        html += '<a href="database?garrison=' + garrisonNameForUrl + '" ';
                         html += 'style="display: inline-block; padding: 8px 12px; background-color: #2a5298; color: white; ';
                         html += 'text-decoration: none; border-radius: 4px; font-size: 12px; font-weight: 500; ';
                         html += 'transition: background-color 0.2s;">';

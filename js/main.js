@@ -28,14 +28,15 @@ document.addEventListener('DOMContentLoaded', function() {
   });
   
   // Highlight active navigation link
-  const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+  const currentPage = window.location.pathname.split('/').pop().replace('.html', '') || 'index';
   const navLinks = document.querySelectorAll('.nav-menu a');
   
   navLinks.forEach(link => {
-    const linkPage = link.getAttribute('href');
+    const linkHref = (link.getAttribute('href') || '');
+    const linkPage = linkHref === './' ? 'index' : linkHref.replace('.html', '');
     if (linkPage === currentPage || 
-        (currentPage === '' && linkPage === 'index.html') ||
-        (currentPage === 'index.html' && linkPage === 'index.html')) {
+        (currentPage === '' && linkPage === 'index') ||
+        (currentPage === 'index' && linkPage === 'index')) {
       link.classList.add('active');
     }
   });

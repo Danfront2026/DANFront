@@ -11,7 +11,7 @@ class GarrisonTable {
         this.filteredData = null;
         this.currentGarrisonKey = null;
         this.currentGarrisonName = null;
-
+        
         // DOM elements
         this.eyaletSelect = null;
         this.sancakSelect = null;
@@ -26,10 +26,10 @@ class GarrisonTable {
         this.viewToggleRaw = null;
         this.viewToggleCat = null;
         this.infoBadge = null;
-
+        
         this.init();
     }
-
+    
     init() {
         if (document.readyState === 'loading') {
             document.addEventListener('DOMContentLoaded', () => this.setup());
@@ -37,7 +37,7 @@ class GarrisonTable {
             this.setup();
         }
     }
-
+    
     setup() {
         // Get DOM elements
         this.eyaletSelect = document.getElementById('eyalet-select');
@@ -53,12 +53,12 @@ class GarrisonTable {
         this.viewToggleRaw = document.getElementById('btn-view-raw');
         this.viewToggleCat = document.getElementById('btn-view-categorized');
         this.infoBadge = document.getElementById('db-info-text');
-
+        
         if (!this.eyaletSelect || !this.garrisonSelect || !this.tableContainer) {
             console.error('Required DOM elements not found for database page');
             return;
         }
-
+        
         // View toggle
         if (this.viewToggleRaw) {
             this.viewToggleRaw.addEventListener('click', () => this.switchView('raw'));
@@ -75,11 +75,11 @@ class GarrisonTable {
         this.garrisonSelect.addEventListener('change', () => this.onGarrisonChange());
 
         // Search
-        this.setupSearch();
+            this.setupSearch();
 
         // Download
-        this.setupDownloadButton();
-
+            this.setupDownloadButton();
+        
         // Language change listener
         document.addEventListener('languageChanged', () => {
             this.updateSearchPlaceholder();
@@ -168,9 +168,9 @@ class GarrisonTable {
         if (!eyaletName) {
             this.resetSancakSelect();
             this.resetGarrisonSelect();
-            return;
-        }
-
+                return;
+            }
+            
         if (this.currentView === 'raw') {
             this.populateSancaks(eyaletName);
         } else {
@@ -285,8 +285,8 @@ class GarrisonTable {
             opt.textContent = g.garrison_name;
             opt.dataset.garrisonName = g.garrison_name;
             this.garrisonSelect.appendChild(opt);
-        });
-
+            });
+            
         this.garrisonSelect.disabled = garrisons.length === 0;
     }
 
@@ -340,7 +340,7 @@ class GarrisonTable {
             this.renderTable();
             this.updateResultsCount();
             this.showLoading(false);
-        } else {
+            } else {
             this.showError('Garrison data not found: ' + dataKey);
             this.showLoading(false);
             if (this.searchInput) this.searchInput.disabled = true;
@@ -359,7 +359,7 @@ class GarrisonTable {
         if (data.length === 0) {
             this.tableContainer.innerHTML = '<p class="no-data">No data available for this garrison.</p>';
             return;
-        }
+            }
 
         // Use headers from the data
         const headers = this.currentData.headers || Object.keys(data[0]);
@@ -400,10 +400,10 @@ class GarrisonTable {
     // =========================================================================
     // Search
     // =========================================================================
-
+    
     setupSearch() {
         if (!this.searchInput) return;
-
+        
         let searchTimeout;
         this.searchInput.addEventListener('input', (e) => {
             clearTimeout(searchTimeout);
@@ -442,56 +442,56 @@ class GarrisonTable {
     // =========================================================================
     // Excel Export
     // =========================================================================
-
+    
     setupDownloadButton() {
         if (!this.downloadButton) return;
         this.downloadButton.addEventListener('click', () => this.downloadExcel());
     }
-
+    
     updateDownloadButtonText() {
         if (!this.downloadButton) return;
         const lang = localStorage.getItem('siteLanguage') || 'en';
         const text = lang === 'tr' ? "Excel'e Aktar" : 'Export to Excel';
         this.downloadButton.innerHTML = '<i class="fas fa-file-excel"></i> ' + text;
     }
-
+    
     downloadExcel() {
         if (!this.currentData || !this.filteredData || !this.currentGarrisonName) {
             alert('Please select a garrison first');
             return;
         }
-
+        
         if (typeof XLSX === 'undefined') {
             alert('Excel export library not loaded. Please refresh the page.');
             return;
         }
-
+        
         const headers = this.currentData.headers || Object.keys(this.filteredData[0]);
         const lang = localStorage.getItem('siteLanguage') || 'en';
-
+        
         // Header row
         const displayHeaders = headers.map(h => {
             if (h === 'Column_0' || h === 'Branch' || h === 'Category') {
                 return lang === 'tr' ? 'Kategori' : 'Category';
-            }
+                }
             return String(h).replace(/\.0$/, '');
         });
 
         const excelData = [displayHeaders];
-
+        
         this.filteredData.forEach(row => {
             const rowData = headers.map(header => {
-                const value = row[header];
-                let displayValue = value !== null && value !== undefined ? String(value) : '';
-                displayValue = displayValue.replace(/\.0$/, '');
+                    const value = row[header];
+                    let displayValue = value !== null && value !== undefined ? String(value) : '';
+                    displayValue = displayValue.replace(/\.0$/, '');
                 return displayValue;
-            });
+                });
             excelData.push(rowData);
         });
-
+        
         const wb = XLSX.utils.book_new();
         const ws = XLSX.utils.aoa_to_sheet(excelData);
-
+        
         // Auto-size columns
         const colWidths = [];
         excelData.forEach(row => {
@@ -503,14 +503,14 @@ class GarrisonTable {
             });
         });
         ws['!cols'] = colWidths.map(w => ({ wch: Math.min(w + 2, 50) }));
-
+        
         XLSX.utils.book_append_sheet(wb, ws, this.currentGarrisonName.substring(0, 31));
-
+        
         const viewLabel = this.currentView === 'raw' ? 'detailed' : 'categorized';
         const filename = `${this.currentGarrisonName}_${viewLabel}_${new Date().toISOString().slice(0, 10)}.xlsx`;
         XLSX.writeFile(wb, filename);
     }
-
+    
     // =========================================================================
     // Info Badge
     // =========================================================================
@@ -522,7 +522,7 @@ class GarrisonTable {
             this.infoBadge.textContent = '';
             return;
         }
-
+        
         const lang = localStorage.getItem('siteLanguage') || 'en';
         const viewLabel = this.currentView === 'raw'
             ? (lang === 'tr' ? 'Detayli gorunum' : 'Detailed view')
@@ -537,7 +537,7 @@ class GarrisonTable {
             this.infoBadge.textContent = `${viewLabel}: ${garrisonCount} garrisons, ${rowCount} records`;
         }
     }
-
+    
     // =========================================================================
     // URL Parameters
     // =========================================================================
@@ -558,9 +558,9 @@ class GarrisonTable {
             const decoded = decodeURIComponent(garrisonParam).trim().toLowerCase();
             // Try to find in categorized first, then raw
             this.autoSelectGarrison(decoded);
-        }
-    }
-
+                }
+            }
+            
     // Normalize strings with NFC to handle composed vs decomposed Unicode
     normalizeNFC(str) {
         const s = str.toLowerCase().trim();
@@ -590,11 +590,11 @@ class GarrisonTable {
                         // Force view switch (bypass early-return by setting different value first)
                         this.currentView = (view === 'raw') ? 'categorized' : 'raw';
                         this.switchView(view);
-                    }
-
+        }
+        
                     // Ensure eyalets are populated for current view
                     this.populateEyalets();
-
+        
                     // Set the eyalet
                     const eyaletName = data.eyalet;
                     if (eyaletName) {
@@ -614,7 +614,7 @@ class GarrisonTable {
                                     this.onGarrisonChange();
                                 }, 50);
                             }, 50);
-                        } else {
+        } else {
                             // Categorized view or raw without sancak: garrison dropdown is already populated
                             setTimeout(() => {
                                 this.garrisonSelect.value = key;
@@ -631,14 +631,14 @@ class GarrisonTable {
     // =========================================================================
     // Utility
     // =========================================================================
-
+    
     updateResultsCount() {
         if (!this.resultsCount) return;
-
+        
         const total = this.currentData ? this.currentData.data.length : 0;
         const filtered = this.filteredData ? this.filteredData.length : 0;
         const lang = localStorage.getItem('siteLanguage') || 'en';
-
+        
         if (filtered === total) {
             const rowWord = lang === 'tr' ? 'satir' : (total === 1 ? 'row' : 'rows');
             this.resultsCount.textContent = `${total} ${rowWord}`;
@@ -647,16 +647,16 @@ class GarrisonTable {
                 this.resultsCount.textContent = `${total} satirdan ${filtered} tanesi gosteriliyor`;
             } else {
                 this.resultsCount.textContent = `Showing ${filtered} of ${total} rows`;
-            }
+        }
         }
     }
-
+    
     escapeHtml(text) {
         const div = document.createElement('div');
         div.textContent = text;
         return div.innerHTML;
     }
-
+    
     showLoading(show) {
         if (this.loadingIndicator) {
             this.loadingIndicator.style.display = show ? 'block' : 'none';
@@ -665,20 +665,20 @@ class GarrisonTable {
             this.tableContainer.innerHTML = '';
         }
     }
-
+    
     showError(message) {
         if (this.errorMessage) {
             this.errorMessage.textContent = message;
             this.errorMessage.style.display = 'block';
         }
     }
-
+    
     hideError() {
         if (this.errorMessage) {
             this.errorMessage.style.display = 'none';
         }
     }
-
+    
     clearTable() {
         if (this.tableContainer) this.tableContainer.innerHTML = '';
         if (this.resultsCount) this.resultsCount.textContent = '';
