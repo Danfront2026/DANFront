@@ -349,8 +349,8 @@
             </div>
 
             <div class="map-container">
-                <div class="map-info" data-tr-text="Tarihi harita görüntüsü: Osmanlı dönemi Macaristan haritası (EOV10). Haritayı yakınlaştırmak ve kaydırmak için fare veya dokunmatik kontrolleri kullanabilirsiniz." data-en-text="Historical map image: Ottoman period Hungary map (EOV10). You can zoom and pan the map using mouse or touch controls.">
-                    Tarihi harita görüntüsü: Osmanlı dönemi Macaristan haritası (EOV10). Haritayı yakınlaştırmak ve kaydırmak için fare veya dokunmatik kontrolleri kullanabilirsiniz.
+                <div class="map-info" data-tr-text="Tarihi harita görüntüsü: Birinci Askeri Harita (1KF / Josephinian Land Survey). Haritayı yakınlaştırmak ve kaydırmak için fare veya dokunmatik kontrolleri kullanabilirsiniz." data-en-text="Historical map image: First Military Survey (1KF / Josephinian Land Survey). You can zoom and pan the map using mouse or touch controls.">
+                    Tarihi harita görüntüsü: Birinci Askeri Harita (1KF / Josephinian Land Survey). Haritayı yakınlaştırmak ve kaydırmak için fare veya dokunmatik kontrolleri kullanabilirsiniz.
                 </div>
                 <div class="map-wrapper">
                     <!-- Filter Panel Toggle -->
@@ -634,34 +634,42 @@ var garrisonData = (typeof garrisonMapData !== "undefined") ? garrisonMapData : 
                 maxZoom: 19
             });
             
-            // ===== HISTORICAL MAP TILE LAYER =====
+            // ===== HISTORICAL MAP TILE LAYERS =====
+            // Generic bounded tile layer that accepts tileBounds in options
+            var BoundedTileLayer = L.TileLayer.extend({
+                _isValidTile: function(coords) {
+                    if (!L.TileLayer.prototype._isValidTile.call(this, coords)) return false;
+                    var tb = this.options.tileBounds;
+                    if (!tb) return true;
+                    var bounds = tb[coords.z];
+                    if (!bounds) return false;
+                    return coords.x >= bounds.xMin && coords.x <= bounds.xMax &&
+                           coords.y >= bounds.yMin && coords.y <= bounds.yMax;
+                }
+            });
+
+            // --- First Military Survey (1KF / Josephinian) ---
             var historicalTileBounds = {
                 6:  { xMin: 34,   xMax: 36,   yMin: 22,   yMax: 22 },
                 7:  { xMin: 69,   xMax: 72,   yMin: 44,   yMax: 45 },
                 8:  { xMin: 139,  xMax: 144,  yMin: 88,   yMax: 91 },
                 9:  { xMin: 278,  xMax: 288,  yMin: 176,  yMax: 182 },
                 10: { xMin: 557,  xMax: 577,  yMin: 353,  yMax: 365 },
-                11: { xMin: 1115, xMax: 1154, yMin: 706,  yMax: 731 },
-                12: { xMin: 2230, xMax: 2309, yMin: 1413, yMax: 1462 },
-                13: { xMin: 4460, xMax: 4619, yMin: 2826, yMax: 2925 },
-                14: { xMin: 8920, xMax: 9238, yMin: 5652, yMax: 5850 }
+                11: { xMin: 1114, xMax: 1154, yMin: 706,  yMax: 731 },
+                12: { xMin: 2228, xMax: 2309, yMin: 1412, yMax: 1463 },
+                13: { xMin: 4457, xMax: 4619, yMin: 2825, yMax: 2926 },
+                14: { xMin: 8914, xMax: 9239, yMin: 5651, yMax: 5852 }
             };
-            var BoundedTileLayer = L.TileLayer.extend({
-                _isValidTile: function(coords) {
-                    if (!L.TileLayer.prototype._isValidTile.call(this, coords)) return false;
-                    var bounds = historicalTileBounds[coords.z];
-                    if (!bounds) return false;
-                    return coords.x >= bounds.xMin && coords.x <= bounds.xMax &&
-                           coords.y >= bounds.yMin && coords.y <= bounds.yMax;
-                }
+            var historicalTileUrl = 'https://danfront-tiles.odulsuzkisafilm.workers.dev/tiles/{z}/{x}/{y}.png';
+            var historicalMapLayer = new BoundedTileLayer(historicalTileUrl, {
+                attribution: 'First Military Survey (1KF) - DANFront Project | &copy; <a href="https://danfront.univie.ac.at/" target="_blank">DANFront Project</a>',
+                minZoom: 6, maxZoom: 14, tms: false, noWrap: true, opacity: 0.7,
+                tileBounds: historicalTileBounds
             });
-            var historicalMapLayer = new BoundedTileLayer('https://danfront-tiles.odulsuzkisafilm.workers.dev/tiles/{z}/{x}/{y}.png', {
-                attribution: 'Historical Map (EOV10) - DANFront Project | &copy; <a href="https://danfront.univie.ac.at/" target="_blank">DANFront Project</a>',
-                minZoom: 6, maxZoom: 14, tms: false, noWrap: true, opacity: 0.7
-            });
-            var historicalMapOnlyLayer = new BoundedTileLayer('https://danfront-tiles.odulsuzkisafilm.workers.dev/tiles/{z}/{x}/{y}.png', {
-                attribution: 'Historical Map (EOV10) - DANFront Project | &copy; <a href="https://danfront.univie.ac.at/" target="_blank">DANFront Project</a>',
-                minZoom: 6, maxZoom: 14, tms: false, noWrap: true, opacity: 1.0
+            var historicalMapOnlyLayer = new BoundedTileLayer(historicalTileUrl, {
+                attribution: 'First Military Survey (1KF) - DANFront Project | &copy; <a href="https://danfront.univie.ac.at/" target="_blank">DANFront Project</a>',
+                minZoom: 6, maxZoom: 14, tms: false, noWrap: true, opacity: 1.0,
+                tileBounds: historicalTileBounds
             });
 
             // Add default layers
@@ -671,7 +679,7 @@ var garrisonData = (typeof garrisonMapData !== "undefined") ? garrisonMapData : 
             // Tile error handling
             var historicalTileErrorLogged = false;
             historicalMapLayer.on('tileerror', function() {
-                if (!historicalTileErrorLogged) { console.info('Historical map tiles not found - normal if not generated yet'); historicalTileErrorLogged = true; }
+                if (!historicalTileErrorLogged) { console.info('Historical map (1KF) tiles not found - check R2 deployment'); historicalTileErrorLogged = true; }
             });
             var externalTileErrorsLogged = {};
             function logTileErrorOnce(name) { if (!externalTileErrorsLogged[name]) { console.info(name + ' tiles failed to load'); externalTileErrorsLogged[name] = true; } }
@@ -1146,10 +1154,10 @@ var garrisonData = (typeof garrisonMapData !== "undefined") ? garrisonMapData : 
                 "Satellite Imagery": satelliteLayer,
                 "Light (Minimal)": positronLayer,
                 "Dark Style": darkMatterLayer,
-                "Historical Map Only": historicalMapOnlyLayer
+                "Historical Map Only (1KF)": historicalMapOnlyLayer
             };
             var overlayLayers = {
-                "Historical Map Overlay": historicalMapLayer
+                "Historical Map Overlay (1KF)": historicalMapLayer
             };
             L.control.layers(baseLayers, overlayLayers, {
                 position: 'topright',
@@ -1167,7 +1175,7 @@ var garrisonData = (typeof garrisonMapData !== "undefined") ? garrisonMapData : 
                 container.style.marginTop = '10px';
                 
                 var label = L.DomUtil.create('label', '', container);
-                label.innerHTML = 'Historical Map Opacity: ';
+                label.innerHTML = 'Overlay Opacity: ';
                 label.style.fontSize = '12px';
                 label.style.display = 'block';
                 label.style.marginBottom = '5px';
