@@ -288,6 +288,41 @@
         .time-slider-btn.playing { background: #d73027; }
         .time-slider-btn.show-all-active { background: #28a745; }
 
+        /* ===== Search Box ===== */
+        .map-search-box {
+            position: absolute;
+            left: 56px;
+            top: 10px;
+            z-index: 1001;
+            display: flex;
+            align-items: center;
+            background: white;
+            border: 2px solid rgba(0,0,0,0.15);
+            border-radius: 6px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+        .map-search-box input[type="text"] {
+            border: none;
+            outline: none;
+            padding: 6px 8px;
+            font-size: 13px;
+            width: 190px;
+            color: #333;
+        }
+        .map-search-box input[type="text"]::placeholder { color: #aaa; }
+        .map-search-clear {
+            background: none;
+            border: none;
+            padding: 0 8px;
+            cursor: pointer;
+            font-size: 15px;
+            color: #aaa;
+            line-height: 1;
+        }
+        .map-search-clear:hover { color: #d73027; }
+        .hub-icon { background: none !important; border: none !important; }
+
         /* ===== Responsive ===== */
         @media (max-width: 768px) {
             .filter-panel { width: 250px; font-size: 12px; }
@@ -349,14 +384,20 @@
             </div>
 
             <div class="map-container">
-                <div class="map-info" data-tr-text="Tarihi harita görüntüsü: Birinci Askeri Harita (1KF / Josephinian Land Survey). Haritayı yakınlaştırmak ve kaydırmak için fare veya dokunmatik kontrolleri kullanabilirsiniz." data-en-text="Historical map image: First Military Survey (1KF / Josephinian Land Survey). You can zoom and pan the map using mouse or touch controls.">
-                    Tarihi harita görüntüsü: Birinci Askeri Harita (1KF / Josephinian Land Survey). Haritayı yakınlaştırmak ve kaydırmak için fare veya dokunmatik kontrolleri kullanabilirsiniz.
+                <div class="map-info" data-tr-text="Tarihi harita görüntüsü: Birinci Askeri Harita (1KF - Arcanum / Josephinian Land Survey). Haritayı yakınlaştırmak ve kaydırmak için fare veya dokunmatik kontrolleri kullanabilirsiniz." data-en-text="Historical map image: First Military Survey (1KF - Arcanum / Josephinian Land Survey). You can zoom and pan the map using mouse or touch controls.">
+                    Tarihi harita görüntüsü: Birinci Askeri Harita (1KF - Arcanum / Josephinian Land Survey). Haritayı yakınlaştırmak ve kaydırmak için fare veya dokunmatik kontrolleri kullanabilirsiniz.
                 </div>
                 <div class="map-wrapper">
                     <!-- Filter Panel Toggle -->
                     <button class="filter-panel-toggle" id="filter-toggle" title="Toggle Layers &amp; Filters">
                         <i class="fas fa-layer-group"></i>
                     </button>
+
+                    <!-- Search Box -->
+                    <div class="map-search-box" id="map-search-box">
+                        <input type="text" id="map-search-input" placeholder="Search garrisons..." autocomplete="off">
+                        <button class="map-search-clear" id="map-search-clear" title="Clear search">&times;</button>
+                    </div>
 
                     <!-- Filter Panel -->
                     <div class="filter-panel" id="filter-panel">
@@ -450,6 +491,118 @@
                                 <div class="filter-item disabled">
                                     <input type="checkbox" disabled>
                                     <label><span data-tr-text="Su Değirmenleri" data-en-text="Water Mills">Water Mills</span> <span class="coming-soon-badge">Coming soon</span></label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Province Filters -->
+                        <div class="filter-category" data-category="province">
+                            <div class="filter-category-header">
+                                <i class="fas fa-chevron-right"></i>
+                                <input type="checkbox" id="cat-province" checked>
+                                <label for="cat-province"><i class="fas fa-map-marked-alt" style="color:#6a4c9c;margin-right:2px;"></i> <span data-tr-text="Eyalet" data-en-text="Province">Province</span></label>
+                            </div>
+                            <div class="filter-subcategories">
+                                <div class="filter-item">
+                                    <input type="checkbox" id="prov-budin" checked>
+                                    <label for="prov-budin">Budin</label>
+                                    <span class="filter-count" id="prov-budin-count"></span>
+                                </div>
+                                <div class="filter-item">
+                                    <input type="checkbox" id="prov-timisoara" checked>
+                                    <label for="prov-timisoara">Timişioara</label>
+                                    <span class="filter-count" id="prov-timisoara-count"></span>
+                                </div>
+                                <div class="filter-item">
+                                    <input type="checkbox" id="prov-gyor" checked>
+                                    <label for="prov-gyor">Győr</label>
+                                    <span class="filter-count" id="prov-gyor-count"></span>
+                                </div>
+                                <div class="filter-item">
+                                    <input type="checkbox" id="prov-papa" checked>
+                                    <label for="prov-papa">Papa</label>
+                                    <span class="filter-count" id="prov-papa-count"></span>
+                                </div>
+                                <div class="filter-item">
+                                    <input type="checkbox" id="prov-eger" checked>
+                                    <label for="prov-eger">Eger</label>
+                                    <span class="filter-count" id="prov-eger-count"></span>
+                                </div>
+                                <div class="filter-item">
+                                    <input type="checkbox" id="prov-kanije" checked>
+                                    <label for="prov-kanije">Kanije</label>
+                                    <span class="filter-count" id="prov-kanije-count"></span>
+                                </div>
+                                <div class="filter-item">
+                                    <input type="checkbox" id="prov-varat" checked>
+                                    <label for="prov-varat">Varat</label>
+                                    <span class="filter-count" id="prov-varat-count"></span>
+                                </div>
+                                <div class="filter-item">
+                                    <input type="checkbox" id="prov-uyvar" checked>
+                                    <label for="prov-uyvar">Uyvar</label>
+                                    <span class="filter-count" id="prov-uyvar-count"></span>
+                                </div>
+                                <div class="filter-item">
+                                    <input type="checkbox" id="prov-rumelia" checked>
+                                    <label for="prov-rumelia">Rumelia/Silistra</label>
+                                    <span class="filter-count" id="prov-rumelia-count"></span>
+                                </div>
+                                <div class="filter-item">
+                                    <input type="checkbox" id="prov-bosnia" checked>
+                                    <label for="prov-bosnia">Bosnia</label>
+                                    <span class="filter-count" id="prov-bosnia-count"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Country Filters -->
+                        <div class="filter-category" data-category="country">
+                            <div class="filter-category-header">
+                                <i class="fas fa-chevron-right"></i>
+                                <input type="checkbox" id="cat-country" checked>
+                                <label for="cat-country"><i class="fas fa-flag" style="color:#e67e22;margin-right:2px;"></i> <span data-tr-text="Ülke" data-en-text="Country">Country</span></label>
+                            </div>
+                            <div class="filter-subcategories">
+                                <div class="filter-item">
+                                    <input type="checkbox" id="ctr-hungary" checked>
+                                    <label for="ctr-hungary">Hungary</label>
+                                    <span class="filter-count" id="ctr-hungary-count"></span>
+                                </div>
+                                <div class="filter-item">
+                                    <input type="checkbox" id="ctr-slovakia" checked>
+                                    <label for="ctr-slovakia">Slovakia</label>
+                                    <span class="filter-count" id="ctr-slovakia-count"></span>
+                                </div>
+                                <div class="filter-item">
+                                    <input type="checkbox" id="ctr-serbia" checked>
+                                    <label for="ctr-serbia">Serbia</label>
+                                    <span class="filter-count" id="ctr-serbia-count"></span>
+                                </div>
+                                <div class="filter-item">
+                                    <input type="checkbox" id="ctr-croatia" checked>
+                                    <label for="ctr-croatia">Croatia</label>
+                                    <span class="filter-count" id="ctr-croatia-count"></span>
+                                </div>
+                                <div class="filter-item">
+                                    <input type="checkbox" id="ctr-bosnia" checked>
+                                    <label for="ctr-bosnia">Bosnia</label>
+                                    <span class="filter-count" id="ctr-bosnia-count"></span>
+                                </div>
+                                <div class="filter-item">
+                                    <input type="checkbox" id="ctr-romania" checked>
+                                    <label for="ctr-romania">Romania</label>
+                                    <span class="filter-count" id="ctr-romania-count"></span>
+                                </div>
+                                <div class="filter-item">
+                                    <input type="checkbox" id="ctr-bulgaria" checked>
+                                    <label for="ctr-bulgaria">Bulgaria</label>
+                                    <span class="filter-count" id="ctr-bulgaria-count"></span>
+                                </div>
+                                <div class="filter-item">
+                                    <input type="checkbox" id="ctr-ukraine" checked>
+                                    <label for="ctr-ukraine">Ukraine</label>
+                                    <span class="filter-count" id="ctr-ukraine-count"></span>
                                 </div>
                             </div>
                         </div>
@@ -662,12 +815,12 @@ var garrisonData = (typeof garrisonMapData !== "undefined") ? garrisonMapData : 
             };
             var historicalTileUrl = 'https://danfront-tiles.odulsuzkisafilm.workers.dev/tiles/{z}/{x}/{y}.png';
             var historicalMapLayer = new BoundedTileLayer(historicalTileUrl, {
-                attribution: 'First Military Survey (1KF) - DANFront Project | &copy; <a href="https://danfront.univie.ac.at/" target="_blank">DANFront Project</a>',
+                attribution: 'First Military Survey (1KF - Arcanum) - DANFront Project | &copy; <a href="https://danfront.univie.ac.at/" target="_blank">DANFront Project</a>',
                 minZoom: 6, maxZoom: 14, tms: false, noWrap: true, opacity: 0.7,
                 tileBounds: historicalTileBounds
             });
             var historicalMapOnlyLayer = new BoundedTileLayer(historicalTileUrl, {
-                attribution: 'First Military Survey (1KF) - DANFront Project | &copy; <a href="https://danfront.univie.ac.at/" target="_blank">DANFront Project</a>',
+                attribution: 'First Military Survey (1KF - Arcanum) - DANFront Project | &copy; <a href="https://danfront.univie.ac.at/" target="_blank">DANFront Project</a>',
                 minZoom: 6, maxZoom: 14, tms: false, noWrap: true, opacity: 1.0,
                 tileBounds: historicalTileBounds
             });
@@ -818,7 +971,7 @@ var garrisonData = (typeof garrisonMapData !== "undefined") ? garrisonMapData : 
                     var dbButtonText = lang === 'tr' ? 'Veri Setine Git' : 'View Database';
                     var garrisonNameForUrl = encodeURIComponent(matchedDbName);
                         html += '<div style="margin-top: 15px; padding-top: 10px; border-top: 1px solid #ddd;">';
-                        html += '<a href="database?garrison=' + garrisonNameForUrl + '" ';
+                        html += '<a href="database?garrison=' + garrisonNameForUrl + '&view=raw" ';
                         html += 'style="display: inline-block; padding: 8px 12px; background-color: #2a5298; color: white; ';
                         html += 'text-decoration: none; border-radius: 4px; font-size: 12px; font-weight: 500; ';
                         html += 'transition: background-color 0.2s;">';
@@ -865,6 +1018,7 @@ var garrisonData = (typeof garrisonMapData !== "undefined") ? garrisonMapData : 
             var currentYear = 1700;
             var isPlaying = false;
             var playInterval = null;
+            var searchTerm = '';
 
             // Create markers
             (function() {
@@ -876,14 +1030,27 @@ var garrisonData = (typeof garrisonMapData !== "undefined") ? garrisonMapData : 
                         if (garrison.lat && garrison.lng) {
                         var typeKey = getGarrisonTypeKey(garrison.type);
                         var sizeKey = getGarrisonSizeKey(garrison.size);
-                            var marker = L.circleMarker([garrison.lat, garrison.lng], {
-                                radius: getMarkerSize(garrison.size),
-                                fillColor: getMarkerColor(garrison.type),
-                                color: '#333',
-                                weight: 1,
-                                opacity: 1,
-                                fillOpacity: 0.7
-                            });
+                            var marker;
+                            if (sizeKey === 'hub') {
+                                marker = L.marker([garrison.lat, garrison.lng], {
+                                    icon: L.divIcon({
+                                        html: '<i class="fas fa-chess-rook" style="font-size:18px;color:#2a5298;text-shadow:0 0 3px #fff,0 0 5px #fff;"></i>',
+                                        className: 'hub-icon',
+                                        iconSize: [20, 20],
+                                        iconAnchor: [10, 10],
+                                        popupAnchor: [0, -10]
+                                    })
+                                });
+                            } else {
+                                marker = L.circleMarker([garrison.lat, garrison.lng], {
+                                    radius: getMarkerSize(garrison.size),
+                                    fillColor: getMarkerColor(garrison.type),
+                                    color: '#333',
+                                    weight: 1,
+                                    opacity: 1,
+                                    fillOpacity: 0.7
+                                });
+                            }
                             markerGarrisonMap.set(marker, garrison);
                             marker.bindPopup(createPopupContent(garrison));
                         marker.addTo(map);
@@ -920,8 +1087,36 @@ var garrisonData = (typeof garrisonMapData !== "undefined") ? garrisonMapData : 
                 var smallChecked = document.getElementById('size-small').checked;
                 var unknownChecked = document.getElementById('size-unknown').checked;
 
+                // Province filters
+                var provBudin    = document.getElementById('prov-budin').checked;
+                var provTimi     = document.getElementById('prov-timisoara').checked;
+                var provGyor     = document.getElementById('prov-gyor').checked;
+                var provPapa     = document.getElementById('prov-papa').checked;
+                var provEger     = document.getElementById('prov-eger').checked;
+                var provKanije   = document.getElementById('prov-kanije').checked;
+                var provVarat    = document.getElementById('prov-varat').checked;
+                var provUyvar    = document.getElementById('prov-uyvar').checked;
+                var provRumelia  = document.getElementById('prov-rumelia').checked;
+                var provBosnia   = document.getElementById('prov-bosnia').checked;
+                var allProvinces = provBudin && provTimi && provGyor && provPapa && provEger &&
+                                   provKanije && provVarat && provUyvar && provRumelia && provBosnia;
+
+                // Country filters
+                var ctrHungary  = document.getElementById('ctr-hungary').checked;
+                var ctrSlovakia = document.getElementById('ctr-slovakia').checked;
+                var ctrSerbia   = document.getElementById('ctr-serbia').checked;
+                var ctrCroatia  = document.getElementById('ctr-croatia').checked;
+                var ctrBosnia   = document.getElementById('ctr-bosnia').checked;
+                var ctrRomania  = document.getElementById('ctr-romania').checked;
+                var ctrBulgaria = document.getElementById('ctr-bulgaria').checked;
+                var ctrUkraine  = document.getElementById('ctr-ukraine').checked;
+                var allCountries = ctrHungary && ctrSlovakia && ctrSerbia && ctrCroatia &&
+                                   ctrBosnia && ctrRomania && ctrBulgaria && ctrUkraine;
+
                 var visibleCount = 0, fortressVis = 0, palankaVis = 0, otherVis = 0;
                 var hubVis = 0, largeVis = 0, mediumVis = 0, smallVis = 0, unknownVis = 0;
+                var provCounts = { budin:0, timisoara:0, gyor:0, papa:0, eger:0, kanije:0, varat:0, uyvar:0, rumelia:0, bosnia:0 };
+                var ctrCounts  = { hungary:0, slovakia:0, serbia:0, croatia:0, bosnia:0, romania:0, bulgaria:0, ukraine:0 };
 
                 allMarkerData.forEach(function(item) {
                     // Type filter
@@ -940,10 +1135,58 @@ var garrisonData = (typeof garrisonMapData !== "undefined") ? garrisonMapData : 
                     if (item.sizeKey === 'small' && smallChecked) sizeVisible = true;
                     if (item.sizeKey === 'unknown' && unknownChecked) sizeVisible = true;
 
+                    // Province filter
+                    var provinceVisible = false;
+                    if (allProvinces) {
+                        provinceVisible = true;
+                    } else {
+                        var pEn = (item.garrison.province && item.garrison.province.en) ? item.garrison.province.en : '';
+                        if (pEn === 'Budin' && provBudin) provinceVisible = true;
+                        if (pEn === 'Timişioara' && provTimi) provinceVisible = true;
+                        if (pEn === 'Győr' && provGyor) provinceVisible = true;
+                        if (pEn === 'Papa' && provPapa) provinceVisible = true;
+                        if (pEn === 'Eger' && provEger) provinceVisible = true;
+                        if (pEn === 'Kanije' && provKanije) provinceVisible = true;
+                        if (pEn === 'Varat' && provVarat) provinceVisible = true;
+                        if (pEn === 'Uyvar' && provUyvar) provinceVisible = true;
+                        if (pEn === 'Rumelia/Silistra' && provRumelia) provinceVisible = true;
+                        if (pEn === 'Bosnia' && provBosnia) provinceVisible = true;
+                    }
+
+                    // Country filter
+                    var countryVisible = false;
+                    if (allCountries) {
+                        countryVisible = true;
+                    } else {
+                        var ctr = item.garrison.country || '';
+                        if (ctr === 'Hungary' && ctrHungary) countryVisible = true;
+                        if (ctr === 'Slovakia' && ctrSlovakia) countryVisible = true;
+                        if (ctr === 'Serbia' && ctrSerbia) countryVisible = true;
+                        if (ctr === 'Croatia' && ctrCroatia) countryVisible = true;
+                        if (ctr === 'Bosnia' && ctrBosnia) countryVisible = true;
+                        if (ctr === 'Romania' && ctrRomania) countryVisible = true;
+                        if (ctr === 'Bulgaria' && ctrBulgaria) countryVisible = true;
+                        if (ctr === 'Ukraine' && ctrUkraine) countryVisible = true;
+                    }
+
+                    // Search filter
+                    var searchVisible = true;
+                    if (searchTerm) {
+                        var g = item.garrison;
+                        var names = [
+                            g.name && g.name.en ? g.name.en : '',
+                            g.name && g.name.tr ? g.name.tr : '',
+                            g.name && g.name.hu ? g.name.hu : ''
+                        ];
+                        searchVisible = names.some(function(n) {
+                            return n.toLowerCase().indexOf(searchTerm) !== -1;
+                        });
+                    }
+
                     // Time filter
                     var timeVisible = showAllMode || isGarrisonActiveInYear(item.garrison, currentYear);
 
-                    var visible = typeVisible && sizeVisible && timeVisible;
+                    var visible = typeVisible && sizeVisible && timeVisible && provinceVisible && countryVisible && searchVisible;
 
                     if (visible && !map.hasLayer(item.marker)) {
                         item.marker.addTo(map);
@@ -961,6 +1204,28 @@ var garrisonData = (typeof garrisonMapData !== "undefined") ? garrisonMapData : 
                         if (item.sizeKey === 'medium') mediumVis++;
                         if (item.sizeKey === 'small') smallVis++;
                         if (item.sizeKey === 'unknown') unknownVis++;
+                        // Province counts
+                        var pEn2 = (item.garrison.province && item.garrison.province.en) ? item.garrison.province.en : '';
+                        if (pEn2 === 'Budin') provCounts.budin++;
+                        else if (pEn2 === 'Timişioara') provCounts.timisoara++;
+                        else if (pEn2 === 'Győr') provCounts.gyor++;
+                        else if (pEn2 === 'Papa') provCounts.papa++;
+                        else if (pEn2 === 'Eger') provCounts.eger++;
+                        else if (pEn2 === 'Kanije') provCounts.kanije++;
+                        else if (pEn2 === 'Varat') provCounts.varat++;
+                        else if (pEn2 === 'Uyvar') provCounts.uyvar++;
+                        else if (pEn2 === 'Rumelia/Silistra') provCounts.rumelia++;
+                        else if (pEn2 === 'Bosnia') provCounts.bosnia++;
+                        // Country counts
+                        var ctr2 = item.garrison.country || '';
+                        if (ctr2 === 'Hungary') ctrCounts.hungary++;
+                        else if (ctr2 === 'Slovakia') ctrCounts.slovakia++;
+                        else if (ctr2 === 'Serbia') ctrCounts.serbia++;
+                        else if (ctr2 === 'Croatia') ctrCounts.croatia++;
+                        else if (ctr2 === 'Bosnia') ctrCounts.bosnia++;
+                        else if (ctr2 === 'Romania') ctrCounts.romania++;
+                        else if (ctr2 === 'Bulgaria') ctrCounts.bulgaria++;
+                        else if (ctr2 === 'Ukraine') ctrCounts.ukraine++;
                     }
                 });
 
@@ -981,6 +1246,26 @@ var garrisonData = (typeof garrisonMapData !== "undefined") ? garrisonMapData : 
                 document.getElementById('medium-count').textContent = mediumVis;
                 document.getElementById('small-count').textContent = smallVis;
                 document.getElementById('unknown-count').textContent = unknownVis;
+                // Province counts
+                document.getElementById('prov-budin-count').textContent = provCounts.budin;
+                document.getElementById('prov-timisoara-count').textContent = provCounts.timisoara;
+                document.getElementById('prov-gyor-count').textContent = provCounts.gyor;
+                document.getElementById('prov-papa-count').textContent = provCounts.papa;
+                document.getElementById('prov-eger-count').textContent = provCounts.eger;
+                document.getElementById('prov-kanije-count').textContent = provCounts.kanije;
+                document.getElementById('prov-varat-count').textContent = provCounts.varat;
+                document.getElementById('prov-uyvar-count').textContent = provCounts.uyvar;
+                document.getElementById('prov-rumelia-count').textContent = provCounts.rumelia;
+                document.getElementById('prov-bosnia-count').textContent = provCounts.bosnia;
+                // Country counts
+                document.getElementById('ctr-hungary-count').textContent = ctrCounts.hungary;
+                document.getElementById('ctr-slovakia-count').textContent = ctrCounts.slovakia;
+                document.getElementById('ctr-serbia-count').textContent = ctrCounts.serbia;
+                document.getElementById('ctr-croatia-count').textContent = ctrCounts.croatia;
+                document.getElementById('ctr-bosnia-count').textContent = ctrCounts.bosnia;
+                document.getElementById('ctr-romania-count').textContent = ctrCounts.romania;
+                document.getElementById('ctr-bulgaria-count').textContent = ctrCounts.bulgaria;
+                document.getElementById('ctr-ukraine-count').textContent = ctrCounts.ukraine;
             }
 
             // Initial count
@@ -1076,6 +1361,77 @@ var garrisonData = (typeof garrisonMapData !== "undefined") ? garrisonMapData : 
                 });
             });
 
+            // Province master checkbox
+            document.getElementById('cat-province').addEventListener('change', function() {
+                var checked = this.checked;
+                ['prov-budin','prov-timisoara','prov-gyor','prov-papa','prov-eger',
+                 'prov-kanije','prov-varat','prov-uyvar','prov-rumelia','prov-bosnia'].forEach(function(id) {
+                    document.getElementById(id).checked = checked;
+                });
+                updateMarkerVisibility();
+            });
+
+            // Individual province checkboxes
+            ['prov-budin','prov-timisoara','prov-gyor','prov-papa','prov-eger',
+             'prov-kanije','prov-varat','prov-uyvar','prov-rumelia','prov-bosnia'].forEach(function(id) {
+                document.getElementById(id).addEventListener('change', function() {
+                    updateMarkerVisibility();
+                    var all = ['prov-budin','prov-timisoara','prov-gyor','prov-papa','prov-eger',
+                               'prov-kanije','prov-varat','prov-uyvar','prov-rumelia','prov-bosnia']
+                               .every(function(i) { return document.getElementById(i).checked; });
+                    var any = ['prov-budin','prov-timisoara','prov-gyor','prov-papa','prov-eger',
+                               'prov-kanije','prov-varat','prov-uyvar','prov-rumelia','prov-bosnia']
+                               .some(function(i) { return document.getElementById(i).checked; });
+                    document.getElementById('cat-province').checked = any;
+                    document.getElementById('cat-province').indeterminate = any && !all;
+                });
+            });
+
+            // Country master checkbox
+            document.getElementById('cat-country').addEventListener('change', function() {
+                var checked = this.checked;
+                ['ctr-hungary','ctr-slovakia','ctr-serbia','ctr-croatia',
+                 'ctr-bosnia','ctr-romania','ctr-bulgaria','ctr-ukraine'].forEach(function(id) {
+                    document.getElementById(id).checked = checked;
+                });
+                updateMarkerVisibility();
+            });
+
+            // Individual country checkboxes
+            ['ctr-hungary','ctr-slovakia','ctr-serbia','ctr-croatia',
+             'ctr-bosnia','ctr-romania','ctr-bulgaria','ctr-ukraine'].forEach(function(id) {
+                document.getElementById(id).addEventListener('change', function() {
+                    updateMarkerVisibility();
+                    var all = ['ctr-hungary','ctr-slovakia','ctr-serbia','ctr-croatia',
+                               'ctr-bosnia','ctr-romania','ctr-bulgaria','ctr-ukraine']
+                               .every(function(i) { return document.getElementById(i).checked; });
+                    var any = ['ctr-hungary','ctr-slovakia','ctr-serbia','ctr-croatia',
+                               'ctr-bosnia','ctr-romania','ctr-bulgaria','ctr-ukraine']
+                               .some(function(i) { return document.getElementById(i).checked; });
+                    document.getElementById('cat-country').checked = any;
+                    document.getElementById('cat-country').indeterminate = any && !all;
+                });
+            });
+
+            // ===== SEARCH BOX =====
+            var searchInput = document.getElementById('map-search-input');
+            var searchClear = document.getElementById('map-search-clear');
+            var searchBox   = document.getElementById('map-search-box');
+
+            L.DomEvent.disableClickPropagation(searchBox);
+            L.DomEvent.disableScrollPropagation(searchBox);
+
+            searchInput.addEventListener('input', function() {
+                searchTerm = this.value.trim().toLowerCase();
+                updateMarkerVisibility();
+            });
+            searchClear.addEventListener('click', function() {
+                searchInput.value = '';
+                searchTerm = '';
+                updateMarkerVisibility();
+                searchInput.focus();
+            });
+
             // ===== TIME SLIDER =====
             var timeSlider = document.getElementById('time-slider-range');
             var timeYearDisplay = document.getElementById('time-year-display');
@@ -1154,10 +1510,10 @@ var garrisonData = (typeof garrisonMapData !== "undefined") ? garrisonMapData : 
                 "Satellite Imagery": satelliteLayer,
                 "Light (Minimal)": positronLayer,
                 "Dark Style": darkMatterLayer,
-                "Historical Map Only (1KF)": historicalMapOnlyLayer
+                "Historical Map Only (1KF - Arcanum)": historicalMapOnlyLayer
             };
             var overlayLayers = {
-                "Historical Map Overlay (1KF)": historicalMapLayer
+                "Historical Map Overlay (1KF - Arcanum)": historicalMapLayer
             };
             L.control.layers(baseLayers, overlayLayers, {
                 position: 'topright',

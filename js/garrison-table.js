@@ -575,11 +575,11 @@ class GarrisonTable {
         const catStore = (typeof GARRISON_DATA_CATEGORIZED !== 'undefined') ? GARRISON_DATA_CATEGORIZED : {};
         const rawStore = (typeof GARRISON_DATA_RAW !== 'undefined') ? GARRISON_DATA_RAW : {};
 
-        // Try categorized first (simpler path), then raw
-        const stores = [
-            { store: catStore, view: 'categorized' },
-            { store: rawStore, view: 'raw' }
-        ];
+        // When view=raw is requested (e.g. from map popup), prefer Detailed (raw) view first
+        const viewParam = new URLSearchParams(window.location.search).get('view');
+        const stores = viewParam === 'raw'
+            ? [{ store: rawStore, view: 'raw' }, { store: catStore, view: 'categorized' }]
+            : [{ store: catStore, view: 'categorized' }, { store: rawStore, view: 'raw' }];
 
         for (const { store, view } of stores) {
             for (const [key, data] of Object.entries(store)) {
