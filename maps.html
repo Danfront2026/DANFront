@@ -77,7 +77,7 @@
         .filter-panel-toggle {
             position: absolute;
             left: 10px;
-            top: 10px;
+            top: 80px;
             z-index: 1001;
             background: white;
             border: 2px solid rgba(0,0,0,0.15);
@@ -99,13 +99,13 @@
         .filter-panel {
             position: absolute;
             left: 10px;
-            top: 56px;
+            top: 126px;
             z-index: 1000;
             background: white;
             border-radius: 8px;
             box-shadow: 0 2px 12px rgba(0,0,0,0.18);
             width: 280px;
-            max-height: calc(100% - 130px);
+            max-height: calc(100% - 200px);
             overflow-y: auto;
             font-size: 13px;
             display: none;
@@ -333,7 +333,7 @@
             outline: none;
             padding: 6px 8px;
             font-size: 13px;
-            width: 190px;
+            width: 220px;
             color: #333;
         }
         .map-search-box input[type="text"]::placeholder { color: #aaa; }
@@ -348,6 +348,86 @@
         }
         .map-search-clear:hover { color: #d73027; }
         .hub-icon { background: none !important; border: none !important; }
+
+        /* ===== Search Suggestions ===== */
+        .map-search-suggestions {
+            position: absolute;
+            left: 56px;
+            top: 50px;
+            z-index: 1002;
+            background: white;
+            border: 1px solid rgba(0,0,0,0.15);
+            border-radius: 6px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.18);
+            width: 280px;
+            max-height: 320px;
+            overflow-y: auto;
+            display: none;
+            font-size: 13px;
+        }
+        .map-search-suggestions.open { display: block; }
+        .map-suggestion-item {
+            padding: 7px 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 1px solid #f0f0f0;
+            line-height: 1.35;
+        }
+        .map-suggestion-item:last-child { border-bottom: none; }
+        .map-suggestion-item:hover,
+        .map-suggestion-item.active {
+            background: #2a5298;
+            color: white;
+        }
+        .map-suggestion-item:hover .alt-name,
+        .map-suggestion-item:hover .suggestion-meta,
+        .map-suggestion-item.active .alt-name,
+        .map-suggestion-item.active .suggestion-meta {
+            color: rgba(255,255,255,0.85);
+        }
+        .map-suggestion-item .suggestion-dot {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            border: 1px solid #555;
+            flex-shrink: 0;
+        }
+        .map-suggestion-item .suggestion-text {
+            flex: 1;
+            min-width: 0;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .map-suggestion-item .alt-name {
+            color: #888;
+            font-size: 11px;
+            margin-left: 4px;
+        }
+        .map-suggestion-item .suggestion-meta {
+            color: #999;
+            font-size: 10.5px;
+            flex-shrink: 0;
+        }
+        .map-suggestion-item mark {
+            background: #ffe082;
+            color: inherit;
+            padding: 0;
+            font-weight: 600;
+        }
+        .map-suggestion-item.active mark,
+        .map-suggestion-item:hover mark {
+            background: rgba(255,255,255,0.25);
+            color: white;
+        }
+        .map-suggestion-empty {
+            padding: 10px;
+            color: #999;
+            text-align: center;
+            font-style: italic;
+        }
 
         /* ===== Responsive ===== */
         @media (max-width: 768px) {
@@ -421,9 +501,13 @@
 
                     <!-- Search Box -->
                     <div class="map-search-box" id="map-search-box">
-                        <input type="text" id="map-search-input" placeholder="Search garrisons..." autocomplete="off">
+                        <input type="text" id="map-search-input" placeholder="Search garrisons..." autocomplete="off"
+                               data-tr-placeholder="Garnizon ara..." data-en-placeholder="Search garrisons...">
                         <button class="map-search-clear" id="map-search-clear" title="Clear search">&times;</button>
                     </div>
+
+                    <!-- Search Suggestions -->
+                    <div class="map-search-suggestions" id="map-search-suggestions" role="listbox"></div>
 
                     <!-- Filter Panel -->
                     <div class="filter-panel" id="filter-panel">
@@ -922,7 +1006,28 @@ var garrisonData = (typeof garrisonMapData !== "undefined") ? garrisonMapData : 
 
             // ===== DATABASE MATCHING =====
             var markerGarrisonMap = new Map();
-            
+
+            // Strip diacritics + lowercase for accent-insensitive search
+            function stripDiacritics(s) {
+                if (!s) return '';
+                var lower = String(s).toLowerCase();
+                if (typeof lower.normalize === 'function') {
+                    lower = lower.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+                }
+                // Special-case Turkish "ı" and "İ" which don't decompose via NFD,
+                // plus a few other common characters
+                return lower
+                    .replace(/ı/g, 'i')
+                    .replace(/ş/g, 's')
+                    .replace(/ğ/g, 'g')
+                    .replace(/ç/g, 'c')
+                    .replace(/ö/g, 'o')
+                    .replace(/ü/g, 'u')
+                    .replace(/ð/g, 'd')
+                    .replace(/ł/g, 'l')
+                    .replace(/đ/g, 'd');
+            }
+
             function normalizeGarrisonName(name) {
                 var normalized = name.toLowerCase().replace(/[\s\-_]/g, '').replace(/categorized$/i, '');
                 if (typeof normalized.normalize === 'function') normalized = normalized.normalize('NFC');
@@ -1226,7 +1331,7 @@ var garrisonData = (typeof garrisonMapData !== "undefined") ? garrisonMapData : 
                         if (ctr === 'Ukraine' && ctrUkraine) countryVisible = true;
                     }
 
-                    // Search filter
+                    // Search filter (accent-insensitive across en/tr/hu names)
                     var searchVisible = true;
                     if (searchTerm) {
                         var g = item.garrison;
@@ -1236,7 +1341,7 @@ var garrisonData = (typeof garrisonMapData !== "undefined") ? garrisonMapData : 
                             g.name && g.name.hu ? g.name.hu : ''
                         ];
                         searchVisible = names.some(function(n) {
-                            return n.toLowerCase().indexOf(searchTerm) !== -1;
+                            return stripDiacritics(n).indexOf(searchTerm) !== -1;
                         });
                     }
 
@@ -1470,21 +1575,223 @@ var garrisonData = (typeof garrisonMapData !== "undefined") ? garrisonMapData : 
                 });
             });
 
-            // ===== SEARCH BOX =====
+            // ===== SEARCH BOX + AUTOCOMPLETE =====
             var searchInput = document.getElementById('map-search-input');
             var searchClear = document.getElementById('map-search-clear');
             var searchBox   = document.getElementById('map-search-box');
+            var suggestionsBox = document.getElementById('map-search-suggestions');
 
             L.DomEvent.disableClickPropagation(searchBox);
             L.DomEvent.disableScrollPropagation(searchBox);
+            L.DomEvent.disableClickPropagation(suggestionsBox);
+            L.DomEvent.disableScrollPropagation(suggestionsBox);
+
+            // Apply translated placeholder (re-applied on language change below)
+            function applySearchPlaceholder() {
+                var lang = localStorage.getItem('siteLanguage') || localStorage.getItem('language') || 'tr';
+                var attr = lang === 'tr' ? 'data-tr-placeholder' : 'data-en-placeholder';
+                var ph = searchInput.getAttribute(attr);
+                if (ph) searchInput.setAttribute('placeholder', ph);
+            }
+            applySearchPlaceholder();
+
+            // Marker color dot for suggestion list
+            function suggestionDotColor(garrison) {
+                return getMarkerColor(garrison.type);
+            }
+
+            // Highlight matching substring (accent-insensitive)
+            function highlightMatch(displayName, normalizedTerm) {
+                if (!normalizedTerm) return escapeHtml(displayName);
+                var normDisplay = stripDiacritics(displayName);
+                var idx = normDisplay.indexOf(normalizedTerm);
+                if (idx === -1) return escapeHtml(displayName);
+                // We highlight by character index because stripDiacritics preserves length
+                // for the characters we transform (1:1 substitutions / NFD removes only marks).
+                // To stay safe, we map character-by-character.
+                var before = displayName.slice(0, idx);
+                var match = displayName.slice(idx, idx + normalizedTerm.length);
+                var after = displayName.slice(idx + normalizedTerm.length);
+                return escapeHtml(before) + '<mark>' + escapeHtml(match) + '</mark>' + escapeHtml(after);
+            }
+
+            function escapeHtml(s) {
+                return String(s)
+                    .replace(/&/g, '&amp;')
+                    .replace(/</g, '&lt;')
+                    .replace(/>/g, '&gt;')
+                    .replace(/"/g, '&quot;')
+                    .replace(/'/g, '&#39;');
+            }
+
+            var activeSuggestionIndex = -1;
+            var currentSuggestions = [];
+
+            function buildSuggestions(rawTerm) {
+                var normTerm = stripDiacritics(rawTerm);
+                if (!normTerm) {
+                    currentSuggestions = [];
+                    activeSuggestionIndex = -1;
+                    suggestionsBox.classList.remove('open');
+                    suggestionsBox.innerHTML = '';
+                    return;
+                }
+                var lang = localStorage.getItem('siteLanguage') || localStorage.getItem('language') || 'tr';
+                var matches = [];
+                allMarkerData.forEach(function(item) {
+                    var g = item.garrison;
+                    var en = (g.name && g.name.en) || '';
+                    var tr = (g.name && g.name.tr) || '';
+                    var hu = (g.name && g.name.hu) || '';
+                    var nEn = stripDiacritics(en);
+                    var nTr = stripDiacritics(tr);
+                    var nHu = stripDiacritics(hu);
+                    var bestIdx = -1;
+                    var bestField = null;
+                    [
+                        { name: en, norm: nEn, key: 'en' },
+                        { name: tr, norm: nTr, key: 'tr' },
+                        { name: hu, norm: nHu, key: 'hu' }
+                    ].forEach(function(f) {
+                        if (!f.norm) return;
+                        var idx = f.norm.indexOf(normTerm);
+                        if (idx !== -1 && (bestIdx === -1 || idx < bestIdx)) {
+                            bestIdx = idx;
+                            bestField = f;
+                        }
+                    });
+                    if (bestField) {
+                        matches.push({
+                            garrison: g,
+                            marker: item.marker,
+                            matchIdx: bestIdx,
+                            matchField: bestField.key,
+                            en: en,
+                            tr: tr,
+                            hu: hu,
+                            // Prefix match ranks above contains match
+                            score: (bestIdx === 0 ? 0 : 1)
+                        });
+                    }
+                });
+                // Sort: prefix matches first, then alphabetical by primary display name
+                matches.sort(function(a, b) {
+                    if (a.score !== b.score) return a.score - b.score;
+                    var pa = (lang === 'tr' && a.tr) ? a.tr : (a.en || a.hu || a.tr);
+                    var pb = (lang === 'tr' && b.tr) ? b.tr : (b.en || b.hu || b.tr);
+                    return pa.localeCompare(pb);
+                });
+                currentSuggestions = matches.slice(0, 8);
+                activeSuggestionIndex = currentSuggestions.length > 0 ? 0 : -1;
+                renderSuggestions(normTerm, lang);
+            }
+
+            function renderSuggestions(normTerm, lang) {
+                if (currentSuggestions.length === 0) {
+                    var emptyText = lang === 'tr' ? 'Sonuç bulunamadı' : 'No results';
+                    suggestionsBox.innerHTML = '<div class="map-suggestion-empty">' + emptyText + '</div>';
+                    suggestionsBox.classList.add('open');
+                    return;
+                }
+                var html = currentSuggestions.map(function(s, i) {
+                    var primary = (lang === 'tr' && s.tr) ? s.tr : (s.en || s.hu || s.tr);
+                    var alts = [];
+                    if (lang === 'tr') {
+                        if (s.en && s.en !== primary) alts.push(s.en);
+                        if (s.hu && s.hu !== primary && s.hu !== s.en) alts.push(s.hu);
+                    } else {
+                        if (s.tr && s.tr !== primary) alts.push(s.tr);
+                        if (s.hu && s.hu !== primary && s.hu !== s.en) alts.push(s.hu);
+                    }
+                    var altHtml = alts.length ? '<span class="alt-name">(' + alts.map(escapeHtml).join(' / ') + ')</span>' : '';
+                    var typeMeta = s.garrison.type ? '<span class="suggestion-meta">' + escapeHtml(s.garrison.type) + '</span>' : '';
+                    var dotColor = suggestionDotColor(s.garrison);
+                    return '<div class="map-suggestion-item' + (i === activeSuggestionIndex ? ' active' : '') +
+                           '" data-idx="' + i + '" role="option">' +
+                           '<span class="suggestion-dot" style="background:' + dotColor + ';"></span>' +
+                           '<span class="suggestion-text">' + highlightMatch(primary, normTerm) + altHtml + '</span>' +
+                           typeMeta +
+                           '</div>';
+                }).join('');
+                suggestionsBox.innerHTML = html;
+                suggestionsBox.classList.add('open');
+            }
+
+            function selectSuggestion(idx) {
+                if (idx < 0 || idx >= currentSuggestions.length) return;
+                var s = currentSuggestions[idx];
+                var lang = localStorage.getItem('siteLanguage') || localStorage.getItem('language') || 'tr';
+                var primary = (lang === 'tr' && s.tr) ? s.tr : (s.en || s.hu || s.tr);
+                searchInput.value = primary;
+                searchTerm = stripDiacritics(primary);
+                suggestionsBox.classList.remove('open');
+                currentSuggestions = [];
+                activeSuggestionIndex = -1;
+                updateMarkerVisibility();
+                // Make sure the marker is on the map (filters could have hidden it)
+                if (!map.hasLayer(s.marker)) s.marker.addTo(map);
+                // Fly to and open popup
+                map.flyTo([s.garrison.lat, s.garrison.lng], Math.max(map.getZoom(), 11), { duration: 0.8 });
+                setTimeout(function() {
+                    s.marker.openPopup();
+                }, 850);
+            }
 
             searchInput.addEventListener('input', function() {
-                searchTerm = this.value.trim().toLowerCase();
+                var raw = this.value.trim();
+                searchTerm = stripDiacritics(raw);
                 updateMarkerVisibility();
+                buildSuggestions(raw);
             });
+            searchInput.addEventListener('focus', function() {
+                if (this.value.trim()) buildSuggestions(this.value.trim());
+            });
+            searchInput.addEventListener('keydown', function(e) {
+                if (!suggestionsBox.classList.contains('open')) return;
+                if (e.key === 'ArrowDown') {
+                    e.preventDefault();
+                    if (currentSuggestions.length === 0) return;
+                    activeSuggestionIndex = (activeSuggestionIndex + 1) % currentSuggestions.length;
+                    var lang = localStorage.getItem('siteLanguage') || localStorage.getItem('language') || 'tr';
+                    renderSuggestions(stripDiacritics(searchInput.value.trim()), lang);
+                } else if (e.key === 'ArrowUp') {
+                    e.preventDefault();
+                    if (currentSuggestions.length === 0) return;
+                    activeSuggestionIndex = (activeSuggestionIndex - 1 + currentSuggestions.length) % currentSuggestions.length;
+                    var lang2 = localStorage.getItem('siteLanguage') || localStorage.getItem('language') || 'tr';
+                    renderSuggestions(stripDiacritics(searchInput.value.trim()), lang2);
+                } else if (e.key === 'Enter') {
+                    if (activeSuggestionIndex >= 0) {
+                        e.preventDefault();
+                        selectSuggestion(activeSuggestionIndex);
+                    }
+                } else if (e.key === 'Escape') {
+                    suggestionsBox.classList.remove('open');
+                }
+            });
+            // Mouse interactions on suggestions
+            suggestionsBox.addEventListener('mousedown', function(e) {
+                // Use mousedown so it fires before input blur
+                var target = e.target.closest('.map-suggestion-item');
+                if (!target) return;
+                e.preventDefault();
+                var idx = parseInt(target.getAttribute('data-idx'), 10);
+                if (!isNaN(idx)) selectSuggestion(idx);
+            });
+            // Hide suggestions when clicking elsewhere
+            document.addEventListener('click', function(e) {
+                if (!searchBox.contains(e.target) && !suggestionsBox.contains(e.target)) {
+                    suggestionsBox.classList.remove('open');
+                }
+            });
+
             searchClear.addEventListener('click', function() {
                 searchInput.value = '';
                 searchTerm = '';
+                currentSuggestions = [];
+                activeSuggestionIndex = -1;
+                suggestionsBox.classList.remove('open');
+                suggestionsBox.innerHTML = '';
                 updateMarkerVisibility();
                 searchInput.focus();
             });
@@ -1659,6 +1966,11 @@ var garrisonData = (typeof garrisonMapData !== "undefined") ? garrisonMapData : 
                 markerGarrisonMap.forEach(function(garrison, marker) {
                     marker.setPopupContent(createPopupContent(garrison));
                 });
+                // Refresh search placeholder + open suggestion list (if any) in new language
+                applySearchPlaceholder();
+                if (suggestionsBox.classList.contains('open') && searchInput.value.trim()) {
+                    buildSuggestions(searchInput.value.trim());
+                }
             });
 
             // ===== LAYER REGISTRY (extensible for future layers) =====

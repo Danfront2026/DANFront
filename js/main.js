@@ -94,7 +94,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const currentLangSpan = document.querySelector('.current-lang');
   
   // Get saved language preference or default to Turkish
-  let currentLang = localStorage.getItem('siteLanguage') || 'en';
+  let currentLang = localStorage.getItem('siteLanguage') || 'tr';
   
   // Initialize language
   function initLanguage() {
