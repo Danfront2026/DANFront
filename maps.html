@@ -721,7 +721,7 @@
                         <div class="filter-category expanded" data-category="natural">
                             <div class="filter-category-header">
                                 <i class="fas fa-chevron-right"></i>
-                                <input type="checkbox" id="cat-natural" checked>
+                                <input type="checkbox" id="cat-natural">
                                 <label for="cat-natural"><i class="fas fa-leaf" style="color:#28a745;margin-right:2px;"></i> <span data-tr-text="Doğal Çevre" data-en-text="Natural Environment">Natural Environment</span></label>
                             </div>
                             <div class="filter-subcategories">
@@ -733,63 +733,8 @@
                                     </label>
                                 </div>
                                 <div class="filter-item">
-                                    <input type="checkbox" id="danube-basin-toggle" checked>
+                                    <input type="checkbox" id="danube-basin-toggle">
                                     <label for="danube-basin-toggle"><span data-tr-text="Tuna Havzası" data-en-text="Danube Basin">Danube Basin</span></label>
-                                </div>
-                                <div class="filter-item disabled">
-                                    <input type="checkbox" disabled>
-                                    <label><span data-tr-text="Adalar" data-en-text="Islands">Islands</span> <span class="coming-soon-badge">Coming soon</span></label>
-                                </div>
-                                <div class="filter-item disabled">
-                                    <input type="checkbox" disabled>
-                                    <label><span data-tr-text="Göller" data-en-text="Lakes">Lakes</span> <span class="coming-soon-badge">Coming soon</span></label>
-                                </div>
-                                <div class="filter-item disabled">
-                                    <input type="checkbox" disabled>
-                                    <label><span data-tr-text="Bataklıklar" data-en-text="Marshes">Marshes</span> <span class="coming-soon-badge">Coming soon</span></label>
-                                </div>
-                                <div class="filter-item disabled">
-                                    <input type="checkbox" disabled>
-                                    <label><span data-tr-text="Ormanlar" data-en-text="Forests">Forests</span> <span class="coming-soon-badge">Coming soon</span></label>
-                                </div>
-                                <div class="filter-item disabled">
-                                    <input type="checkbox" disabled>
-                                    <label><span data-tr-text="Madenler" data-en-text="Mines">Mines</span> <span class="coming-soon-badge">Coming soon</span></label>
-                                </div>
-                                <div class="filter-item disabled">
-                                    <input type="checkbox" disabled>
-                                    <label><span data-tr-text="Yollar" data-en-text="Roads">Roads</span> <span class="coming-soon-badge">Coming soon</span></label>
-                                </div>
-                                <div class="filter-item disabled">
-                                    <input type="checkbox" disabled>
-                                    <label><span data-tr-text="Köprüler" data-en-text="Bridges">Bridges</span> <span class="coming-soon-badge">Coming soon</span></label>
-                                </div>
-                                <div class="filter-item disabled">
-                                    <input type="checkbox" disabled>
-                                    <label><span data-tr-text="Su Yolları" data-en-text="Waterways">Waterways</span> <span class="coming-soon-badge">Coming soon</span></label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Natural Events -->
-                        <div class="filter-category" data-category="events">
-                            <div class="filter-category-header">
-                                <i class="fas fa-chevron-right"></i>
-                                <input type="checkbox" id="cat-events" disabled>
-                                <label for="cat-events"><i class="fas fa-cloud-showers-heavy" style="color:#17a2b8;margin-right:2px;"></i> <span data-tr-text="Doğal Olaylar" data-en-text="Natural Events">Natural Events</span></label>
-                            </div>
-                            <div class="filter-subcategories">
-                                <div class="filter-item disabled">
-                                    <input type="checkbox" disabled>
-                                    <label><span data-tr-text="Seller" data-en-text="Floods">Floods</span> <span class="coming-soon-badge">Coming soon</span></label>
-                                </div>
-                                <div class="filter-item disabled">
-                                    <input type="checkbox" disabled>
-                                    <label><span data-tr-text="Buz Tıkanıklıkları" data-en-text="Ice Blocks">Ice Blocks</span> <span class="coming-soon-badge">Coming soon</span></label>
-                                </div>
-                                <div class="filter-item disabled">
-                                    <input type="checkbox" disabled>
-                                    <label><span data-tr-text="Orman Yangınları" data-en-text="Wild Fires">Wild Fires</span> <span class="coming-soon-badge">Coming soon</span></label>
                                 </div>
                             </div>
                         </div>
@@ -2000,7 +1945,7 @@ var garrisonData = (typeof garrisonMapData !== "undefined") ? garrisonMapData : 
                 },
                 danubeBasin: {
                     group: L.featureGroup(),
-                    enabled: true
+                    enabled: false
                 }
                 // Future layers will be registered here:
                 // shipyards: { group: L.featureGroup(), enabled: false },
@@ -2023,15 +1968,13 @@ var garrisonData = (typeof garrisonMapData !== "undefined") ? garrisonMapData : 
                 .then(function(data) {
                     L.geoJSON(data, {
                         style: {
-                            color: '#4a90d9',
-                            weight: 1.5,
-                            dashArray: '6 4',
+                            color: '#1a5fb4',
+                            weight: 3,
+                            dashArray: '10 6',
                             fill: false,
-                            opacity: 0.8
+                            opacity: 1.0
                         }
                     }).addTo(layerRegistry.danubeBasin.group);
-                    // Basin is on by default — add to map now
-                    map.addLayer(layerRegistry.danubeBasin.group);
                 })
                 .catch(function(err) {
                     console.warn('Danube basin layer not yet available:', err.message);
