@@ -718,16 +718,23 @@
                         </div>
 
                         <!-- Natural Environment -->
-                        <div class="filter-category" data-category="natural">
+                        <div class="filter-category expanded" data-category="natural">
                             <div class="filter-category-header">
                                 <i class="fas fa-chevron-right"></i>
-                                <input type="checkbox" id="cat-natural" disabled>
+                                <input type="checkbox" id="cat-natural" checked>
                                 <label for="cat-natural"><i class="fas fa-leaf" style="color:#28a745;margin-right:2px;"></i> <span data-tr-text="Doğal Çevre" data-en-text="Natural Environment">Natural Environment</span></label>
                             </div>
                             <div class="filter-subcategories">
-                                <div class="filter-item disabled">
-                                    <input type="checkbox" disabled>
-                                    <label><span data-tr-text="Nehirler" data-en-text="Rivers">Rivers</span> <span class="coming-soon-badge">Coming soon</span></label>
+                                <div class="filter-item">
+                                    <input type="checkbox" id="rivers-toggle">
+                                    <label for="rivers-toggle">
+                                        <span data-tr-text="Nehirler" data-en-text="Rivers">Rivers</span>
+                                        <span id="rivers-loading" style="display:none;font-size:11px;color:#888;margin-left:4px;" data-tr-text="yükleniyor..." data-en-text="loading...">loading...</span>
+                                    </label>
+                                </div>
+                                <div class="filter-item">
+                                    <input type="checkbox" id="danube-basin-toggle" checked>
+                                    <label for="danube-basin-toggle"><span data-tr-text="Tuna Havzası" data-en-text="Danube Basin">Danube Basin</span></label>
                                 </div>
                                 <div class="filter-item disabled">
                                     <input type="checkbox" disabled>
@@ -883,13 +890,15 @@ var garrisonData = (typeof garrisonMapData !== "undefined") ? garrisonMapData : 
             var currentLang = localStorage.getItem('siteLanguage') || localStorage.getItem('language') || 'tr';
             
             // ===== MAP INITIALIZATION =====
+            var canvasRenderer = L.canvas({ padding: 0.5 });
             var map = L.map('map', {
                 center: [47.5, 19.0],
                 zoom: 7,
                 minZoom: 6,
                 maxZoom: 14,
                 zoomControl: true,
-                attributionControl: true
+                attributionControl: true,
+                renderer: canvasRenderer
             });
             
             // ===== TILE LAYERS =====
@@ -1975,21 +1984,129 @@ var garrisonData = (typeof garrisonMapData !== "undefined") ? garrisonMapData : 
 
             // ===== LAYER REGISTRY (extensible for future layers) =====
             // To add a new layer in the future:
-            // 1. Load GeoJSON/data in a <script> tag
+            // 1. Load GeoJSON via fetch() and register it here
             // 2. Register it: layerRegistry['myLayer'] = { group: L.featureGroup(), enabled: true };
-            // 3. Add markers/features to the group
+            // 3. Add features to the group
             // 4. Wire the checkbox to toggle group visibility
             var layerRegistry = {
                 garrisons: {
                     markers: allMarkerData,
                     enabled: true,
                     description: 'Ottoman garrison locations with type sub-filters and time filtering'
+                },
+                rivers: {
+                    group: L.featureGroup(),
+                    enabled: false
+                },
+                danubeBasin: {
+                    group: L.featureGroup(),
+                    enabled: true
                 }
                 // Future layers will be registered here:
                 // shipyards: { group: L.featureGroup(), enabled: false },
-                // rivers: { group: L.featureGroup(), enabled: false },
                 // floods: { group: L.featureGroup(), enabled: false },
             };
+
+            // ===== RIVERS & BASIN LAYERS =====
+            // UPDATE this URL after uploading the GeoJSON files to Cloudflare.
+            // The files should be served from the same origin or with CORS headers.
+            var CF_BASE = 'https://danfront-tiles.odulsuzkisafilm.workers.dev';
+
+            function showRiversLoading(show) {
+                var el = document.getElementById('rivers-loading');
+                if (el) el.style.display = show ? 'inline' : 'none';
+            }
+
+            // Danube basin boundary (small, ~15 KB — load first)
+            fetch(CF_BASE + '/danube-basin.geojson')
+                .then(function(r) { return r.json(); })
+                .then(function(data) {
+                    L.geoJSON(data, {
+                        style: {
+                            color: '#4a90d9',
+                            weight: 1.5,
+                            dashArray: '6 4',
+                            fill: false,
+                            opacity: 0.8
+                        }
+                    }).addTo(layerRegistry.danubeBasin.group);
+                    // Basin is on by default — add to map now
+                    map.addLayer(layerRegistry.danubeBasin.group);
+                })
+                .catch(function(err) {
+                    console.warn('Danube basin layer not yet available:', err.message);
+                });
+
+            // Rivers network (~3.2 MB gzipped) — loaded on demand when checkbox is ticked
+            var riversLoaded = false;
+            function loadRivers() {
+                if (riversLoaded) return;
+                riversLoaded = true;
+                showRiversLoading(true);
+                fetch(CF_BASE + '/rivers-danube.geojson')
+                    .then(function(r) { return r.json(); })
+                    .then(function(data) {
+                        L.geoJSON(data, {
+                            renderer: canvasRenderer,
+                            style: function(feature) {
+                                var ord = (feature.properties && feature.properties.ORD_STRA) || 1;
+                                return {
+                                    color: '#4a90d9',
+                                    weight: Math.max(0.5, (ord - 1) * 0.6),
+                                    opacity: 0.75
+                                };
+                            }
+                        }).addTo(layerRegistry.rivers.group);
+                        showRiversLoading(false);
+                        // If the toggle is already checked, add the group to the map
+                        var toggle = document.getElementById('rivers-toggle');
+                        if (toggle && toggle.checked) {
+                            map.addLayer(layerRegistry.rivers.group);
+                        }
+                    })
+                    .catch(function(err) {
+                        riversLoaded = false; // allow retry
+                        showRiversLoading(false);
+                        console.warn('Rivers layer failed to load:', err.message);
+                    });
+            }
+
+            // Toggle: Rivers
+            document.getElementById('rivers-toggle').addEventListener('change', function() {
+                if (this.checked) {
+                    if (!riversLoaded) {
+                        loadRivers(); // fetch triggers addLayer on completion
+                    } else {
+                        map.addLayer(layerRegistry.rivers.group);
+                    }
+                } else {
+                    map.removeLayer(layerRegistry.rivers.group);
+                }
+            });
+
+            // Toggle: Danube Basin
+            document.getElementById('danube-basin-toggle').addEventListener('change', function() {
+                if (this.checked) {
+                    map.addLayer(layerRegistry.danubeBasin.group);
+                } else {
+                    map.removeLayer(layerRegistry.danubeBasin.group);
+                }
+            });
+
+            // Master toggle: Natural Environment category
+            document.getElementById('cat-natural').addEventListener('change', function() {
+                var checked = this.checked;
+                var riversToggle = document.getElementById('rivers-toggle');
+                var basinToggle = document.getElementById('danube-basin-toggle');
+                if (riversToggle) {
+                    riversToggle.checked = checked;
+                    riversToggle.dispatchEvent(new Event('change'));
+                }
+                if (basinToggle) {
+                    basinToggle.checked = checked;
+                    basinToggle.dispatchEvent(new Event('change'));
+                }
+            });
 
         });
     </script>
