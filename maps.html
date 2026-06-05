@@ -731,6 +731,9 @@
                                         <span data-tr-text="Nehirler" data-en-text="Rivers">Rivers</span>
                                         <span id="rivers-loading" style="display:none;font-size:11px;color:#888;margin-left:4px;" data-tr-text="yükleniyor..." data-en-text="loading...">loading...</span>
                                     </label>
+                                    <div style="font-size:10px;color:#999;margin-left:20px;margin-top:2px;line-height:1.4;">
+                                        <span data-tr-text="Kaynak:" data-en-text="Source:">Source:</span> <a href="https://www.hydrosheds.org/products/hydrorivers" target="_blank" rel="noopener noreferrer" style="color:#4a90d9;text-decoration:none;" title="HydroRIVERS – WWF HydroSHEDS">HydroRIVERS</a>
+                                    </div>
                                 </div>
                                 <div class="filter-item">
                                     <input type="checkbox" id="danube-basin-toggle">
@@ -2015,8 +2018,10 @@ var garrisonData = (typeof garrisonMapData !== "undefined") ? garrisonMapData : 
             }
 
             // Toggle: Rivers
+            var hydroRiversAttribution = 'River data: <a href="https://www.hydrosheds.org/products/hydrorivers" target="_blank">HydroRIVERS (WWF HydroSHEDS)</a>';
             document.getElementById('rivers-toggle').addEventListener('change', function() {
                 if (this.checked) {
+                    map.attributionControl.addAttribution(hydroRiversAttribution);
                     if (!riversLoaded) {
                         loadRivers(); // fetch triggers addLayer on completion
                     } else {
@@ -2024,6 +2029,7 @@ var garrisonData = (typeof garrisonMapData !== "undefined") ? garrisonMapData : 
                     }
                 } else {
                     map.removeLayer(layerRegistry.rivers.group);
+                    map.attributionControl.removeAttribution(hydroRiversAttribution);
                 }
             });
 
