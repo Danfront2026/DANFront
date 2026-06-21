@@ -1995,7 +1995,7 @@ var garrisonData = (typeof garrisonMapData !== "undefined") ? garrisonMapData : 
                         L.geoJSON(data, {
                             renderer: canvasRenderer,
                             style: function(feature) {
-                                var ord = (feature.properties && feature.properties.ORD_STRA) || 1;
+                                var ord = (feature.properties && feature.properties.STRAHLER) || 1;
                                 return {
                                     color: '#4a90d9',
                                     weight: Math.max(0.5, (ord - 1) * 0.6),
