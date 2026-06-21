@@ -1993,8 +1993,8 @@ var garrisonData = (typeof garrisonMapData !== "undefined") ? garrisonMapData : 
                     .then(function(r) { return r.json(); })
                     .then(function(data) {
                         function riverWeight(strahler, zoom) {
-                            var zoomScale = Math.max(1, (zoom - 5) * 0.45);
-                            return Math.max(0.8, (strahler - 2) * 1.1 * zoomScale);
+                            var zoomScale = Math.max(1, (zoom - 5) * 0.4);
+                            return Math.max(0.5, (strahler - 2) * 0.8 * zoomScale);
                         }
                         var riversLayer = L.geoJSON(data, {
                             renderer: canvasRenderer,
