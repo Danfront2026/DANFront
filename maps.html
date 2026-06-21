@@ -2017,6 +2017,7 @@ var garrisonData = (typeof garrisonMapData !== "undefined") ? garrisonMapData : 
                                     opacity: 0.8
                                 };
                             });
+                            syncDetailLayer();
                         });
                         riversLayer.addTo(layerRegistry.rivers.group);
                         showRiversLoading(false);
@@ -2033,6 +2034,58 @@ var garrisonData = (typeof garrisonMapData !== "undefined") ? garrisonMapData : 
                     });
             }
 
+            // STRAHLER=2 detail layer — loaded lazily at zoom >= 10
+            var DETAIL_ZOOM_IN  = 10;
+            var DETAIL_ZOOM_OUT = 9;
+            var riversDetailLoaded = false;
+            var riversDetailLayer  = null;
+
+            function loadRiversDetail() {
+                if (riversDetailLoaded) return;
+                riversDetailLoaded = true;
+                fetch(CF_BASE + '/rivers-s2.geojson')
+                    .then(function(r) { return r.json(); })
+                    .then(function(data) {
+                        riversDetailLayer = L.geoJSON(data, {
+                            renderer: canvasRenderer,
+                            style: function() {
+                                return {
+                                    color: '#4a90d9',
+                                    weight: riverWeight(2, map.getZoom()),
+                                    opacity: 0.8
+                                };
+                            }
+                        });
+                        var toggle = document.getElementById('rivers-toggle');
+                        if (toggle && toggle.checked && map.getZoom() >= DETAIL_ZOOM_IN) {
+                            riversDetailLayer.addTo(map);
+                        }
+                    })
+                    .catch(function() { riversDetailLoaded = false; });
+            }
+
+            function syncDetailLayer() {
+                var toggle = document.getElementById('rivers-toggle');
+                if (!toggle || !toggle.checked) return;
+                var z = map.getZoom();
+                if (z >= DETAIL_ZOOM_IN) {
+                    if (!riversDetailLoaded) {
+                        loadRiversDetail();
+                    } else if (riversDetailLayer && !map.hasLayer(riversDetailLayer)) {
+                        riversDetailLayer.addTo(map);
+                        riversDetailLayer.setStyle(function() {
+                            return {
+                                color: '#4a90d9',
+                                weight: riverWeight(2, z),
+                                opacity: 0.8
+                            };
+                        });
+                    }
+                } else if (z < DETAIL_ZOOM_OUT && riversDetailLayer && map.hasLayer(riversDetailLayer)) {
+                    map.removeLayer(riversDetailLayer);
+                }
+            }
+
             // Toggle: Rivers
             var hydroRiversAttribution = 'River data: <a href="https://www.hydrosheds.org/products/hydrorivers" target="_blank">HydroRIVERS (WWF HydroSHEDS)</a>';
             document.getElementById('rivers-toggle').addEventListener('change', function() {
@@ -2043,8 +2096,12 @@ var garrisonData = (typeof garrisonMapData !== "undefined") ? garrisonMapData : 
                     } else {
                         map.addLayer(layerRegistry.rivers.group);
                     }
+                    syncDetailLayer();
                 } else {
                     map.removeLayer(layerRegistry.rivers.group);
+                    if (riversDetailLayer && map.hasLayer(riversDetailLayer)) {
+                        map.removeLayer(riversDetailLayer);
+                    }
                     map.attributionControl.removeAttribution(hydroRiversAttribution);
                 }
             });
