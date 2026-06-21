@@ -1992,17 +1992,33 @@ var garrisonData = (typeof garrisonMapData !== "undefined") ? garrisonMapData : 
                 fetch(CF_BASE + '/rivers-danube.geojson')
                     .then(function(r) { return r.json(); })
                     .then(function(data) {
-                        L.geoJSON(data, {
+                        function riverWeight(strahler, zoom) {
+                            var zoomScale = Math.max(1, (zoom - 5) * 0.45);
+                            return Math.max(0.8, (strahler - 2) * 1.1 * zoomScale);
+                        }
+                        var riversLayer = L.geoJSON(data, {
                             renderer: canvasRenderer,
                             style: function(feature) {
-                                var ord = (feature.properties && feature.properties.STRAHLER) || 1;
+                                var ord = (feature.properties && feature.properties.STRAHLER) || 3;
                                 return {
                                     color: '#4a90d9',
-                                    weight: Math.max(0.5, (ord - 1) * 0.6),
-                                    opacity: 0.75
+                                    weight: riverWeight(ord, map.getZoom()),
+                                    opacity: 0.8
                                 };
                             }
-                        }).addTo(layerRegistry.rivers.group);
+                        });
+                        map.on('zoomend', function() {
+                            var z = map.getZoom();
+                            riversLayer.setStyle(function(feature) {
+                                var ord = (feature.properties && feature.properties.STRAHLER) || 3;
+                                return {
+                                    color: '#4a90d9',
+                                    weight: riverWeight(ord, z),
+                                    opacity: 0.8
+                                };
+                            });
+                        });
+                        riversLayer.addTo(layerRegistry.rivers.group);
                         showRiversLoading(false);
                         // If the toggle is already checked, add the group to the map
                         var toggle = document.getElementById('rivers-toggle');
