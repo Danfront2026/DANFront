@@ -130,6 +130,189 @@
             margin-bottom: 0.35rem;
         }
 
+        /* Action buttons row (Cite + Download) */
+        .db-action-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Cite Button */
+        .cite-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            padding: 0.5rem 1.1rem;
+            background: #fff;
+            color: #2a5298;
+            border: 2px solid #2a5298;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .cite-btn:hover {
+            background: #2a5298;
+            color: #fff;
+        }
+
+        /* Download Full Dataset Button */
+        .dataset-download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            padding: 0.5rem 1.1rem;
+            background: #1a7a4a;
+            color: #fff;
+            border: 2px solid #1a7a4a;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+        .dataset-download-btn:hover {
+            background: #145e38;
+            border-color: #145e38;
+            color: #fff;
+        }
+
+        /* Cite Modal Overlay */
+        .cite-modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.45);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+        .cite-modal-overlay.open {
+            display: flex;
+        }
+        .cite-modal {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 8px 40px rgba(0,0,0,0.18);
+            max-width: 680px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 2rem 2rem 1.5rem;
+            position: relative;
+        }
+        .cite-modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.25rem;
+        }
+        .cite-modal-header h2 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #1a2a4a;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .cite-modal-close {
+            background: none;
+            border: none;
+            font-size: 1.4rem;
+            color: #666;
+            cursor: pointer;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            line-height: 1;
+            transition: color 0.15s;
+        }
+        .cite-modal-close:hover { color: #333; }
+
+        /* Short citation banner (TR only) */
+        .cite-short-banner {
+            background: #f0f4fb;
+            border-left: 4px solid #2a5298;
+            border-radius: 6px;
+            padding: 0.75rem 1rem;
+            margin-bottom: 1.25rem;
+        }
+        .cite-short-banner strong {
+            display: block;
+            font-size: 0.8rem;
+            color: #2a5298;
+            margin-bottom: 0.3rem;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+        .cite-short-banner p {
+            margin: 0;
+            font-size: 0.9rem;
+            color: #333;
+        }
+
+        /* Style blocks */
+        .cite-style-block {
+            border: 1px solid #e8ecf4;
+            border-radius: 8px;
+            margin-bottom: 0.9rem;
+            overflow: hidden;
+        }
+        .cite-style-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #f7f9fd;
+            padding: 0.55rem 0.9rem;
+            border-bottom: 1px solid #e8ecf4;
+        }
+        .cite-style-label {
+            font-size: 0.82rem;
+            font-weight: 700;
+            color: #2a5298;
+            letter-spacing: 0.03em;
+        }
+        .cite-copy-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            padding: 0.28rem 0.7rem;
+            background: #2a5298;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.15s;
+        }
+        .cite-copy-btn:hover { background: #1e3d78; }
+        .cite-copy-btn.copied { background: #27a25a; }
+        .cite-style-content {
+            padding: 0.75rem 0.9rem;
+            font-size: 0.88rem;
+            color: #333;
+            line-height: 1.6;
+            white-space: pre-wrap;
+            font-family: inherit;
+        }
+        .cite-style-content.bibtex {
+            font-family: 'Courier New', monospace;
+            font-size: 0.82rem;
+            background: #f9fafb;
+        }
+        .cite-style-content a {
+            color: #2a5298;
+        }
+        .cite-modal-desc {
+            font-size: 0.85rem;
+            color: #555;
+            margin-bottom: 1.25rem;
+        }
+
         /* Info badge */
         .db-info-badge {
             display: inline-flex;
@@ -199,6 +382,88 @@
                        data-en-text="Comprehensive dataset about Ottoman garrisons. Covers 210 garrisons across 7 provinces, spanning the years 1454-1662.">
                         Comprehensive dataset about Ottoman garrisons. Covers 210 garrisons across 7 provinces, spanning the years 1454-1662.
                     </p>
+                </div>
+
+                <!-- Action Buttons Row -->
+                <div class="db-action-row">
+                    <button class="cite-btn" id="cite-open-btn" aria-haspopup="dialog">
+                        <i class="fas fa-quote-right"></i>
+                        <span data-tr-text="Bu Veriyi Atıfla" data-en-text="Cite This Dataset">Cite This Dataset</span>
+                    </button>
+                    <a class="dataset-download-btn"
+                       href="Dataset_Hungary%20and%20Rumili%20and%20%C3%96zi.xlsx"
+                       download="DANFront_Dataset.xlsx">
+                        <i class="fas fa-file-excel"></i>
+                        <span data-tr-text="Tam Veri Setini İndir" data-en-text="Download Full Dataset">Download Full Dataset</span>
+                    </a>
+                </div>
+
+                <!-- Cite Modal -->
+                <div class="cite-modal-overlay" id="cite-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="cite-modal-title">
+                    <div class="cite-modal">
+                        <div class="cite-modal-header">
+                            <h2 id="cite-modal-title">
+                                <i class="fas fa-quote-right"></i>
+                                <span id="cite-modal-heading"></span>
+                            </h2>
+                            <button class="cite-modal-close" id="cite-modal-close" aria-label="Close">&times;</button>
+                        </div>
+                        <p class="cite-modal-desc" id="cite-modal-desc"></p>
+
+                        <!-- Short citation (TR only) -->
+                        <div class="cite-short-banner" id="cite-short-banner" style="display:none;">
+                            <strong id="cite-short-label"></strong>
+                            <p id="cite-short-text"></p>
+                        </div>
+
+                        <!-- APA -->
+                        <div class="cite-style-block">
+                            <div class="cite-style-header">
+                                <span class="cite-style-label" id="cite-label-apa">APA</span>
+                                <button class="cite-copy-btn" data-target="cite-content-apa">
+                                    <i class="fas fa-copy"></i>
+                                    <span id="cite-copy-text-apa"></span>
+                                </button>
+                            </div>
+                            <div class="cite-style-content" id="cite-content-apa"></div>
+                        </div>
+
+                        <!-- Chicago -->
+                        <div class="cite-style-block">
+                            <div class="cite-style-header">
+                                <span class="cite-style-label" id="cite-label-chicago">Chicago</span>
+                                <button class="cite-copy-btn" data-target="cite-content-chicago">
+                                    <i class="fas fa-copy"></i>
+                                    <span id="cite-copy-text-chicago"></span>
+                                </button>
+                            </div>
+                            <div class="cite-style-content" id="cite-content-chicago"></div>
+                        </div>
+
+                        <!-- MLA -->
+                        <div class="cite-style-block">
+                            <div class="cite-style-header">
+                                <span class="cite-style-label" id="cite-label-mla">MLA</span>
+                                <button class="cite-copy-btn" data-target="cite-content-mla">
+                                    <i class="fas fa-copy"></i>
+                                    <span id="cite-copy-text-mla"></span>
+                                </button>
+                            </div>
+                            <div class="cite-style-content" id="cite-content-mla"></div>
+                        </div>
+
+                        <!-- BibTeX -->
+                        <div class="cite-style-block">
+                            <div class="cite-style-header">
+                                <span class="cite-style-label">BibTeX</span>
+                                <button class="cite-copy-btn" data-target="cite-content-bibtex">
+                                    <i class="fas fa-copy"></i>
+                                    <span id="cite-copy-text-bibtex"></span>
+                                </button>
+                            </div>
+                            <div class="cite-style-content bibtex" id="cite-content-bibtex"></div>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- View Toggle -->
@@ -342,5 +607,160 @@
     <script src="js/legal-modals.js?v=8"></script>
     <script src="js/garrison-data.js?v=7"></script>
     <script src="js/garrison-table.js?v=7"></script>
+
+    <script>
+    (function () {
+        const DOI_URL = 'https://doi.org/10.5281/zenodo.21338309';
+
+        const CITATIONS = {
+            en: {
+                heading: 'Citation',
+                desc: 'If you use this dataset in your research or teaching, please cite it as follows:',
+                shortLabel: null,
+                shortText: null,
+                apa: {
+                    label: 'APA style',
+                    text: 'İnal, O., & Akto, D. A. (2026). DANFront: An Environmental History of the Early-Modern Ottoman Military Frontier in the Middle and Lower Danube [Digital humanities project]. Zenodo. ' + DOI_URL
+                },
+                chicago: {
+                    label: 'Chicago style',
+                    text: 'İnal, Onur, and Deniz Armağan Akto. DANFront: An Environmental History of the Early-Modern Ottoman Military Frontier in the Middle and Lower Danube. 2026. Zenodo. ' + DOI_URL
+                },
+                mla: {
+                    label: 'MLA style',
+                    text: 'İnal, Onur, and Deniz Armağan Akto. DANFront: An Environmental History of the Early-Modern Ottoman Military Frontier in the Middle and Lower Danube. Zenodo, 2026. ' + DOI_URL
+                },
+                copyBtn: 'Copy',
+                copiedBtn: 'Copied!'
+            },
+            tr: {
+                heading: 'Atıf',
+                desc: 'Bu veri setini araştırmanızda veya öğretim faaliyetlerinizde kullanıyorsanız, lütfen aşağıdaki şekilde atıf yapınız:',
+                shortLabel: 'Önerilen kısa atıf:',
+                shortText: 'İnal, O., & Akto, D. A. (2026). DANFront. ' + DOI_URL,
+                apa: {
+                    label: 'APA stili',
+                    text: 'İnal, O., & Akto, D. A. (2026). DANFront: An Environmental History of the Early-Modern Ottoman Military Frontier in the Middle and Lower Danube [Dijital beşerî bilimler projesi]. Zenodo. ' + DOI_URL
+                },
+                chicago: {
+                    label: 'Chicago stili',
+                    text: 'İnal, Onur, ve Deniz Armağan Akto. DANFront: An Environmental History of the Early-Modern Ottoman Military Frontier in the Middle and Lower Danube. 2026. Zenodo. ' + DOI_URL
+                },
+                mla: {
+                    label: 'MLA stili',
+                    text: 'İnal, Onur, ve Deniz Armağan Akto. DANFront: An Environmental History of the Early-Modern Ottoman Military Frontier in the Middle and Lower Danube. Zenodo, 2026. ' + DOI_URL
+                },
+                copyBtn: 'Kopyala',
+                copiedBtn: 'Kopyalandı!'
+            }
+        };
+
+        const BIBTEX = `@misc{inal_akto_2026_danfront,
+  author    = {İnal, Onur and Akto, Deniz Armağan},
+  title     = {DANFront: An Environmental History of the Early-Modern Ottoman Military Frontier in the Middle and Lower Danube},
+  year      = {2026},
+  publisher = {Zenodo},
+  doi       = {10.5281/zenodo.21338309},
+  url       = {${DOI_URL}}
+}`;
+
+        function getCurrentLang() {
+            return localStorage.getItem('siteLanguage') || 'en';
+        }
+
+        function renderCiteModal() {
+            const lang = getCurrentLang();
+            const C = CITATIONS[lang] || CITATIONS.en;
+
+            document.getElementById('cite-modal-heading').textContent = C.heading;
+            document.getElementById('cite-modal-desc').textContent = C.desc;
+
+            // Short citation banner (TR only)
+            const shortBanner = document.getElementById('cite-short-banner');
+            if (C.shortLabel) {
+                shortBanner.style.display = '';
+                document.getElementById('cite-short-label').textContent = C.shortLabel;
+                document.getElementById('cite-short-text').textContent = C.shortText;
+            } else {
+                shortBanner.style.display = 'none';
+            }
+
+            // APA
+            document.getElementById('cite-label-apa').textContent = C.apa.label;
+            document.getElementById('cite-content-apa').textContent = C.apa.text;
+            document.getElementById('cite-copy-text-apa').textContent = C.copyBtn;
+
+            // Chicago
+            document.getElementById('cite-label-chicago').textContent = C.chicago.label;
+            document.getElementById('cite-content-chicago').textContent = C.chicago.text;
+            document.getElementById('cite-copy-text-chicago').textContent = C.copyBtn;
+
+            // MLA
+            document.getElementById('cite-label-mla').textContent = C.mla.label;
+            document.getElementById('cite-content-mla').textContent = C.mla.text;
+            document.getElementById('cite-copy-text-mla').textContent = C.copyBtn;
+
+            // BibTeX (same for both languages)
+            document.getElementById('cite-content-bibtex').textContent = BIBTEX;
+            document.getElementById('cite-copy-text-bibtex').textContent = C.copyBtn;
+
+            // Reset all copy buttons
+            document.querySelectorAll('.cite-copy-btn').forEach(btn => btn.classList.remove('copied'));
+        }
+
+        function openModal() {
+            renderCiteModal();
+            document.getElementById('cite-modal-overlay').classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('cite-modal-overlay').classList.remove('open');
+            document.body.style.overflow = '';
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('cite-open-btn').addEventListener('click', openModal);
+            document.getElementById('cite-modal-close').addEventListener('click', closeModal);
+
+            // Close on overlay click
+            document.getElementById('cite-modal-overlay').addEventListener('click', function (e) {
+                if (e.target === this) closeModal();
+            });
+
+            // Close on Escape
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape') closeModal();
+            });
+
+            // Copy buttons
+            document.querySelectorAll('.cite-copy-btn').forEach(function (btn) {
+                btn.addEventListener('click', function () {
+                    const targetId = this.getAttribute('data-target');
+                    const text = document.getElementById(targetId).textContent;
+                    navigator.clipboard.writeText(text).then(() => {
+                        const lang = getCurrentLang();
+                        const C = CITATIONS[lang] || CITATIONS.en;
+                        const span = this.querySelector('span');
+                        this.classList.add('copied');
+                        span.textContent = C.copiedBtn;
+                        setTimeout(() => {
+                            this.classList.remove('copied');
+                            span.textContent = C.copyBtn;
+                        }, 2000);
+                    });
+                });
+            });
+
+            // Update modal when language changes (if modal is open)
+            document.addEventListener('languageChanged', function () {
+                if (document.getElementById('cite-modal-overlay').classList.contains('open')) {
+                    renderCiteModal();
+                }
+                // Also update button text via data-tr-text system (handled by main.js)
+            });
+        });
+    })();
+    </script>
 </body>
 </html>

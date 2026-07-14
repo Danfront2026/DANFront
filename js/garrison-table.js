@@ -85,6 +85,7 @@ class GarrisonTable {
             this.updateSearchPlaceholder();
             this.updateDownloadButtonText();
             this.updateInfoBadge();
+            this.updateResultsCount();
         });
 
         // Initialize the view FIRST (populate dropdowns before URL handling)
@@ -213,7 +214,7 @@ class GarrisonTable {
             }
             const opt = document.createElement('option');
             opt.value = '__top_level__';
-            const topLabel = lang === 'tr' ? '(Dogrudan Garnizonlar)' : '(Direct Garrisons)';
+            const topLabel = lang === 'tr' ? '(Doğrudan Garnizonlar)' : '(Direct Garrisons)';
             opt.textContent = topLabel;
             this.sancakSelect.appendChild(opt);
         }
@@ -525,14 +526,14 @@ class GarrisonTable {
         
         const lang = localStorage.getItem('siteLanguage') || 'en';
         const viewLabel = this.currentView === 'raw'
-            ? (lang === 'tr' ? 'Detayli gorunum' : 'Detailed view')
-            : (lang === 'tr' ? 'Kategorize gorunum' : 'Categorized view');
+            ? (lang === 'tr' ? 'Detaylı görünüm' : 'Detailed view')
+            : (lang === 'tr' ? 'Kategorize görünüm' : 'Categorized view');
 
         const garrisonCount = meta.total_garrisons || 0;
         const rowCount = meta.total_rows || 0;
 
         if (lang === 'tr') {
-            this.infoBadge.textContent = `${viewLabel}: ${garrisonCount} garnizon, ${rowCount} kayit`;
+            this.infoBadge.textContent = `${viewLabel}: ${garrisonCount} garnizon, ${rowCount} kayıt`;
         } else {
             this.infoBadge.textContent = `${viewLabel}: ${garrisonCount} garrisons, ${rowCount} records`;
         }
@@ -640,11 +641,11 @@ class GarrisonTable {
         const lang = localStorage.getItem('siteLanguage') || 'en';
         
         if (filtered === total) {
-            const rowWord = lang === 'tr' ? 'satir' : (total === 1 ? 'row' : 'rows');
+            const rowWord = lang === 'tr' ? 'satır' : (total === 1 ? 'row' : 'rows');
             this.resultsCount.textContent = `${total} ${rowWord}`;
         } else {
             if (lang === 'tr') {
-                this.resultsCount.textContent = `${total} satirdan ${filtered} tanesi gosteriliyor`;
+                this.resultsCount.textContent = `${total} satırdan ${filtered} tanesi gösteriliyor`;
             } else {
                 this.resultsCount.textContent = `Showing ${filtered} of ${total} rows`;
         }
