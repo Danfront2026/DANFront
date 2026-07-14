@@ -284,6 +284,10 @@
         .cite-text-box.bibtex {
             font-size: 0.82rem;
         }
+        .cite-text-box a {
+            color: var(--accent-color);
+            word-break: break-all;
+        }
 
         /* Copy button */
         .cite-copy-btn {
@@ -561,7 +565,12 @@
     <script>
     (function () {
         const DOI_URL = 'https://doi.org/10.5281/zenodo.21338309';
-        const BIBTEX = '@misc{inal_akto_2026_danfront,\n  author    = {İnal, Onur and Akto, Deniz Armağan},\n  title     = {DANFront: An Environmental History of the Early-Modern Ottoman Military Frontier in the Middle and Lower Danube},\n  year      = {2026},\n  publisher = {Zenodo},\n  doi       = {10.5281/zenodo.21338309},\n  url       = {' + DOI_URL + '}\n}';
+        const DOI_LINK = '<a href="' + DOI_URL + '" target="_blank">' + DOI_URL + '</a>';
+        const TITLE_EM = '<em>DANFront: An Environmental History of the Early-Modern Ottoman Military Frontier in the Middle and Lower Danube</em>';
+        const TITLE_PLAIN = 'DANFront: An Environmental History of the Early-Modern Ottoman Military Frontier in the Middle and Lower Danube';
+
+        const BIBTEX_PLAIN = '@misc{inal_akto_2026_danfront,\n  author    = {\u0130nal, Onur and Akto, Deniz Arma\u011fan},\n  title     = {DANFront: An Environmental History of the Early-Modern Ottoman Military Frontier in the Middle and Lower Danube},\n  year      = {2026},\n  publisher = {Zenodo},\n  doi       = {10.5281/zenodo.21338309},\n  url       = {' + DOI_URL + '}\n}';
+        const BIBTEX_HTML  = BIBTEX_PLAIN.replace(DOI_URL, DOI_URL.link(DOI_URL));
 
         const CITATIONS = {
             en: {
@@ -570,10 +579,26 @@
                 copyBtn: 'Copy',
                 copiedBtn: 'Copied!',
                 styles: [
-                    { id: 'apa',     label: 'APA',     text: 'İnal, O., & Akto, D. A. (2026). DANFront: An Environmental History of the Early-Modern Ottoman Military Frontier in the Middle and Lower Danube [Digital humanities project]. Zenodo. ' + DOI_URL },
-                    { id: 'chicago', label: 'Chicago', text: 'İnal, Onur, and Deniz Armağan Akto. DANFront: An Environmental History of the Early-Modern Ottoman Military Frontier in the Middle and Lower Danube. 2026. Zenodo. ' + DOI_URL },
-                    { id: 'mla',     label: 'MLA',     text: 'İnal, Onur, and Deniz Armağan Akto. DANFront: An Environmental History of the Early-Modern Ottoman Military Frontier in the Middle and Lower Danube. Zenodo, 2026. ' + DOI_URL },
-                    { id: 'bibtex',  label: 'BibTeX',  text: BIBTEX, mono: true }
+                    {
+                        id: 'apa', label: 'APA',
+                        plain: 'İnal, O., & Akto, D. A. (2026). ' + TITLE_PLAIN + ' [Digital humanities project]. Zenodo. ' + DOI_URL,
+                        html:  'İnal, O., &amp; Akto, D. A. (2026). ' + TITLE_EM + ' [Digital humanities project]. Zenodo. ' + DOI_LINK
+                    },
+                    {
+                        id: 'chicago', label: 'Chicago',
+                        plain: 'İnal, Onur, and Deniz Armağan Akto. ' + TITLE_PLAIN + '. 2026. Zenodo. ' + DOI_URL,
+                        html:  'İnal, Onur, and Deniz Arma\u011fan Akto. ' + TITLE_EM + '. 2026. Zenodo. ' + DOI_LINK
+                    },
+                    {
+                        id: 'mla', label: 'MLA',
+                        plain: 'İnal, Onur, and Deniz Armağan Akto. ' + TITLE_PLAIN + '. Zenodo, 2026. ' + DOI_URL,
+                        html:  'İnal, Onur, and Deniz Arma\u011fan Akto. ' + TITLE_EM + '. Zenodo, 2026. ' + DOI_LINK
+                    },
+                    {
+                        id: 'bibtex', label: 'BibTeX', mono: true,
+                        plain: BIBTEX_PLAIN,
+                        html:  BIBTEX_HTML
+                    }
                 ],
                 defaultStyle: 'apa'
             },
@@ -583,10 +608,26 @@
                 copyBtn: 'Kopyala',
                 copiedBtn: 'Kopyalandı!',
                 styles: [
-                    { id: 'apa',     label: 'APA',     text: 'İnal, O., & Akto, D. A. (2026). DANFront: An Environmental History of the Early-Modern Ottoman Military Frontier in the Middle and Lower Danube [Dijital beşerî bilimler projesi]. Zenodo. ' + DOI_URL },
-                    { id: 'chicago', label: 'Chicago', text: 'İnal, Onur, ve Deniz Armağan Akto. DANFront: An Environmental History of the Early-Modern Ottoman Military Frontier in the Middle and Lower Danube. 2026. Zenodo. ' + DOI_URL },
-                    { id: 'mla',     label: 'MLA',     text: 'İnal, Onur, ve Deniz Armağan Akto. DANFront: An Environmental History of the Early-Modern Ottoman Military Frontier in the Middle and Lower Danube. Zenodo, 2026. ' + DOI_URL },
-                    { id: 'bibtex',  label: 'BibTeX',  text: BIBTEX, mono: true }
+                    {
+                        id: 'apa', label: 'APA',
+                        plain: 'İnal, O., & Akto, D. A. (2026). ' + TITLE_PLAIN + ' [Dijital beşerî bilimler projesi]. Zenodo. ' + DOI_URL,
+                        html:  'İnal, O., &amp; Akto, D. A. (2026). ' + TITLE_EM + ' [Dijital be\u015fer\u00ee bilimler projesi]. Zenodo. ' + DOI_LINK
+                    },
+                    {
+                        id: 'chicago', label: 'Chicago',
+                        plain: 'İnal, Onur, ve Deniz Armağan Akto. ' + TITLE_PLAIN + '. 2026. Zenodo. ' + DOI_URL,
+                        html:  'İnal, Onur, ve Deniz Arma\u011fan Akto. ' + TITLE_EM + '. 2026. Zenodo. ' + DOI_LINK
+                    },
+                    {
+                        id: 'mla', label: 'MLA',
+                        plain: 'İnal, Onur, ve Deniz Armağan Akto. ' + TITLE_PLAIN + '. Zenodo, 2026. ' + DOI_URL,
+                        html:  'İnal, Onur, ve Deniz Arma\u011fan Akto. ' + TITLE_EM + '. Zenodo, 2026. ' + DOI_LINK
+                    },
+                    {
+                        id: 'bibtex', label: 'BibTeX', mono: true,
+                        plain: BIBTEX_PLAIN,
+                        html:  BIBTEX_HTML
+                    }
                 ],
                 defaultStyle: 'apa'
             }
@@ -596,6 +637,10 @@
 
         function getCurrentLang() {
             return localStorage.getItem('siteLanguage') || 'en';
+        }
+
+        function getSelected(C) {
+            return C.styles.find(s => s.id === (activeStyleId || C.defaultStyle)) || C.styles[0];
         }
 
         function buildTabs(C) {
@@ -624,9 +669,9 @@
         }
 
         function showStyleText(C) {
-            const selected = C.styles.find(s => s.id === (activeStyleId || C.defaultStyle)) || C.styles[0];
+            const selected = getSelected(C);
             const box = document.getElementById('cite-text-box');
-            box.textContent = selected.text;
+            box.innerHTML = selected.html;
             box.classList.toggle('bibtex', !!selected.mono);
         }
 
@@ -634,7 +679,6 @@
             const lang = getCurrentLang();
             const C = CITATIONS[lang] || CITATIONS.en;
 
-            // If switching language, reset to default style for new lang
             const validIds = C.styles.map(s => s.id);
             if (!validIds.includes(activeStyleId)) {
                 activeStyleId = C.defaultStyle;
@@ -646,9 +690,7 @@
 
             buildTabs(C);
             showStyleText(C);
-
-            const copyBtn = document.getElementById('cite-copy-btn');
-            copyBtn.classList.remove('copied');
+            document.getElementById('cite-copy-btn').classList.remove('copied');
         }
 
         function openModal() {
@@ -663,6 +705,20 @@
             document.body.style.overflow = '';
         }
 
+        async function copyWithRichText(plainText, htmlText) {
+            try {
+                await navigator.clipboard.write([
+                    new ClipboardItem({
+                        'text/html':  new Blob([htmlText],  { type: 'text/html' }),
+                        'text/plain': new Blob([plainText], { type: 'text/plain' })
+                    })
+                ]);
+            } catch (e) {
+                // Fallback to plain text if ClipboardItem not supported
+                await navigator.clipboard.writeText(plainText);
+            }
+        }
+
         document.addEventListener('DOMContentLoaded', function () {
             document.getElementById('cite-open-btn').addEventListener('click', openModal);
             document.getElementById('cite-modal-close').addEventListener('click', closeModal);
@@ -675,19 +731,20 @@
                 if (e.key === 'Escape') closeModal();
             });
 
-            document.getElementById('cite-copy-btn').addEventListener('click', function () {
-                const text = document.getElementById('cite-text-box').textContent;
+            document.getElementById('cite-copy-btn').addEventListener('click', async function () {
                 const lang = getCurrentLang();
                 const C = CITATIONS[lang] || CITATIONS.en;
-                navigator.clipboard.writeText(text).then(() => {
-                    const label = document.getElementById('cite-copy-label');
-                    this.classList.add('copied');
-                    label.textContent = C.copiedBtn;
-                    setTimeout(() => {
-                        this.classList.remove('copied');
-                        label.textContent = C.copyBtn;
-                    }, 2000);
-                });
+                const selected = getSelected(C);
+                const label = document.getElementById('cite-copy-label');
+
+                await copyWithRichText(selected.plain, selected.html);
+
+                this.classList.add('copied');
+                label.textContent = C.copiedBtn;
+                setTimeout(() => {
+                    this.classList.remove('copied');
+                    label.textContent = C.copyBtn;
+                }, 2000);
             });
 
             document.addEventListener('languageChanged', function () {
