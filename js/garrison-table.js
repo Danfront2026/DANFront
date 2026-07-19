@@ -353,6 +353,20 @@ class GarrisonTable {
     // Table Rendering
     // =========================================================================
 
+    // Drops auto-generated placeholder columns (e.g. "Column_3", "Column_4")
+    // that came from blank trailing columns in the source spreadsheet and
+    // contain no data for any row currently being shown. "Column_0" is kept,
+    // since it's used as the (renamed) category label column.
+    getVisibleHeaders(headers, data) {
+        return headers.filter(header => {
+            if (!/^Column_\d+$/i.test(header) || header === 'Column_0') return true;
+            return data.some(row => {
+                const value = row[header];
+                return value !== null && value !== undefined && String(value).trim() !== '';
+            });
+        });
+    }
+
     renderTable() {
         if (!this.currentData || !this.filteredData || !this.tableContainer) return;
 
@@ -362,8 +376,8 @@ class GarrisonTable {
             return;
             }
 
-        // Use headers from the data
-        const headers = this.currentData.headers || Object.keys(data[0]);
+        // Use headers from the data, dropping empty auto-generated placeholder columns
+        const headers = this.getVisibleHeaders(this.currentData.headers || Object.keys(data[0]), data);
 
         // Build table
         let html = '<div class="table-wrapper"><table class="garrison-table"><thead><tr>';
@@ -467,7 +481,7 @@ class GarrisonTable {
             return;
         }
         
-        const headers = this.currentData.headers || Object.keys(this.filteredData[0]);
+        const headers = this.getVisibleHeaders(this.currentData.headers || Object.keys(this.filteredData[0]), this.filteredData);
         const lang = localStorage.getItem('siteLanguage') || 'en';
         
         // Header row
@@ -510,6 +524,10 @@ class GarrisonTable {
         const viewLabel = this.currentView === 'raw' ? 'detailed' : 'categorized';
         const filename = `${this.currentGarrisonName}_${viewLabel}_${new Date().toISOString().slice(0, 10)}.xlsx`;
         XLSX.writeFile(wb, filename);
+
+        // Let the page know a dataset export just happened, so it can show a
+        // citation reminder popup (see database.html) alongside the download.
+        document.dispatchEvent(new CustomEvent('danfront:datasetDownloaded'));
     }
     
     // =========================================================================

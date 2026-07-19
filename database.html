@@ -372,9 +372,9 @@
             <!-- Database Interface -->
             <div class="database-interface">
                 <div class="database-description">
-                    <p data-tr-text="Osmanlı garnizonları hakkında kapsamlı veri seti. 210 garnizon, 7 eyalet ve 1454-1662 yılları arası bilgileri içermektedir." 
-                       data-en-text="Comprehensive dataset about Ottoman garrisons. Covers 210 garrisons across 7 provinces, spanning the years 1454-1662.">
-                        Comprehensive dataset about Ottoman garrisons. Covers 210 garrisons across 7 provinces, spanning the years 1454-1662.
+                    <p data-tr-text="Osmanlı garnizonları hakkında kapsamlı veri seti. 243 garnizon, 7 eyalet ve 1454-1662 yılları arası bilgileri içermektedir." 
+                       data-en-text="Comprehensive dataset about Ottoman garrisons. Covers 243 garrisons across 7 provinces, spanning the years 1454-1662.">
+                        Comprehensive dataset about Ottoman garrisons. Covers 243 garrisons across 7 provinces, spanning the years 1454-1662.
                     </p>
                 </div>
 
@@ -385,6 +385,7 @@
                         <span data-tr-text="Bu Veri Setini Atıfla" data-en-text="Cite This Dataset">Cite This Dataset</span>
                     </button>
                     <a class="dataset-download-btn"
+                       id="dataset-download-btn"
                        href="Dataset_Hungary%20and%20Rumili%20and%20%C3%96zi.xlsx"
                        download="DANFront_Dataset.xlsx">
                         <i class="fas fa-file-excel"></i>
@@ -722,6 +723,18 @@
         document.addEventListener('DOMContentLoaded', function () {
             document.getElementById('cite-open-btn').addEventListener('click', openModal);
             document.getElementById('cite-modal-close').addEventListener('click', closeModal);
+
+            // Show the citation reminder alongside any dataset download (full dataset
+            // link, or the per-garrison "Export to Excel" button in garrison-table.js).
+            // The download itself proceeds natively/immediately; this just also opens
+            // the same "Cite This Dataset" popup so users see how to cite what they got.
+            const fullDatasetDownloadBtn = document.getElementById('dataset-download-btn');
+            if (fullDatasetDownloadBtn) {
+                fullDatasetDownloadBtn.addEventListener('click', function () {
+                    openModal();
+                });
+            }
+            document.addEventListener('danfront:datasetDownloaded', openModal);
 
             document.getElementById('cite-modal-overlay').addEventListener('click', function (e) {
                 if (e.target === this) closeModal();

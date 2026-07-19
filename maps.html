@@ -586,9 +586,11 @@
                                         <span class="filter-count" id="unknown-count"></span>
                                     </div>
                                 </div>
-                                <div class="filter-item disabled">
-                                    <input type="checkbox" disabled>
-                                    <label><span data-tr-text="Tersaneler" data-en-text="Shipyards">Shipyards</span> <span class="coming-soon-badge">Coming soon</span></label>
+                                <div class="filter-item">
+                                    <input type="checkbox" id="layer-shipyards" checked>
+                                    <i class="fas fa-anchor" style="color:#0c7b93;margin-right:2px;"></i>
+                                    <label for="layer-shipyards"><span data-tr-text="Tersaneler" data-en-text="Shipyards">Shipyards</span></label>
+                                    <span class="filter-count" id="shipyard-count"></span>
                                 </div>
                                 <div class="filter-item disabled">
                                     <input type="checkbox" disabled>
@@ -831,12 +833,14 @@
     <!-- JavaScript -->
     <script src="js/garrison-data.js?v=7"></script>
     <script src="js/garrison-map-data.js?v=8"></script>
+    <script src="js/shipyard-map-data.js?v=1"></script>
     <script src="js/main.js?v=7"></script>
     <script src="js/legal-modals.js?v=8"></script>
     
     <!-- Map Data Reference -->
     <script>
 var garrisonData = (typeof garrisonMapData !== "undefined") ? garrisonMapData : { total_garrisons: 0, garrisons: [] };
+var shipyardData = (typeof shipyardMapData !== "undefined") ? shipyardMapData : { total_shipyards: 0, shipyards: [] };
     </script>
     
         <!-- Map Initialization -->
@@ -1098,6 +1102,47 @@ var garrisonData = (typeof garrisonMapData !== "undefined") ? garrisonMapData : 
                 return html;
             }
 
+            // ===== SHIPYARD POPUP =====
+            function createShipyardPopupContent(shipyard) {
+                var lang = localStorage.getItem('siteLanguage') || localStorage.getItem('language') || 'tr';
+                var name = shipyard.name && shipyard.name[lang]
+                    ? shipyard.name[lang]
+                    : (shipyard.name && shipyard.name.en ? shipyard.name.en : 'Unknown');
+
+                var html = '<div style="min-width: 200px;">';
+                html += '<h3 style="margin: 0 0 10px 0; font-size: 1.1em; font-weight: bold;"><i class="fas fa-anchor" style="color:#0c7b93;margin-right:6px;"></i>' + name + '</h3>';
+                if (shipyard.size) html += '<p style="margin: 5px 0;"><strong>' + (lang === 'tr' ? 'Boyut:' : 'Size:') + '</strong> ' + shipyard.size + '</p>';
+                var dateParts = [shipyard.date1, shipyard.date2, shipyard.date3, shipyard.date4].filter(Boolean);
+                if (dateParts.length > 0) {
+                    var dates = dateParts.join(' / ');
+                    html += '<p style="margin: 5px 0;"><strong>' + (lang === 'tr' ? 'Tarih:' : 'Dates:') + '</strong> ' + dates + '</p>';
+                    // Show active/inactive status based on time slider
+                    if (!showAllMode) {
+                        var active = isGarrisonActiveInYear(shipyard, currentYear);
+                        var statusColor = active ? '#28a745' : '#dc3545';
+                        var statusIcon = active ? '●' : '○';
+                        var statusText = active
+                            ? (lang === 'tr' ? currentYear + ' yılında aktif' : 'Active in ' + currentYear)
+                            : (lang === 'tr' ? currentYear + ' yılında aktif değil' : 'Not active in ' + currentYear);
+                        html += '<p style="margin: 3px 0; font-size: 0.85em; color: ' + statusColor + ';">';
+                        html += '<span style="margin-right: 4px;">' + statusIcon + '</span>' + statusText + '</p>';
+                    }
+                }
+                if (shipyard.country) html += '<p style="margin: 5px 0;"><strong>' + (lang === 'tr' ? 'Ülke:' : 'Country:') + '</strong> ' + shipyard.country + '</p>';
+                if (shipyard.province) {
+                    var pn = shipyard.province[lang] || shipyard.province.en || '';
+                    if (pn) html += '<p style="margin: 5px 0;"><strong>' + (lang === 'tr' ? 'Eyalet:' : 'Province:') + '</strong> ' + pn + '</p>';
+                }
+                if (shipyard.sancak) {
+                    var sn = shipyard.sancak[lang] || shipyard.sancak.en || '';
+                    if (sn) html += '<p style="margin: 5px 0;"><strong>Sancak:</strong> ' + sn + '</p>';
+                }
+                if (shipyard.notes) html += '<p style="margin: 5px 0; font-size: 0.9em; color: #555;"><strong>' + (lang === 'tr' ? 'Not:' : 'Note:') + '</strong> <em>' + shipyard.notes + '</em></p>';
+                if (shipyard.sources) html += '<p style="margin: 5px 0; font-size: 0.85em; color: #888;"><strong>' + (lang === 'tr' ? 'Kaynak:' : 'Source:') + '</strong> ' + shipyard.sources + '</p>';
+                html += '</div>';
+                return html;
+            }
+
             // ===== TIME SLIDER UTILITIES =====
             function parseDateRanges(garrison) {
                 var SLIDER_MIN = 1388, SLIDER_MAX = 1700;
@@ -1200,6 +1245,35 @@ var garrisonData = (typeof garrisonMapData !== "undefined") ? garrisonMapData : 
                 }
             })();
 
+            // ===== SHIPYARD MARKER DATA =====
+            var allShipyardMarkerData = []; // { marker, shipyard }
+            var markerShipyardMap = new Map();
+
+            // Create shipyard markers
+            (function() {
+                var data = shipyardData;
+                if (!data || !data.shipyards) { console.warn('No shipyard data available'); return; }
+                console.log('Loaded ' + data.total_shipyards + ' shipyards');
+
+                data.shipyards.forEach(function(shipyard) {
+                    if (shipyard.lat && shipyard.lng) {
+                        var marker = L.marker([shipyard.lat, shipyard.lng], {
+                            icon: L.divIcon({
+                                html: '<i class="fas fa-anchor" style="font-size:16px;color:#0c7b93;text-shadow:0 0 3px #fff,0 0 4px #fff;"></i>',
+                                className: 'shipyard-icon',
+                                iconSize: [18, 18],
+                                iconAnchor: [9, 9],
+                                popupAnchor: [0, -9]
+                            })
+                        });
+                        markerShipyardMap.set(marker, shipyard);
+                        marker.bindPopup(createShipyardPopupContent(shipyard));
+                        marker.addTo(map);
+                        allShipyardMarkerData.push({ marker: marker, shipyard: shipyard });
+                    }
+                });
+            })();
+
             // ===== FILTER / VISIBILITY LOGIC =====
             function updateMarkerVisibility() {
                 var milChecked = document.getElementById('cat-military').checked;
@@ -1207,6 +1281,7 @@ var garrisonData = (typeof garrisonMapData !== "undefined") ? garrisonMapData : 
                 var fortressChecked = document.getElementById('layer-fortress').checked;
                 var palankaChecked = document.getElementById('layer-palanka').checked;
                 var otherChecked = document.getElementById('layer-other-garrison').checked;
+                var shipyardsChecked = document.getElementById('layer-shipyards').checked;
 
                 // Size filters
                 var hubChecked = document.getElementById('size-hub').checked;
@@ -1357,15 +1432,71 @@ var garrisonData = (typeof garrisonMapData !== "undefined") ? garrisonMapData : 
                     }
                 });
 
+                // Shipyards: reuse the province/country/time filters computed above
+                var shipyardVisibleCount = 0;
+                allShipyardMarkerData.forEach(function(item) {
+                    var shipyard = item.shipyard;
+
+                    var provinceVisible = false;
+                    if (allProvinces) {
+                        provinceVisible = true;
+                    } else {
+                        var spEn = (shipyard.province && shipyard.province.en) ? shipyard.province.en : '';
+                        if (spEn === 'Budin' && provBudin) provinceVisible = true;
+                        if (spEn === 'Timişioara' && provTimi) provinceVisible = true;
+                        if (spEn === 'Győr' && provGyor) provinceVisible = true;
+                        if (spEn === 'Papa' && provPapa) provinceVisible = true;
+                        if (spEn === 'Eger' && provEger) provinceVisible = true;
+                        if (spEn === 'Kanije' && provKanije) provinceVisible = true;
+                        if (spEn === 'Varat' && provVarat) provinceVisible = true;
+                        if (spEn === 'Uyvar' && provUyvar) provinceVisible = true;
+                        if (spEn === 'Rumelia/Silistra' && provRumelia) provinceVisible = true;
+                        if (spEn === 'Bosnia' && provBosnia) provinceVisible = true;
+                    }
+
+                    var countryVisible = false;
+                    if (allCountries) {
+                        countryVisible = true;
+                    } else {
+                        var sCtr = shipyard.country || '';
+                        if (sCtr === 'Hungary' && ctrHungary) countryVisible = true;
+                        if (sCtr === 'Slovakia' && ctrSlovakia) countryVisible = true;
+                        if (sCtr === 'Serbia' && ctrSerbia) countryVisible = true;
+                        if (sCtr === 'Croatia' && ctrCroatia) countryVisible = true;
+                        if (sCtr === 'Bosnia' && ctrBosnia) countryVisible = true;
+                        if (sCtr === 'Romania' && ctrRomania) countryVisible = true;
+                        if (sCtr === 'Bulgaria' && ctrBulgaria) countryVisible = true;
+                        if (sCtr === 'Ukraine' && ctrUkraine) countryVisible = true;
+                    }
+
+                    var timeVisible = showAllMode || isGarrisonActiveInYear(shipyard, currentYear);
+
+                    var visible = shipyardsChecked && provinceVisible && countryVisible && timeVisible;
+
+                    if (visible && !map.hasLayer(item.marker)) {
+                        item.marker.addTo(map);
+                    } else if (!visible && map.hasLayer(item.marker)) {
+                        map.removeLayer(item.marker);
+                    }
+
+                    if (visible) shipyardVisibleCount++;
+                });
+
                 // Refresh any open popup so the active/inactive badge updates
                 markerGarrisonMap.forEach(function(garrison, marker) {
                     if (marker.isPopupOpen()) {
                         marker.setPopupContent(createPopupContent(garrison));
                     }
                 });
+                markerShipyardMap.forEach(function(shipyard, marker) {
+                    if (marker.isPopupOpen()) {
+                        marker.setPopupContent(createShipyardPopupContent(shipyard));
+                    }
+                });
 
                 // Update counts in filter panel
                 document.getElementById('garrison-count').textContent = visibleCount + '/' + allMarkerData.length;
+                document.getElementById('shipyard-count').textContent = shipyardVisibleCount + '/' + allShipyardMarkerData.length;
                 document.getElementById('fortress-count').textContent = fortressVis;
                 document.getElementById('palanka-count').textContent = palankaVis;
                 document.getElementById('other-count').textContent = otherVis;
@@ -1436,6 +1567,12 @@ var garrisonData = (typeof garrisonMapData !== "undefined") ? garrisonMapData : 
                 document.getElementById('size-medium').checked = checked;
                 document.getElementById('size-small').checked = checked;
                 document.getElementById('size-unknown').checked = checked;
+                document.getElementById('layer-shipyards').checked = checked;
+                updateMarkerVisibility();
+            });
+
+            // Shipyards checkbox
+            document.getElementById('layer-shipyards').addEventListener('change', function() {
                 updateMarkerVisibility();
             });
 
@@ -1951,6 +2088,11 @@ var garrisonData = (typeof garrisonMapData !== "undefined") ? garrisonMapData : 
                     enabled: true,
                     description: 'Ottoman garrison locations with type sub-filters and time filtering'
                 },
+                shipyards: {
+                    markers: allShipyardMarkerData,
+                    enabled: true,
+                    description: 'Ottoman shipyard locations'
+                },
                 rivers: {
                     group: L.featureGroup(),
                     enabled: false
@@ -1960,7 +2102,6 @@ var garrisonData = (typeof garrisonMapData !== "undefined") ? garrisonMapData : 
                     enabled: false
                 }
                 // Future layers will be registered here:
-                // shipyards: { group: L.featureGroup(), enabled: false },
                 // floods: { group: L.featureGroup(), enabled: false },
             };
 
