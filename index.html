@@ -32,7 +32,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Bitcount+Grid+Single:wght@100..900&display=swap" rel="stylesheet">
 
     <!-- Stylesheets -->
-    <link rel="stylesheet" href="css/main.css?v=10">
+    <link rel="stylesheet" href="css/main.css?v=11">
 
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -93,7 +93,7 @@
     <!-- Main Navigation Cards -->
     <section class="section-modern">
         <div class="container">
-            <div class="main-nav-buttons">
+            <div class="main-nav-buttons two-cards">
 
                 <!-- Database Card -->
                 <a href="database" class="nav-card">
@@ -115,7 +115,10 @@
                     </div>
                 </a>
 
-                <!-- Visualizations Card -->
+                <!-- Visualizations Card — temporarily deactivated (September 2026) while the charts are being
+                     reviewed for errors/inconsistencies. Restore by uncommenting this block and removing
+                     the "two-cards" class from .main-nav-buttons above.
+                
                 <a href="visualizations" class="nav-card">
                     <img src="images/preview-visualizations.png" alt="Visualizations Preview" class="nav-card-bg">
                     <div class="nav-card-overlay"></div>
@@ -134,6 +137,7 @@
                         </div>
                     </div>
                 </a>
+                -->
 
                 <!-- Maps Card -->
                 <a href="maps" class="nav-card">
@@ -188,7 +192,7 @@
                     <div class="stat-icon-modern">
                         <i class="fas fa-chess-rook"></i>
                     </div>
-                    <div class="stat-number-modern">243</div>
+                    <div class="stat-number-modern">385</div>
                     <div class="stat-label-modern" data-tr-text="Garnizon Sayısı" data-en-text="Number of Garrisons">Garnizon Sayısı</div>
                 </div>
                 <div class="stat-card-modern">
@@ -202,7 +206,7 @@
                     <div class="stat-icon-modern">
                         <i class="fas fa-history"></i>
                     </div>
-                    <div class="stat-number-modern">1454-1662</div>
+                    <div class="stat-number-modern">1388-1700</div>
                     <div class="stat-label-modern" data-tr-text="Veri Yıl Aralığı" data-en-text="Data Year Range">Veri Yıl Aralığı</div>
                 </div>
             </div>
@@ -234,7 +238,6 @@
           <ul class="footer-links">
             <li><a href="./" class="active" data-tr="Ana Sayfa" data-en="Home">Ana Sayfa</a></li>
             <li><a href="about" data-tr="Hakkında" data-en="About">Hakkında</a></li>
-            <li><a href="visualizations" data-tr="Görselleştirmeler" data-en="Visualizations">Görselleştirmeler</a></li>
           </ul>
         </div>
         <div class="footer-section">

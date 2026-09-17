@@ -760,6 +760,12 @@ nav {
   max-width: 1200px;
 }
 
+/* Two-card variant (Visualizations card temporarily deactivated, Sept 2026) */
+.main-nav-buttons.two-cards {
+  grid-template-columns: repeat(2, 1fr);
+  max-width: 820px;
+}
+
 .nav-card {
   position: relative;
   display: block;

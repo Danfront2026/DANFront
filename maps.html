@@ -30,7 +30,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Bitcount+Grid+Single:wght@100..900&display=swap" rel="stylesheet">
 
     <!-- Stylesheets -->
-    <link rel="stylesheet" href="css/main.css?v=10">
+    <link rel="stylesheet" href="css/main.css?v=11">
 
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -348,6 +348,57 @@
         }
         .map-search-clear:hover { color: #d73027; }
         .hub-icon { background: none !important; border: none !important; }
+        .shipyard-icon { background: none !important; border: none !important; }
+
+        /* ===== Climate markers (experimental layer) ===== */
+        .climate-icon { background: none !important; border: none !important; }
+        .climate-marker {
+            position: relative;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            border: 2px solid #fff;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.45);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 12px;
+        }
+        .climate-marker .climate-badge {
+            position: absolute;
+            top: -6px;
+            right: -7px;
+            min-width: 15px;
+            height: 15px;
+            padding: 0 3px;
+            border-radius: 8px;
+            background: #222;
+            color: #fff;
+            font-size: 9px;
+            font-weight: 700;
+            line-height: 15px;
+            text-align: center;
+            border: 1px solid #fff;
+        }
+        .climate-popup-event {
+            padding: 6px 0;
+            border-top: 1px solid #eee;
+            font-size: 0.9em;
+        }
+        .climate-popup-event:first-of-type { border-top: none; }
+        .climate-popup-event .climate-date { font-weight: 600; }
+        .climate-popup-event .climate-phenomenon {
+            display: inline-block;
+            padding: 1px 6px;
+            border-radius: 8px;
+            color: #fff;
+            font-size: 0.85em;
+            margin-left: 4px;
+        }
+        .climate-popup-event .climate-quote { color: #555; font-style: italic; margin: 3px 0 0 0; }
+        .climate-popup-event .climate-source { color: #888; font-size: 0.85em; margin: 2px 0 0 0; }
+        .climate-popup-list { max-height: 260px; overflow-y: auto; margin-top: 6px; }
 
         /* ===== Search Suggestions ===== */
         .map-search-suggestions {
@@ -698,13 +749,28 @@
                                 </div>
                                 <div class="filter-item">
                                     <input type="checkbox" id="ctr-bosnia" checked>
-                                    <label for="ctr-bosnia">Bosnia</label>
+                                    <label for="ctr-bosnia">Bosnia and Herzegovina</label>
                                     <span class="filter-count" id="ctr-bosnia-count"></span>
+                                </div>
+                                <div class="filter-item">
+                                    <input type="checkbox" id="ctr-montenegro" checked>
+                                    <label for="ctr-montenegro">Montenegro</label>
+                                    <span class="filter-count" id="ctr-montenegro-count"></span>
+                                </div>
+                                <div class="filter-item">
+                                    <input type="checkbox" id="ctr-kosovo" checked>
+                                    <label for="ctr-kosovo">Kosovo</label>
+                                    <span class="filter-count" id="ctr-kosovo-count"></span>
                                 </div>
                                 <div class="filter-item">
                                     <input type="checkbox" id="ctr-romania" checked>
                                     <label for="ctr-romania">Romania</label>
                                     <span class="filter-count" id="ctr-romania-count"></span>
+                                </div>
+                                <div class="filter-item">
+                                    <input type="checkbox" id="ctr-moldova" checked>
+                                    <label for="ctr-moldova">Moldova</label>
+                                    <span class="filter-count" id="ctr-moldova-count"></span>
                                 </div>
                                 <div class="filter-item">
                                     <input type="checkbox" id="ctr-bulgaria" checked>
@@ -715,6 +781,45 @@
                                     <input type="checkbox" id="ctr-ukraine" checked>
                                     <label for="ctr-ukraine">Ukraine</label>
                                     <span class="filter-count" id="ctr-ukraine-count"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Climate (experimental) -->
+                        <div class="filter-category expanded" data-category="climate">
+                            <div class="filter-category-header">
+                                <i class="fas fa-chevron-right"></i>
+                                <input type="checkbox" id="cat-climate" checked>
+                                <label for="cat-climate"><i class="fas fa-cloud-sun-rain" style="color:#1f78b4;margin-right:2px;"></i> <span data-tr-text="İklim" data-en-text="Climate">Climate</span> <span class="coming-soon-badge" data-tr-text="deneme" data-en-text="experimental">experimental</span></label>
+                                <span class="filter-count" id="climate-count"></span>
+                            </div>
+                            <div class="filter-subcategories">
+                                <div class="filter-item">
+                                    <input type="checkbox" id="climate-precipitation" checked>
+                                    <span class="color-dot" style="background:#1f78b4;"></span>
+                                    <label for="climate-precipitation"><span data-tr-text="Yağış" data-en-text="Precipitation">Precipitation</span></label>
+                                    <span class="filter-count" id="climate-precipitation-count"></span>
+                                </div>
+                                <div class="filter-item">
+                                    <input type="checkbox" id="climate-temperature" checked>
+                                    <span class="color-dot" style="background:#e6550d;"></span>
+                                    <label for="climate-temperature"><span data-tr-text="Sıcaklık" data-en-text="Temperature">Temperature</span></label>
+                                    <span class="filter-count" id="climate-temperature-count"></span>
+                                </div>
+                                <div class="filter-item">
+                                    <input type="checkbox" id="climate-wind" checked>
+                                    <span class="color-dot" style="background:#6a51a3;"></span>
+                                    <label for="climate-wind"><span data-tr-text="Rüzgar" data-en-text="Wind">Wind</span></label>
+                                    <span class="filter-count" id="climate-wind-count"></span>
+                                </div>
+                                <div class="filter-item">
+                                    <input type="checkbox" id="climate-other" checked>
+                                    <span class="color-dot" style="background:#7f7f7f;"></span>
+                                    <label for="climate-other"><span data-tr-text="Diğer" data-en-text="Other">Other</span></label>
+                                    <span class="filter-count" id="climate-other-count"></span>
+                                </div>
+                                <div style="font-size:10px;color:#999;margin:4px 0 4px 20px;line-height:1.4;" data-tr-text="Anlatı kaynaklarından (ruzname, kronik) çıkarılan hava ve iklim gözlemleri. Aynı yere ait gözlemler tek bir işaretçide toplanır." data-en-text="Weather and climate observations extracted from narrative sources (ruzname, chronicle). Observations for the same place are grouped into a single marker.">
+                                    Weather and climate observations extracted from narrative sources (ruzname, chronicle). Observations for the same place are grouped into a single marker.
                                 </div>
                             </div>
                         </div>
@@ -795,7 +900,6 @@
           <ul class="footer-links">
             <li><a href="./">Ana Sayfa</a></li>
             <li><a href="about">Hakkında</a></li>
-            <li><a href="visualizations" data-tr="Görselleştirmeler" data-en="Visualizations">Görselleştirmeler</a></li>
           </ul>
         </div>
         <div class="footer-section">
@@ -832,8 +936,9 @@
 
     <!-- JavaScript -->
     <script src="js/garrison-data.js?v=7"></script>
-    <script src="js/garrison-map-data.js?v=8"></script>
-    <script src="js/shipyard-map-data.js?v=1"></script>
+    <script src="js/garrison-map-data.js?v=9"></script>
+    <script src="js/shipyard-map-data.js?v=2"></script>
+    <script src="js/climate-map-data.js?v=1"></script>
     <script src="js/main.js?v=7"></script>
     <script src="js/legal-modals.js?v=8"></script>
     
@@ -841,6 +946,7 @@
     <script>
 var garrisonData = (typeof garrisonMapData !== "undefined") ? garrisonMapData : { total_garrisons: 0, garrisons: [] };
 var shipyardData = (typeof shipyardMapData !== "undefined") ? shipyardMapData : { total_shipyards: 0, shipyards: [] };
+var climateData = (typeof climateMapData !== "undefined") ? climateMapData : { total_events: 0, events: [] };
     </script>
     
         <!-- Map Initialization -->
@@ -848,6 +954,23 @@ var shipyardData = (typeof shipyardMapData !== "undefined") ? shipyardMapData : 
         document.addEventListener('DOMContentLoaded', function() {
             // ===== LANGUAGE =====
             var currentLang = localStorage.getItem('siteLanguage') || localStorage.getItem('language') || 'tr';
+
+            // ===== COUNTRY FILTER DEFINITIONS =====
+            // Maps each checkbox id in the "Country" filter category to the exact
+            // country string used in garrison-map-data.js / shipyard-map-data.js.
+            var COUNTRY_FILTERS = [
+                { id: 'ctr-hungary',    country: 'Hungary' },
+                { id: 'ctr-slovakia',   country: 'Slovakia' },
+                { id: 'ctr-serbia',     country: 'Serbia' },
+                { id: 'ctr-croatia',    country: 'Croatia' },
+                { id: 'ctr-bosnia',     country: 'Bosnia and Herzegovina' },
+                { id: 'ctr-montenegro', country: 'Montenegro' },
+                { id: 'ctr-kosovo',     country: 'Kosovo' },
+                { id: 'ctr-romania',    country: 'Romania' },
+                { id: 'ctr-moldova',    country: 'Moldova' },
+                { id: 'ctr-bulgaria',   country: 'Bulgaria' },
+                { id: 'ctr-ukraine',    country: 'Ukraine' }
+            ];
             
             // ===== MAP INITIALIZATION =====
             var canvasRenderer = L.canvas({ padding: 0.5 });
@@ -1085,6 +1208,7 @@ var shipyardData = (typeof shipyardMapData !== "undefined") ? shipyardMapData : 
                 }
                 if (garrison.notes) html += '<p style="margin: 5px 0; font-size: 0.9em; color: #555;"><strong>' + (lang === 'tr' ? 'Not:' : 'Note:') + '</strong> <em>' + garrison.notes + '</em></p>';
                 if (garrison.sources) html += '<p style="margin: 5px 0; font-size: 0.85em; color: #888;"><strong>' + (lang === 'tr' ? 'Kaynak:' : 'Source:') + '</strong> ' + garrison.sources + '</p>';
+                if (garrison.id) html += '<p style="margin: 5px 0; font-size: 0.8em; color: #aaa;">ID: ' + garrison.id + '</p>';
 
                 var matchedDbName = findMatchingDatabaseGarrison(garrison);
                 if (matchedDbName) {
@@ -1139,6 +1263,7 @@ var shipyardData = (typeof shipyardMapData !== "undefined") ? shipyardMapData : 
                 }
                 if (shipyard.notes) html += '<p style="margin: 5px 0; font-size: 0.9em; color: #555;"><strong>' + (lang === 'tr' ? 'Not:' : 'Note:') + '</strong> <em>' + shipyard.notes + '</em></p>';
                 if (shipyard.sources) html += '<p style="margin: 5px 0; font-size: 0.85em; color: #888;"><strong>' + (lang === 'tr' ? 'Kaynak:' : 'Source:') + '</strong> ' + shipyard.sources + '</p>';
+                if (shipyard.id) html += '<p style="margin: 5px 0; font-size: 0.8em; color: #aaa;">ID: ' + shipyard.id + '</p>';
                 html += '</div>';
                 return html;
             }
@@ -1274,6 +1399,118 @@ var shipyardData = (typeof shipyardMapData !== "undefined") ? shipyardMapData : 
                 });
             })();
 
+            // ===== CLIMATE EVENTS (experimental) =====
+            // Events are grouped by coordinates: one marker per place, popup lists all events there.
+            var CLIMATE_GROUPS = {
+                precipitation: { color: '#1f78b4', icon: 'fa-cloud-rain',        tr: 'Yağış',    en: 'Precipitation' },
+                temperature:   { color: '#e6550d', icon: 'fa-temperature-high', tr: 'Sıcaklık', en: 'Temperature' },
+                wind:          { color: '#6a51a3', icon: 'fa-wind',              tr: 'Rüzgar',   en: 'Wind' },
+                other:         { color: '#7f7f7f', icon: 'fa-star',              tr: 'Diğer',    en: 'Other' }
+            };
+            var allClimateMarkerData = []; // { marker, place: {tr,en}, lat, lng, events: [] }
+
+            function climateGroupInfo(group) {
+                return CLIMATE_GROUPS[group] || CLIMATE_GROUPS.other;
+            }
+
+            function isClimateEventVisible(ev, groupChecked) {
+                if (!groupChecked[ev.group]) return false;
+                if (showAllMode) return true;
+                // Climate observations are dated to a single day/year, so in
+                // time-slider mode only show events from the selected year.
+                return ev.year === currentYear;
+            }
+
+            function climateMarkerHtml(place, visibleEvents) {
+                // Colour the marker by the dominant group among the visible events
+                var counts = {};
+                visibleEvents.forEach(function(ev) { counts[ev.group] = (counts[ev.group] || 0) + 1; });
+                var dominant = 'other', best = -1;
+                Object.keys(counts).forEach(function(g) { if (counts[g] > best) { best = counts[g]; dominant = g; } });
+                var info = climateGroupInfo(dominant);
+                var badge = visibleEvents.length > 1 ? '<span class="climate-badge">' + visibleEvents.length + '</span>' : '';
+                return '<div class="climate-marker" style="background:' + info.color + ';"><i class="fas ' + info.icon + '"></i>' + badge + '</div>';
+            }
+
+            function createClimatePopupContent(place) {
+                var lang = localStorage.getItem('siteLanguage') || localStorage.getItem('language') || 'tr';
+                var name = (place.place && place.place[lang]) || (place.place && place.place.en) || (place.place && place.place.tr) || 'Unknown';
+                var alt = '';
+                if (place.place && place.place.tr && place.place.en && place.place.tr !== place.place.en) {
+                    alt = ' <span style="font-weight:normal;color:#777;font-size:0.85em;">(' + escapeHtml(lang === 'tr' ? place.place.en : place.place.tr) + ')</span>';
+                }
+                var groupChecked = currentClimateGroupChecked();
+                var events = place.events.filter(function(ev) { return isClimateEventVisible(ev, groupChecked); });
+                var hiddenCount = place.events.length - events.length;
+
+                var html = '<div style="min-width: 230px; max-width: 320px;">';
+                html += '<h3 style="margin: 0 0 6px 0; font-size: 1.1em; font-weight: bold;"><i class="fas fa-cloud-sun-rain" style="color:#1f78b4;margin-right:6px;"></i>' + escapeHtml(name) + alt + '</h3>';
+                html += '<p style="margin: 0 0 4px 0; font-size: 0.85em; color: #666;">' +
+                        (lang === 'tr' ? 'İklim gözlemi' : ('Climate observation' + (place.events.length > 1 ? 's' : ''))) + ': ' + place.events.length +
+                        (hiddenCount > 0 ? ' <span style="color:#999;">(' + hiddenCount + (lang === 'tr' ? ' filtrelendi' : ' filtered out') + ')</span>' : '') + '</p>';
+                html += '<div class="climate-popup-list">';
+                events.forEach(function(ev) {
+                    var info = climateGroupInfo(ev.group);
+                    var dateText = ev.start + (ev.end ? ' – ' + ev.end : '');
+                    html += '<div class="climate-popup-event">';
+                    html += '<span class="climate-date">' + escapeHtml(dateText) + '</span>';
+                    if (ev.season) html += ' <span style="color:#888;font-size:0.85em;">(' + escapeHtml(ev.season) + ')</span>';
+                    if (ev.phenomenon) html += '<span class="climate-phenomenon" style="background:' + info.color + ';">' + escapeHtml(ev.phenomenon) + '</span>';
+                    if (ev.transcription) html += '<p class="climate-quote">“' + escapeHtml(ev.transcription) + '”</p>';
+                    var src = [ev.source, ev.source_type, ev.source_page ? 'p. ' + ev.source_page : ''].filter(Boolean).join(', ');
+                    if (src) html += '<p class="climate-source"><strong>' + (lang === 'tr' ? 'Kaynak:' : 'Source:') + '</strong> ' + escapeHtml(src) + '</p>';
+                    if (ev.notes) html += '<p class="climate-source"><strong>' + (lang === 'tr' ? 'Not:' : 'Note:') + '</strong> ' + escapeHtml(ev.notes) + '</p>';
+                    if (ev.id) html += '<p class="climate-source" style="color:#aaa;">ID: ' + escapeHtml(ev.id) + '</p>';
+                    html += '</div>';
+                });
+                html += '</div></div>';
+                return html;
+            }
+
+            function currentClimateGroupChecked() {
+                var checked = {};
+                Object.keys(CLIMATE_GROUPS).forEach(function(g) {
+                    var el = document.getElementById('climate-' + g);
+                    checked[g] = el ? el.checked : true;
+                });
+                return checked;
+            }
+
+            (function() {
+                var data = climateData;
+                if (!data || !data.events) { console.warn('No climate data available'); return; }
+                console.log('Loaded ' + data.total_events + ' climate events');
+
+                var byPlace = {};
+                data.events.forEach(function(ev) {
+                    if (!ev.lat || !ev.lng) return;
+                    var key = ev.lat.toFixed(4) + ',' + ev.lng.toFixed(4);
+                    if (!byPlace[key]) byPlace[key] = { lat: ev.lat, lng: ev.lng, place: ev.place, events: [] };
+                    byPlace[key].events.push(ev);
+                    // Prefer a place record that has an English name
+                    if (!byPlace[key].place.en && ev.place.en) byPlace[key].place = ev.place;
+                });
+
+                Object.keys(byPlace).forEach(function(key) {
+                    var place = byPlace[key];
+                    place.events.sort(function(a, b) { return (a.year || 0) - (b.year || 0); });
+                    var marker = L.marker([place.lat, place.lng], {
+                        icon: L.divIcon({
+                            html: climateMarkerHtml(place, place.events),
+                            className: 'climate-icon',
+                            iconSize: [26, 26],
+                            iconAnchor: [13, 13],
+                            popupAnchor: [0, -13]
+                        }),
+                        zIndexOffset: 500
+                    });
+                    place.marker = marker;
+                    marker.bindPopup(function() { return createClimatePopupContent(place); }, { maxWidth: 340 });
+                    marker.addTo(map);
+                    allClimateMarkerData.push(place);
+                });
+            })();
+
             // ===== FILTER / VISIBILITY LOGIC =====
             function updateMarkerVisibility() {
                 var milChecked = document.getElementById('cat-military').checked;
@@ -1304,22 +1541,20 @@ var shipyardData = (typeof shipyardMapData !== "undefined") ? shipyardMapData : 
                 var allProvinces = provBudin && provTimi && provGyor && provPapa && provEger &&
                                    provKanije && provVarat && provUyvar && provRumelia && provBosnia;
 
-                // Country filters
-                var ctrHungary  = document.getElementById('ctr-hungary').checked;
-                var ctrSlovakia = document.getElementById('ctr-slovakia').checked;
-                var ctrSerbia   = document.getElementById('ctr-serbia').checked;
-                var ctrCroatia  = document.getElementById('ctr-croatia').checked;
-                var ctrBosnia   = document.getElementById('ctr-bosnia').checked;
-                var ctrRomania  = document.getElementById('ctr-romania').checked;
-                var ctrBulgaria = document.getElementById('ctr-bulgaria').checked;
-                var ctrUkraine  = document.getElementById('ctr-ukraine').checked;
-                var allCountries = ctrHungary && ctrSlovakia && ctrSerbia && ctrCroatia &&
-                                   ctrBosnia && ctrRomania && ctrBulgaria && ctrUkraine;
+                // Country filters (see COUNTRY_FILTERS for the id -> country mapping)
+                var ctrChecked = {};
+                var allCountries = true;
+                COUNTRY_FILTERS.forEach(function(cf) {
+                    var el = document.getElementById(cf.id);
+                    ctrChecked[cf.country] = el ? el.checked : true;
+                    if (el && !el.checked) allCountries = false;
+                });
 
                 var visibleCount = 0, fortressVis = 0, palankaVis = 0, otherVis = 0;
                 var hubVis = 0, largeVis = 0, mediumVis = 0, smallVis = 0, unknownVis = 0;
                 var provCounts = { budin:0, timisoara:0, gyor:0, papa:0, eger:0, kanije:0, varat:0, uyvar:0, rumelia:0, bosnia:0 };
-                var ctrCounts  = { hungary:0, slovakia:0, serbia:0, croatia:0, bosnia:0, romania:0, bulgaria:0, ukraine:0 };
+                var ctrCounts  = {};
+                COUNTRY_FILTERS.forEach(function(cf) { ctrCounts[cf.country] = 0; });
 
                 allMarkerData.forEach(function(item) {
                     // Type filter
@@ -1362,14 +1597,7 @@ var shipyardData = (typeof shipyardMapData !== "undefined") ? shipyardMapData : 
                         countryVisible = true;
                     } else {
                         var ctr = item.garrison.country || '';
-                        if (ctr === 'Hungary' && ctrHungary) countryVisible = true;
-                        if (ctr === 'Slovakia' && ctrSlovakia) countryVisible = true;
-                        if (ctr === 'Serbia' && ctrSerbia) countryVisible = true;
-                        if (ctr === 'Croatia' && ctrCroatia) countryVisible = true;
-                        if (ctr === 'Bosnia' && ctrBosnia) countryVisible = true;
-                        if (ctr === 'Romania' && ctrRomania) countryVisible = true;
-                        if (ctr === 'Bulgaria' && ctrBulgaria) countryVisible = true;
-                        if (ctr === 'Ukraine' && ctrUkraine) countryVisible = true;
+                        if (ctrChecked[ctr]) countryVisible = true;
                     }
 
                     // Search filter (accent-insensitive across en/tr/hu names)
@@ -1421,14 +1649,7 @@ var shipyardData = (typeof shipyardMapData !== "undefined") ? shipyardMapData : 
                         else if (pEn2 === 'Bosnia') provCounts.bosnia++;
                         // Country counts
                         var ctr2 = item.garrison.country || '';
-                        if (ctr2 === 'Hungary') ctrCounts.hungary++;
-                        else if (ctr2 === 'Slovakia') ctrCounts.slovakia++;
-                        else if (ctr2 === 'Serbia') ctrCounts.serbia++;
-                        else if (ctr2 === 'Croatia') ctrCounts.croatia++;
-                        else if (ctr2 === 'Bosnia') ctrCounts.bosnia++;
-                        else if (ctr2 === 'Romania') ctrCounts.romania++;
-                        else if (ctr2 === 'Bulgaria') ctrCounts.bulgaria++;
-                        else if (ctr2 === 'Ukraine') ctrCounts.ukraine++;
+                        if (ctrCounts.hasOwnProperty(ctr2)) ctrCounts[ctr2]++;
                     }
                 });
 
@@ -1459,14 +1680,7 @@ var shipyardData = (typeof shipyardMapData !== "undefined") ? shipyardMapData : 
                         countryVisible = true;
                     } else {
                         var sCtr = shipyard.country || '';
-                        if (sCtr === 'Hungary' && ctrHungary) countryVisible = true;
-                        if (sCtr === 'Slovakia' && ctrSlovakia) countryVisible = true;
-                        if (sCtr === 'Serbia' && ctrSerbia) countryVisible = true;
-                        if (sCtr === 'Croatia' && ctrCroatia) countryVisible = true;
-                        if (sCtr === 'Bosnia' && ctrBosnia) countryVisible = true;
-                        if (sCtr === 'Romania' && ctrRomania) countryVisible = true;
-                        if (sCtr === 'Bulgaria' && ctrBulgaria) countryVisible = true;
-                        if (sCtr === 'Ukraine' && ctrUkraine) countryVisible = true;
+                        if (ctrChecked[sCtr]) countryVisible = true;
                     }
 
                     var timeVisible = showAllMode || isGarrisonActiveInYear(shipyard, currentYear);
@@ -1482,6 +1696,44 @@ var shipyardData = (typeof shipyardMapData !== "undefined") ? shipyardMapData : 
                     if (visible) shipyardVisibleCount++;
                 });
 
+                // Climate events (experimental layer)
+                var climateCatChecked = document.getElementById('cat-climate').checked;
+                var climateGroupChecked = currentClimateGroupChecked();
+                var climateVisibleEvents = 0;
+                var climateGroupCounts = {};
+                Object.keys(CLIMATE_GROUPS).forEach(function(g) { climateGroupCounts[g] = 0; });
+                allClimateMarkerData.forEach(function(place) {
+                    var visibleEvents = climateCatChecked
+                        ? place.events.filter(function(ev) { return isClimateEventVisible(ev, climateGroupChecked); })
+                        : [];
+                    var visible = visibleEvents.length > 0;
+                    if (visible) {
+                        // Refresh icon so colour/badge reflect the currently visible events
+                        place.marker.setIcon(L.divIcon({
+                            html: climateMarkerHtml(place, visibleEvents),
+                            className: 'climate-icon',
+                            iconSize: [26, 26],
+                            iconAnchor: [13, 13],
+                            popupAnchor: [0, -13]
+                        }));
+                        visibleEvents.forEach(function(ev) {
+                            climateVisibleEvents++;
+                            if (climateGroupCounts.hasOwnProperty(ev.group)) climateGroupCounts[ev.group]++;
+                        });
+                    }
+                    if (visible && !map.hasLayer(place.marker)) {
+                        place.marker.addTo(map);
+                    } else if (!visible && map.hasLayer(place.marker)) {
+                        map.removeLayer(place.marker);
+                    }
+                });
+                var climateTotalEvents = allClimateMarkerData.reduce(function(n, p) { return n + p.events.length; }, 0);
+                document.getElementById('climate-count').textContent = climateVisibleEvents + '/' + climateTotalEvents;
+                Object.keys(CLIMATE_GROUPS).forEach(function(g) {
+                    var el = document.getElementById('climate-' + g + '-count');
+                    if (el) el.textContent = climateGroupCounts[g];
+                });
+
                 // Refresh any open popup so the active/inactive badge updates
                 markerGarrisonMap.forEach(function(garrison, marker) {
                     if (marker.isPopupOpen()) {
@@ -1491,6 +1743,11 @@ var shipyardData = (typeof shipyardMapData !== "undefined") ? shipyardMapData : 
                 markerShipyardMap.forEach(function(shipyard, marker) {
                     if (marker.isPopupOpen()) {
                         marker.setPopupContent(createShipyardPopupContent(shipyard));
+                    }
+                });
+                allClimateMarkerData.forEach(function(place) {
+                    if (place.marker.isPopupOpen()) {
+                        place.marker.setPopupContent(createClimatePopupContent(place));
                     }
                 });
 
@@ -1517,14 +1774,10 @@ var shipyardData = (typeof shipyardMapData !== "undefined") ? shipyardMapData : 
                 document.getElementById('prov-rumelia-count').textContent = provCounts.rumelia;
                 document.getElementById('prov-bosnia-count').textContent = provCounts.bosnia;
                 // Country counts
-                document.getElementById('ctr-hungary-count').textContent = ctrCounts.hungary;
-                document.getElementById('ctr-slovakia-count').textContent = ctrCounts.slovakia;
-                document.getElementById('ctr-serbia-count').textContent = ctrCounts.serbia;
-                document.getElementById('ctr-croatia-count').textContent = ctrCounts.croatia;
-                document.getElementById('ctr-bosnia-count').textContent = ctrCounts.bosnia;
-                document.getElementById('ctr-romania-count').textContent = ctrCounts.romania;
-                document.getElementById('ctr-bulgaria-count').textContent = ctrCounts.bulgaria;
-                document.getElementById('ctr-ukraine-count').textContent = ctrCounts.ukraine;
+                COUNTRY_FILTERS.forEach(function(cf) {
+                    var el = document.getElementById(cf.id + '-count');
+                    if (el) el.textContent = ctrCounts[cf.country];
+                });
             }
 
             // Initial count
@@ -1626,6 +1879,27 @@ var shipyardData = (typeof shipyardMapData !== "undefined") ? shipyardMapData : 
                 });
             });
 
+            // Climate master checkbox
+            var climateFilterIds = Object.keys(CLIMATE_GROUPS).map(function(g) { return 'climate-' + g; });
+            document.getElementById('cat-climate').addEventListener('change', function() {
+                var checked = this.checked;
+                climateFilterIds.forEach(function(id) {
+                    document.getElementById(id).checked = checked;
+                });
+                updateMarkerVisibility();
+            });
+
+            // Individual climate group checkboxes
+            climateFilterIds.forEach(function(id) {
+                document.getElementById(id).addEventListener('change', function() {
+                    updateMarkerVisibility();
+                    var all = climateFilterIds.every(function(i) { return document.getElementById(i).checked; });
+                    var any = climateFilterIds.some(function(i) { return document.getElementById(i).checked; });
+                    document.getElementById('cat-climate').checked = any;
+                    document.getElementById('cat-climate').indeterminate = any && !all;
+                });
+            });
+
             // Province master checkbox
             document.getElementById('cat-province').addEventListener('change', function() {
                 var checked = this.checked;
@@ -1653,26 +1927,21 @@ var shipyardData = (typeof shipyardMapData !== "undefined") ? shipyardMapData : 
             });
 
             // Country master checkbox
+            var countryFilterIds = COUNTRY_FILTERS.map(function(cf) { return cf.id; });
             document.getElementById('cat-country').addEventListener('change', function() {
                 var checked = this.checked;
-                ['ctr-hungary','ctr-slovakia','ctr-serbia','ctr-croatia',
-                 'ctr-bosnia','ctr-romania','ctr-bulgaria','ctr-ukraine'].forEach(function(id) {
+                countryFilterIds.forEach(function(id) {
                     document.getElementById(id).checked = checked;
                 });
                 updateMarkerVisibility();
             });
 
             // Individual country checkboxes
-            ['ctr-hungary','ctr-slovakia','ctr-serbia','ctr-croatia',
-             'ctr-bosnia','ctr-romania','ctr-bulgaria','ctr-ukraine'].forEach(function(id) {
+            countryFilterIds.forEach(function(id) {
                 document.getElementById(id).addEventListener('change', function() {
                     updateMarkerVisibility();
-                    var all = ['ctr-hungary','ctr-slovakia','ctr-serbia','ctr-croatia',
-                               'ctr-bosnia','ctr-romania','ctr-bulgaria','ctr-ukraine']
-                               .every(function(i) { return document.getElementById(i).checked; });
-                    var any = ['ctr-hungary','ctr-slovakia','ctr-serbia','ctr-croatia',
-                               'ctr-bosnia','ctr-romania','ctr-bulgaria','ctr-ukraine']
-                               .some(function(i) { return document.getElementById(i).checked; });
+                    var all = countryFilterIds.every(function(i) { return document.getElementById(i).checked; });
+                    var any = countryFilterIds.some(function(i) { return document.getElementById(i).checked; });
                     document.getElementById('cat-country').checked = any;
                     document.getElementById('cat-country').indeterminate = any && !all;
                 });
@@ -2045,6 +2314,12 @@ var shipyardData = (typeof shipyardMapData !== "undefined") ? shipyardMapData : 
                 html += '<div style="display: flex; align-items: center;">';
                 html += '<span style="display: inline-block; width: 12px; height: 12px; border-radius: 50%; background-color: #91bfdb; border: 1px solid #333; margin-right: 8px;"></span>';
                 html += '<span>' + otherText + '</span></div>';
+                html += '<div style="display: flex; align-items: center; margin-top: 6px; padding-top: 6px; border-top: 1px solid #eee;">';
+                html += '<i class="fas fa-anchor" style="color:#0c7b93; width: 12px; margin-right: 8px; font-size: 11px;"></i>';
+                html += '<span>' + (lang === 'tr' ? 'Tersane' : 'Shipyard') + '</span></div>';
+                html += '<div style="display: flex; align-items: center; margin-top: 4px;">';
+                html += '<span style="display: inline-block; width: 12px; height: 12px; border-radius: 50%; background-color: #1f78b4; border: 1px solid #fff; box-shadow: 0 0 0 1px #333; margin-right: 8px;"></span>';
+                html += '<span>' + (lang === 'tr' ? 'İklim gözlemi' : 'Climate observation') + '</span></div>';
                 legendContainer.innerHTML = html;
             }
             
@@ -2069,6 +2344,12 @@ var shipyardData = (typeof shipyardMapData !== "undefined") ? shipyardMapData : 
                 markerGarrisonMap.forEach(function(garrison, marker) {
                     marker.setPopupContent(createPopupContent(garrison));
                 });
+                markerShipyardMap.forEach(function(shipyard, marker) {
+                    marker.setPopupContent(createShipyardPopupContent(shipyard));
+                });
+                allClimateMarkerData.forEach(function(place) {
+                    if (place.marker.isPopupOpen()) place.marker.setPopupContent(createClimatePopupContent(place));
+                });
                 // Refresh search placeholder + open suggestion list (if any) in new language
                 applySearchPlaceholder();
                 if (suggestionsBox.classList.contains('open') && searchInput.value.trim()) {
@@ -2092,6 +2373,11 @@ var shipyardData = (typeof shipyardMapData !== "undefined") ? shipyardMapData : 
                     markers: allShipyardMarkerData,
                     enabled: true,
                     description: 'Ottoman shipyard locations'
+                },
+                climate: {
+                    markers: allClimateMarkerData,
+                    enabled: true,
+                    description: 'Weather/climate observations from narrative sources (experimental)'
                 },
                 rivers: {
                     group: L.featureGroup(),
