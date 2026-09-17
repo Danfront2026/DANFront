@@ -10,15 +10,28 @@ import os
 EXCEL_PATH = os.path.join(os.path.dirname(__file__), "Dataset_Shipyards.xlsx")
 OUTPUT_PATH = os.path.join(os.path.dirname(__file__), "js", "shipyard-map-data.js")
 
+# September 2026 dataset: an "ID" column (SHP-xxxx) was prepended, so all
+# indices are shifted by one compared to the July 2026 version.
 SHEET_CONFIG = {
-    "y": 0, "x": 1,
-    "name_en": 2, "name_tr": 3, "name_local": 4,
-    "p_en": 5, "p_tr": 6, "p_local": 7,
-    "s_en": 8, "s_tr": 9, "s_local": 10,
-    "date1": 11, "date2": 12, "date3": 13, "date4": 14,
-    "country": 15, "size": 16,
-    "notes": 17, "sources": 18,
+    "id": 0, "y": 1, "x": 2,
+    "name_en": 3, "name_tr": 4, "name_local": 5,
+    "p_en": 6, "p_tr": 7, "p_local": 8,
+    "s_en": 9, "s_tr": 10, "s_local": 11,
+    "date1": 12, "date2": 13, "date3": 14, "date4": 15,
+    "country": 16, "size": 17,
+    "notes": 18, "sources": 19,
 }
+
+COUNTRY_FIXES = {
+    "Bosnia": "Bosnia and Herzegovina",
+    "Bosnia and Herzogovina": "Bosnia and Herzegovina",
+    "Kosova": "Kosovo",
+}
+
+
+def normalize_country(val):
+    s = (val or "").strip()
+    return COUNTRY_FIXES.get(s, s)
 
 
 def normalize_date(val):
@@ -48,7 +61,7 @@ def process_sheet(ws, cfg):
     shipyards = []
     for row in ws.iter_rows(min_row=2, values_only=True):
         # Skip blank rows
-        if not any(v is not None for v in row[:5]):
+        if not any(v is not None for v in row[:6]):
             continue
 
         lat_raw = get_cell(row, cfg["y"])
@@ -77,12 +90,14 @@ def process_sheet(ws, cfg):
         date3 = normalize_date(get_cell(row, cfg["date3"]))
         date4 = normalize_date(get_cell(row, cfg["date4"]))
 
-        country = str_val(row, cfg["country"])
+        country = normalize_country(str_val(row, cfg["country"]))
+        shipyard_id = str_val(row, cfg.get("id"))
         size = str_val(row, cfg["size"])
         notes = str_val(row, cfg["notes"])
         sources = str_val(row, cfg["sources"])
 
         shipyard = {
+            "id": shipyard_id,
             "lat": round(lat, 6),
             "lng": round(lng, 6),
             "name": {
@@ -116,6 +131,7 @@ def process_sheet(ws, cfg):
 def shipyard_to_js(s):
     """Render one shipyard object as a JS object string (indented 4 spaces)."""
     lines = ["    {"]
+    lines.append(f'      "id": {json.dumps(s["id"])},')
     lines.append(f'      "lat": {s["lat"]},')
     lines.append(f'      "lng": {s["lng"]},')
     lines.append(f'      "name": {{')
@@ -171,6 +187,7 @@ def main():
  * Generated automatically by convert_shipyard_map_data.py - do not edit manually.
  *
  * Schema per shipyard:
+ *   id                — dataset ID (SHP-xxxx)
  *   lat, lng          — coordinates
  *   name              — {{en, tr, local}}  (local = HU/SRB/BG/RO/UKR depending on region)
  *   province          — {{en, tr, local}}

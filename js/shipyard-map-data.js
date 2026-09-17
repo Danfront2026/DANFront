@@ -4,6 +4,7 @@
  * Generated automatically by convert_shipyard_map_data.py - do not edit manually.
  *
  * Schema per shipyard:
+ *   id                — dataset ID (SHP-xxxx)
  *   lat, lng          — coordinates
  *   name              — {en, tr, local}  (local = HU/SRB/BG/RO/UKR depending on region)
  *   province          — {en, tr, local}
@@ -19,6 +20,7 @@ var shipyardMapData = {
   "total_shipyards": 33,
   "shipyards": [
     {
+      "id": "SHP-0001",
       "lat": 44.8717,
       "lng": 18.8127,
       "name": {
@@ -40,12 +42,13 @@ var shipyardMapData = {
       "date2": "",
       "date3": "",
       "date4": "",
-      "country": "Bosnia",
+      "country": "Bosnia and Herzegovina",
       "size": "",
       "notes": "",
-      "sources": "Aslan, 2022, p. 208."
+      "sources": "Aslan, 2024, p. 225."
     },
     {
+      "id": "SHP-0002",
       "lat": 45.1444,
       "lng": 17.9956,
       "name": {
@@ -67,12 +70,13 @@ var shipyardMapData = {
       "date2": "",
       "date3": "",
       "date4": "",
-      "country": "Bosnia",
+      "country": "Bosnia and Herzegovina",
       "size": "",
       "notes": "",
-      "sources": "Aslan, 2022, p. 208."
+      "sources": "Aslan, 2024, p. 225."
     },
     {
+      "id": "SHP-0003",
       "lat": 43.9604,
       "lng": 19.5083,
       "name": {
@@ -94,12 +98,13 @@ var shipyardMapData = {
       "date2": "",
       "date3": "",
       "date4": "",
-      "country": "Bosnia",
+      "country": "Bosnia and Herzegovina",
       "size": "",
       "notes": "",
-      "sources": "Aslan, 2022, p. 209."
+      "sources": "Aslan, 2024, p. 227."
     },
     {
+      "id": "SHP-0004",
       "lat": 45.1463,
       "lng": 17.255,
       "name": {
@@ -121,12 +126,13 @@ var shipyardMapData = {
       "date2": "",
       "date3": "",
       "date4": "",
-      "country": "Bosnia",
+      "country": "Bosnia and Herzegovina",
       "size": "",
       "notes": "",
-      "sources": "Aslan, 2022, p. 208."
+      "sources": "Aslan, 2024, p. 225."
     },
     {
+      "id": "SHP-0005",
       "lat": 44.3865,
       "lng": 19.1039,
       "name": {
@@ -148,12 +154,13 @@ var shipyardMapData = {
       "date2": "",
       "date3": "",
       "date4": "",
-      "country": "Bosnia",
+      "country": "Bosnia and Herzegovina",
       "size": "",
       "notes": "",
       "sources": "Bilge, 2015; MD 12/1202; MD 22/136"
     },
     {
+      "id": "SHP-0006",
       "lat": 45.0075,
       "lng": 19.218,
       "name": {
@@ -178,36 +185,10 @@ var shipyardMapData = {
       "country": "Serbia",
       "size": "",
       "notes": "",
-      "sources": "Aslan, 2022, p. 208."
+      "sources": "Aslan, 2024, p. 225."
     },
     {
-      "lat": 45.3314,
-      "lng": 17.6744,
-      "name": {
-        "en": "Po\u017eega",
-        "tr": "Pojega",
-        "local": "Po\u017eega"
-      },
-      "province": {
-        "en": "Bosnia",
-        "tr": "Bosna",
-        "local": "Bosnia"
-      },
-      "sancak": {
-        "en": "Po\u017ee\u0161ki",
-        "tr": "Pojega",
-        "local": "Po\u017ee\u0161ki"
-      },
-      "date1": "1538-1699",
-      "date2": "",
-      "date3": "",
-      "date4": "",
-      "country": "Croatia",
-      "size": "",
-      "notes": "",
-      "sources": "Bilge, 2015."
-    },
-    {
+      "id": "SHP-0007",
       "lat": 43.94,
       "lng": 19.5331,
       "name": {
@@ -231,10 +212,11 @@ var shipyardMapData = {
       "date4": "",
       "country": "Hungary",
       "size": "",
-      "notes": "",
-      "sources": "Aslan, 2022, p. 208."
+      "notes": "The location of the shipyard was indicated as a possible nearby place due to the inability to find its historical location.",
+      "sources": "Aslan, 2024, p. 225."
     },
     {
+      "id": "SHP-0008",
       "lat": 47.5057,
       "lng": 19.03752,
       "name": {
@@ -262,6 +244,7 @@ var shipyardMapData = {
       "sources": "Bilge, 2015."
     },
     {
+      "id": "SHP-0009",
       "lat": 47.7931,
       "lng": 18.7342,
       "name": {
@@ -289,6 +272,7 @@ var shipyardMapData = {
       "sources": "Bilge, 2015."
     },
     {
+      "id": "SHP-0010",
       "lat": 46.004,
       "lng": 18.6803,
       "name": {
@@ -316,6 +300,7 @@ var shipyardMapData = {
       "sources": "Bilge, 2015.."
     },
     {
+      "id": "SHP-0011",
       "lat": 45.5624,
       "lng": 18.6904,
       "name": {
@@ -324,14 +309,14 @@ var shipyardMapData = {
         "local": "Esz\u00e9k"
       },
       "province": {
-        "en": "Kanije",
-        "tr": "Kanija",
-        "local": "Kanizsa"
+        "en": "Bosnia",
+        "tr": "Bosna",
+        "local": "Bosnia"
       },
       "sancak": {
-        "en": "P\u00e9cs",
-        "tr": "Pe\u00e7uy",
-        "local": "P\u00e9cs"
+        "en": "Po\u017ee\u0161ki",
+        "tr": "Pojega",
+        "local": "Po\u017ee\u0161ki"
       },
       "date1": "1529-1687",
       "date2": "",
@@ -343,6 +328,7 @@ var shipyardMapData = {
       "sources": "Bilge, 2015."
     },
     {
+      "id": "SHP-0012",
       "lat": 43.5792,
       "lng": 21.3351,
       "name": {
@@ -370,6 +356,7 @@ var shipyardMapData = {
       "sources": "Bilge, 2015."
     },
     {
+      "id": "SHP-0013",
       "lat": 44.82,
       "lng": 20.4567,
       "name": {
@@ -394,9 +381,10 @@ var shipyardMapData = {
       "country": "Serbia",
       "size": "",
       "notes": "",
-      "sources": "Bilge, 2015; Aslan, 2022, p. 208."
+      "sources": "Bilge, 2015; Aslan, 2024, p. 208."
     },
     {
+      "id": "SHP-0014",
       "lat": 44.765,
       "lng": 19.7044,
       "name": {
@@ -424,6 +412,7 @@ var shipyardMapData = {
       "sources": "MD 12/1202"
     },
     {
+      "id": "SHP-0015",
       "lat": 44.654,
       "lng": 21.63433,
       "name": {
@@ -451,6 +440,7 @@ var shipyardMapData = {
       "sources": "Bilge, 2015."
     },
     {
+      "id": "SHP-0016",
       "lat": 44.6713,
       "lng": 20.7205,
       "name": {
@@ -475,9 +465,10 @@ var shipyardMapData = {
       "country": "Serbia",
       "size": "",
       "notes": "",
-      "sources": "Aslan, 2022, p. 209."
+      "sources": "Aslan, 2024, p. 226."
     },
     {
+      "id": "SHP-0017",
       "lat": 44.6853,
       "lng": 27.9507,
       "name": {
@@ -502,9 +493,38 @@ var shipyardMapData = {
       "country": "Romania",
       "size": "",
       "notes": "",
-      "sources": "Aslan, 2022, p. 209."
+      "sources": "Aslan, 2024, p. 226."
     },
     {
+      "id": "SHP-0018",
+      "lat": 45.4322,
+      "lng": 29.2672,
+      "name": {
+        "en": "Kiliya",
+        "tr": "Kili",
+        "local": "Kiliya"
+      },
+      "province": {
+        "en": "Rumelia/Silistra",
+        "tr": "Rumeli/Silistre",
+        "local": "Rumelia/Silistra"
+      },
+      "sancak": {
+        "en": "Silistra",
+        "tr": "Silistre",
+        "local": "Silistra"
+      },
+      "date1": "1484-1812",
+      "date2": "",
+      "date3": "",
+      "date4": "",
+      "country": "Romania",
+      "size": "",
+      "notes": "",
+      "sources": "Aslan, 2024, p. 226\u201327."
+    },
+    {
+      "id": "SHP-0019",
       "lat": 45.2639,
       "lng": 27.9617,
       "name": {
@@ -529,9 +549,10 @@ var shipyardMapData = {
       "country": "Romania",
       "size": "",
       "notes": "",
-      "sources": "Aslan, 2022, p. 209."
+      "sources": "Aslan, 2024, p. 226."
     },
     {
+      "id": "SHP-0020",
       "lat": 45.2739,
       "lng": 28.45881,
       "name": {
@@ -556,9 +577,10 @@ var shipyardMapData = {
       "country": "Romania",
       "size": "",
       "notes": "",
-      "sources": "Aslan, 2022, p. 209."
+      "sources": "Aslan, 2024, p. 226."
     },
     {
+      "id": "SHP-0021",
       "lat": 44.7151,
       "lng": 21.0414,
       "name": {
@@ -583,13 +605,14 @@ var shipyardMapData = {
       "country": "Serbia",
       "size": "",
       "notes": "",
-      "sources": "Aslan, 2022, p. 209."
+      "sources": "Aslan, 2024, p. 226."
     },
     {
+      "id": "SHP-0022",
       "lat": 43.7026,
       "lng": 24.8918,
       "name": {
-        "en": "Ir\u015fova",
+        "en": "Nikopol",
         "tr": "Ni\u011fbolu",
         "local": "Nikopol"
       },
@@ -610,15 +633,16 @@ var shipyardMapData = {
       "country": "Bulgaria",
       "size": "",
       "notes": "",
-      "sources": "Aslan, 2022, p. 208; MD 5/592."
+      "sources": "Aslan, 2024, p. 208; MD 5/592."
     },
     {
+      "id": "SHP-0023",
       "lat": 45.2489,
       "lng": 19.8664,
       "name": {
-        "en": "Novi Sad",
+        "en": "Petrovaradin",
         "tr": "Petrovaradin",
-        "local": "Novi Sad"
+        "local": "Petrovaradin"
       },
       "province": {
         "en": "Rumelia/Silistra",
@@ -640,6 +664,7 @@ var shipyardMapData = {
       "sources": "Bilge, 2015."
     },
     {
+      "id": "SHP-0024",
       "lat": 43.7382,
       "lng": 23.9571,
       "name": {
@@ -664,9 +689,10 @@ var shipyardMapData = {
       "country": "Bulgaria",
       "size": "",
       "notes": "",
-      "sources": "Aslan, 2022, p. 209."
+      "sources": "Aslan, 2024, p. 226."
     },
     {
+      "id": "SHP-0025",
       "lat": 43.8514,
       "lng": 25.9551,
       "name": {
@@ -691,9 +717,10 @@ var shipyardMapData = {
       "country": "Bulgaria",
       "size": "",
       "notes": "",
-      "sources": "Aslan, 2022, p. 206-7."
+      "sources": "Aslan, 2024, p. 226."
     },
     {
+      "id": "SHP-0026",
       "lat": 44.6671,
       "lng": 20.92689,
       "name": {
@@ -721,6 +748,7 @@ var shipyardMapData = {
       "sources": "Bilge, 2015; MD 12/1201; MD 12/1202."
     },
     {
+      "id": "SHP-0027",
       "lat": 44.1234,
       "lng": 27.2629,
       "name": {
@@ -745,9 +773,10 @@ var shipyardMapData = {
       "country": "Bulgaria",
       "size": "",
       "notes": "",
-      "sources": "Aslan, 2022, p. 208; MD 30/72"
+      "sources": "Aslan, 2024, p. 226; MD 30/72"
     },
     {
+      "id": "SHP-0028",
       "lat": 45.1713,
       "lng": 28.7906,
       "name": {
@@ -772,9 +801,10 @@ var shipyardMapData = {
       "country": "Romania",
       "size": "",
       "notes": "",
-      "sources": "Aslan, 2022, p. 209."
+      "sources": "Aslan, 2024, p. 226."
     },
     {
+      "id": "SHP-0029",
       "lat": 44.0457,
       "lng": 26.6154,
       "name": {
@@ -799,9 +829,10 @@ var shipyardMapData = {
       "country": "Bulgaria",
       "size": "",
       "notes": "",
-      "sources": "Aslan, 2022, p. 209."
+      "sources": "Aslan, 2024, p. 226."
     },
     {
+      "id": "SHP-0030",
       "lat": 43.9836,
       "lng": 22.8737,
       "name": {
@@ -826,9 +857,10 @@ var shipyardMapData = {
       "country": "Bulgaria",
       "size": "",
       "notes": "",
-      "sources": "MD 22/55; Aslan, 2022, p. 209-10."
+      "sources": "MD 22/55; Aslan, 2024, p. 209\u201310."
     },
     {
+      "id": "SHP-0031",
       "lat": 43.8902,
       "lng": 25.9758,
       "name": {
@@ -853,9 +885,10 @@ var shipyardMapData = {
       "country": "Romania",
       "size": "",
       "notes": "",
-      "sources": "Aslan, 2022, p. 207."
+      "sources": "Aslan, 2024, p. 226."
     },
     {
+      "id": "SHP-0032",
       "lat": 43.6183,
       "lng": 25.3501,
       "name": {
@@ -880,9 +913,10 @@ var shipyardMapData = {
       "country": "Bulgaria",
       "size": "",
       "notes": "",
-      "sources": "Aslan, 2022, p. 208."
+      "sources": "Aslan, 2024, p. 226."
     },
     {
+      "id": "SHP-0033",
       "lat": 46.6417,
       "lng": 21.2897,
       "name": {

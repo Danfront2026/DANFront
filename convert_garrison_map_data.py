@@ -2,8 +2,10 @@
 convert_garrison_map_data.py
 Reads the updated Excel file and regenerates js/garrison-map-data.js.
 
-Sheets processed: Budin, Temesvar, Yanik_and_Pápa, Eger, Kanizsa, Várad, Újvár, RumeliSilistre
-Skipped:         Bosna, Kamaniçe, Rest of theRumeli
+Sheets processed: Budin, Temesvar, Yanik_and_Pápa, Eger, Kanizsa, Várad, Újvár, RumeliSilistre, Bosna
+
+Column layout (September 2026 dataset): every sheet now starts with an "ID" column
+(FRT-0001 ...), so all indices below are shifted by one compared to the July 2026 version.
 """
 
 import openpyxl
@@ -11,8 +13,8 @@ import json
 import os
 import re
 
-EXCEL_PATH = os.path.expanduser(
-    "~/Downloads/Dataset_Hungary and Rumili and Özi_new.xlsx"
+EXCEL_PATH = os.path.join(
+    os.path.dirname(__file__), "Dataset_Hungary and Rumili and Özi.xlsx"
 )
 OUTPUT_PATH = os.path.join(os.path.dirname(__file__), "js", "garrison-map-data.js")
 
@@ -22,92 +24,103 @@ OUTPUT_PATH = os.path.join(os.path.dirname(__file__), "js", "garrison-map-data.j
 # ---------------------------------------------------------------------------
 SHEET_CONFIGS = {
     "Budin": {
-        "y": 0, "x": 1,
-        "name_en": 2, "name_tr": 3, "name_local": 4,
-        "type": 5,
-        "p_en": 6, "p_tr": 7, "p_local": 8,
-        "s_en": 9, "s_tr": 10, "s_local": 11,
-        "date1": 12, "date2": 13, "date3": None, "date4": None,
-        "country": 14, "size": 15,
-        "notes": 16, "sources": 17,
+        "id": 0, "y": 1, "x": 2,
+        "name_en": 3, "name_tr": 4, "name_local": 5,
+        "type": 6,
+        "p_en": 7, "p_tr": 8, "p_local": 9,
+        "s_en": 10, "s_tr": 11, "s_local": 12,
+        "date1": 13, "date2": 14, "date3": None, "date4": None,
+        "country": 15, "size": 16,
+        "notes": 17, "sources": 18,
         "source_sheet": "Budin",
     },
     "Temesvar": {
-        "y": 0, "x": 1,
-        "name_en": 2, "name_tr": 3, "name_local": 4,
-        "type": 5,
-        "p_en": 6, "p_tr": 7, "p_local": 8,
-        "s_en": 9, "s_tr": 10, "s_local": 11,
-        "date1": 12, "date2": 13, "date3": None, "date4": None,
-        "country": 15, "size": 16,
-        "notes": 17, "sources": 18,
+        "id": 0, "y": 1, "x": 2,
+        "name_en": 3, "name_tr": 4, "name_local": 5,
+        "type": 6,
+        "p_en": 7, "p_tr": 8, "p_local": 9,
+        "s_en": 10, "s_tr": 11, "s_local": 12,
+        "date1": 13, "date2": 14, "date3": None, "date4": None,
+        "country": 16, "size": 17,
+        "notes": 18, "sources": 19,
         "source_sheet": "Temesvar",
     },
     "Yanik_and_Pápa": {
-        "y": 0, "x": 1,
-        "name_en": 2, "name_tr": 3, "name_local": 4,
-        "type": 5,
-        "p_en": 6, "p_tr": 7, "p_local": 8,
-        "s_en": 9, "s_tr": 10, "s_local": 11,
-        "date1": 12, "date2": 13, "date3": None, "date4": None,
-        "country": 14, "size": 15,
-        "notes": 16, "sources": 17,
+        "id": 0, "y": 1, "x": 2,
+        "name_en": 3, "name_tr": 4, "name_local": 5,
+        "type": 6,
+        "p_en": 7, "p_tr": 8, "p_local": 9,
+        "s_en": 10, "s_tr": 11, "s_local": 12,
+        "date1": 13, "date2": 14, "date3": None, "date4": None,
+        "country": 15, "size": 16,
+        "notes": 17, "sources": 18,
         "source_sheet": "Yanik_and_Pápa",
     },
     "Eger": {
-        "y": 0, "x": 1,
-        "name_en": 2, "name_tr": 3, "name_local": 4,
-        "type": 5,
-        "p_en": 6, "p_tr": 7, "p_local": 8,
-        "s_en": 9, "s_tr": 10, "s_local": 11,
-        "date1": 12, "date2": 13, "date3": None, "date4": None,
-        "country": 14, "size": 15,
-        "notes": 16, "sources": 17,
+        "id": 0, "y": 1, "x": 2,
+        "name_en": 3, "name_tr": 4, "name_local": 5,
+        "type": 6,
+        "p_en": 7, "p_tr": 8, "p_local": 9,
+        "s_en": 10, "s_tr": 11, "s_local": 12,
+        "date1": 13, "date2": 14, "date3": None, "date4": None,
+        "country": 15, "size": 16,
+        "notes": 17, "sources": 18,
         "source_sheet": "Eger",
     },
     "Kanizsa": {
-        "y": 0, "x": 1,
-        "name_en": 2, "name_tr": 3, "name_local": 4,
-        "type": 5,
-        "p_en": 6, "p_tr": 7, "p_local": 8,
-        "s_en": 9, "s_tr": 10, "s_local": 11,
-        "date1": 12, "date2": 13, "date3": None, "date4": None,
-        "country": 14, "size": 15,
-        "notes": 16, "sources": 17,
+        "id": 0, "y": 1, "x": 2,
+        "name_en": 3, "name_tr": 4, "name_local": 5,
+        "type": 6,
+        "p_en": 7, "p_tr": 8, "p_local": 9,
+        "s_en": 10, "s_tr": 11, "s_local": 12,
+        "date1": 13, "date2": 14, "date3": None, "date4": None,
+        "country": 15, "size": 16,
+        "notes": 17, "sources": 18,
         "source_sheet": "Kanizsa",
     },
     "Várad": {
-        "y": 0, "x": 1,
-        "name_en": 2, "name_tr": 3, "name_local": 4,
-        "type": 5,
-        "p_en": 6, "p_tr": 7, "p_local": 8,
-        "s_en": 9, "s_tr": 10, "s_local": 11,
-        "date1": 12, "date2": 13, "date3": None, "date4": None,
-        "country": 14, "size": 15,
-        "notes": 16, "sources": 17,
+        "id": 0, "y": 1, "x": 2,
+        "name_en": 3, "name_tr": 4, "name_local": 5,
+        "type": 6,
+        "p_en": 7, "p_tr": 8, "p_local": 9,
+        "s_en": 10, "s_tr": 11, "s_local": 12,
+        "date1": 13, "date2": 14, "date3": None, "date4": None,
+        "country": 15, "size": 16,
+        "notes": 17, "sources": 18,
         "source_sheet": "Várad",
     },
     "Újvár": {
-        "y": 0, "x": 1,
-        "name_en": 2, "name_tr": 3, "name_local": 4,
-        "type": 5,
-        "p_en": 6, "p_tr": 7, "p_local": 8,
-        "s_en": 9, "s_tr": 10, "s_local": 11,
-        "date1": 12, "date2": 13, "date3": None, "date4": None,
-        "country": 14, "size": 15,
-        "notes": 16, "sources": 17,
+        "id": 0, "y": 1, "x": 2,
+        "name_en": 3, "name_tr": 4, "name_local": 5,
+        "type": 6,
+        "p_en": 7, "p_tr": 8, "p_local": 9,
+        "s_en": 10, "s_tr": 11, "s_local": 12,
+        "date1": 13, "date2": 14, "date3": None, "date4": None,
+        "country": 15, "size": 16,
+        "notes": 17, "sources": 18,
         "source_sheet": "Újvár",
     },
     "RumeliSilistre": {
-        "y": 0, "x": 1,
-        "name_en": 2, "name_tr": 3, "name_local": 4,
-        "type": 5,
-        "size": 6,
+        "id": 0, "y": 1, "x": 2,
+        "name_en": 3, "name_tr": 4, "name_local": 5,
+        "type": 6,
         "p_en": 7, "p_tr": 8, "p_local": 9,
         "s_en": 10, "s_tr": 11, "s_local": 12,
         "date1": 13, "date2": 14, "date3": 15, "date4": 16,
-        "country": 17, "sources": 18, "notes": 19,
+        "country": 17, "size": 18,
+        "sources": 19, "notes": 20,
         "source_sheet": "RumeliSilistre",
+    },
+    "Bosna": {
+        "id": 0, "y": 1, "x": 2,
+        "name_en": 3, "name_tr": 4, "name_local": 5,
+        "type": 6,
+        "p_en": 7, "p_tr": 8, "p_local": 9,
+        "s_en": 10, "s_tr": 11, "s_local": 12,
+        "date1": 13, "date2": 14, "date3": None, "date4": None,
+        "country": 15, "size": 16,
+        "notes": 17, "sources": 18,
+        "source_sheet": "Bosna",
     },
 }
 
@@ -119,6 +132,19 @@ def normalize_date(val):
     s = str(val).strip()
     s = s.replace("\u2013", "-").replace("\u2014", "-")  # en-dash, em-dash
     return s
+
+
+COUNTRY_FIXES = {
+    # Typos / variants found in the source sheets -> canonical modern country name
+    "Bosnia and Herzogovina": "Bosnia and Herzegovina",
+    "Bosnia": "Bosnia and Herzegovina",
+    "Kosova": "Kosovo",
+}
+
+
+def normalize_country(val):
+    s = (val or "").strip()
+    return COUNTRY_FIXES.get(s, s)
 
 
 def get_cell(row, idx):
@@ -139,7 +165,7 @@ def process_sheet(ws, cfg):
     garrisons = []
     for row in ws.iter_rows(min_row=2, values_only=True):
         # Skip blank rows
-        if not any(v is not None for v in row[:5]):
+        if not any(v is not None for v in row[:6]):
             continue
 
         lat_raw = get_cell(row, cfg["y"])
@@ -170,12 +196,14 @@ def process_sheet(ws, cfg):
         date3 = normalize_date(get_cell(row, cfg.get("date3")))
         date4 = normalize_date(get_cell(row, cfg.get("date4")))
 
-        country = str_val(row, cfg["country"])
+        country = normalize_country(str_val(row, cfg["country"]))
         size = str_val(row, cfg["size"])
+        garrison_id = str_val(row, cfg.get("id"))
         notes = str_val(row, cfg["notes"])
         sources = str_val(row, cfg["sources"])
 
         garrison = {
+            "id": garrison_id,
             "lat": round(lat, 6),
             "lng": round(lng, 6),
             "name": {
@@ -211,6 +239,7 @@ def process_sheet(ws, cfg):
 def garrison_to_js(g):
     """Render one garrison object as a JS object string (indented 4 spaces)."""
     lines = ["    {"]
+    lines.append(f'      "id": {json.dumps(g["id"])},')
     lines.append(f'      "lat": {g["lat"]},')
     lines.append(f'      "lng": {g["lng"]},')
     lines.append(f'      "name": {{')
@@ -275,6 +304,7 @@ def main():
  * Generated automatically by convert_garrison_map_data.py - do not edit manually.
  *
  * Schema per garrison:
+ *   id                — dataset ID (FRT-xxxx)
  *   lat, lng          — coordinates
  *   name              — {{en, tr, local}}  (local = HU for Hungary sheets, SRB/BG/RO/UKR for Rumeli)
  *   type              — Fortress | Palanka | Parkan | ...
