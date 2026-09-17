@@ -29,7 +29,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Bitcount+Grid+Single:wght@100..900&display=swap" rel="stylesheet">
 
     <!-- Stylesheets -->
-    <link rel="stylesheet" href="css/main.css?v=10">
+    <link rel="stylesheet" href="css/main.css?v=11">
 
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -229,6 +229,58 @@
                 padding: 1rem;
             }
         }
+        /* ===== Sub-tabs (Source Materials | Bibliography) ===== */
+        .sources-tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+        .sources-tab {
+            background: none;
+            border: none;
+            border-bottom: 3px solid transparent;
+            margin-bottom: -2px;
+            padding: 0.75rem 1.25rem;
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: inherit;
+            transition: color 0.2s, border-color 0.2s;
+        }
+        .sources-tab:hover { color: var(--primary-color); }
+        .sources-tab.active {
+            color: var(--primary-color);
+            border-bottom-color: var(--accent-color);
+        }
+        .sources-tab-panel { display: none; }
+        .sources-tab-panel.active { display: block; }
+        .bib-list {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 1rem 0;
+        }
+        .bib-list li {
+            padding: 0.5rem 0 0.5rem 1.5rem;
+            text-indent: -1.5rem;
+            line-height: 1.7;
+            font-size: 0.95rem;
+            color: var(--text-primary);
+            border-bottom: 1px solid var(--border-color);
+        }
+        .bib-list li:last-child { border-bottom: none; }
+        .bib-list--archival li {
+            padding-left: 0;
+            text-indent: 0;
+            color: var(--text-secondary);
+        }
+        @media (max-width: 600px) {
+            .sources-tab { padding: 0.6rem 0.8rem; font-size: 0.95rem; }
+        }
     </style>
 </head>
 <body>
@@ -279,6 +331,17 @@
             </h1>
         </div>
 
+        <!-- Sub-tabs: Source Materials | Bibliography -->
+        <div class="sources-tabs" role="tablist">
+            <button type="button" class="sources-tab active" role="tab" data-tab="materials" id="sources-tab-btn-materials" aria-selected="true" aria-controls="sources-tab-materials">
+                <i class="fas fa-scroll"></i> <span data-tr-text="Kaynak Türleri" data-en-text="Source Materials">Source Materials</span>
+            </button>
+            <button type="button" class="sources-tab" role="tab" data-tab="bibliography" id="sources-tab-btn-bibliography" aria-selected="false" aria-controls="sources-tab-bibliography">
+                <i class="fas fa-book"></i> <span data-tr-text="Bibliyografya" data-en-text="Bibliography">Bibliography</span>
+            </button>
+        </div>
+
+        <div class="sources-tab-panel active" id="sources-tab-materials" role="tabpanel">
         <p class="source-intro" data-tr-text="DANFront, veri çıkarımı için çeşitli Osmanlı ve Avrupa arşiv ve yayın malzemelerinin yanı sıra kartografik kaynakları da kullanmaktadır." data-en-text="DANFront uses various sets of Ottoman and European archival and published materials, as well as cartographic sources, to extract data.">
             DANFront uses various sets of Ottoman and European archival and published materials, as well as cartographic sources, to extract data.
         </p>
@@ -400,6 +463,82 @@
                 <p class="figure-caption" style="font-style:normal; margin-top:0.5rem;">Source: Königreich Ungarn. <em>The First Military Survey / Die Erste Militärische Aufnahme / Az Elso Katonai Felmérés 1763–1785.</em> Digitized Maps of the Habsburg Empire, DVD, Institute and Museum of War History of Hungary; Arcanum Adatbázis Kft., Budapest, 2004.</p>
             </div>
         </div>
+        </div><!-- /sources-tab-materials -->
+
+        <!-- Bibliography -->
+        <div class="sources-tab-panel" id="sources-tab-bibliography" role="tabpanel">
+            <p class="source-intro" data-tr-text="DANFront veri setlerinde atıf yapılan arşiv belgeleri, yayınlanmış birincil kaynaklar ve ikincil literatür." data-en-text="Archival documents, published primary sources and secondary literature cited in the DANFront datasets.">
+                Archival documents, published primary sources and secondary literature cited in the DANFront datasets.
+            </p>
+
+            <div class="source-section">
+                <h2><i class="fas fa-archive"></i> <span data-tr-text="Arşiv Belgeleri" data-en-text="Archival Documents">Archival Documents</span></h2>
+                <h3 data-tr-text="Osmanlı Arşivi (BOA)" data-en-text="Ottoman Archives (BOA)">Ottoman Archives (BOA)</h3>
+                <ul class="bib-list bib-list--archival">
+                    <li>AE.SMST.II. = 113 – 12222</li>
+                    <li>AE.SMMD.IV. = 66 – 7756, 22-2459, 32173</li>
+                    <li>AE.SMMD.III = 3-204</li>
+                    <li>AE.SMRD.III = 2-178, 2-83</li>
+                    <li>C. BH. = 11-550</li>
+                    <li>D.BKL.d. = 32167, 32168, 32169, 32170, 32172, 32173, 32183, 32188, 32191, 32199, 32215, 32224, 32249, 32274</li>
+                    <li>MAD.d. = 1, 11, 18, 70, 4969, 5413</li>
+                    <li>MD = 1, 2, 3, 4, 5, 6, 7, 48, 49, 51, 66, 68, 76</li>
+                    <li>TKGM.d. = 199, 365</li>
+                    <li>TT.d. = 91, 173, 316</li>
+                    <li>TSMA.d. = 167, 9631</li>
+                </ul>
+                <h3 data-tr-text="İstanbul Büyükşehir Belediyesi Atatürk Kitaplığı" data-en-text="İstanbul Büyükşehir Belediyesi Atatürk Kitaplığı">İstanbul Büyükşehir Belediyesi Atatürk Kitaplığı</h3>
+                <ul class="bib-list bib-list--archival">
+                    <li>MC.O. = 90</li>
+                </ul>
+                <h3 data-tr-text="Bulgaristan Ulusal Kütüphanesi (NLB)" data-en-text="National Library of Bulgaria (NLB)">National Library of Bulgaria (NLB)</h3>
+                <ul class="bib-list bib-list--archival">
+                    <li>OAK = 45/29</li>
+                </ul>
+            </div>
+
+            <div class="source-section">
+                <h2><i class="fas fa-book-open"></i> <span data-tr-text="Yayınlanmış Birincil Kaynaklar" data-en-text="Published Primary Sources">Published Primary Sources</span></h2>
+                <ul class="bib-list">
+                    <li>Abdülkadir Efendi. <em>Topçular Kâtibi Abdülkadir (Kadrî) Efendi Tarihi: Metin ve Tahlîl</em>,<em> vol. 1</em>. Edited by Ziya Yılmazer. Türk Tarih Kurumu, 2003.</li>
+                    <li>Abdülkadir Efendi. <em>Topçular Kâtibi Abdülkadir (Kadrî) Efendi Tarihi: Metin ve Tahlîl</em>, <em>vol. 2</em>. Edited by Ziya Yılmazer. Türk Tarih Kurumu, 2003.</li>
+                    <li>Börekçi, Günhan. <em>Macaristan'da Bir Osmanlı Padişahı: Sultan III. Mehmed'in Eğri Seferi Rûznâmesi (1596)</em>. Okur Kitaplığı, 2016.</li>
+                    <li>Evliyâ Çelebi b. Derviş Mehemmed Zıllî. <em>Evliyâ Çelebi Seyahatnâmesi III. Kitap: Topkapı Sarayı Kütüphanesi Bağdat 305 Numaralı Yazmanın Transkripsiyonu - Dizini</em>. Edited by Seyit Ali Kahraman and Yücel Dağlı. Yapı Kredi Yayınları, 1999.</li>
+                    <li>McGowan, Bruce W. <em>Sirem Sancağı Mufassal Tahrir Defteri</em>. Türk Tarih Kurumu, 1983.</li>
+                    <li>Peçevi İbrahim Efendi. <em>Peçevi Tarihi, vol. 1</em>. Edited by Bekir Sıtkı Baykal. Kültür Bakanlığı, 1981.</li>
+                    <li>T.C. Başbakanlık Devlet Arşivleri Genel Müdürlüğü Osmanlı Arşivi Daire Başkanlığı. <em>91, 164, MAD 540 ve 173 Numaralı Hersek, Bosna ve İzvornik Livâları İcmâl Tahrîr Defterleri, vol. 1 (926-939/1520-1533): Dizin</em>. Devlet Arşivleri Genel Müdürlüğü, 2006.</li>
+                    <li>T.C. Başbakanlık Devlet Arşivleri Genel Müdürlüğü Osmanlı Arşivi Daire Başkanlığı. <em>167 Numaralı Muhasebe-i Vilâyet-i Rûm-ili Defteri (937/1530) I: Dizin ve Tıpkıbasım</em>. Edited by Ali Coşkun, et. al. Devlet Arşivleri Genel Müdürlüğü, 2003.</li>
+                    <li>T.C. Başbakanlık Devlet Arşivleri Genel Müdürlüğü Osmanlı Arşivi Daire Başkanlığı. <em>370 Numaralı Muhasebe-i Vilâyet-i Rûm-ili Defteri (937/1530) II: Dizin ve Tıpkıbasım</em>. Edited by Ahmet Özkalınç, et. al. Devlet Arşivleri Genel Müdürlüğü, 2002.</li>
+                    <li>T.C. Başbakanlık Devlet Arşivleri Genel Müdürlüğü Osmanlı Arşivi Daire Başkanlığı. <em>Osmanlı Yer Adları I: Rumeli Eyaleti (1514–1550)</em>. Edited by Ahmet Özkalınç, et. al. Devlet Arşivleri Genel Müdürlüğü, 2013.</li>
+                    <li>Tursun Beg. <em>The History of Mehmed the Conqueror [Târîh-i Ebü'l-Feth]</em>. Edited and translated by Halil İnalcık and Rhoads Murphey. Bibliotheca Islamica, 1978.</li>
+                </ul>
+            </div>
+
+            <div class="source-section">
+                <h2><i class="fas fa-book"></i> <span data-tr-text="İkincil Kaynaklar" data-en-text="Secondary Sources">Secondary Sources</span></h2>
+                <ul class="bib-list">
+                    <li>Aslan, Engin. “Semendire Sancağı (15. ve 16. Yüzyıl).” Ph.D Diss. Pamukkale University, 2023.</li>
+                    <li>Aslan, Seyfullah. <em>İmparatorluğun Tuna Donanması. Teşkilat ve Faaliyetler, 1683-1718</em>. Timaş Akademi, 2024.</li>
+                    <li>Baş, Göksel. “Beyond Conquest: Continuity and Change on the Ottoman Western Frontier (from the Late 15th to Mid-16th Century).” Ph.D Diss. Bilkent University, 2024.</li>
+                    <li>Baş, Göksel. “XV. Yüzyılın İkinci Yarısında Balkanlarda Osmanlı Serhad Organizasyonunun Oluşumu: Kaleler Ağı, Askerî Personel, Finansman Ve Mali Külfet.” <em>Güneydoğu Avrupa Araştırmaları Dergisi</em>, no. 33 (June 2018): 151–181.</li>
+                    <li>Bilge, Sadık Müfit. “16. Yüzyılda Serhadde Bir Osmanlı Sancağı'nın İdarî ve Askerî Yapısı: Pojega.” In <em>Osmanlı İdaresinde Balkanlar, vol. 1</em>, 63–84. Edited by Alaattin Aköz, et. al. Palet, 2020.</li>
+                    <li>Büyüktapu, Okan. Ottoman Garrisons in Western Slavonia (1550–1680). Ph.D Diss. University of Zagreb, 2022.</li>
+                    <li>Büyüktapu, Okan. “Pojega Sancağı: Kuruluşu, Sınırları ve İdari Taksimatı.” <em>Tarih İncelemeleri Dergisi</em> 41, no. 1 (2026): 91–115.</li>
+                    <li>Büyüktapu, Okan. “The Ottoman Serhad in the Sanjak of Klis in 1665.” <em>Radovi Zavoda za povijesne znanosti HAZU u Zadru</em> 66 (2024): 191–225.</li>
+                    <li>Cevrioğlu, Mahmut Halef. “Kaptan-ı Derya Hasan Paşa’nın Özî Serdarlığı (1626-1627).” <em>Ankara Anadolu ve Rumeli Araştırmaları Dergisi</em> 3, no. 5 (2022): 51–69.</li>
+                    <li>Deniz Yılmaz, Derya. “Osmanlı Nehir Köprüleri (1484–1606).” Ph.D Diss., Istanbul University, 2025.</li>
+                    <li>Erdoğru, M. Akif. “Kanuni Sultan Süleyman’ın 1532 Tarihli Alman Seferi Ruznamesi.” <em>Tarih İncelemeleri Dergisi</em> 29, no. 1 (2014): 167–187.</li>
+                    <li>Erdoğru, M. Akif. “Kanunî Sultan Süleyman'ın 1538 Tarihli Karaboğdan Seferi Ruznâmesi.” <em>Tarih İncelemeleri Dergisi</em> XXIX, no. 2 (2014): 515–524.</li>
+                    <li>Hafizović, Fazileta. <em>Opširni popis timara mustahfiza u tvrđavama Kliškog sandžaka iz 1550. godine</em>. Naučnoistraživački institut “Ibn Sina,” 2014.</li>
+                    <li>Hegyi, Klára. <em>The Ottoman Military Organization in Hungary: Fortresses, Fortress Garrisons and Finances</em>. Klaus Schwarz Verlag, 2018.</li>
+                    <li>Moačanin, Nenad. <em>Požega i Požeština u sklopu Osmanlijskoga carstva (1537–1691)</em>. Naklada Slap, 1997.</li>
+                    <li>Oruç, Hatice. “Administrative Division of the Bosnian Sandjak in the 16th Century.” <em>OTAM</em> 25 (2009): 99–147.</li>
+                    <li>Šabanović, Hazim. <em>Bosanski pašaluk: postanak i upravna podjela</em>. Naučno društvo NR Bosne i Hercegovine, 1959.</li>
+                    <li>Stănică, Aurel-Daniel. “The Missing Fortresses in Dobrogea: Case Study: Turkish Fortifications.” In <em>Dobrogea: Coordonate Istorice și Arheologice</em>, 7–37. Edited by Aurel-Daniel Stănică, et. al. StudIS, 2016.</li>
+                    <li>Yıldırım, Filiz. “Tarihte Tuna Nehri Taşkınları.” In <em>Avrupa Kıtasında Doğal Afetler, vol. 2</em>, 63–100. Edited by. Mehmet Yavuz Erler and Suha Oğuz Baytimur. Sayda, 2024.</li>
+                </ul>
+            </div>
+        </div><!-- /sources-tab-bibliography -->
 
     </div>
 
@@ -411,7 +550,6 @@
           <ul class="footer-links">
             <li><a href="./">Ana Sayfa</a></li>
             <li><a href="about">Hakkında</a></li>
-            <li><a href="visualizations" data-tr="Görselleştirmeler" data-en="Visualizations">Görselleştirmeler</a></li>
           </ul>
         </div>
         <div class="footer-section">
@@ -485,6 +623,35 @@
                     document.body.style.overflow = '';
                 }
             });
+        })();
+    </script>
+    <script>
+        // Sources sub-tabs (Source Materials | Bibliography). Deep-linkable via #bibliography.
+        (function() {
+            var tabs = document.querySelectorAll('.sources-tab');
+            var panels = document.querySelectorAll('.sources-tab-panel');
+            function activate(name, updateHash) {
+                tabs.forEach(function(t) {
+                    var on = t.getAttribute('data-tab') === name;
+                    t.classList.toggle('active', on);
+                    t.setAttribute('aria-selected', on ? 'true' : 'false');
+                });
+                panels.forEach(function(p) {
+                    p.classList.toggle('active', p.id === 'sources-tab-' + name);
+                });
+                if (updateHash && history.replaceState) {
+                    history.replaceState(null, '', name === 'materials' ? location.pathname + location.search : '#' + name);
+                }
+            }
+            tabs.forEach(function(t) {
+                t.addEventListener('click', function() { activate(t.getAttribute('data-tab'), true); });
+            });
+            function fromHash() {
+                var h = (location.hash || '').replace('#', '');
+                activate(h === 'bibliography' ? 'bibliography' : 'materials', false);
+            }
+            window.addEventListener('hashchange', fromHash);
+            fromHash();
         })();
     </script>
 </body>
