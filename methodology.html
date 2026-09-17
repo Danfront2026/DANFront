@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script>
+        // Apply the saved language before the page renders (main.js updates it again on DOMContentLoaded)
+        try { document.documentElement.lang = localStorage.getItem('siteLanguage') || 'tr'; } catch (e) {}
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="DANFront Project Methodology - Environmental History, Digital Humanities, and Glossary">
@@ -30,7 +34,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Bitcount+Grid+Single:wght@100..900&display=swap" rel="stylesheet">
 
     <!-- Stylesheets -->
-    <link rel="stylesheet" href="css/main.css?v=10">
+    <link rel="stylesheet" href="css/main.css?v=11">
 
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -177,6 +181,40 @@
         .glossary-category i {
             font-size: 1rem;
         }
+        /* Bilingual glossary content: shown/hidden by <html lang> (set by main.js) */
+        .lang-tr { display: none; }
+        html[lang="tr"] .lang-tr { display: block; }
+        html[lang="tr"] h4 .lang-tr, html[lang="tr"] .sources .lang-tr { display: inline; }
+        html[lang="tr"] .lang-en { display: none; }
+        .glossary-intro {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 0.5rem;
+        }
+        .glossary-term .sources { font-style: normal; }
+        .glossary-bibliography {
+            margin-top: 2rem;
+            padding: 1rem 1.5rem;
+            background: var(--hover-bg);
+            border-radius: var(--radius-md);
+            border-left: 4px solid var(--accent-color);
+        }
+        .glossary-bibliography summary {
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .glossary-bibliography ul {
+            margin: 1rem 0 0 0;
+            padding-left: 1.25rem;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+        .glossary-bibliography li { margin-bottom: 0.5rem; }
         .internal-link {
             color: var(--accent-color);
             text-decoration: underline;
@@ -383,69 +421,76 @@
         </div>
 
         <!-- Glossary -->
-        <div class="methodology-section">
+        <div class="methodology-section" id="glossary">
             <h2><i class="fas fa-book-open"></i> <span data-tr-text="Sözlük" data-en-text="Glossary">Glossary</span></h2>
+            <p class="glossary-intro lang-en">Terms used in the garrison datasets, grouped by the analytical categories applied in the database. Italicised words are Ottoman Turkish terms as they appear in the sources.</p>
+            <p class="glossary-intro lang-tr">Garnizon veri setlerinde kullanılan terimler, veri tabanında uygulanan analitik kategorilere göre gruplandırılmıştır. İtalik sözcükler, kaynaklarda geçtiği biçimiyle Osmanlı Türkçesi terimlerdir.</p>
 
             <!-- Combat Classes -->
             <div class="glossary-category">
                 <i class="fas fa-shield-alt"></i> <span data-tr-text="Muharip Sınıflar" data-en-text="Combat Classes">Combat Classes</span>
             </div>
             <div class="glossary-grid">
-
                 <div class="glossary-term">
                     <h4>Müstahfiz (Merdan)</h4>
-                    <p data-tr-text="Müstahfizan ya da hisar erleri kelime anlamıyla &quot;kalenin muhafızları&quot; demektir. Osmanlı kaynaklarında merd, hisar eri ve müstahfiz terimleri birbirinin yerine kullanılmış ve aynı kale muhafız kategorisini ifade etmiştir." data-en-text="Müstahfizan or hisar erleri literally mean &quot;guards of the fortress.&quot; The terms merd, hisar eri, and müstahfiz were used interchangeably in the Ottoman sources and referred to the same category of fortress guards.">Müstahfizan or hisar erleri literally mean "guards of the fortress." The terms merd, hisar eri, and müstahfiz were used interchangeably in the Ottoman sources and referred to the same category of fortress guards.</p>
+                    <p class="lang-en">Müstahfızan (sing. <em>müstahfız</em>; also <em>merd</em> / <em>merdan</em>, <em>hisar eri</em>): Literally the guards of a fortress. The terms <em>merd</em>, <em>hisar eri</em>, and <em>müstahfız</em> were often used interchangeably. In a broad sense, every soldier in a garrison could be called a <em>müstahfız</em> or <em>merd</em> — as in decrees and payroll registers that address all garrison troops collectively under these names (e.g., the <em>defter-i merdan / müstahfizan</em>). At the same time, <em>müstahfizan</em> also denoted a specific <em>cemāʿat</em> registered separately alongside other corps such as <em>topçuyan</em>, <em>cebeciyan</em>, <em>bevvaban</em>, and <em>meşaʿledaran</em>; the two usages are not identical. The <em>merdan cemāʿat</em> could include the <em>dizdar</em>, <em>kethüdas</em>, religious officers, and janissary servants of the fortress. Müstahfizan formed the main component of garrisons in the fifteenth century and were sometimes stationed far from their home regions, though this was not a uniform practice. Their pay came either through <em>tımars</em> (often collective) or salary. Their manpower was drawn from varied sources — <em>kuloğlu</em> (sons of janissaries), <em>mazul</em> soldiers, men under the patronage of <em>beys</em> or <em>sekbans</em>, and likely <em>reʿaya</em> recruited into the <em>askeri</em> during and after the Long War. Their duties extended beyond garrison defense to active campaigning and fortress maintenance, such as repairs and ditch-digging. Scholars dispute whether the müstahfizan were identical to the <em>yerli yeniçeri</em> (local janissaries); Klara Hegyi argues they were distinct because the two were registered as separate units.</p>
+                    <p class="lang-tr">Müstahfızan (tekil <em>müstahfız</em>; ayrıca <em>merd</em> / <em>merdan</em>, <em>hisar eri</em>): Kelime anlamıyla kalenin muhafızları. <em>Merd</em>, <em>hisar eri</em> ve <em>müstahfız</em> terimleri sıklıkla birbirinin yerine kullanılmıştır. Geniş anlamda bir garnizondaki her asker <em>müstahfız</em> ya da <em>merd</em> olarak adlandırılabiliyordu; nitekim fermanlar ve mevacib defterleri, garnizonun tüm askerlerine bu adlarla topluca hitap eder (örn. <em>defter-i merdan / müstahfizan</em>). Aynı zamanda <em>müstahfizan</em>, <em>topçuyan</em>, <em>cebeciyan</em>, <em>bevvaban</em> ve <em>meşaʿledaran</em> gibi diğer ocakların yanında ayrıca kaydedilen belirli bir <em>cemāʿat</em>i de ifade ederdi; bu iki kullanım birbiriyle özdeş değildir. <em>Merdan cemāʿati</em>; <em>dizdar</em>ı, <em>kethüda</em>ları, din görevlilerini ve kalenin yeniçeri hizmetkârlarını içerebiliyordu. Müstahfizan on beşinci yüzyılda garnizonların ana unsurunu oluşturuyordu ve zaman zaman kendi bölgelerinden uzakta konuşlandırılıyorlardı; ancak bu tek tip bir uygulama değildi. Ücretleri ya (çoğunlukla ortak) <em>tımar</em>lar aracılığıyla ya da ulufe olarak ödenirdi. İnsan kaynakları çeşitliydi: <em>kuloğlu</em>lar (yeniçeri oğulları), <em>mazul</em> askerler, <em>bey</em>lerin ya da <em>sekban</em>ların himayesindeki kişiler ve muhtemelen Uzun Savaş sırasında ve sonrasında <em>askeri</em> sınıfa alınan <em>reʿaya</em>. Görevleri garnizon savunmasının ötesine geçerek fiilen sefere katılmayı ve onarım, hendek kazma gibi kale bakım işlerini de kapsıyordu. Müstahfizanın <em>yerli yeniçeri</em>lerle aynı olup olmadığı tartışmalıdır; Klara Hegyi, iki grubun ayrı birimler olarak kaydedilmesi nedeniyle farklı olduklarını savunur.</p>
+                    <div class="sources"><strong class="lang-en">Sources:</strong><strong class="lang-tr">Kaynaklar:</strong> Klara Hegyi, <em>The Ottoman Military Organization in Hungary</em> (Klaus Schwarz, 2018), 60-64 and 118-19; Göksel Baş, “Ottoman Serhad Organization in the Balkans (1450s to Early 1500s),” (Bilkent University, 2017), 59; Orhan Kılıç, “Teşkilat ve İşleyiş Bakımından Doğu Hududundaki Osmanlı Kaleleri ve Mevâcib Defterleri,” <em>OTAM (Ankara Üniversitesi Osmanlı Tarihi Araştırma ve Uygulama Merkezi Dergisi)</em> 31 (Spring 2012): 101 and 115; Halil İnalcık, “Ottoman Methods of Conquest,” <em>Studia Islamica</em> 2 (1954): 107; Evgeniy Radushev and Asparuh Velkov, <em>Ottoman Garrisons on the Middle Danube: Based on Austrian National Library Ms Mxt 562 of 956/1549-1550</em> (Akadémiai Kiadó, 1996), 24-28; Rhoads Murphey, “The Functioning of the Ottoman Army Under Murad IV (1623-1639/1032-1049): Key to Understanding of the Relationship between Center and Periphery in Seventeenth-Century Turkey,” (University of Chicago, 1979); MAD 4822; MAD 2223; MAD 6281; İsmail Hakkı Uzunçarşılı, <em>Osmanlı Devleti Teşkilatından Kapıkulu Ocakları, vol. 1 </em>(Türk Tarih Kurumu, 1988), 327; Caroline Finkel, <em>The Administration of Warfare: The Ottoman Military Campaigns in Hungary, 1593-1606</em> (Verband der wissenschaftlichen Gesellschaften Österreichs, 1988), 35-41; Muhammed Uğurlu, “73 Numaralı Mühimme Defterinin Transkripsiyon ve Değerlendirmesi (121-276),” (Bitlis Eren University, 2018), 147; Mark Stein, <em>Guarding the Frontier: Ottoman Border Forts and Garrisons in Europe</em> (IB Tauris, 2007), 87.</div>
                 </div>
 
                 <div class="glossary-term">
                     <h4>Dizdar</h4>
-                    <p data-tr-text="Merdan cemaatinin temel unsurlarından biri kalenin kumandanı olan dizdardır. Dizdar; garnizonun yönetiminden, top ve mühimmatın bakım ve denetiminden, kale altyapısının onarımı ve bakımından sorumluydu." data-en-text="One of the essential members of the merdan cema?at was the dizdar, the commander of the fortress. The dizdar was responsible for the administration of the garrison, the maintenance and supervision of artillery and ammunition, and the repair and upkeep of the fortress infrastructure.">One of the essential members of the merdan cema?at was the dizdar, the commander of the fortress. The dizdar was responsible for the administration of the garrison, the maintenance and supervision of artillery and ammunition, and the repair and upkeep of the fortress infrastructure.</p>
-                    <p data-tr-text="Pek çok kale yalnızca askeri bir mevki olarak değil, esirlerin ve suçluların tutulduğu bir alıkoyma yeri olarak da işlev gördüğünden dizdar, kalede bulunan tutsakların gözetiminden ve denetiminden de sorumluydu." data-en-text="Since many fortresses functioned not only as military strongholds but also as places of detention for captives and criminals, the dizdar was likewise responsible for the custody and supervision of prisoners held within the fortress.">Since many fortresses functioned not only as military strongholds but also as places of detention for captives and criminals, the dizdar was likewise responsible for the custody and supervision of prisoners held within the fortress.</p>
-                    <p data-tr-text="Üstelik tek bir kalede birden fazla dizdar bulunabiliyordu. Bu gibi durumlarda aralarındaki hiyerarşi, sorumlu oldukları belirli askeri bölümler veya savunma mevzilerine göre belirleniyordu." data-en-text="Moreover, a single fortress could have more than one dizdar. In such cases, the hierarchy among them was determined according to the specific military sections or defensive positions for which they were responsible.">Moreover, a single fortress could have more than one dizdar. In such cases, the hierarchy among them was determined according to the specific military sections or defensive positions for which they were responsible.</p>
-                    <div class="sources" data-tr-text="Kaynaklar: Orhan Kılıç, &quot;Teşkilat ve İşleyiş Bakımından Doğu Hududundaki Osmanlı Kaleleri ve Mevâcib Defterleri,&quot; 102–03; İsmail Hakkı Uzunçarşılı, <em>Osmanlı Devleti Teşkilatından Kapıkulu Ocakları</em>, I, 327." data-en-text="Sources: Orhan Kiliç, &quot;Teskilat Ve Isleyis Bakimindan Dogu Hududundaki Osmanli Kaleleri Ve Mevâcib Defterleri,&quot; 102–03; Ismail Hakki Uzunçarsili, <em>Osmanli Devleti Teskilatindan Kapikulu Ocaklari</em>, I, 327">Sources: Orhan Kiliç, "Teskilat Ve Isleyis Bakimindan Dogu Hududundaki Osmanli Kaleleri Ve Mevâcib Defterleri," 102–03; Ismail Hakki Uzunçarsili, <em>Osmanli Devleti Teskilatindan Kapikulu Ocaklari</em>, I, 327</div>
+                    <p class="lang-en">One of the essential members of the merdan cema’at was the dizdar, the commander of the fortress. The dizdar was responsible for the administration of the garrison, the maintenance and supervision of artillery and ammunition, and the repair and upkeep of the fortress infrastructure.</p>
+                    <p class="lang-tr">Merdan cemaatinin temel unsurlarından biri, kalenin kumandanı olan dizdardı. Dizdar; garnizonun yönetiminden, top ve mühimmatın bakım ve denetiminden, kale altyapısının onarımı ve bakımından sorumluydu.</p>
+                    <p class="lang-en">Since many fortresses functioned not only as military strongholds but also as places of detention for captives and criminals, the dizdar was likewise responsible for the custody and supervision of prisoners held within the fortress.</p>
+                    <p class="lang-tr">Pek çok kale yalnızca askeri bir mevki olarak değil, esirlerin ve suçluların tutulduğu bir alıkoyma yeri olarak da işlev gördüğünden dizdar, kalede tutulan tutsakların gözetimi ve denetiminden de sorumluydu.</p>
+                    <p class="lang-en">Moreover, a single fortress could have more than one dizdar. In such cases, the hierarchy among them was determined according to the specific military sections or defensive positions for which they were responsible.</p>
+                    <p class="lang-tr">Üstelik tek bir kalede birden fazla dizdar bulunabiliyordu. Bu gibi durumlarda aralarındaki hiyerarşi, sorumlu oldukları belirli askeri bölümlere ya da savunma mevzilerine göre belirleniyordu.</p>
+                    <div class="sources"><strong class="lang-en">Sources:</strong><strong class="lang-tr">Kaynaklar:</strong> Kılıç, “Teşkilat ve İşleyiş Bakımından Doğu Hududundaki Osmanlı Kaleleri ve Mevâcib Defterleri,” 102–3; Uzunçarşılı, <em>Osmanlı Devleti Teşkilatından Kapıkulu Ocakları</em>, <em>vol. 1</em>, 327.</div>
                 </div>
 
                 <div class="glossary-term">
-                    <h4>Faris (Farisan)</h4>
-                    <p data-tr-text="Farisan ya da ulufeciyan-ı süvari, sınır kalelerinde konuşlandırılan süvari birlikleridir. Birincil işlevleri kalenin içinde durağan bir savunma sürdürmek değil; düşman topraklarına yapılacak akınları örgütlemek ve çevre bölgede düşman akınlarını önlemekti. Bu hareketli ve saldırgan rol nedeniyle farisan birlikleri ağırlıklı olarak sınır kalelerine atanırdı." data-en-text="Farisan, also referred to as ulufeciyan-i süvari, were cavalry units stationed in frontier fortresses. Their primary function was not static defense within the fortress itself, but rather the organization of raids into enemy territory and the prevention of enemy incursions in the surrounding region. Because of this mobile and offensive role, farisan units were predominantly assigned to border fortresses.">Farisan, also referred to as ulufeciyan-i süvari, were cavalry units stationed in frontier fortresses. Their primary function was not static defense within the fortress itself, but rather the organization of raids into enemy territory and the prevention of enemy incursions in the surrounding region. Because of this mobile and offensive role, farisan units were predominantly assigned to border fortresses.</p>
-                    <p data-tr-text="On altıncı ve on yedinci yüzyıllarda farisan birlikleri sınır garnizonlarının başlıca süvari unsurlarından birini oluşturuyordu. Bu birliklerin yapısı karışıktı: bir kısmı timar sahibi iken bir kısmı da maaşlı (ulufeli) askerler olarak hizmet ediyordu." data-en-text="During the sixteenth and seventeenth centuries, they constituted one of the principal cavalry components of frontier garrisons. The composition of these units was mixed: some members held timars, while others served as salaried (ulufeli) troops.">During the sixteenth and seventeenth centuries, they constituted one of the principal cavalry components of frontier garrisons. The composition of these units was mixed: some members held timars, while others served as salaried (ulufeli) troops.</p>
-                    <p data-tr-text="Akademisyenler sınır bölgelerindeki farisanların kimliği konusunda iki ana yorum öne sürmüştür. Bir görüşe göre bunlar atlı azeb birlikleriydi. Diğer bir yoruma göre ise yüksek rütbeli yetkililerin maiyetinde hizmet eden ve sonradan farisan adı altında sınır garnizonlarına dahil edilen levendlerden oluşuyordu." data-en-text="Scholars have proposed two main interpretations regarding the identity of farisan in frontier regions. According to one view, they were mounted ?azeb troops. Another interpretation suggests that they consisted of levends serving in the households of high-ranking officials, who were subsequently incorporated into frontier garrisons under the designation farisan.">Scholars have proposed two main interpretations regarding the identity of farisan in frontier regions. According to one view, they were mounted ?azeb troops. Another interpretation suggests that they consisted of levends serving in the households of high-ranking officials, who were subsequently incorporated into frontier garrisons under the designation farisan.</p>
-                    <div class="sources" data-tr-text="Kaynaklar: Klara Hegyi, <em>The Ottoman Military Organization in Hungary</em>, 130; Abdülkadir Özcan, &quot;Farisan,&quot; <em>TDV İslâm Ansiklopedisi</em> içinde (İstanbul: TDV İslam Araştırmaları Merkezi, 2016)." data-en-text="Sources: Klara Hegyi, <em>The Ottoman Military Organization in Hungary</em>, 130; Abdülkadir Özcan, &quot;Farisan,&quot; in <em>TDV Islâm Ansiklopedisi</em> (Istanbul: TDV Islam Arastirmalari Merkezi, 2016).">Sources: Klara Hegyi, <em>The Ottoman Military Organization in Hungary</em>, 130; Abdülkadir Özcan, "Farisan," in <em>TDV Islâm Ansiklopedisi</em> (Istanbul: TDV Islam Arastirmalari Merkezi, 2016).</div>
+                    <h4>Faris</h4>
+                    <p class="lang-en">Fāris (also <em>ulufeciyan-ı süvari or beşli pl. farisan</em>): Salaried cavalry units whose principal duties lay outside the fortress — organizing raids into enemy territory and repelling enemy raids around the fortresses. Because of this raiding role, fārisan were generally assigned to fortresses in the border regions, where they became a prominent cavalry presence in the sixteenth and seventeenth centuries. Some held <em>tımars</em> while others received salaries. Their identity in the frontier zones is debated: one view holds that fārisan were mounted <em>ʿazeb</em> troops, another that they were <em>levends</em> serving in the household of a high-ranking official. No record of fārisan appears in the eastern frontier payroll registers from the beginning of the seventeenth century.</p>
+                    <p class="lang-tr">Fāris (ayrıca <em>ulufeciyan-ı süvari</em> ya da <em>beşli</em>; çoğ. <em>farisan</em>): Başlıca görevleri kalenin dışında yer alan ulufeli süvari birlikleri: düşman topraklarına akınlar düzenlemek ve kalelerin çevresindeki düşman akınlarını püskürtmek. Bu akıncı rolleri nedeniyle fārisan genellikle sınır bölgelerindeki kalelere atanmış ve on altıncı ve on yedinci yüzyıllarda buralarda öne çıkan bir süvari unsuru hâline gelmişlerdir. Bir kısmı <em>tımar</em> tasarruf ederken diğerleri ulufe alıyordu. Sınır bölgelerindeki kimlikleri tartışmalıdır: Bir görüşe göre fārisan atlı <em>ʿazeb</em> birlikleriydi; diğer bir görüşe göre ise yüksek rütbeli bir yetkilinin kapısında hizmet eden <em>levend</em>lerdi. On yedinci yüzyılın başından itibaren doğu sınırındaki mevacib defterlerinde fārisana ilişkin herhangi bir kayıt görülmez.</p>
+                    <div class="sources"><strong class="lang-en">Sources:</strong><strong class="lang-tr">Kaynaklar:</strong> Hegyi, <em>The Ottoman Military Organization in Hungary</em>, 130; Abdülkadir Özcan, “Fârisân,” in <em>TDV Islâm Ansiklopedisi, EK-1</em> (TDV İslâm Araştırmaları Merkezi, 2020), 442.</div>
                 </div>
 
-                <div class="glossary-term empty-term">
+                <div class="glossary-term">
                     <h4>Azab</h4>
-                    <p data-tr-text="Açıklama eklenecek." data-en-text="Description to be added.">Description to be added.</p>
+                    <p class="lang-en">ʿAzab (also azeb; lit. "unmarried man"): One of the oldest organizations in the Ottoman military system, with origins dating back to the establishment of the household troops. The ʿazebs were infantry troops, later equipped with firearms (tüfenk-endāz), and were divided into two branches: naval and land ʿazebs. From around the mid-sixteenth century, land ʿazebs were increasingly incorporated into fortress garrisons, where they were organized in a manner resembling the Janissary corps. Their duties in fortresses included bridge construction, sapping, and occasionally the work of armorers — a role that expanded after the recruitment of devşirme armorers ceased<em>.</em></p>
+                    <p class="lang-tr">ʿAzab (ayrıca azeb; kelime anlamıyla "bekâr erkek"): Kökenleri kapıkulu ocaklarının kuruluşuna kadar uzanan, Osmanlı askeri sistemindeki en eski teşkilatlardan biri. ʿAzebler piyade birlikleriydi; sonradan ateşli silahlarla donatıldılar (tüfenk-endāz) ve deniz ve kara ʿazebleri olmak üzere iki kola ayrıldılar. Yaklaşık on altıncı yüzyılın ortalarından itibaren kara ʿazebleri giderek artan biçimde kale garnizonlarına dahil edildi ve buralarda Yeniçeri Ocağı'na benzer şekilde teşkilatlandılar. Kalelerdeki görevleri arasında köprü yapımı, lağımcılık ve zaman zaman cebecilik işleri yer alıyordu; bu son görev, devşirme cebeci alımının sona ermesinden sonra genişledi.</p>
+                    <div class="sources"><strong class="lang-en">Sources:</strong><strong class="lang-tr">Kaynaklar:</strong> Mehmet Zeki Pakalın, <em>Osmanlı Tarih Deyimleri ve Terimleri Sözlüğü</em>, <em>vol. 1</em> (Millî Eğitim Basımevi, 1993), 128-29; İdris Bostan. “Azeb,” in <em>TDV İslâm Ansiklopedisi, vol. 4</em> (TDV İslam Araştırmaları Merkezi, 1991), 312-13.</div>
                 </div>
 
-                <div class="glossary-term empty-term">
+                <div class="glossary-term">
                     <h4>Martolos</h4>
-                    <p data-tr-text="Açıklama eklenecek." data-en-text="Description to be added.">Description to be added.</p>
+                    <p class="lang-en">Martolosan (<em>sing. martolos</em>): Christian auxiliary troops of the Ottomans, originating from the Christian military class in the Balkans who were incorporated into the Ottoman military class following the conquest of the region. Initially tasked with guarding mountain passes, dangerous routes, and derbends, they were later assigned as fortress guards in Hungary and Bosnia, while their derbend duties continued in the interior of the western frontier — Bulgaria, Serbia, and Macedonia. Though the rank and file were Christian, their commanders were required to be Muslim. The martoloses served as both infantry and cavalry, making them mixed units, and the Ottomans relied on them during their advances in the Balkans and Hungary, garrisoning them in large numbers after the conquest of the Hungarian fortresses. While martoloses in Bosnia and Serbia were drawn from local communities, those in Hungary came largely from Serbia and Bosnia, and partly from Temeşvar (Timișoara). Over time, their relations with the state deteriorated, and they lost the prominence they had held in the sixteenth century. The organization was abolished at the end of the eighteenth century, though small martolos groups survived until the Tanzimat reforms.</p>
+                    <p class="lang-tr">Martolosan (tekil <em>martolos</em>): Osmanlıların Hristiyan yardımcı birlikleri; Balkanlar'ın fethinin ardından Osmanlı askeri sınıfına dahil edilen yerel Hristiyan askeri sınıftan gelirler. Başlangıçta dağ geçitlerini, tehlikeli yolları ve derbendleri korumakla görevlendirilen martoloslar daha sonra Macaristan ve Bosna'da kale muhafızı olarak atanmış, derbend görevleri ise batı sınırının iç kesimlerinde (Bulgaristan, Sırbistan ve Makedonya) sürmüştür. Erler Hristiyan olsa da kumandanlarının Müslüman olması şarttı. Martoloslar hem piyade hem süvari olarak hizmet eden karma birliklerdi; Osmanlılar Balkanlar ve Macaristan'daki ilerleyişleri sırasında onlara dayandı ve Macaristan kalelerinin fethinden sonra buralara çok sayıda martolos yerleştirdi. Bosna ve Sırbistan'daki martoloslar yerel topluluklardan devşirilirken Macaristan'dakiler büyük ölçüde Sırbistan ve Bosna'dan, kısmen de Temeşvar'dan (Timișoara) geliyordu. Zamanla devletle ilişkileri bozuldu ve on altıncı yüzyıldaki önemlerini yitirdiler. Teşkilat on sekizinci yüzyılın sonunda kaldırıldı; ancak küçük martolos grupları Tanzimat reformlarına kadar varlığını sürdürdü.</p>
+                    <div class="sources"><strong class="lang-en">Sources:</strong><strong class="lang-tr">Kaynaklar:</strong> E. Rossi and W.J. Griswold, “Martolos,” in <em>The Encyclopedia of Islam MAHK-MID</em>, <em>vol. 5</em>, ed. C. E. Bosworth, et. al. (Brill, 1991), 613; Cengiz Orhonlu, <em>Osmanlı İmparatorluğu'nda Derbend Teşkilâtı</em> (Eren, 1990), 11-22, 85-88.; Mehmet Zeki Pakalın, <em>Osmanlı Tarih Deyimleri ve Terimleri Sözlüğü, vol. 2</em>, 409-10; Baş, “Ottoman Serhad Organization,” 69-70; Milan Vasic, “Osmanlı İmparatorluğu’nda Martoloslar,” (tr. Kemal Beydilli), <em>İstanbul Üniversitesi Edebiyat Fakültesi Tarih Dergisi</em> 31 (1967): 47-64.</div>
                 </div>
 
-                <div class="glossary-term empty-term">
+                <div class="glossary-term">
                     <h4>Topçu</h4>
-                    <p data-tr-text="Açıklama eklenecek." data-en-text="Description to be added.">Description to be added.</p>
+                    <p class="lang-en">Topçu (pl. topçuyan) were gunners of the garrison. They were responsible for the use of cannons. Gunners emerged in the garrisons with the beginning of the use of cannons as a means of defense in fortifications.</p>
+                    <p class="lang-tr">Topçu (çoğ. topçuyan), garnizonun topçularıydı. Topların kullanımından sorumluydular. Topçular, tahkimatlarda topun bir savunma aracı olarak kullanılmaya başlanmasıyla birlikte garnizonlarda ortaya çıktı.</p>
+                    <div class="sources"><strong class="lang-en">Source:</strong><strong class="lang-tr">Kaynak:</strong> Stein, <em>Guarding the Frontier</em>, 79-80.</div>
                 </div>
 
-                <div class="glossary-term empty-term">
+                <div class="glossary-term">
                     <h4>Zenberekci</h4>
-                    <p data-tr-text="Açıklama eklenecek." data-en-text="Description to be added.">Description to be added.</p>
+                    <p class="lang-en">Zemberekçi (pl. <em>zemberekçiyan</em>) — Crossbowmen; soldiers armed with the <em>zemberek</em>, a crossbow that discharges steel or brass bolts by mechanical motive force. The bolts are about a thumb in thickness and an elbow in length.</p>
+                    <p class="lang-tr">Zemberekçi (çoğ. <em>zemberekçiyan</em>): Tatar okçuları; mekanik kuvvetle çelik ya da pirinç oklar fırlatan bir tür tatar yayı olan <em>zemberek</em>le donanmış askerler. Oklar yaklaşık bir başparmak kalınlığında ve bir dirsek uzunluğundaydı.</p>
+                    <div class="sources"><strong class="lang-en">Source:</strong><strong class="lang-tr">Kaynak:</strong> Mehmet Zeki Pakalın, <em>Osmanlı Tarih Deyimleri ve Terimleri Sözlüğü, vol. 3</em>, 652.</div>
                 </div>
 
                 <div class="glossary-term">
                     <h4>Gönüllü</h4>
-                    <p data-tr-text="Pál Fodor, Osmanlı ordusunda gönüllü olarak hizmet etmek isteyenlerin bir ata sahip olmaları gerektiğini belirtir. Buna ek olarak, kendi uygun zırh ve silahlarını da temin etmeleri beklenirdi. Ancak at bulundurma zorunluluğu, görünüşe göre Uzun Savaş'tan (1593–1606) sonra katı biçimde uygulanmaya başlamıştır. Bu şartı yerine getiremeyenler yaya (piyade) rütbesine düşürülürdü." data-en-text="Pál Fodor indicates that those who wished to serve as gönüllü (volunteers) in the Ottoman army were required to possess a horse. In addition, they were expected to provide their own proper armor and weapons. However, the obligation to maintain a horse appears to have become strictly enforced after the Long War (1593–1606). Those who failed to meet this requirement were demoted to the rank of yaya (infantryman).">Pál Fodor indicates that those who wished to serve as gönüllü (volunteers) in the Ottoman army were required to possess a horse. In addition, they were expected to provide their own proper armor and weapons. However, the obligation to maintain a horse appears to have become strictly enforced after the Long War (1593–1606). Those who failed to meet this requirement were demoted to the rank of yaya (infantryman).</p>
-                    <p data-tr-text="Fodor'un da haklı olarak gözlemlediği gibi, gönüllü olarak hizmet etmenin maddi gereklilikleri ancak görece varlıklı reaya mensupları ya da askeri-idari sınıfa (askeri) ait kişiler tarafından karşılanabiliyordu. Başarılı gönüllülere timar verilebilir ya da gureba ocağına alınabilirdi; diğerleri ise sınır garnizonlarındaki gönüllüyan birliklerine atanabilirdi." data-en-text="As Fodor correctly observes, the material requirements of serving as a gönüllü could only be met by relatively wealthy members of the reaya or by individuals belonging to the military-administrative class (askeri). Successful gönüllüs might be granted a timar or admitted into the gureba corps, while others could be assigned to gönüllüyan units stationed in frontier garrisons.">As Fodor correctly observes, the material requirements of serving as a gönüllü could only be met by relatively wealthy members of the reaya or by individuals belonging to the military-administrative class (askeri). Successful gönüllüs might be granted a timar or admitted into the gureba corps, while others could be assigned to gönüllüyan units stationed in frontier garrisons.</p>
-                    <p data-tr-text="Halil İnalcık, kalelerdeki gönüllüyan birliklerinin iki kola ayrıldığını da belirtir: gönüllüyan-ı yemin (sağ kol) ve gönüllüyan-ı yesar (sol kol). Bazı büyük kalelerde, süvari ve piyade birlikleri olarak örgütlenmiş iki ayrı gönüllüyan cemaati bulunabiliyordu." data-en-text="Halil Inalcik further notes that gönüllüyan troops in fortresses were divided into two branches: gönüllüyan-i yemin (right wing) and gönüllüyan-i yesar (left wing). In some major fortresses, there were two separate cema?ats of gönüllüyan, organized as cavalry and infantry units.">Halil Inalcik further notes that gönüllüyan troops in fortresses were divided into two branches: gönüllüyan-i yemin (right wing) and gönüllüyan-i yesar (left wing). In some major fortresses, there were two separate cema?ats of gönüllüyan, organized as cavalry and infantry units.</p>
-                    <p data-tr-text="Fodor ayrıca bu gönüllüler için kullanılan terminoloji (gönüllü, garib, garib yiğit) ile saray süvari ocağının iki bölüğünün adları (gariban-ı yemin ve gariban-ı yesar) arasındaki benzerliğe dikkat çeker. Bu paralellik, gönüllü birliklerin geniş Osmanlı askeri yapısı içindeki içsel kategorizasyonu ve hiyerarşik konumlanışı için bir gösterge olarak değerlendirilebilir." data-en-text="Fodor also draws attention to the resemblance between the terminology used for these volunteers (gönüllü, garib, garib yigit) and the names of the two cavalry corps of the imperial court (gariban-i yemin and gariban-i yesar). This parallel may serve as an indication for the internal categorization and hierarchical positioning of gönüllü troops within the broader Ottoman military structure.">Fodor also draws attention to the resemblance between the terminology used for these volunteers (gönüllü, garib, garib yigit) and the names of the two cavalry corps of the imperial court (gariban-i yemin and gariban-i yesar). This parallel may serve as an indication for the internal categorization and hierarchical positioning of gönüllü troops within the broader Ottoman military structure.</p>
-                    <div class="sources" data-tr-text="Kaynaklar: Pál Fodor, &quot;Volunteers in the Ottoman Army,&quot; <em>Ottomans, Hungarians, and Habsburgs in Central Europe: The Military Confines in the Era of Ottoman Conquest</em> içinde, ed. Pál Fodor ve Géza Dávid (Leiden: Brill, 2000), 234–51; Caroline Finkel, <em>The Administration of Warfare: The Ottoman Military Campaigns in Hungary, 1593–1606</em>; Halil İnalcık, &quot;Gönüllü,&quot; <em>The Encyclopaedia of Islam New Edition C–G</em> içinde, ed. B. Lewis, Ch. Pellat ve J. Schacht (Leiden: E.J. Brill, 1991); Rhoads Murphey, &quot;The Functioning of the Ottoman Army under Murad IV (1623–1639/1032–1049): Key to Understanding of the Relationship between Center and Periphery in Seventeenth-Century Turkey,&quot; 177." data-en-text="Sources: Pál Fodor, &quot;Volunteers in the Ottoman Army,&quot; in <em>Ottomans, Hungarians, and Habsburgs in Central Europe: The Military Confines in the Era of Ottoman Conquest</em>, ed. Pál Fodor and Géza Dávid (Leiden: Brill, 2000), 234–51; Caroline Finkel, <em>The Administration of Warfare: The Ottoman Military Campaigns in Hungary, 1593–1606</em>; Halil Inalcik, &quot;Gönüllü,&quot; in <em>The Encyclopaedia of Islam New Edition C–G</em>, ed. B. Lewis, Ch. Pellat and J. Schacht (Leiden: E.J. Brill, 1991); Rhoads Murphey, &quot;The Functioning of the Ottoman Army under Murad IV (1623–1639/1032–1049): Key to Understanding of the Relationship between Center and Periphery in Seventeenth-Century Turkey,&quot; 177.">Sources: Pál Fodor, "Volunteers in the Ottoman Army," in <em>Ottomans, Hungarians, and Habsburgs in Central Europe: The Military Confines in the Era of Ottoman Conquest</em>, ed. Pál Fodor and Géza Dávid (Leiden: Brill, 2000), 234–51; Caroline Finkel, <em>The Administration of Warfare: The Ottoman Military Campaigns in Hungary, 1593–1606</em>; Halil Inalcik, "Gönüllü," in <em>The Encyclopaedia of Islam New Edition C–G</em>, ed. B. Lewis, Ch. Pellat and J. Schacht (Leiden: E.J. Brill, 1991); Rhoads Murphey, "The Functioning of the Ottoman Army under Murad IV (1623–1639/1032–1049): Key to Understanding of the Relationship between Center and Periphery in Seventeenth-Century Turkey," 177.</div>
+                    <p class="lang-en">Gönüllü (pl. <em>gönüllüyan</em>): Volunteer troops forming an important element of Ottoman fortress garrisons. The term denoted several distinct groups, of which two are found in fortresses. The principal type was a prestigious, well-paid cavalry corps drawn from the margins of the military class — sons of <em>tımar</em> holders, <em>mazul</em> (dismissed) <em>sipahis</em> and their sons, retainers of commanders, castle guards, sons of janissaries, and wealthy <em>reʿaya</em>. Candidates were expected to provide their own horse, armor, and weapons; after the Long War (1593–1606), the horse became a formal requirement, and those who could not meet it were demoted to <em>yaya</em>. Successful gönüllüs might receive a <em>tımar</em>, enter the <em>gureba</em> corps, or be posted to garrison <em>gönüllüyan</em> units. In fortresses, these were organized into right and left divisions (<em>gönüllüyan-ı yemīn</em> and <em>gönüllüyan-ı yesār</em>), and in major fortresses into separate cavalry and infantry <em>cemāʿats</em>. A second type overlapped with the so-called "volunteer janissaries" (<em>gönüllü yeniçeri</em>) — unsalaried city residents seeking janissary privileges, distinct from the <em>yerli yeniçeri</em> (local janissaries) with whom they are sometimes conflated. Though best documented in the Hungarian <em>vilayet</em> centers (Buda, Yanık/Győr, Egri, Varad, Uyvar), gönüllü troops are also attested in the payroll registers of Tabriz, Revan, and Kars on the eastern frontier. For analytical purposes, they are best treated as a cavalry unit.</p>
+                    <p class="lang-tr">Gönüllü (çoğ. <em>gönüllüyan</em>): Osmanlı kale garnizonlarının önemli bir unsurunu oluşturan gönüllü birlikler. Terim birbirinden farklı birkaç grubu ifade eder; bunlardan ikisi kalelerde görülür. Başlıca tür, askeri sınıfın kenarlarından devşirilen prestijli ve iyi ücretli bir süvari ocağıydı: <em>tımar</em> sahiplerinin oğulları, <em>mazul</em> <em>sipahi</em>ler ve oğulları, kumandanların maiyetindekiler, kale muhafızları, yeniçeri oğulları ve varlıklı <em>reʿaya</em>. Adayların kendi atlarını, zırhlarını ve silahlarını temin etmeleri beklenirdi; Uzun Savaş'tan (1593–1606) sonra at resmî bir şart hâline geldi ve bunu karşılayamayanlar <em>yaya</em>lığa indirildi. Başarılı gönüllüler bir <em>tımar</em> alabilir, <em>gureba</em> ocağına girebilir ya da garnizonlardaki <em>gönüllüyan</em> birliklerine atanabilirdi. Kalelerde bunlar sağ ve sol kollara (<em>gönüllüyan-ı yemīn</em> ve <em>gönüllüyan-ı yesār</em>), büyük kalelerde ise ayrı süvari ve piyade <em>cemāʿat</em>lerine ayrılmıştı. İkinci tür ise "gönüllü yeniçeriler" (<em>gönüllü yeniçeri</em>) denilen grupla örtüşür: yeniçeri ayrıcalıkları peşindeki ulufesiz şehir sakinleri; bunlar zaman zaman karıştırıldıkları <em>yerli yeniçeri</em>lerden farklıdır. En iyi Macaristan <em>vilayet</em> merkezlerinde (Budin, Yanık/Győr, Eğri, Varad, Uyvar) belgelenmiş olsalar da gönüllü birlikleri doğu sınırındaki Tebriz, Revan ve Kars mevacib defterlerinde de görülür. Analitik açıdan bunları süvari birliği olarak ele almak en uygunudur.</p>
+                    <div class="sources"><strong class="lang-en">Sources:</strong><strong class="lang-tr">Kaynaklar:</strong> Pál Fodor, “Volunteers in the Ottoman Army,” in <em>Ottomans, Hungarians, and Habsburgs in Central Europe: The Military Confines in the Era of Ottoman Conquest</em>, ed. Pál Fodor and Géza Dávid (Brill, 2000), 234–51; Finkel, <em>The Administration of Warfare</em>; Halil Inalcik, “Gönüllü,” in <em>The Encyclopedia of Islam New Edition C–G, vol. 2</em>, ed. B. Lewis, Ch. Pellat and J. Schacht (Brill, 1991); Rhoads Murphey, “The Functioning of the Ottoman Army,” 177.</div>
                 </div>
 
-                <div class="glossary-term empty-term">
-                    <h4>Yerli Yeniçeri</h4>
-                    <p data-tr-text="Açıklama eklenecek." data-en-text="Description to be added.">Description to be added.</p>
-                </div>
             </div>
 
             <!-- Auxiliary -->
@@ -453,18 +498,20 @@
                 <i class="fas fa-cogs"></i> <span data-tr-text="Yardımcı Sınıflar" data-en-text="Auxiliary">Auxiliary</span>
             </div>
             <div class="glossary-grid">
-                <div class="glossary-term empty-term">
+                <div class="glossary-term">
                     <h4>Cebeci</h4>
-                    <p data-tr-text="Açıklama eklenecek." data-en-text="Description to be added.">Description to be added.</p>
+                    <p class="lang-en">Cebeci (armorers): Auxiliary forces in the garrisons responsible for carrying and producing weapons and ammunition. There were two types of cebeci in the garrisons: the first belonged to the household troops (kapıkulu), and the second were local provincial troops.</p>
+                    <p class="lang-tr">Cebeci (silah ve zırh ustaları): Garnizonlarda silah ve mühimmatın taşınması ve üretilmesinden sorumlu yardımcı kuvvetler. Garnizonlarda iki tür cebeci vardı: Birincisi kapıkulu ocaklarına bağlıydı, ikincisi ise yerli (taşra) birliklerdi.</p>
+                    <div class="sources"><strong class="lang-en">Sources:</strong><strong class="lang-tr">Kaynaklar:</strong> Pakalın, <em>Osmanlı Tarih Deyimleri ve Terimleri Sözlüğü, vol. 1</em>, 262;Uzunçarşılı, <em>Osmanlı Devleti Teşkilatından Kapıkulu Ocakları, vol. 2, </em>3-4.</div>
                 </div>
-                <div class="glossary-term empty-term">
-                    <h4>Arabaci</h4>
-                    <p data-tr-text="Açıklama eklenecek." data-en-text="Description to be added.">Description to be added.</p>
+
+                <div class="glossary-term">
+                    <h4>Humbaracı</h4>
+                    <p class="lang-en">Humbara (grenade/mortar shell): A hollow iron sphere filled with gunpowder and fragments of iron and lead, fired from a mortar (havan topu) or thrown by hand. Those who used them formed the military unit known as humbaracı (grenadiers/bombardiers).</p>
+                    <p class="lang-tr">Humbara (el bombası / havan mermisi): İçi barut ile demir ve kurşun parçalarıyla doldurulmuş, havan topuyla atılan ya da elle fırlatılan içi boş demir küre. Bunları kullananlar humbaracı adıyla bilinen askeri birliği oluşturuyordu.</p>
+                    <div class="sources"><strong class="lang-en">Source:</strong><strong class="lang-tr">Kaynak:</strong> Pakalın, <em>Osmanlı Tarih Deyimleri ve Terimleri Sözlüğü, vol. 2</em>, 855.</div>
                 </div>
-                <div class="glossary-term empty-term">
-                    <h4>Humbaraci</h4>
-                    <p data-tr-text="Açıklama eklenecek." data-en-text="Description to be added.">Description to be added.</p>
-                </div>
+
             </div>
 
             <!-- Craftsmen-Servant -->
@@ -472,90 +519,149 @@
                 <i class="fas fa-hammer"></i> <span data-tr-text="Zanaatkâr-Hizmetli" data-en-text="Craftsmen-Servant">Craftsmen-Servant</span>
             </div>
             <div class="glossary-grid">
-                <div class="glossary-term empty-term">
+                <div class="glossary-term">
                     <h4>Neccar</h4>
-                    <p data-tr-text="Açıklama eklenecek." data-en-text="Description to be added.">Description to be added.</p>
+                    <p class="lang-en">Neccar (carpenter): A term for those engaged in the craft of carpentry, also called dülger (builder/joiner) or doğramacı (joiner).</p>
+                    <p class="lang-tr">Neccar (marangoz): Marangozluk zanaatıyla uğraşanlar için kullanılan, dülger ya da doğramacı olarak da adlandırılan bir terim.</p>
+                    <div class="sources"><strong class="lang-en">Source:</strong><strong class="lang-tr">Kaynak:</strong> Pakalın, <em>Osmanlı Tarih Deyimleri ve Terimleri Sözlüğü, vol. 2</em>, 666.</div>
                 </div>
-                <div class="glossary-term empty-term">
+
+                <div class="glossary-term">
                     <h4>Bevvab</h4>
-                    <p data-tr-text="Açıklama eklenecek." data-en-text="Description to be added.">Description to be added.</p>
+                    <p class="lang-en">Bevvab (pl. <em>bevvaban</em>): A group also known as gatekeepers or door wardens (<em>kapıcı</em>).</p>
+                    <p class="lang-tr">Bevvab (çoğ. <em>bevvaban</em>): Kapı muhafızları ya da kapı bekçileri (<em>kapıcı</em>) olarak da bilinen grup.</p>
+                    <div class="sources"><strong class="lang-en">Source:</strong><strong class="lang-tr">Kaynak:</strong> Pakalın, <em>Osmanlı Tarih Deyimleri ve Terimleri Sözlüğü, vol. 2</em>, 212.</div>
                 </div>
-                <div class="glossary-term empty-term">
-                    <h4>Suryani</h4>
-                    <p data-tr-text="Açıklama eklenecek." data-en-text="Description to be added.">Description to be added.</p>
-                </div>
-                <div class="glossary-term empty-term">
+
+                <div class="glossary-term">
                     <h4>Tabbal</h4>
-                    <p data-tr-text="Açıklama eklenecek." data-en-text="Description to be added.">Description to be added.</p>
+                    <p class="lang-en">Tabbal: Drummer; a member of the mehterhane (the Ottoman military band).</p>
+                    <p class="lang-tr">Tabbal: Davulcu; mehterhanenin (Osmanlı askeri bandosunun) bir üyesi.</p>
+                    <div class="sources"><strong class="lang-en">Source:</strong><strong class="lang-tr">Kaynak:</strong> Pakalın, <em>Osmanlı Tarih Deyimleri ve Terimleri Sözlüğü, vol. 3</em>, 369.</div>
                 </div>
-                <div class="glossary-term empty-term">
-                    <h4>Kalafatçi</h4>
-                    <p data-tr-text="Açıklama eklenecek." data-en-text="Description to be added.">Description to be added.</p>
+
+                <div class="glossary-term">
+                    <h4>Kalafatçı</h4>
+                    <p class="lang-en">Kalafatçı (caulkers): A group of artisans (ehl-i hiref) who waterproofed ships by coating the seams and joints (armoz and suğre) of the hull planking and deck boards with zift — boiled tar — or with resin, to keep water from penetrating the vessel.</p>
+                    <p class="lang-tr">Kalafatçı: Gemi gövdesi kaplama tahtalarının ve güverte tahtalarının ek yerleri ile aralıklarını (armoz ve suğre) kaynatılmış katran olan ziftle ya da reçineyle kaplayarak suyun gemiye girmesini engelleyen zanaatkârlar (ehl-i hiref) grubu.</p>
+                    <div class="sources"><strong class="lang-en">Source:</strong><strong class="lang-tr">Kaynak:</strong> Pakalın, <em>Osmanlı Tarih Deyimleri ve Terimleri Sözlüğü, vol. 2</em>, 142.</div>
                 </div>
-                <div class="glossary-term empty-term">
+
+                <div class="glossary-term">
                     <h4>Mehter</h4>
-                    <p data-tr-text="Açıklama eklenecek." data-en-text="Description to be added.">Description to be added.</p>
+                    <p class="lang-en">Mehter (pl. <em>mehteran</em>; from Pers. <em>mihter</em>, "senior servant"): A service corps of the Ottoman army with two principal branches. The first, <em>mehterân-ı tabl ü alem</em>, was the military band — drummers, kettledrummers, and standard-bearers — from which the famous "Janissary band" derives. The second, <em>mehterân-ı hayme</em> (or <em>çadır mehterleri</em>), was the tent corps, responsible for pitching, striking, transporting, and maintaining the tents and the layout of the camp. In garrison and campaign payroll registers, <em>mehteran</em> frequently denotes these service personnel rather than the band alone.</p>
+                    <p class="lang-tr">Mehter (çoğ. <em>mehteran</em>; Farsça <em>mihter</em>, "büyük hizmetkâr"): Osmanlı ordusunun iki ana koldan oluşan hizmet ocağı. Birincisi, <em>mehterân-ı tabl ü alem</em>, davulcular, kösçüler ve sancaktarlardan oluşan askeri bandoydu; ünlü "Yeniçeri bandosu" buradan türer. İkincisi, <em>mehterân-ı hayme</em> (ya da <em>çadır mehterleri</em>), çadırların kurulması, sökülmesi, taşınması ve bakımı ile ordugâhın düzeninden sorumlu çadır ocağıydı. Garnizon ve sefer mevacib defterlerinde <em>mehteran</em> çoğunlukla yalnızca bandoyu değil, bu hizmet personelini ifade eder.</p>
+                    <div class="sources"><strong class="lang-en">Source:</strong><strong class="lang-tr">Kaynak:</strong> Mehmet Zeki Pakalın, <em>Osmanlı Tarih Deyimleri ve Terimleri Sözlüğü, vol. 2</em>, 444-45.</div>
                 </div>
-                <div class="glossary-term empty-term">
+
+                <div class="glossary-term">
                     <h4>Barutçu</h4>
-                    <p data-tr-text="Açıklama eklenecek." data-en-text="Description to be added.">Description to be added.</p>
+                    <p class="lang-en">Barutçu (gunpowder makers): Artisans responsible for the production and maintenance of gunpowder.</p>
+                    <p class="lang-tr">Barutçu: Barutun üretimi ve bakımından sorumlu zanaatkârlar.</p>
                 </div>
-                <div class="glossary-term empty-term">
-                    <h4>Limanci</h4>
-                    <p data-tr-text="Açıklama eklenecek." data-en-text="Description to be added.">Description to be added.</p>
+
+                <div class="glossary-term">
+                    <h4>Limancı</h4>
+                    <p class="lang-en">Limancıs were harbor workers.</p>
+                    <p class="lang-tr">Limancılar liman işçileriydi.</p>
+                    <div class="sources"><strong class="lang-en">Source:</strong><strong class="lang-tr">Kaynak:</strong> Hegyi, <em>The Ottoman Military Organization in Hungary</em>, 128.</div>
                 </div>
-                <div class="glossary-term empty-term">
-                    <h4>Tasçi</h4>
-                    <p data-tr-text="Açıklama eklenecek." data-en-text="Description to be added.">Description to be added.</p>
+
+                <div class="glossary-term">
+                    <h4><span class="lang-en">Imam</span><span class="lang-tr">İmam</span></h4>
+                    <p class="lang-en">Imams were religious authorities in the garrisons. As part of the garrison, they would receive timar.</p>
+                    <p class="lang-tr">İmamlar garnizonlardaki din görevlileriydi. Garnizonun bir parçası olarak tımar alırlardı.</p>
+                    <div class="sources"><strong class="lang-en">Source:</strong><strong class="lang-tr">Kaynak:</strong> BOA, MAD 11, folio 53B.</div>
                 </div>
-                <div class="glossary-term empty-term">
-                    <h4>Imam</h4>
-                    <p data-tr-text="Açıklama eklenecek." data-en-text="Description to be added.">Description to be added.</p>
-                </div>
-                <div class="glossary-term empty-term">
+
+                <div class="glossary-term">
                     <h4>Haddad</h4>
-                    <p data-tr-text="Açıklama eklenecek." data-en-text="Description to be added.">Description to be added.</p>
+                    <p class="lang-en">Haddad (pl. haddadan): blacksmith.</p>
+                    <p class="lang-tr">Haddad (çoğ. haddadan): Demirci.</p>
                 </div>
-                <div class="glossary-term empty-term">
+
+                <div class="glossary-term">
                     <h4>Müteferrika</h4>
-                    <p data-tr-text="Açıklama eklenecek." data-en-text="Description to be added.">Description to be added.</p>
+                    <p class="lang-en">Müteferrika (pl. müteferrikiyan): Troops in the service of the sultan, charged with a variety of political and public missions. As J.H. Kramers notes in the Encyclopedia of Islam, they were counted as cavalry and numbered no more than 120 at the end of the seventeenth century. However, their numbers varied considerably over time — rising from 124 to 611 between 1574 and 1624, reduced to 413 under Murad IV, and standing at around 413 by the close of the seventeenth century. Their ranks were drawn from the sons of bureaucrats, kâtibs, çavuşes, sipahis, silahdars, palace stable servants, and the retainers of the şeyhülislam and kazasker. Beyond those serving the sultan, viziers and other high officials also maintained their own müteferrikas.</p>
+                    <p class="lang-tr">Müteferrika (çoğ. müteferrikiyan): Çeşitli siyasi ve kamusal görevlerle yükümlü, padişahın hizmetindeki askerler. J.H. Kramers'in Encyclopedia of Islam'da belirttiği gibi süvari sayılırlardı ve on yedinci yüzyılın sonunda sayıları 120'yi geçmiyordu. Ancak sayıları zaman içinde önemli ölçüde değişmiştir: 1574 ile 1624 arasında 124'ten 611'e yükselmiş, IV. Murad döneminde 413'e indirilmiş ve on yedinci yüzyılın sonunda yaklaşık 413 düzeyinde kalmıştır. Saflarına bürokratların, kâtiplerin, çavuşların, sipahilerin, silahdarların, saray ahır hizmetkârlarının oğulları ile şeyhülislam ve kazaskerin maiyetindekiler alınıyordu. Padişaha hizmet edenlerin yanı sıra vezirler ve diğer yüksek görevliler de kendi müteferrikalarını bulunduruyordu.</p>
+                    <div class="sources"><strong class="lang-en">Sources:</strong><strong class="lang-tr">Kaynaklar:</strong> J. H. Kramers, “Muteferrika,” in <em>The Encyclopedia of Islam</em>, ed. C.E. Bosworth; E. Van Donzel; W.P. Heinrichs; CH. Pellat (Brill, 1993); Erhan Afyoncu  “Müteferrika.” in <em>TDV İslâm Ansiklopedisi, vol. 32</em> (TDV İslam Araştırmaları Merkezi, 2006), 183-85.</div>
                 </div>
-                <div class="glossary-term empty-term">
+
+                <div class="glossary-term">
                     <h4>Köprücü</h4>
-                    <p data-tr-text="Açıklama eklenecek." data-en-text="Description to be added.">Description to be added.</p>
+                    <p class="lang-en">Köprücü group was responsible for building and maintaining the bridges.</p>
+                    <p class="lang-tr">Köprücü grubu köprülerin yapımı ve bakımından sorumluydu.</p>
+                    <div class="sources"><strong class="lang-en">Source:</strong><strong class="lang-tr">Kaynak:</strong> Hegyi, <em>The Ottoman Military Organization in Hungary</em>, 128.</div>
                 </div>
+
             </div>
 
-            <!-- Sultan's Household Troops -->
+            <!-- Sultan’s Household Troops -->
             <div class="glossary-category">
-                <i class="fas fa-crown"></i> <span data-tr-text="Kapıkulu Ocakları" data-en-text="Sultan's Household Troops">Sultan's Household Troops</span>
+                <i class="fas fa-crown"></i> <span data-tr-text="Kapıkulu Ocakları" data-en-text="Sultan’s Household Troops">Sultan’s Household Troops</span>
             </div>
             <div class="glossary-grid">
-                <div class="glossary-term empty-term">
-                    <h4>Yeniçeri</h4>
-                    <p data-tr-text="Açıklama eklenecek." data-en-text="Description to be added.">Description to be added.</p>
+                <div class="glossary-term">
+                    <h4><span class="lang-en">Janissary</span><span class="lang-tr">Yeniçeri</span></h4>
+                    <p class="lang-en">Janissary (<em>yeniçeri</em>): Members of the household infantry (<em>kapıkulu</em>) assigned to fortress guard duty for a limited term, typically three years. Janissaries posted to fortress duty were called <em>nöbetçi</em>; when one <em>orta</em> completed its term in a frontier fortress, another would replace it after the three years — though janissaries serving longer than three years are also attested. Unlike the local troops, their salaries were paid from the central treasury, and they were therefore recorded in a separate payroll register. Important fortresses were commanded by a <em>yeniçeri ağası</em> whose authority could extend over more than one fortress, while less critical fortresses had only a <em>yeniçeri serdarı</em>. The number of janissaries in fortresses fluctuated with war and peace — minimal in peacetime, peaking during wars — and tended to decline in the years following a fortress's conquest.</p>
+                    <p class="lang-tr">Yeniçeri: Kale muhafızlığı görevine sınırlı bir süre için, genellikle üç yıllığına atanan kapıkulu piyadesi mensupları. Kale görevine gönderilen yeniçerilere <em>nöbetçi</em> denirdi; bir <em>orta</em> sınır kalesindeki süresini tamamladığında üç yılın ardından yerini bir diğeri alırdı — ancak üç yıldan uzun süre hizmet eden yeniçerilere de rastlanır. Yerli birliklerin aksine ulufeleri merkezi hazineden ödenirdi ve bu nedenle ayrı bir mevacib defterine kaydedilirlerdi. Önemli kaleler, yetkisi birden fazla kaleyi kapsayabilen bir <em>yeniçeri ağası</em> tarafından kumanda edilirken daha az kritik kalelerde yalnızca bir <em>yeniçeri serdarı</em> bulunurdu. Kalelerdeki yeniçeri sayısı savaş ve barışa göre dalgalanırdı: barış zamanında asgari düzeyde, savaşlarda zirvede; ve bir kalenin fethini izleyen yıllarda azalma eğilimindeydi.</p>
+                    <div class="sources"><strong class="lang-en">Sources:</strong><strong class="lang-tr">Kaynaklar:</strong> Uzunçarşılı, <em>Osmanlı Devleti Teşkilatından Kapıkulu Ocakları, vol. 1</em> (Türk Tarih Kurumu, 1988), 325 and 327-28; Stein, <em>Guarding the Frontier</em>, 73-74; D.Ynç.d. 33763; MAD.d. 5538; MAD.d. 5996; MAD.d. 7453; MAD.d. 6718, MAD.d. 16411, AE.SMRD.IV. 2126.</div>
                 </div>
-                <div class="glossary-term empty-term">
-                    <h4>Ulufeciyan-i Süvari</h4>
-                    <p data-tr-text="Açıklama eklenecek." data-en-text="Description to be added.">Description to be added.</p>
-                </div>
-                <div class="glossary-term empty-term">
+
+                <div class="glossary-term">
                     <h4>Cebeci</h4>
-                    <p data-tr-text="Açıklama eklenecek." data-en-text="Description to be added.">Description to be added.</p>
+                    <p class="lang-en">Besides cebeci stationed in the garrisons, cebeci units belonging to the household troops (<em>kapıkulu</em>) also served there.</p>
+                    <p class="lang-tr">Garnizonlarda konuşlanan cebecilerin yanı sıra kapıkulu ocaklarına bağlı cebeci birlikleri de buralarda hizmet ediyordu.</p>
                 </div>
-                <div class="glossary-term empty-term">
-                    <h4>Arabaci</h4>
-                    <p data-tr-text="Açıklama eklenecek." data-en-text="Description to be added.">Description to be added.</p>
+
+                <div class="glossary-term">
+                    <h4>Arabacı</h4>
+                    <p class="lang-en">Arabacı (also top arabacıları, gun-carriage drivers): Part of the household troops (kapıkulu), the arabacıs were established when the need arose to transport large cannons and were charged with conveying them wherever they were required. Beyond the <em>kapıkulu</em>, arabacıs were also stationed in local garrison units, where they served as part of the fortress establishment.</p>
+                    <p class="lang-tr">Arabacı (ayrıca top arabacıları): Kapıkulu ocaklarının bir parçası olan arabacılar, büyük topların nakledilmesi ihtiyacı ortaya çıktığında kurulmuş ve topları gerekli olan her yere taşımakla görevlendirilmişti. <em>Kapıkulu</em>nun ötesinde, arabacılar yerli garnizon birliklerinde de konuşlandırılıyor ve kale teşkilatının bir parçası olarak hizmet ediyordu.</p>
+                    <div class="sources"><strong class="lang-en">Source:</strong><strong class="lang-tr">Kaynak:</strong> Uzunçarşılı, <em>Osmanlı Devleti Teşkilatından Kapıkulu Ocakları, vol. 2, </em>97-99.</div>
                 </div>
-                <div class="glossary-term empty-term">
+
+                <div class="glossary-term">
                     <h4>Topçu</h4>
-                    <p data-tr-text="Açıklama eklenecek." data-en-text="Description to be added.">Description to be added.</p>
+                    <p class="lang-en">Topçu (pl. topçuyan; gunners): Artillery units serving in the garrisons. These could be either local provincial gunners or gunners belonging to the household troops (kapıkulu).</p>
+                    <p class="lang-tr">Topçu (çoğ. topçuyan): Garnizonlarda hizmet eden topçu birlikleri. Bunlar yerli (taşra) topçuları ya da kapıkulu ocaklarına bağlı topçular olabilirdi.</p>
+                    <div class="sources"><strong class="lang-en">Source:</strong><strong class="lang-tr">Kaynak:</strong> Uzunçarşılı, <em>Osmanlı Devleti Teşkilatından Kapıkulu Ocakları, vol. 2, 35-44.</em></div>
                 </div>
-                <div class="glossary-term empty-term">
+
+                <div class="glossary-term">
                     <h4>Silahdar</h4>
-                    <p data-tr-text="Açıklama eklenecek." data-en-text="Description to be added.">Description to be added.</p>
+                    <p class="lang-en">Cavalry units of the household troops (kapıkulu) were assigned to clearing the army's route, repairing bridges, and draining marshes.</p>
+                    <p class="lang-tr">Kapıkulu süvari birlikleri; ordunun yolunun açılması, köprülerin onarımı ve bataklıkların kurutulması işleriyle görevlendirilmişti.</p>
+                    <div class="sources"><strong class="lang-en">Source:</strong><strong class="lang-tr">Kaynak:</strong> Uzunçarşılı, <em>Osmanlı Devleti Teşkilatından Kapıkulu Ocakları, vol. 2, 148-49.</em></div>
                 </div>
+
             </div>
+
+            <!-- Bibliography for the Glossary -->
+            <details class="glossary-bibliography">
+                <summary><i class="fas fa-list"></i> <span data-tr-text="Sözlük Kaynakçası" data-en-text="Bibliography for the Glossary">Bibliography for the Glossary</span></summary>
+                <ul>
+                    <li>D.Ynç.d. 33763; MAD 4822; MAD 2223; MAD 6281; MAD.d. 5538; MAD.d. 5996; MAD.d. 7453; MAD.d. 6718, MAD.d. 16411, AE.SMRD.IV. 2126.</li>
+                    <li>Baş, Göksel. “Ottoman Serhad Organization in the Balkans (1450s to Early 1500s).” (Bilkent University, 2017).</li>
+                    <li>Bostan. İdris. “Azeb,” in <em>TDV İslâm Ansiklopedisi, vol. 4</em> (TDV İslam Araştırmaları Merkezi, 1991), 312–13.</li>
+                    <li>Finkel, Caroline. <em>The Administration of Warfare: The Ottoman Military Campaigns in Hungary, 1593-1606 </em>(Verband der wissenschaftlichen Gesellschaften Österreichs, 1988).</li>
+                    <li>Fodor, Pál. “Volunteers in the Ottoman Army.” In <em>Ottomans, Hungarians, and Habsburgs in Central Europe: The Military Confines in the Era of Ottoman Conquest</em>, 234–51. Ed. Pál Fodor and Géza Dávid (Brill, 2000).</li>
+                    <li>Hegyi, Klara. <em>The Ottoman Military Organization in Hungary</em> (Klaus Schwarz, 2018).</li>
+                    <li>Inalcik, Halil. “Gönüllü,” in <em>The Encyclopedia of Islam New Edition C–G, vol. 2</em>, ed. B. Lewis, Ch. Pellat and J. Schacht (Brill, 1991).</li>
+                    <li>İnalcık, Halil. “Ottoman Methods of Conquest.” <em>Studia Islamica</em> 2 (1954): 104–29.</li>
+                    <li>Kılıç, Orhan. “Teşkilat ve İşleyiş Bakımından Doğu Hududundaki Osmanlı Kaleleri ve Mevâcib Defterleri,” OTAM (Ankara Üniversitesi Osmanlı Tarihi Araştırma ve Uygulama Merkezi Dergisi) 31 (Spring 2012): 87–128.</li>
+                    <li>Murphey, Rhoads. “The Functioning of the Ottoman Army Under Murad IV (1623-1639/1032-1049): Key to Understanding of the Relationship between Center and Periphery in Seventeenth-Century Turkey.” (University of Chicago, 1979).</li>
+                    <li>Orhonlu, Cengiz. <em>Osmanlı İmparatorluğu'nda Derbend Teşkilâtı</em> (Eren, 1990).</li>
+                    <li>Özcan, Abdülkadir. “Fârisân,” in <em>TDV Islâm Ansiklopedisi, EK-1</em> (TDV İslâm Araştırmaları Merkezi, 2020), 442.</li>
+                    <li>Pakalın, Mehmet Zeki.  <em>Osmanlı Tarih Deyimleri ve Terimleri Sözlüğü</em>, <em>4 vols</em>. (Millî Eğitim Basımevi, 1993).</li>
+                    <li>Radushev, Evgeniy and Asparuh Velkov, <em>Ottoman Garrisons on the Middle Danube: Based on Austrian National Library Ms Mxt 562 of 956/1549-1550 </em>(Akadémiai Kiadó, 1996).</li>
+                    <li>Rossi and W.J. Griswold, “Martolos,” in <em>The Encyclopedia of Islam MAHK-MID</em>, <em>vol. 5</em>, ed. C. E. Bosworth, et. al. (Brill, 1991), 613.</li>
+                    <li>Stein, Mark. <em>Guarding the Frontier: Ottoman Border Forts and Garrisons in Europe</em> (IB Tauris, 2007).</li>
+                    <li>Uğurlu, Muhammed. “73 Numaralı Mühimme Defterinin Transkripsiyon ve Değerlendirmesi (121-276).” (Bitlis Eren University, 2018).</li>
+                    <li>Uzunçarşılı, İsmail Hakkı. <em>Osmanlı Devleti Teşkilatından Kapıkulu Ocakları, 2 vols. </em>(Türk Tarih Kurumu, 1988)</li>
+                    <li>Vasic, Milan. “Osmanlı İmparatorluğu’nda Martoloslar,” (tr. Kemal Beydilli), <em>İstanbul Üniversitesi Edebiyat Fakültesi Tarih Dergisi</em> 31 (1967): 47–64.</li>
+                </ul>
+            </details>
 
         </div>
     </div>
@@ -568,7 +674,6 @@
           <ul class="footer-links">
             <li><a href="./">Ana Sayfa</a></li>
             <li><a href="about">Hakkında</a></li>
-            <li><a href="visualizations" data-tr="Görselleştirmeler" data-en="Visualizations">Görselleştirmeler</a></li>
           </ul>
         </div>
         <div class="footer-section">
