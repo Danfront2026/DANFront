@@ -946,7 +946,10 @@
     <script>
 var garrisonData = (typeof garrisonMapData !== "undefined") ? garrisonMapData : { total_garrisons: 0, garrisons: [] };
 var shipyardData = (typeof shipyardMapData !== "undefined") ? shipyardMapData : { total_shipyards: 0, shipyards: [] };
-var climateData = (typeof climateMapData !== "undefined") ? climateMapData : { total_events: 0, events: [] };
+// Climate layer is temporarily disabled (September 2026) until the updated dataset arrives in October.
+// Set CLIMATE_LAYER_ENABLED = true to show the "Climate" filter group and its markers again.
+var CLIMATE_LAYER_ENABLED = false;
+var climateData = (CLIMATE_LAYER_ENABLED && typeof climateMapData !== "undefined") ? climateMapData : { total_events: 0, events: [] };
     </script>
     
         <!-- Map Initialization -->
@@ -954,6 +957,12 @@ var climateData = (typeof climateMapData !== "undefined") ? climateMapData : { t
         document.addEventListener('DOMContentLoaded', function() {
             // ===== LANGUAGE =====
             var currentLang = localStorage.getItem('siteLanguage') || localStorage.getItem('language') || 'tr';
+
+            // Hide the Climate filter group while the layer is disabled
+            if (!CLIMATE_LAYER_ENABLED) {
+                var climateCategory = document.querySelector('.filter-category[data-category="climate"]');
+                if (climateCategory) climateCategory.style.display = 'none';
+            }
 
             // ===== COUNTRY FILTER DEFINITIONS =====
             // Maps each checkbox id in the "Country" filter category to the exact
@@ -1479,6 +1488,7 @@ var climateData = (typeof climateMapData !== "undefined") ? climateMapData : { t
             (function() {
                 var data = climateData;
                 if (!data || !data.events) { console.warn('No climate data available'); return; }
+                if (!CLIMATE_LAYER_ENABLED) return;
                 console.log('Loaded ' + data.total_events + ' climate events');
 
                 var byPlace = {};
@@ -2317,9 +2327,11 @@ var climateData = (typeof climateMapData !== "undefined") ? climateMapData : { t
                 html += '<div style="display: flex; align-items: center; margin-top: 6px; padding-top: 6px; border-top: 1px solid #eee;">';
                 html += '<i class="fas fa-anchor" style="color:#0c7b93; width: 12px; margin-right: 8px; font-size: 11px;"></i>';
                 html += '<span>' + (lang === 'tr' ? 'Tersane' : 'Shipyard') + '</span></div>';
-                html += '<div style="display: flex; align-items: center; margin-top: 4px;">';
-                html += '<span style="display: inline-block; width: 12px; height: 12px; border-radius: 50%; background-color: #1f78b4; border: 1px solid #fff; box-shadow: 0 0 0 1px #333; margin-right: 8px;"></span>';
-                html += '<span>' + (lang === 'tr' ? 'İklim gözlemi' : 'Climate observation') + '</span></div>';
+                if (CLIMATE_LAYER_ENABLED) {
+                    html += '<div style="display: flex; align-items: center; margin-top: 4px;">';
+                    html += '<span style="display: inline-block; width: 12px; height: 12px; border-radius: 50%; background-color: #1f78b4; border: 1px solid #fff; box-shadow: 0 0 0 1px #333; margin-right: 8px;"></span>';
+                    html += '<span>' + (lang === 'tr' ? 'İklim gözlemi' : 'Climate observation') + '</span></div>';
+                }
                 legendContainer.innerHTML = html;
             }
             

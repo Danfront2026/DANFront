@@ -181,6 +181,25 @@
         .glossary-category i {
             font-size: 1rem;
         }
+        /* Collapsible glossary categories */
+        .glossary-section-collapsible summary.glossary-category {
+            cursor: pointer;
+            list-style: none;
+            margin-bottom: 0;
+        }
+        .glossary-section-collapsible summary.glossary-category::-webkit-details-marker { display: none; }
+        .glossary-section-collapsible[open] summary.glossary-category { margin-bottom: 1rem; }
+        .glossary-term-count {
+            margin-left: auto;
+            font-size: 0.85rem;
+            font-weight: 500;
+            opacity: 0.9;
+        }
+        .glossary-chevron {
+            transition: transform 0.2s;
+            font-size: 0.9rem !important;
+        }
+        .glossary-section-collapsible[open] .glossary-chevron { transform: rotate(180deg); }
         /* Bilingual glossary content: shown/hidden by <html lang> (set by main.js) */
         .lang-tr { display: none; }
         html[lang="tr"] .lang-tr { display: block; }
@@ -427,10 +446,13 @@
             <p class="glossary-intro lang-tr">Garnizon veri setlerinde kullanılan terimler, veri tabanında uygulanan analitik kategorilere göre gruplandırılmıştır. İtalik sözcükler, kaynaklarda geçtiği biçimiyle Osmanlı Türkçesi terimlerdir.</p>
 
             <!-- Combat Classes -->
-            <div class="glossary-category">
-                <i class="fas fa-shield-alt"></i> <span data-tr-text="Muharip Sınıflar" data-en-text="Combat Classes">Combat Classes</span>
-            </div>
-            <div class="glossary-grid">
+            <details class="glossary-section-collapsible">
+                <summary class="glossary-category">
+                    <i class="fas fa-shield-alt"></i> <span data-tr-text="Muharip Sınıflar" data-en-text="Combat Classes">Combat Classes</span>
+                    <span class="glossary-term-count">8 <span data-tr-text="terim" data-en-text="terms">terms</span></span>
+                    <i class="fas fa-chevron-down glossary-chevron"></i>
+                </summary>
+                <div class="glossary-grid">
                 <div class="glossary-term">
                     <h4>Müstahfiz (Merdan)</h4>
                     <p class="lang-en">Müstahfızan (sing. <em>müstahfız</em>; also <em>merd</em> / <em>merdan</em>, <em>hisar eri</em>): Literally the guards of a fortress. The terms <em>merd</em>, <em>hisar eri</em>, and <em>müstahfız</em> were often used interchangeably. In a broad sense, every soldier in a garrison could be called a <em>müstahfız</em> or <em>merd</em> — as in decrees and payroll registers that address all garrison troops collectively under these names (e.g., the <em>defter-i merdan / müstahfizan</em>). At the same time, <em>müstahfizan</em> also denoted a specific <em>cemāʿat</em> registered separately alongside other corps such as <em>topçuyan</em>, <em>cebeciyan</em>, <em>bevvaban</em>, and <em>meşaʿledaran</em>; the two usages are not identical. The <em>merdan cemāʿat</em> could include the <em>dizdar</em>, <em>kethüdas</em>, religious officers, and janissary servants of the fortress. Müstahfizan formed the main component of garrisons in the fifteenth century and were sometimes stationed far from their home regions, though this was not a uniform practice. Their pay came either through <em>tımars</em> (often collective) or salary. Their manpower was drawn from varied sources — <em>kuloğlu</em> (sons of janissaries), <em>mazul</em> soldiers, men under the patronage of <em>beys</em> or <em>sekbans</em>, and likely <em>reʿaya</em> recruited into the <em>askeri</em> during and after the Long War. Their duties extended beyond garrison defense to active campaigning and fortress maintenance, such as repairs and ditch-digging. Scholars dispute whether the müstahfizan were identical to the <em>yerli yeniçeri</em> (local janissaries); Klara Hegyi argues they were distinct because the two were registered as separate units.</p>
@@ -491,13 +513,17 @@
                     <div class="sources"><strong class="lang-en">Sources:</strong><strong class="lang-tr">Kaynaklar:</strong> Pál Fodor, “Volunteers in the Ottoman Army,” in <em>Ottomans, Hungarians, and Habsburgs in Central Europe: The Military Confines in the Era of Ottoman Conquest</em>, ed. Pál Fodor and Géza Dávid (Brill, 2000), 234–51; Finkel, <em>The Administration of Warfare</em>; Halil Inalcik, “Gönüllü,” in <em>The Encyclopedia of Islam New Edition C–G, vol. 2</em>, ed. B. Lewis, Ch. Pellat and J. Schacht (Brill, 1991); Rhoads Murphey, “The Functioning of the Ottoman Army,” 177.</div>
                 </div>
 
-            </div>
+                </div>
+            </details>
 
             <!-- Auxiliary -->
-            <div class="glossary-category">
-                <i class="fas fa-cogs"></i> <span data-tr-text="Yardımcı Sınıflar" data-en-text="Auxiliary">Auxiliary</span>
-            </div>
-            <div class="glossary-grid">
+            <details class="glossary-section-collapsible">
+                <summary class="glossary-category">
+                    <i class="fas fa-cogs"></i> <span data-tr-text="Yardımcı Sınıflar" data-en-text="Auxiliary">Auxiliary</span>
+                    <span class="glossary-term-count">2 <span data-tr-text="terim" data-en-text="terms">terms</span></span>
+                    <i class="fas fa-chevron-down glossary-chevron"></i>
+                </summary>
+                <div class="glossary-grid">
                 <div class="glossary-term">
                     <h4>Cebeci</h4>
                     <p class="lang-en">Cebeci (armorers): Auxiliary forces in the garrisons responsible for carrying and producing weapons and ammunition. There were two types of cebeci in the garrisons: the first belonged to the household troops (kapıkulu), and the second were local provincial troops.</p>
@@ -512,13 +538,17 @@
                     <div class="sources"><strong class="lang-en">Source:</strong><strong class="lang-tr">Kaynak:</strong> Pakalın, <em>Osmanlı Tarih Deyimleri ve Terimleri Sözlüğü, vol. 2</em>, 855.</div>
                 </div>
 
-            </div>
+                </div>
+            </details>
 
             <!-- Craftsmen-Servant -->
-            <div class="glossary-category">
-                <i class="fas fa-hammer"></i> <span data-tr-text="Zanaatkâr-Hizmetli" data-en-text="Craftsmen-Servant">Craftsmen-Servant</span>
-            </div>
-            <div class="glossary-grid">
+            <details class="glossary-section-collapsible">
+                <summary class="glossary-category">
+                    <i class="fas fa-hammer"></i> <span data-tr-text="Zanaatkâr-Hizmetli" data-en-text="Craftsmen-Servant">Craftsmen-Servant</span>
+                    <span class="glossary-term-count">11 <span data-tr-text="terim" data-en-text="terms">terms</span></span>
+                    <i class="fas fa-chevron-down glossary-chevron"></i>
+                </summary>
+                <div class="glossary-grid">
                 <div class="glossary-term">
                     <h4>Neccar</h4>
                     <p class="lang-en">Neccar (carpenter): A term for those engaged in the craft of carpentry, also called dülger (builder/joiner) or doğramacı (joiner).</p>
@@ -594,13 +624,17 @@
                     <div class="sources"><strong class="lang-en">Source:</strong><strong class="lang-tr">Kaynak:</strong> Hegyi, <em>The Ottoman Military Organization in Hungary</em>, 128.</div>
                 </div>
 
-            </div>
+                </div>
+            </details>
 
             <!-- Sultan’s Household Troops -->
-            <div class="glossary-category">
-                <i class="fas fa-crown"></i> <span data-tr-text="Kapıkulu Ocakları" data-en-text="Sultan’s Household Troops">Sultan’s Household Troops</span>
-            </div>
-            <div class="glossary-grid">
+            <details class="glossary-section-collapsible">
+                <summary class="glossary-category">
+                    <i class="fas fa-crown"></i> <span data-tr-text="Kapıkulu Ocakları" data-en-text="Sultan’s Household Troops">Sultan’s Household Troops</span>
+                    <span class="glossary-term-count">5 <span data-tr-text="terim" data-en-text="terms">terms</span></span>
+                    <i class="fas fa-chevron-down glossary-chevron"></i>
+                </summary>
+                <div class="glossary-grid">
                 <div class="glossary-term">
                     <h4><span class="lang-en">Janissary</span><span class="lang-tr">Yeniçeri</span></h4>
                     <p class="lang-en">Janissary (<em>yeniçeri</em>): Members of the household infantry (<em>kapıkulu</em>) assigned to fortress guard duty for a limited term, typically three years. Janissaries posted to fortress duty were called <em>nöbetçi</em>; when one <em>orta</em> completed its term in a frontier fortress, another would replace it after the three years — though janissaries serving longer than three years are also attested. Unlike the local troops, their salaries were paid from the central treasury, and they were therefore recorded in a separate payroll register. Important fortresses were commanded by a <em>yeniçeri ağası</em> whose authority could extend over more than one fortress, while less critical fortresses had only a <em>yeniçeri serdarı</em>. The number of janissaries in fortresses fluctuated with war and peace — minimal in peacetime, peaking during wars — and tended to decline in the years following a fortress's conquest.</p>
@@ -635,7 +669,8 @@
                     <div class="sources"><strong class="lang-en">Source:</strong><strong class="lang-tr">Kaynak:</strong> Uzunçarşılı, <em>Osmanlı Devleti Teşkilatından Kapıkulu Ocakları, vol. 2, 148-49.</em></div>
                 </div>
 
-            </div>
+                </div>
+            </details>
 
             <!-- Bibliography for the Glossary -->
             <details class="glossary-bibliography">
