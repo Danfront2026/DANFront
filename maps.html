@@ -1071,7 +1071,7 @@ var climateData = (CLIMATE_LAYER_ENABLED && typeof climateMapData !== "undefined
                 14: { xMin: 9055, xMax: 9066, yMin: 5724, yMax: 5731 }
             };
             var extHistoricalLayer = new BoundedTileLayer('https://danfront-tiles.odulsuzkisafilm.workers.dev/tiles-ext/{z}/{x}/{y}.png', {
-                attribution: 'First Military Survey, additional sheets georeferenced by the DANFront Project (test)',
+                attribution: 'First Military Survey (1KF), georeferenced by the DANFront Project | &copy; <a href="https://danfront.univie.ac.at/" target="_blank">DANFront Project</a>',
                 minZoom: 6, maxZoom: 14, tms: false, noWrap: true, opacity: 0.7,
                 tileBounds: extTileBounds
             });
@@ -2281,7 +2281,7 @@ var climateData = (CLIMATE_LAYER_ENABLED && typeof climateMapData !== "undefined
             };
             var overlayLayers = {
                 "Historical Map Overlay (1KF - Arcanum)": historicalMapLayer,
-                "1KF additional sheets (DANFront test)": extHistoricalLayer
+                "Historical Map Overlay (1KF - DANFront)": extHistoricalLayer
             };
             L.control.layers(baseLayers, overlayLayers, {
                 position: 'topright',
