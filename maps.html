@@ -1055,6 +1055,27 @@ var climateData = (CLIMATE_LAYER_ENABLED && typeof climateMapData !== "undefined
                 tileBounds: historicalTileBounds
             });
 
+            // --- Additional First Military Survey sheets georeferenced by DANFront (proof of concept) ---
+            // Served from the same Worker/R2 bucket under the separate prefix "tiles-ext/",
+            // so the Arcanum tiles in "tiles/" are never overwritten.
+            // Current content: sheet 14-20 (Col. XIV Sectio XX, Pest), georeferenced with control points (RMS ~90 m).
+            var extTileBounds = {
+                6:  { xMin: 35,   xMax: 35,   yMin: 22,   yMax: 22 },
+                7:  { xMin: 70,   xMax: 70,   yMin: 44,   yMax: 44 },
+                8:  { xMin: 141,  xMax: 141,  yMin: 89,   yMax: 89 },
+                9:  { xMin: 282,  xMax: 283,  yMin: 178,  yMax: 179 },
+                10: { xMin: 565,  xMax: 566,  yMin: 357,  yMax: 358 },
+                11: { xMin: 1131, xMax: 1133, yMin: 715,  yMax: 716 },
+                12: { xMin: 2263, xMax: 2266, yMin: 1431, yMax: 1432 },
+                13: { xMin: 4527, xMax: 4533, yMin: 2862, yMax: 2865 },
+                14: { xMin: 9055, xMax: 9066, yMin: 5724, yMax: 5731 }
+            };
+            var extHistoricalLayer = new BoundedTileLayer('https://danfront-tiles.odulsuzkisafilm.workers.dev/tiles-ext/{z}/{x}/{y}.png', {
+                attribution: 'First Military Survey, additional sheets georeferenced by the DANFront Project (test)',
+                minZoom: 6, maxZoom: 14, tms: false, noWrap: true, opacity: 0.7,
+                tileBounds: extTileBounds
+            });
+
             // Add default layers
             osmLayer.addTo(map);
             historicalMapLayer.addTo(map);
@@ -2259,7 +2280,8 @@ var climateData = (CLIMATE_LAYER_ENABLED && typeof climateMapData !== "undefined
                 "Historical Map Only (1KF - Arcanum)": historicalMapOnlyLayer
             };
             var overlayLayers = {
-                "Historical Map Overlay (1KF - Arcanum)": historicalMapLayer
+                "Historical Map Overlay (1KF - Arcanum)": historicalMapLayer,
+                "1KF additional sheets (DANFront test)": extHistoricalLayer
             };
             L.control.layers(baseLayers, overlayLayers, {
                 position: 'topright',
@@ -2294,6 +2316,7 @@ var climateData = (CLIMATE_LAYER_ENABLED && typeof climateMapData !== "undefined
                 slider.addEventListener('input', function() {
                     var opacity = parseFloat(this.value);
                     historicalMapLayer.setOpacity(opacity);
+                    extHistoricalLayer.setOpacity(opacity);
                     valueDisplay.innerHTML = Math.round(opacity * 100) + '%';
                 });
                 L.DomEvent.disableClickPropagation(container);
