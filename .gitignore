@@ -9,3 +9,5 @@ __pycache__
 *.pywz
 *.pyzw
 *.pyzwz
+tools/georef/work/
+Claude outputs/

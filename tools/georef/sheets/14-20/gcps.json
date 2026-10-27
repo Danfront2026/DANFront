@@ -1,0 +1,15 @@
+{
+  "sheet": "14-20 (Col. XIV Sectio XX, Theil des Pester Comitat), First Military Survey",
+  "note": "px/py = pixel position on '14-20_ EPSG_3857.tif' (same grid as the ECW). lat/lon = today's position of the same feature, WGS84. role: fit = used to compute the georeference, check = only used to test it.",
+  "clip_px": [175, 584, 7595, 5519],
+  "points": [
+    {"id": "matthias",   "name": "Matthias Church (Buda Castle district)",          "px": 1706, "py": 3800, "lat": 47.50197, "lon": 19.03427, "role": "fit"},
+    {"id": "palace",     "name": "Royal Palace, Buda (centre of the palace block)", "px": 1894, "py": 4106, "lat": 47.49610, "lon": 19.03960, "role": "fit"},
+    {"id": "cityhall",   "name": "Invalids' House = today's Budapest City Hall",    "px": 2386, "py": 4075, "lat": 47.49505, "lon": 19.05445, "role": "fit"},
+    {"id": "kalvin",     "name": "Kecskemét Gate junction = today's Kálvin tér",    "px": 2578, "py": 4428, "lat": 47.48925, "lon": 19.06120, "role": "fit"},
+    {"id": "zichy",      "name": "Zichy Mansion, Óbuda",                            "px": 2090, "py": 2032, "lat": 47.54130, "lon": 19.04470, "role": "fit"},
+    {"id": "obuda_ch",   "name": "Sts Peter and Paul parish church, Óbuda",         "px": 2030, "py": 2140, "lat": 47.53950, "lon": 19.04240, "role": "fit"},
+    {"id": "palota",     "name": "Palota (Rákospalota) village church",             "px": 4545, "py": 883,  "lat": 47.5600,  "lon": 19.1220,  "role": "check"},
+    {"id": "csomor",     "name": "Csömör village church",                           "px": 7432, "py": 1527, "lat": 47.5500,  "lon": 19.2290,  "role": "check"}
+  ]
+}
