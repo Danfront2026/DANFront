@@ -1,0 +1,55 @@
+{
+ "sheet": "32-50Cas (Section 50, Colonne XXXII, Pest-Ofen), later military survey, Cassini-Soldner",
+ "crs": "+proj=cass +lat_0=48.208772 +lon_0=16.374242 +a=6376130 +rf=310 +units=m +no_defs",
+ "note": "Georeferenced from its own coordinates (ECW header: datum BUDA1821, projection HABSBURG2). clip_px is the map frame on the ECW / Cassini pixel grid. points are only for checking.",
+ "clip_px": [
+  146,
+  612,
+  7622,
+  5578
+ ],
+ "points": [
+  {
+   "id": "matthias",
+   "name": "Matthias Church (Buda Castle district)",
+   "lat": 47.50197,
+   "lon": 19.03427,
+   "role": "check"
+  },
+  {
+   "id": "palace",
+   "name": "Royal Palace, Buda (centre of the palace block)",
+   "lat": 47.4961,
+   "lon": 19.0396,
+   "role": "check"
+  },
+  {
+   "id": "cityhall",
+   "name": "Invalids' House = today's Budapest City Hall",
+   "lat": 47.49505,
+   "lon": 19.05445,
+   "role": "check"
+  },
+  {
+   "id": "kalvin",
+   "name": "Kecskemét Gate junction = today's Kálvin tér",
+   "lat": 47.48925,
+   "lon": 19.0612,
+   "role": "check"
+  },
+  {
+   "id": "zichy",
+   "name": "Zichy Mansion, Óbuda",
+   "lat": 47.5413,
+   "lon": 19.0447,
+   "role": "check"
+  },
+  {
+   "id": "obuda_ch",
+   "name": "Sts Peter and Paul parish church, Óbuda",
+   "lat": 47.5395,
+   "lon": 19.0424,
+   "role": "check"
+  }
+ ]
+}
