@@ -835,7 +835,7 @@
                                 <div class="filter-item">
                                     <input type="checkbox" id="rivers-toggle">
                                     <label for="rivers-toggle">
-                                        <span data-tr-text="Nehirler" data-en-text="Rivers">Rivers</span>
+                                        <span data-tr-text="Nehirler (günümüz)" data-en-text="Rivers (present-day)">Rivers (present-day)</span>
                                         <span id="rivers-loading" style="display:none;font-size:11px;color:#888;margin-left:4px;" data-tr-text="yükleniyor..." data-en-text="loading...">loading...</span>
                                     </label>
                                     <div style="font-size:10px;color:#999;margin-left:20px;margin-top:2px;line-height:1.4;">
@@ -844,7 +844,7 @@
                                 </div>
                                 <div class="filter-item">
                                     <input type="checkbox" id="danube-basin-toggle">
-                                    <label for="danube-basin-toggle"><span data-tr-text="Tuna Havzası" data-en-text="Danube Basin">Danube Basin</span></label>
+                                    <label for="danube-basin-toggle"><span data-tr-text="Tuna Havzası (günümüz)" data-en-text="Danube Basin (present-day)">Danube Basin (present-day)</span></label>
                                 </div>
                             </div>
                         </div>
@@ -1074,6 +1074,27 @@ var climateData = (CLIMATE_LAYER_ENABLED && typeof climateMapData !== "undefined
                 attribution: 'First Military Survey (1KF), georeferenced by the DANFront Project | &copy; <a href="https://danfront.univie.ac.at/" target="_blank">DANFront Project</a>',
                 minZoom: 6, maxZoom: 14, tms: false, noWrap: true, opacity: 0.7,
                 tileBounds: extTileBounds
+            });
+
+            // --- Second Military Survey sheets (2KF), georeferenced by DANFront ---
+            // Separate R2 prefix "tiles-2kf/" and separate layer, so the two surveys never mix.
+            // Current content: sheet 32-50Cas (Section 50, Colonne XXXII, Pest-Ofen), placed from its own
+            // Cassini-Soldner coordinates (origin St. Stephen's Cathedral, Vienna).
+            var kf2TileBounds = {
+                6:  { xMin: 35,   xMax: 35,   yMin: 22,   yMax: 22 },
+                7:  { xMin: 70,   xMax: 70,   yMin: 44,   yMax: 44 },
+                8:  { xMin: 141,  xMax: 141,  yMin: 89,   yMax: 89 },
+                9:  { xMin: 282,  xMax: 283,  yMin: 178,  yMax: 179 },
+                10: { xMin: 565,  xMax: 566,  yMin: 357,  yMax: 358 },
+                11: { xMin: 1131, xMax: 1132, yMin: 715,  yMax: 716 },
+                12: { xMin: 2263, xMax: 2265, yMin: 1430, yMax: 1432 },
+                13: { xMin: 4526, xMax: 4531, yMin: 2861, yMax: 2865 },
+                14: { xMin: 9052, xMax: 9063, yMin: 5723, yMax: 5731 }
+            };
+            var kf2HistoricalLayer = new BoundedTileLayer('https://danfront-tiles.odulsuzkisafilm.workers.dev/tiles-2kf/{z}/{x}/{y}.png', {
+                attribution: 'Second Military Survey (2KF), georeferenced by the DANFront Project | &copy; <a href="https://danfront.univie.ac.at/" target="_blank">DANFront Project</a>',
+                minZoom: 6, maxZoom: 14, tms: false, noWrap: true, opacity: 0.7,
+                tileBounds: kf2TileBounds
             });
 
             // Add default layers
@@ -2281,7 +2302,8 @@ var climateData = (CLIMATE_LAYER_ENABLED && typeof climateMapData !== "undefined
             };
             var overlayLayers = {
                 "Historical Map Overlay (1KF - Arcanum)": historicalMapLayer,
-                "Historical Map Overlay (1KF - DANFront)": extHistoricalLayer
+                "Historical Map Overlay (1KF - DANFront)": extHistoricalLayer,
+                "Historical Map Overlay (2KF - DANFront)": kf2HistoricalLayer
             };
             L.control.layers(baseLayers, overlayLayers, {
                 position: 'topright',
@@ -2317,6 +2339,7 @@ var climateData = (CLIMATE_LAYER_ENABLED && typeof climateMapData !== "undefined
                     var opacity = parseFloat(this.value);
                     historicalMapLayer.setOpacity(opacity);
                     extHistoricalLayer.setOpacity(opacity);
+                    kf2HistoricalLayer.setOpacity(opacity);
                     valueDisplay.innerHTML = Math.round(opacity * 100) + '%';
                 });
                 L.DomEvent.disableClickPropagation(container);
