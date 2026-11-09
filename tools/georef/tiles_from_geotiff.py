@@ -11,12 +11,17 @@ Usage:
 --clip  the map frame in the GeoTIFF's own pixel coordinates (cuts off title, legend
         and margins so neighbouring sheets don't cover each other). For Cassini exports
         this is a plain rectangle on the same pixel grid as the ECW.
-        Omit it to keep the whole image.
+--clip-graticule DLON,DLAT [--graticule-crs PROJ]
+        for sheets whose frame is a graticule quadrangle (Third Military Survey: 0.25 x 0.125
+        degrees, Ferro longitudes). Finds the quadrangle aligned to multiples of DLON/DLAT
+        that fits inside the image and masks everything outside it. Default graticule CRS is
+        the DVD's: +proj=longlat +ellps=bessel +towgs84=600,205,437 +pm=ferro
+        Omit both to keep the whole image.
 
 Pixels that are 0 in all bands (nodata / outside the scan) become transparent.
 Writes tile_bounds.json next to the tiles directory.
 """
-import argparse, json, os
+import argparse, json, math, os, sys
 import numpy as np
 import rasterio
 from rasterio.transform import Affine
@@ -30,6 +35,8 @@ ap = argparse.ArgumentParser()
 ap.add_argument("src")
 ap.add_argument("out_dir")
 ap.add_argument("--clip", help="x0,y0,x1,y1 in source pixels")
+ap.add_argument("--clip-graticule", help="DLON,DLAT in degrees: mask outside the aligned graticule quadrangle")
+ap.add_argument("--graticule-crs", default="+proj=longlat +ellps=bessel +towgs84=600,205,437 +pm=ferro")
 ap.add_argument("--zoom", default="6,14")
 args = ap.parse_args()
 zmin, zmax = map(int, args.zoom.split(","))
@@ -50,6 +57,28 @@ rgba[:3] = data
 rgba[3] = np.where(data.any(axis=0), 255, 0)
 del data
 H, W = rgba.shape[1:]
+
+if args.clip_graticule:
+    from pyproj import Transformer as _T
+    from rasterio.features import rasterize
+    from shapely.geometry import Polygon
+    dlon, dlat = map(float, args.clip_graticule.split(","))
+    to_grat = _T.from_crs(src_crs, args.graticule_crs, always_xy=True)
+    # image extent in graticule coordinates (densified edges)
+    n = 40
+    edge = ([(W*i/n, 0) for i in range(n+1)] + [(W, H*i/n) for i in range(n+1)] + [(W*i/n, H) for i in range(n+1)] + [(0, H*i/n) for i in range(n+1)])
+    ex, ey = zip(*[src_tf * p for p in edge]); glon, glat = to_grat.transform(ex, ey)
+    lon0 = math.ceil(min(glon) / dlon) * dlon; lon1 = math.floor(max(glon) / dlon) * dlon
+    lat0 = math.ceil(min(glat) / dlat) * dlat; lat1 = math.floor(max(glat) / dlat) * dlat
+    if lon1 <= lon0 or lat1 <= lat0:
+        sys.exit(f"no aligned graticule quadrangle fits inside the image (extent {min(glon):.3f}..{max(glon):.3f}, {min(glat):.3f}..{max(glat):.3f})")
+    print(f"graticule frame: lon {lon0}..{lon1}, lat {lat0}..{lat1} (in {args.graticule_crs.split('+pm=')[-1] if '+pm=' in args.graticule_crs else 'greenwich'} longitudes)")
+    from_grat = _T.from_crs(args.graticule_crs, src_crs, always_xy=True)
+    ring = ([(lon0 + (lon1-lon0)*i/n, lat0) for i in range(n+1)] + [(lon1, lat0 + (lat1-lat0)*i/n) for i in range(n+1)] +
+            [(lon1 - (lon1-lon0)*i/n, lat1) for i in range(n+1)] + [(lon0, lat1 - (lat1-lat0)*i/n) for i in range(n+1)])
+    rx, ry = from_grat.transform(*zip(*ring))
+    mask = rasterize([Polygon(zip(rx, ry))], out_shape=(H, W), transform=src_tf, fill=0, default_value=1, dtype="uint8")
+    rgba[3] = np.where(mask == 1, rgba[3], 0)
 
 # footprint in Web Mercator (densified frame edges, since the CRS may be curved)
 n = 50

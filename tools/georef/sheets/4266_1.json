@@ -1,0 +1,14 @@
+{
+ "sheet": "4266/1, Third Military Survey 1:25 000, Lambert conformal conic from the DVD ini (3kf_25e.ini)",
+ "crs": "+proj=lcc +lat_0=47 +lon_0=20.5 +lat_1=45 +lat_2=49 +x_0=0 +y_0=0 +ellps=bessel +towgs84=600,205,437,0,0,0,0 +units=m +no_defs",
+ "note": "Frame clipped automatically to the 0.25 x 0.125 degree graticule quadrangle (Ferro longitudes). Tylicz (49.39 N, 21.03 E) is on the sheet.",
+ "points": [
+  {
+   "id": "tylicz",
+   "name": "Tylicz village (church)",
+   "lat": 49.3917,
+   "lon": 21.0283,
+   "role": "check"
+  }
+ ]
+}
