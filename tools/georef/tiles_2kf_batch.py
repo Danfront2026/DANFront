@@ -49,15 +49,39 @@ def best_cell(b):
     return best
 
 
+def unpremultiply(dst):
+    """Mosaic pixels are premultiplied (edge pixels were averaged with transparent ones):
+    turn them back into straight colour + alpha, so sheet edges don't come out dark."""
+    a = dst[3].astype(np.uint16)
+    out = dst.copy()
+    part = (a > 0) & (a < 255)
+    if part.any():
+        for c in range(3):
+            out[c][part] = np.minimum(255, (dst[c][part].astype(np.uint16) * 255 + a[part] // 2) // a[part])
+    return out
+
+
 def composite_save(path, dst, lock_path):
-    new = Image.fromarray(dst.transpose(1, 2, 0), "RGBA")
+    """Merge a tile into the tile already on disk. Neighbouring sheets each cover part of an
+    edge pixel, so their coverages are ADDED (new sheet first, old fills what is left) instead
+    of the usual 'over' blend, which would leave a half-transparent line along every sheet edge."""
+    new = unpremultiply(dst).transpose(1, 2, 0)
     with open(lock_path, "w") as lf:
         fcntl.flock(lf, fcntl.LOCK_EX)
         if os.path.exists(path):
-            old = Image.open(path).convert("RGBA")
-            old.alpha_composite(new); new = old
+            try:
+                old = np.asarray(Image.open(path).convert("RGBA"))
+                an = new[..., 3:].astype(np.float32)
+                ao = np.minimum(old[..., 3:].astype(np.float32), 255 - an)
+                tot = an + ao
+                rgb = (new[..., :3] * an + old[..., :3] * ao) / np.maximum(tot, 1)
+                new = np.concatenate([np.rint(rgb), tot], axis=2).astype(np.uint8)
+            except OSError:
+                pass                      # damaged tile left by an interrupted run: replace it
         os.makedirs(os.path.dirname(path), exist_ok=True)
-        new.save(path, optimize=True)
+        tmp = path + ".tmp"               # write to a temp file and rename, so an interruption
+        Image.fromarray(np.ascontiguousarray(new), "RGBA").save(tmp, format="PNG", compress_level=6)   # can never leave a half-written tile behind
+        os.replace(tmp, path)
 
 
 def process(job):
@@ -96,21 +120,30 @@ def process(job):
             if lon[1] < bbox[0] or lon[0] > bbox[2] or lat[1] < bbox[1] or lat[0] > bbox[3]:
                 res["status"] = "skipped: outside bbox"; return res
         lock_path = os.path.join(os.path.dirname(os.path.abspath(out_dir)), ".tiles.lock")
-        for z in range(zmin, zmax + 1):
+        # One warp per zoom level into a mosaic aligned to the tile grid, then slice it into tiles.
+        # The deepest zoom is warped from the sheet; each shallower zoom is averaged from the one above it.
+        prev = prev_tf = None
+        for z in range(zmax, zmin - 1, -1):
             size = 2 * R / 2 ** z
             xa, xb = int((minX + R) // size), int((maxX + R) // size)
             ya, yb = int((R - maxY) // size), int((R - minY) // size)
             res["bounds"][z] = dict(xMin=xa, xMax=xb, yMin=ya, yMax=yb)
+            mos = np.zeros((4, (yb - ya + 1) * 256, (xb - xa + 1) * 256), np.uint8)
+            mtf = Affine(size / 256, 0, -R + xa * size, 0, -size / 256, R - ya * size)
+            if prev is None:
+                reproject(rgba, mos, src_transform=src_tf, src_crs=src_crs, dst_transform=mtf, dst_crs="EPSG:3857",
+                          resampling=Resampling.bilinear)
+            else:
+                reproject(prev, mos, src_transform=prev_tf, src_crs="EPSG:3857", dst_transform=mtf, dst_crs="EPSG:3857",
+                          resampling=Resampling.average)
+            prev, prev_tf = mos, mtf
             for x in range(xa, xb + 1):
                 for y in range(ya, yb + 1):
-                    dst = np.zeros((4, 256, 256), np.uint8)
-                    dtf = Affine(size / 256, 0, -R + x * size, 0, -size / 256, R - y * size)
-                    reproject(rgba, dst, src_transform=src_tf, src_crs=src_crs, dst_transform=dtf, dst_crs="EPSG:3857",
-                              resampling=Resampling.average if z < 14 else Resampling.bilinear)
+                    dst = mos[:, (y - ya) * 256:(y - ya + 1) * 256, (x - xa) * 256:(x - xa + 1) * 256]
                     if dst[3].max() == 0:
                         continue
                     rel = f"{z}/{x}/{y}.png"
-                    composite_save(os.path.join(out_dir, rel), dst, lock_path)
+                    composite_save(os.path.join(out_dir, rel), np.ascontiguousarray(dst), lock_path)
                     res["tiles"].append(rel)
     except Exception as e:
         res["status"] = f"ERROR: {type(e).__name__}: {e}"

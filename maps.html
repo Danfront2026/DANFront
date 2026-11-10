@@ -1078,18 +1078,18 @@ var climateData = (CLIMATE_LAYER_ENABLED && typeof climateMapData !== "undefined
 
             // --- Second Military Survey sheets (2KF), georeferenced by DANFront ---
             // Separate R2 prefix "tiles-2kf/" and separate layer, so the two surveys never mix.
-            // Current content: sheet 32-50Cas (Section 50, Colonne XXXII, Pest-Ofen), placed from its own
-            // Cassini-Soldner coordinates (origin St. Stephen's Cathedral, Vienna).
+            // Current content: the whole survey, 1111 sheets, each placed from its own Cassini-Soldner
+            // coordinates (origin St. Stephen's Cathedral, Vienna) and clipped to its map frame.
             var kf2TileBounds = {
-                6:  { xMin: 35,   xMax: 35,   yMin: 22,   yMax: 22 },
-                7:  { xMin: 70,   xMax: 70,   yMin: 44,   yMax: 44 },
-                8:  { xMin: 141,  xMax: 141,  yMin: 89,   yMax: 89 },
-                9:  { xMin: 282,  xMax: 283,  yMin: 178,  yMax: 179 },
-                10: { xMin: 565,  xMax: 566,  yMin: 357,  yMax: 358 },
-                11: { xMin: 1131, xMax: 1132, yMin: 715,  yMax: 716 },
-                12: { xMin: 2263, xMax: 2265, yMin: 1430, yMax: 1432 },
-                13: { xMin: 4526, xMax: 4531, yMin: 2861, yMax: 2865 },
-                14: { xMin: 9052, xMax: 9063, yMin: 5723, yMax: 5731 }
+                6:  { xMin: 34, xMax: 36, yMin: 21, yMax: 23 },
+                7:  { xMin: 69, xMax: 72, yMin: 43, yMax: 46 },
+                8:  { xMin: 139, xMax: 145, yMin: 87, yMax: 92 },
+                9:  { xMin: 278, xMax: 291, yMin: 174, yMax: 185 },
+                10: { xMin: 556, xMax: 583, yMin: 348, yMax: 370 },
+                11: { xMin: 1113, xMax: 1167, yMin: 697, yMax: 741 },
+                12: { xMin: 2227, xMax: 2335, yMin: 1395, yMax: 1483 },
+                13: { xMin: 4455, xMax: 4670, yMin: 2790, yMax: 2966 },
+                14: { xMin: 8910, xMax: 9341, yMin: 5581, yMax: 5932 }
             };
             var kf2HistoricalLayer = new BoundedTileLayer('https://danfront-tiles.odulsuzkisafilm.workers.dev/tiles-2kf/{z}/{x}/{y}.png', {
                 attribution: 'Second Military Survey (2KF), georeferenced by the DANFront Project | &copy; <a href="https://danfront.univie.ac.at/" target="_blank">DANFront Project</a>',
