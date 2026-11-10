@@ -85,6 +85,11 @@ don't overwrite each other where they overlap:
 | 2nd (2KF) | `tiles-2kf/` | Historical Map Overlay (2KF - DANFront) | `kf2TileBounds` |
 | 3rd (3KF) | `tiles-3kf/` | (to add) | |
 
+Whole-survey runs that are too big for a laptop: `colab_2kf.ipynb` (Google Colab + Google Drive).
+It downloads the 89 GB 2nd-survey archive from SharePoint into Drive as raw volumes, then extracts,
+tiles (`tiles_2kf_batch.py`, automatic frame clipping on the 9600 x 6400 Klafter Cassini grid) and
+uploads to R2 with rclone, batch by batch and resumable. Needs an R2 API token (Colab secrets).
+
 Exporting ECW -> GeoTIFF on the Windows QGIS: `qgis_batch_export.py`, with `CRS` set to the
 survey's CRS (2nd: Cassini/Vienna as in the script; 3rd: the Lambert string above; 1st: any,
 the sheets are RAW and land in `raw/`).
