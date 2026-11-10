@@ -541,8 +541,8 @@
             </div>
 
             <div class="map-container">
-                <div class="map-info" data-tr-text="Tarihi harita görüntüsü: Birinci Askeri Harita (1KF - Arcanum / Josephinian Land Survey). Haritayı yakınlaştırmak ve kaydırmak için fare veya dokunmatik kontrolleri kullanabilirsiniz." data-en-text="Historical map image: First Military Survey (1KF - Arcanum / Josephinian Land Survey). You can zoom and pan the map using mouse or touch controls.">
-                    Tarihi harita görüntüsü: Birinci Askeri Harita (1KF - Arcanum / Josephinian Land Survey). Haritayı yakınlaştırmak ve kaydırmak için fare veya dokunmatik kontrolleri kullanabilirsiniz.
+                <div class="map-info" data-tr-text="Tarihî harita katmanları: Birinci Askerî Haritalama (1763–1785) ve İkinci Askerî Haritalama (1806–1869), Digitized Maps of the Habsburg Empire (Arcanum Adatbázis Kft., Budapeşte). Tam künyeler Kaynaklar sayfasındaki Kaynakça bölümündedir. Haritayı yakınlaştırmak ve kaydırmak için fare veya dokunmatik kontrolleri kullanabilirsiniz." data-en-text="Historical map layers: First Military Survey (1763–1785) and Second Military Survey (1806–1869), Digitized Maps of the Habsburg Empire (Arcanum Adatbázis Kft., Budapest). Full citations are in the Bibliography on the Sources page. You can zoom and pan the map using mouse or touch controls.">
+                    Tarihî harita katmanları: Birinci Askerî Haritalama (1763–1785) ve İkinci Askerî Haritalama (1806–1869), Digitized Maps of the Habsburg Empire (Arcanum Adatbázis Kft., Budapeşte). Tam künyeler Kaynaklar sayfasındaki Kaynakça bölümündedir. Haritayı yakınlaştırmak ve kaydırmak için fare veya dokunmatik kontrolleri kullanabilirsiniz.
                 </div>
                 <div class="map-wrapper">
                     <!-- Filter Panel Toggle -->
@@ -1045,12 +1045,12 @@ var climateData = (CLIMATE_LAYER_ENABLED && typeof climateMapData !== "undefined
             };
             var historicalTileUrl = 'https://danfront-tiles.odulsuzkisafilm.workers.dev/tiles/{z}/{x}/{y}.png';
             var historicalMapLayer = new BoundedTileLayer(historicalTileUrl, {
-                attribution: 'First Military Survey (1KF - Arcanum) - DANFront Project | &copy; <a href="https://danfront.univie.ac.at/" target="_blank">DANFront Project</a>',
+                attribution: 'First Military Survey (1763–1785), Arcanum Adatbázis Kft. 2004 | &copy; <a href="https://danfront.univie.ac.at/" target="_blank">DANFront Project</a>',
                 minZoom: 6, maxZoom: 14, tms: false, noWrap: true, opacity: 0.7,
                 tileBounds: historicalTileBounds
             });
             var historicalMapOnlyLayer = new BoundedTileLayer(historicalTileUrl, {
-                attribution: 'First Military Survey (1KF - Arcanum) - DANFront Project | &copy; <a href="https://danfront.univie.ac.at/" target="_blank">DANFront Project</a>',
+                attribution: 'First Military Survey (1763–1785), Arcanum Adatbázis Kft. 2004 | &copy; <a href="https://danfront.univie.ac.at/" target="_blank">DANFront Project</a>',
                 minZoom: 6, maxZoom: 14, tms: false, noWrap: true, opacity: 1.0,
                 tileBounds: historicalTileBounds
             });
@@ -1071,7 +1071,7 @@ var climateData = (CLIMATE_LAYER_ENABLED && typeof climateMapData !== "undefined
                 14: { xMin: 9055, xMax: 9066, yMin: 5724, yMax: 5731 }
             };
             var extHistoricalLayer = new BoundedTileLayer('https://danfront-tiles.odulsuzkisafilm.workers.dev/tiles-ext/{z}/{x}/{y}.png', {
-                attribution: 'First Military Survey (1KF), georeferenced by the DANFront Project | &copy; <a href="https://danfront.univie.ac.at/" target="_blank">DANFront Project</a>',
+                attribution: 'First Military Survey (1763–1785), Arcanum Adatbázis Kft. 2004, georeferenced by the DANFront Project | &copy; <a href="https://danfront.univie.ac.at/" target="_blank">DANFront Project</a>',
                 minZoom: 6, maxZoom: 14, tms: false, noWrap: true, opacity: 0.7,
                 tileBounds: extTileBounds
             });
@@ -1092,7 +1092,7 @@ var climateData = (CLIMATE_LAYER_ENABLED && typeof climateMapData !== "undefined
                 14: { xMin: 8910, xMax: 9341, yMin: 5581, yMax: 5932 }
             };
             var kf2HistoricalLayer = new BoundedTileLayer('https://danfront-tiles.odulsuzkisafilm.workers.dev/tiles-2kf/{z}/{x}/{y}.png', {
-                attribution: 'Second Military Survey (2KF), georeferenced by the DANFront Project | &copy; <a href="https://danfront.univie.ac.at/" target="_blank">DANFront Project</a>',
+                attribution: 'Second Military Survey (1806–1869), Arcanum Adatbázis Kft. 2006, georeferenced by the DANFront Project | &copy; <a href="https://danfront.univie.ac.at/" target="_blank">DANFront Project</a>',
                 minZoom: 6, maxZoom: 14, tms: false, noWrap: true, opacity: 0.7,
                 tileBounds: kf2TileBounds
             });
