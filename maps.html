@@ -541,8 +541,8 @@
             </div>
 
             <div class="map-container">
-                <div class="map-info" data-tr-text="Tarihî harita katmanları: Birinci Askerî Haritalama (1763–1785) ve İkinci Askerî Haritalama (1806–1869), Digitized Maps of the Habsburg Empire (Arcanum Adatbázis Kft., Budapeşte). Tam künyeler Kaynaklar sayfasındaki Kaynakça bölümündedir. Haritayı yakınlaştırmak ve kaydırmak için fare veya dokunmatik kontrolleri kullanabilirsiniz." data-en-text="Historical map layers: First Military Survey (1763–1785) and Second Military Survey (1806–1869), Digitized Maps of the Habsburg Empire (Arcanum Adatbázis Kft., Budapest). Full citations are in the Bibliography on the Sources page. You can zoom and pan the map using mouse or touch controls.">
-                    Tarihî harita katmanları: Birinci Askerî Haritalama (1763–1785) ve İkinci Askerî Haritalama (1806–1869), Digitized Maps of the Habsburg Empire (Arcanum Adatbázis Kft., Budapeşte). Tam künyeler Kaynaklar sayfasındaki Kaynakça bölümündedir. Haritayı yakınlaştırmak ve kaydırmak için fare veya dokunmatik kontrolleri kullanabilirsiniz.
+                <div class="map-info" data-tr-text="Tarihî harita katmanları: Birinci (1763–1785), İkinci (1806–1869) ve Üçüncü (1869–1887) Askerî Haritalama, Digitized Maps of the Habsburg Empire (Arcanum Adatbázis Kft., Budapeşte). Tam künyeler Kaynaklar sayfasındaki Kaynakça bölümündedir. Haritayı yakınlaştırmak ve kaydırmak için fare veya dokunmatik kontrolleri kullanabilirsiniz." data-en-text="Historical map layers: First (1763–1785), Second (1806–1869) and Third (1869–1887) Military Survey, Digitized Maps of the Habsburg Empire (Arcanum Adatbázis Kft., Budapest). Full citations are in the Bibliography on the Sources page. You can zoom and pan the map using mouse or touch controls.">
+                    Tarihî harita katmanları: Birinci (1763–1785), İkinci (1806–1869) ve Üçüncü (1869–1887) Askerî Haritalama, Digitized Maps of the Habsburg Empire (Arcanum Adatbázis Kft., Budapeşte). Tam künyeler Kaynaklar sayfasındaki Kaynakça bölümündedir. Haritayı yakınlaştırmak ve kaydırmak için fare veya dokunmatik kontrolleri kullanabilirsiniz.
                 </div>
                 <div class="map-wrapper">
                     <!-- Filter Panel Toggle -->
@@ -1097,6 +1097,25 @@ var climateData = (CLIMATE_LAYER_ENABLED && typeof climateMapData !== "undefined
                 attribution: 'Second Military Survey (1806–1869), Arcanum Adatbázis Kft. 2006, georeferenced by the DANFront Project | &copy; <a href="https://danfront.univie.ac.at/" target="_blank">DANFront Project</a>',
                 minZoom: 6, maxZoom: 14, tms: false, noWrap: true, opacity: 0.7,
                 tileBounds: kf2TileBounds
+            });
+
+            // --- Third Military Survey sheets (3KF, 1:25 000), placed from their own Lambert coordinates ---
+            // R2 prefix "tiles-3kf/". Each sheet is clipped to its graticule frame (0.25 x 0.125 degrees, Ferro).
+            var kf3TileBounds = {
+                6:  { xMin: 34, xMax: 35, yMin: 21, yMax: 23 },
+                7:  { xMin: 69, xMax: 71, yMin: 43, yMax: 46 },
+                8:  { xMin: 138, xMax: 142, yMin: 87, yMax: 92 },
+                9:  { xMin: 276, xMax: 285, yMin: 174, yMax: 185 },
+                10: { xMin: 552, xMax: 571, yMin: 348, yMax: 371 },
+                11: { xMin: 1105, xMax: 1142, yMin: 697, yMax: 743 },
+                12: { xMin: 2211, xMax: 2285, yMin: 1395, yMax: 1487 },
+                13: { xMin: 4422, xMax: 4570, yMin: 2791, yMax: 2974 },
+                14: { xMin: 8844, xMax: 9140, yMin: 5583, yMax: 5949 }
+            };
+            var kf3HistoricalLayer = new BoundedTileLayer('https://danfront-tiles.odulsuzkisafilm.workers.dev/tiles-3kf/{z}/{x}/{y}.png', {
+                attribution: 'Third Military Survey (1869–1887), Arcanum Adatbázis Kft. 2007, georeferenced by the DANFront Project | &copy; <a href="https://danfront.univie.ac.at/" target="_blank">DANFront Project</a>',
+                minZoom: 6, maxZoom: 14, tms: false, noWrap: true, opacity: 0.7, zIndex: 5,
+                tileBounds: kf3TileBounds
             });
 
             // The First Military Survey is shown as ONE layer: the Arcanum tiles ("tiles/") plus the sheets
@@ -2318,7 +2337,8 @@ var climateData = (CLIMATE_LAYER_ENABLED && typeof climateMapData !== "undefined
             };
             var overlayLayers = {
                 "Historical Map Overlay (1KF)": kf1OverlayGroup,
-                "Historical Map Overlay (2KF)": kf2HistoricalLayer
+                "Historical Map Overlay (2KF)": kf2HistoricalLayer,
+                "Historical Map Overlay (3KF)": kf3HistoricalLayer
             };
             L.control.layers(baseLayers, overlayLayers, {
                 position: 'topright',
@@ -2355,6 +2375,7 @@ var climateData = (CLIMATE_LAYER_ENABLED && typeof climateMapData !== "undefined
                     historicalMapLayer.setOpacity(opacity);
                     extHistoricalLayer.setOpacity(opacity);
                     kf2HistoricalLayer.setOpacity(opacity);
+                    kf3HistoricalLayer.setOpacity(opacity);
                     valueDisplay.innerHTML = Math.round(opacity * 100) + '%';
                 });
                 L.DomEvent.disableClickPropagation(container);

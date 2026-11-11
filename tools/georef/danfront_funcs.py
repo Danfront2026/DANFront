@@ -306,3 +306,13 @@ class SharePointFolder:
         for d in self.folders(sub):
             n += self.download_tree(f"{sub}/{d}", os.path.join(dest_dir, d), threads)
         return n
+
+    def find_tifs(self, sub="", skip=("raw",), depth=4):
+        """All .tif files under root/sub (subfolders included, folders named in skip left out):
+        [(relative_path, size, server_relative_url)]."""
+        out = [((sub + "/" if sub else "") + n, size, url) for n, size, url in self.files(sub) if n.lower().endswith((".tif", ".tiff"))]
+        if depth > 0:
+            for d in self.folders(sub):
+                if d.lower() not in skip:
+                    out += self.find_tifs((sub + "/" if sub else "") + d, skip, depth - 1)
+        return out
