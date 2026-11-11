@@ -93,13 +93,14 @@ DONE_FIELDS = ["path", "sheet", "status", "cell_i", "cell_j", "cell_coverage", "
 
 def run_batches(cfg, max_sheets=None, batch_size=12, bbox=None, workers=2):
     """Extract -> tile -> upload -> record, batch by batch. Safe to interrupt and re-run."""
-    import tiles_2kf_batch as tb
+    import importlib
+    tb = importlib.import_module(cfg.get("tiler", "tiles_2kf_batch"))   # tiles_1kf_batch for the First Survey
     done = load_done(cfg["done_csv"])
     todo = [p for p, _ in cfg["sheets"] if p not in done]
     if max_sheets:
         todo = todo[:max_sheets]
     print(f"{len(done)} sheets already done, {len(todo)} to do in this run")
-    if done and not os.path.exists(cfg["restored_marker"]):
+    if (done or cfg.get("restore_always")) and not os.path.exists(cfg["restored_marker"]):
         print("new session: fetching the tiles made so far back from R2 (needed to merge sheet edges) ...")
         rc = subprocess.run(["rclone", "copy", cfg["remote"], cfg["tiles"], "--transfers", "64", "--checkers", "64"]).returncode
         if rc != 0:
@@ -112,12 +113,15 @@ def run_batches(cfg, max_sheets=None, batch_size=12, bbox=None, workers=2):
         batch = todo[b0:b0 + batch_size]
         wait_for_disk(cfg["disk_path"])
         shutil.rmtree(cfg["extract"], ignore_errors=True); os.makedirs(cfg["extract"])
-        lst = os.path.join(cfg["local"], "batch.txt")
-        open(lst, "w", encoding="utf-8").write("\n".join(batch) + "\n")
-        ex = subprocess.run([cfg.get("exe", "7z"), "x", cfg["first_volume"], f"-o{cfg['extract']}", f"-i@{lst}", "-y", "-bso0", "-bsp0"],
-                            capture_output=True, text=True)
-        if ex.returncode not in (0, 1):
-            raise RuntimeError("7z extraction failed:\n" + ex.stdout[-1500:] + ex.stderr[-1500:])
+        if cfg.get("fetch"):              # sheets come as single files (e.g. from a SharePoint folder)
+            cfg["fetch"](batch, cfg["extract"])
+        else:                             # sheets come out of the 7z archive
+            lst = os.path.join(cfg["local"], "batch.txt")
+            open(lst, "w", encoding="utf-8").write("\n".join(batch) + "\n")
+            ex = subprocess.run([cfg.get("exe", "7z"), "x", cfg["first_volume"], f"-o{cfg['extract']}", f"-i@{lst}", "-y", "-bso0", "-bsp0"],
+                                capture_output=True, text=True)
+            if ex.returncode not in (0, 1):
+                raise RuntimeError("7z extraction failed:\n" + ex.stdout[-1500:] + ex.stderr[-1500:])
         tifs, missing = [], []
         for p in batch:
             fp = os.path.join(cfg["extract"], p.replace("\\", "/"))
@@ -151,7 +155,7 @@ def run_batches(cfg, max_sheets=None, batch_size=12, bbox=None, workers=2):
         shutil.rmtree(cfg["extract"], ignore_errors=True)
         n_done += len(batch)
         el = time.time() - t0; left = (len(todo) - n_done) * el / n_done
-        bad = [r["sheet"] + ": " + r["status"] for r in rows if not r["status"].startswith("ok")]
+        bad = [r["sheet"] + ": " + r["status"] for r in rows if not r["status"].startswith(("ok", "skipped: already", "skipped: outside"))]
         print(f"[{n_done}/{len(todo)}] batch done in total {el/60:.0f} min, about {left/60:.0f} min left" + (f"   notes: {bad}" if bad else ""))
     print("run finished")
 
@@ -178,12 +182,12 @@ def summary(cfg):
     c = Counter(r["status"].split(":")[0] for r in done.values())
     print("sheets:", len(done), dict(c))
     for r in done.values():
-        if not r["status"].startswith("ok") or "irregular" in r["status"]:
+        if (not r["status"].startswith(("ok", "skipped: already", "skipped: outside"))) or "irregular" in r["status"] or "not clipped" in r["status"]:
             print("  ", r["sheet"], "-", r["status"], "coverage", r["cell_coverage"])
-    b = json.load(open(cfg["bounds_json"]))
+    b = json.load(open(cfg["bounds_json"])) if os.path.exists(cfg["bounds_json"]) else {}
     print("\n--- copy everything below this line to Claude ---")
     print("sheets_ok:", sum(1 for r in done.values() if r["status"].startswith("ok")), "of", len(done))
-    print("var kf2TileBounds = {")
+    print(f"var {cfg.get('bounds_var', 'kf2TileBounds')} = {{")
     for z in sorted(b, key=int):
         v = b[z]; print(f"    {int(z)}: {{ xMin: {v['xMin']}, xMax: {v['xMax']}, yMin: {v['yMin']}, yMax: {v['yMax']} }},")
     print("};")
@@ -221,3 +225,84 @@ def repair(cfg):
         with open(cfg["done_csv"], "w", newline="", encoding="utf-8") as f:
             w = csv.DictWriter(f, fieldnames=DONE_FIELDS); w.writeheader(); w.writerows(keep)
         print(len(rows) - len(keep), "failed sheets put back on the to-do list:", [r["sheet"] for r in rows if r["status"].startswith("ERROR")])
+
+
+# ---- SharePoint folder access (for packages uploaded as single files, not as one archive) ----
+UA = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/120 Safari/537.36"
+
+class SharePointFolder:
+    """Lists and downloads the files of a folder shared with an 'anyone with the link' sharing link."""
+    def __init__(self, share_url):
+        self.share_url = share_url
+        self.login()
+
+    def login(self):
+        from urllib.parse import urlparse, parse_qs
+        self.s = requests.Session(); self.s.headers["User-Agent"] = UA
+        r = self.s.get(self.share_url, timeout=60)
+        u = urlparse(r.url); q = parse_qs(u.query)
+        if r.status_code != 200 or "id" not in q:
+            raise RuntimeError(f"The sharing link did not open a folder (status {r.status_code}, landed on {r.url[:150]}). "
+                               "Check that SHARE is the link of the folder itself.")
+        self.root = q["id"][0]                                  # e.g. /personal/<user>/Documents/.../pc60_firstMS
+        self.site = f"{u.scheme}://{u.netloc}" + "/".join(self.root.split("/")[:3])
+
+    def _api(self, path, what):
+        from urllib.parse import quote
+        url = (f"{self.site}/_api/web/GetFolderByServerRelativePath(decodedurl='{quote(path.replace(chr(39), chr(39)*2))}')/{what}"
+               "?$top=5000")
+        for attempt in range(4):
+            r = self.s.get(url, headers={"Accept": "application/json;odata=nometadata"}, timeout=60)
+            if r.status_code == 200:
+                return r.json()["value"]
+            if r.status_code in (401, 403):
+                self.login()
+            time.sleep(3)
+        raise RuntimeError(f"SharePoint did not list {path} (status {r.status_code}): {r.text[:300]}")
+
+    def files(self, sub=""):
+        """[(name, size, server_relative_url)] of the files directly in root/sub."""
+        p = self.root + ("/" + sub.strip("/") if sub else "")
+        return sorted((f["Name"], int(f["Length"]), f["ServerRelativeUrl"]) for f in self._api(p, "Files"))
+
+    def folders(self, sub=""):
+        p = self.root + ("/" + sub.strip("/") if sub else "")
+        return sorted(f["Name"] for f in self._api(p, "Folders") if f["Name"] != "Forms")
+
+    def download(self, rel_url, size, dest):
+        from urllib.parse import quote
+        if os.path.exists(dest) and os.path.getsize(dest) == size:
+            return
+        url = f"{self.site}/_layouts/15/download.aspx?SourceUrl={quote(rel_url)}"
+        err = None
+        for attempt in range(5):
+            try:
+                with self.s.get(url, stream=True, timeout=120) as r:
+                    if r.status_code in (401, 403):
+                        self.login(); raise IOError(f"status {r.status_code}")
+                    r.raise_for_status()
+                    with open(dest + ".part", "wb") as f:
+                        for chunk in r.iter_content(4 * 1024**2):
+                            f.write(chunk)
+                if os.path.getsize(dest + ".part") != size:
+                    raise IOError("size mismatch")
+                os.replace(dest + ".part", dest); return
+            except Exception as e:
+                err = e; time.sleep(5 * (attempt + 1))
+        raise RuntimeError(f"could not download {rel_url}: {err}")
+
+    def download_many(self, items, dest_dir, threads=8):
+        """items: [(name, size, rel_url)] -> dest_dir/name."""
+        from concurrent.futures import ThreadPoolExecutor
+        os.makedirs(dest_dir, exist_ok=True)
+        with ThreadPoolExecutor(threads) as ex:
+            list(ex.map(lambda it: self.download(it[2], it[1], os.path.join(dest_dir, it[0])), items))
+
+    def download_tree(self, sub, dest_dir, threads=16):
+        """Download root/sub with all its subfolders (for the small .ini files). Returns the number of files."""
+        n = 0
+        items = self.files(sub)
+        self.download_many(items, dest_dir, threads); n += len(items)
+        for d in self.folders(sub):
+            n += self.download_tree(f"{sub}/{d}", os.path.join(dest_dir, d), threads)
+        return n

@@ -83,7 +83,7 @@ def sheet_affine_3857(s, x0, y0, x1, y1):
             px = x0 + (x1 - x0) * i / 4; py = y0 + (y1 - y0) * j / 4
             E, N = grid_to_utm33(s["ox"] + px * s["cx"], s["oy"] + py * s["cy"])
             X, Y = utm_to_merc.transform(E, N)
-            pts_px.append((px, py)); pts_m.append((X, Y))
+            pts_px.append((px - x0, py - y0)); pts_m.append((X, Y))   # relative to the clipped window that is tiled
     A = np.array([[px, py, 1] for px, py in pts_px]); B = np.array(pts_m)
     sol, *_ = np.linalg.lstsq(A, B, rcond=None)      # X = a*px + b*py + c ; Y = d*px + e*py + f
     res = A @ sol - B

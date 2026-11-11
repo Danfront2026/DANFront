@@ -1055,20 +1055,22 @@ var climateData = (CLIMATE_LAYER_ENABLED && typeof climateMapData !== "undefined
                 tileBounds: historicalTileBounds
             });
 
-            // --- Additional First Military Survey sheets georeferenced by DANFront (proof of concept) ---
+            // --- First Military Survey sheets missing from the Arcanum layer, georeferenced by DANFront ---
             // Served from the same Worker/R2 bucket under the separate prefix "tiles-ext/",
             // so the Arcanum tiles in "tiles/" are never overwritten.
-            // Current content: sheet 14-20 (Col. XIV Sectio XX, Pest), georeferenced with control points (RMS ~90 m).
+            // Current content: 531 sheets (everything outside the outline of the Arcanum layer) placed with the georeference of the
+            // Arcanum DVD (ekf_mk.xml + geoview_mk.ini; a few hundred metres off, more in the far corners), plus sheet 14-20
+            // (Col. XIV Sectio XX, Pest), georeferenced with control points (RMS ~90 m).
             var extTileBounds = {
-                6:  { xMin: 35,   xMax: 35,   yMin: 22,   yMax: 22 },
-                7:  { xMin: 70,   xMax: 70,   yMin: 44,   yMax: 44 },
-                8:  { xMin: 141,  xMax: 141,  yMin: 89,   yMax: 89 },
-                9:  { xMin: 282,  xMax: 283,  yMin: 178,  yMax: 179 },
-                10: { xMin: 565,  xMax: 566,  yMin: 357,  yMax: 358 },
-                11: { xMin: 1131, xMax: 1133, yMin: 715,  yMax: 716 },
-                12: { xMin: 2263, xMax: 2266, yMin: 1431, yMax: 1432 },
-                13: { xMin: 4527, xMax: 4533, yMin: 2862, yMax: 2865 },
-                14: { xMin: 9055, xMax: 9066, yMin: 5724, yMax: 5731 }
+                6:  { xMin: 34, xMax: 36, yMin: 21, yMax: 23 },
+                7:  { xMin: 69, xMax: 73, yMin: 43, yMax: 46 },
+                8:  { xMin: 139, xMax: 146, yMin: 87, yMax: 92 },
+                9:  { xMin: 278, xMax: 292, yMin: 174, yMax: 184 },
+                10: { xMin: 557, xMax: 584, yMin: 348, yMax: 368 },
+                11: { xMin: 1114, xMax: 1168, yMin: 697, yMax: 736 },
+                12: { xMin: 2228, xMax: 2336, yMin: 1395, yMax: 1472 },
+                13: { xMin: 4457, xMax: 4673, yMin: 2790, yMax: 2945 },
+                14: { xMin: 8914, xMax: 9346, yMin: 5581, yMax: 5891 }
             };
             var extHistoricalLayer = new BoundedTileLayer('https://danfront-tiles.odulsuzkisafilm.workers.dev/tiles-ext/{z}/{x}/{y}.png', {
                 attribution: 'First Military Survey (1763–1785), Arcanum Adatbázis Kft. 2004, georeferenced by the DANFront Project | &copy; <a href="https://danfront.univie.ac.at/" target="_blank">DANFront Project</a>',
