@@ -1099,9 +1099,23 @@ var climateData = (CLIMATE_LAYER_ENABLED && typeof climateMapData !== "undefined
                 tileBounds: kf2TileBounds
             });
 
+            // The First Military Survey is shown as ONE layer: the Arcanum tiles ("tiles/") plus the sheets
+            // added by DANFront ("tiles-ext/"). Same source (Arcanum DVD), only the tile sets differ.
+            // The Arcanum tiles are drawn on top where the two overlap (their georeference is the better one).
+            var extHistoricalOnlyLayer = new BoundedTileLayer(extHistoricalLayer._url, {
+                attribution: extHistoricalLayer.options.attribution,
+                minZoom: 6, maxZoom: 14, tms: false, noWrap: true, opacity: 1.0,
+                tileBounds: extTileBounds
+            });
+            extHistoricalLayer.setZIndex(2); extHistoricalOnlyLayer.setZIndex(2);
+            historicalMapLayer.setZIndex(3); historicalMapOnlyLayer.setZIndex(3);
+            kf2HistoricalLayer.setZIndex(4);
+            var kf1OverlayGroup = L.layerGroup([extHistoricalLayer, historicalMapLayer]);
+            var kf1OnlyGroup = L.layerGroup([extHistoricalOnlyLayer, historicalMapOnlyLayer]);
+
             // Add default layers
             osmLayer.addTo(map);
-            historicalMapLayer.addTo(map);
+            kf1OverlayGroup.addTo(map);
             
             // Tile error handling
             var historicalTileErrorLogged = false;
@@ -2300,12 +2314,11 @@ var climateData = (CLIMATE_LAYER_ENABLED && typeof climateMapData !== "undefined
                 "Satellite Imagery": satelliteLayer,
                 "Light (Minimal)": positronLayer,
                 "Dark Style": darkMatterLayer,
-                "Historical Map Only (1KF - Arcanum)": historicalMapOnlyLayer
+                "Historical Map Only (1KF)": kf1OnlyGroup
             };
             var overlayLayers = {
-                "Historical Map Overlay (1KF - Arcanum)": historicalMapLayer,
-                "Historical Map Overlay (1KF - DANFront)": extHistoricalLayer,
-                "Historical Map Overlay (2KF - DANFront)": kf2HistoricalLayer
+                "Historical Map Overlay (1KF)": kf1OverlayGroup,
+                "Historical Map Overlay (2KF)": kf2HistoricalLayer
             };
             L.control.layers(baseLayers, overlayLayers, {
                 position: 'topright',
