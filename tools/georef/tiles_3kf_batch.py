@@ -70,7 +70,7 @@ def process(job):
         rgba[:3] = data; rgba[3] = np.where(data.any(axis=0), 255, 0); del data
         if clipped:
             mask = rasterize([Polygon(zip(rx, ry))], out_shape=(H, W), transform=src_tf, fill=0, default_value=1, dtype="uint8")
-            rgba[3][mask == 0] = 0; del mask
+            rgba[:, mask == 0] = 0; del mask      # colour too: margin colours must not bleed into the frame edge
         lock_path = os.path.join(os.path.dirname(os.path.abspath(out_dir)), ".tiles.lock")
         prev = prev_tf = None
         for z in range(zmax, zmin - 1, -1):
