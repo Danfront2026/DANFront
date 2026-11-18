@@ -59,6 +59,9 @@ def process(job):
                 rx, ry = ex, ey
                 res["status"] = "ok, irregular (not clipped)"
             to_merc = Transformer.from_crs(src_crs, "EPSG:3857", always_xy=True)
+            _w = Transformer.from_crs(src_crs, "EPSG:4326", always_xy=True)
+            _n = len(rx) // 4
+            res["outline"] = [[round(v, 5) for v in _w.transform(rx[k], ry[k])] for k in ((3 * _n, 2 * _n, _n, 0) if clipped else (0, _n, 2 * _n, 3 * _n))]   # NW, NE, SE, SW (lon, lat)
             mx, my = to_merc.transform(rx, ry)
             minX, maxX, minY, maxY = min(mx), max(mx), min(my), max(my)
             if bbox:

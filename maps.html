@@ -347,6 +347,14 @@
             line-height: 1;
         }
         .map-search-clear:hover { color: #d73027; }
+        .map-suggestion-place-search {
+            padding: 8px 10px; font-size: 12.5px; color: #2a5298; cursor: pointer;
+            border-top: 1px solid #eee; background: #f7f9fc;
+        }
+        .map-suggestion-place-search:hover { background: #e9eff9; }
+        .map-suggestion-place-search i { margin-right: 4px; }
+        .map-suggestion-credit { padding: 4px 10px; font-size: 10.5px; color: #999; text-align: right; border-top: 1px solid #eee; }
+        .place-pin { background: none !important; border: none !important; color: #d73027; font-size: 30px; line-height: 1; text-shadow: 0 1px 3px rgba(0,0,0,0.45); }
         .hub-icon { background: none !important; border: none !important; }
         .shipyard-icon { background: none !important; border: none !important; }
 
@@ -552,8 +560,8 @@
 
                     <!-- Search Box -->
                     <div class="map-search-box" id="map-search-box">
-                        <input type="text" id="map-search-input" placeholder="Search garrisons..." autocomplete="off"
-                               data-tr-placeholder="Garnizon ara..." data-en-placeholder="Search garrisons...">
+                        <input type="text" id="map-search-input" placeholder="Search garrisons or places..." autocomplete="off"
+                               data-tr-placeholder="Garnizon veya yer ara..." data-en-placeholder="Search garrisons or places...">
                         <button class="map-search-clear" id="map-search-clear" title="Clear search">&times;</button>
                     </div>
 
@@ -1103,15 +1111,15 @@ var climateData = (CLIMATE_LAYER_ENABLED && typeof climateMapData !== "undefined
             // --- Third Military Survey sheets (3KF, 1:25 000), placed from their own Lambert coordinates ---
             // R2 prefix "tiles-3kf/". Each sheet is clipped to its graticule frame (0.25 x 0.125 degrees, Ferro).
             var kf3TileBounds = {
-                6:  { xMin: 34, xMax: 35, yMin: 21, yMax: 23 },
-                7:  { xMin: 69, xMax: 71, yMin: 43, yMax: 46 },
-                8:  { xMin: 138, xMax: 142, yMin: 87, yMax: 92 },
-                9:  { xMin: 276, xMax: 285, yMin: 174, yMax: 185 },
-                10: { xMin: 552, xMax: 571, yMin: 348, yMax: 371 },
-                11: { xMin: 1105, xMax: 1142, yMin: 697, yMax: 743 },
-                12: { xMin: 2211, xMax: 2285, yMin: 1395, yMax: 1487 },
-                13: { xMin: 4422, xMax: 4570, yMin: 2791, yMax: 2974 },
-                14: { xMin: 8844, xMax: 9140, yMin: 5583, yMax: 5949 }
+                6:  { xMin: 34, xMax: 36, yMin: 21, yMax: 23 },
+                7:  { xMin: 69, xMax: 73, yMin: 43, yMax: 46 },
+                8:  { xMin: 138, xMax: 146, yMin: 87, yMax: 92 },
+                9:  { xMin: 276, xMax: 293, yMin: 174, yMax: 185 },
+                10: { xMin: 552, xMax: 587, yMin: 348, yMax: 371 },
+                11: { xMin: 1105, xMax: 1175, yMin: 697, yMax: 743 },
+                12: { xMin: 2211, xMax: 2350, yMin: 1395, yMax: 1487 },
+                13: { xMin: 4422, xMax: 4700, yMin: 2791, yMax: 2974 },
+                14: { xMin: 8844, xMax: 9401, yMin: 5583, yMax: 5949 }
             };
             var kf3HistoricalLayer = new BoundedTileLayer('https://danfront-tiles.odulsuzkisafilm.workers.dev/tiles-3kf/{z}/{x}/{y}.png', {
                 attribution: 'Third Military Survey (1869–1887), Arcanum Adatbázis Kft. 2007, georeferenced by the DANFront Project | &copy; <a href="https://danfront.univie.ac.at/" target="_blank">DANFront Project</a>',
@@ -2148,8 +2156,8 @@ var climateData = (CLIMATE_LAYER_ENABLED && typeof climateMapData !== "undefined
 
             function renderSuggestions(normTerm, lang) {
                 if (currentSuggestions.length === 0) {
-                    var emptyText = lang === 'tr' ? 'Sonuç bulunamadı' : 'No results';
-                    suggestionsBox.innerHTML = '<div class="map-suggestion-empty">' + emptyText + '</div>';
+                    var emptyText = lang === 'tr' ? 'Bu adda garnizon yok' : 'No garrison with this name';
+                    suggestionsBox.innerHTML = '<div class="map-suggestion-empty">' + emptyText + '</div>' + placeRowHtml(lang);
                     suggestionsBox.classList.add('open');
                     return;
                 }
@@ -2173,8 +2181,71 @@ var climateData = (CLIMATE_LAYER_ENABLED && typeof climateMapData !== "undefined
                            typeMeta +
                            '</div>';
                 }).join('');
-                suggestionsBox.innerHTML = html;
+                suggestionsBox.innerHTML = html + placeRowHtml(lang);
                 suggestionsBox.classList.add('open');
+            }
+
+            // ===== PLACE SEARCH on today's map (OpenStreetMap Nominatim) =====
+            // Runs only when the user asks for it (click on the row or Enter), never while typing:
+            // the public Nominatim service does not allow search-as-you-type.
+            var placeMarker = null;
+            var placeResults = [];
+            function placeSearchLang() { return localStorage.getItem('siteLanguage') || localStorage.getItem('language') || 'tr'; }
+            function placeRowHtml(lang) {
+                var term = searchInput.value.trim();
+                if (!term) return '';
+                var label = lang === 'tr' ? 'Bugünkü haritada yer ara: ' : "Search places on today's map: ";
+                return '<div class="map-suggestion-place-search" data-place-search="1"><i class="fas fa-map-marker-alt"></i> ' +
+                       label + '<strong>' + escapeHtml(term) + '</strong></div>';
+            }
+            function searchPlaces() {
+                var term = searchInput.value.trim();
+                if (!term) return;
+                var lang = placeSearchLang();
+                currentSuggestions = []; activeSuggestionIndex = -1;
+                suggestionsBox.innerHTML = '<div class="map-suggestion-empty">' + (lang === 'tr' ? 'Aranıyor...' : 'Searching...') + '</div>';
+                suggestionsBox.classList.add('open');
+                var url = 'https://nominatim.openstreetmap.org/search?format=jsonv2&limit=6&accept-language=' + lang +
+                          '&viewbox=8,52,31,40&q=' + encodeURIComponent(term);
+                fetch(url).then(function(r) { return r.json(); }).then(function(list) {
+                    placeResults = Array.isArray(list) ? list : [];
+                    if (placeResults.length === 0) {
+                        suggestionsBox.innerHTML = '<div class="map-suggestion-empty">' + (lang === 'tr' ? 'Yer bulunamadı' : 'No place found') + '</div>';
+                        return;
+                    }
+                    suggestionsBox.innerHTML = placeResults.map(function(pl, i) {
+                        return '<div class="map-suggestion-item" data-place-idx="' + i + '" role="option">' +
+                               '<span class="suggestion-dot" style="background:#d73027;"></span>' +
+                               '<span class="suggestion-text">' + escapeHtml(pl.display_name) + '</span></div>';
+                    }).join('') + '<div class="map-suggestion-credit">&copy; OpenStreetMap</div>';
+                }).catch(function() {
+                    suggestionsBox.innerHTML = '<div class="map-suggestion-empty">' + (lang === 'tr' ? 'Yer araması şu an yapılamıyor' : 'Place search is not available right now') + '</div>';
+                });
+            }
+            function clearPlaceMarker() {
+                if (placeMarker) { map.removeLayer(placeMarker); placeMarker = null; }
+            }
+            function selectPlace(idx) {
+                var pl = placeResults[idx];
+                if (!pl) return;
+                var lat = parseFloat(pl.lat), lng = parseFloat(pl.lon);
+                if (isNaN(lat) || isNaN(lng)) return;
+                // back to the normal map: all garrisons visible again
+                searchInput.value = ''; searchTerm = '';
+                suggestionsBox.classList.remove('open'); suggestionsBox.innerHTML = '';
+                updateMarkerVisibility();
+                clearPlaceMarker();
+                placeMarker = L.marker([lat, lng], {
+                    icon: L.divIcon({ className: 'place-pin', html: '<i class="fas fa-map-marker-alt"></i>', iconSize: [24, 32], iconAnchor: [12, 30], popupAnchor: [0, -28] }),
+                    zIndexOffset: 1000
+                }).addTo(map).bindPopup('<strong>' + escapeHtml(pl.display_name) + '</strong>');
+                var bb = pl.boundingbox;
+                if (bb && bb.length === 4) {
+                    map.flyToBounds([[parseFloat(bb[0]), parseFloat(bb[2])], [parseFloat(bb[1]), parseFloat(bb[3])]], { maxZoom: 13, duration: 0.8 });
+                } else {
+                    map.flyTo([lat, lng], Math.max(map.getZoom(), 11), { duration: 0.8 });
+                }
+                setTimeout(function() { if (placeMarker) placeMarker.openPopup(); }, 900);
             }
 
             function selectSuggestion(idx) {
@@ -2224,6 +2295,9 @@ var climateData = (CLIMATE_LAYER_ENABLED && typeof climateMapData !== "undefined
                     if (activeSuggestionIndex >= 0) {
                         e.preventDefault();
                         selectSuggestion(activeSuggestionIndex);
+                    } else if (searchInput.value.trim()) {
+                        e.preventDefault();          // no garrison with this name: look it up on today's map
+                        searchPlaces();
                     }
                 } else if (e.key === 'Escape') {
                     suggestionsBox.classList.remove('open');
@@ -2232,6 +2306,9 @@ var climateData = (CLIMATE_LAYER_ENABLED && typeof climateMapData !== "undefined
             // Mouse interactions on suggestions
             suggestionsBox.addEventListener('mousedown', function(e) {
                 // Use mousedown so it fires before input blur
+                if (e.target.closest('[data-place-search]')) { e.preventDefault(); searchPlaces(); return; }
+                var placeItem = e.target.closest('[data-place-idx]');
+                if (placeItem) { e.preventDefault(); selectPlace(parseInt(placeItem.getAttribute('data-place-idx'), 10)); return; }
                 var target = e.target.closest('.map-suggestion-item');
                 if (!target) return;
                 e.preventDefault();
@@ -2252,6 +2329,7 @@ var climateData = (CLIMATE_LAYER_ENABLED && typeof climateMapData !== "undefined
                 activeSuggestionIndex = -1;
                 suggestionsBox.classList.remove('open');
                 suggestionsBox.innerHTML = '';
+                clearPlaceMarker();
                 updateMarkerVisibility();
                 searchInput.focus();
             });

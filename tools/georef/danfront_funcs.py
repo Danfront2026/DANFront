@@ -145,6 +145,10 @@ def run_batches(cfg, max_sheets=None, batch_size=12, bbox=None, workers=2):
                              cell_coverage=r.get("cell_coverage", ""), tiles=len(r["tiles"])))
         for p, _ in missing:
             rows.append(dict(path=p, sheet=os.path.basename(p), status="ERROR: not extracted", cell_i="", cell_j="", cell_coverage="", tiles=0))
+        op = cfg.get("outlines_json") or os.path.join(os.path.dirname(cfg["done_csv"]), "sheet_outlines.json")
+        outlines = json.load(open(op)) if os.path.exists(op) else {}
+        outlines.update({r["sheet"]: r["outline"] for r in results if r.get("outline") and r["status"].startswith("ok")})
+        json.dump(outlines, open(op, "w"))          # sheet name -> corners (lon, lat), for the map's sheet lookup
         new_file = not os.path.exists(cfg["done_csv"])
         with open(cfg["done_csv"], "a", newline="", encoding="utf-8") as f:
             w = csv.DictWriter(f, fieldnames=DONE_FIELDS)

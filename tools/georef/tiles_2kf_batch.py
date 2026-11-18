@@ -119,6 +119,9 @@ def process(job):
             lon, lat = warp_transform("EPSG:3857", "EPSG:4326", [minX, maxX], [minY, maxY])
             if lon[1] < bbox[0] or lon[0] > bbox[2] or lat[1] < bbox[1] or lat[0] > bbox[3]:
                 res["status"] = "skipped: outside bbox"; return res
+        _xs, _ys = zip(*[src_tf * p for p in ((0, 0), (W, 0), (W, H), (0, H))])
+        _cx, _cy = warp_transform(src_crs, "EPSG:4326", _xs, _ys)
+        res["outline"] = [[round(a, 5), round(b, 5)] for a, b in zip(_cx, _cy)]   # NW, NE, SE, SW (lon, lat)
         lock_path = os.path.join(os.path.dirname(os.path.abspath(out_dir)), ".tiles.lock")
         # One warp per zoom level into a mosaic aligned to the tile grid, then slice it into tiles.
         # The deepest zoom is warped from the sheet; each shallower zoom is averaged from the one above it.

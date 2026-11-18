@@ -127,6 +127,8 @@ def process(job):
             W, H = x1 - x0, y1 - y0
             cs = [src_tf * p for p in ((0, 0), (W, 0), (0, H), (W, H))]
             minX, maxX = min(p[0] for p in cs), max(p[0] for p in cs); minY, maxY = min(p[1] for p in cs), max(p[1] for p in cs)
+            _w = Transformer.from_crs("EPSG:3857", "EPSG:4326", always_xy=True)
+            res["outline"] = [[round(v, 5) for v in _w.transform(*cs[k])] for k in (0, 1, 3, 2)]   # NW, NE, SE, SW (lon, lat)
             if bbox:
                 to_wgs = Transformer.from_crs("EPSG:3857", "EPSG:4326", always_xy=True)
                 lon0, lat0 = to_wgs.transform(minX, minY); lon1, lat1 = to_wgs.transform(maxX, maxY)
