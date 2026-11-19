@@ -24,9 +24,10 @@ from pyproj import Transformer
 from scipy.interpolate import RBFInterpolator
 from tiles_2kf_batch import composite_save, merge_bounds, R
 from erdely_grid_cells import CELL
-from frame import find_frame
+from frame import find_frame, map_region, background_mask
 
 CFG = {}
+FRAME_ONLY = {'001', '005', '007', '014', '118'}   # checked by eye on the previews
 INSET = 18          # half the thickness of the drawn frame line, in scan pixels
 
 def configure(fit_json):
@@ -59,19 +60,20 @@ def process(job):
         if n is None or n not in CELL:
             res["status"] = "skipped: not a numbered grid sheet"; return res
         fr = find_frame(tif)
-        if fr['W'] > 9000 or fr['H'] > 6200:
-            res["status"] = f"skipped: unusual sheet size {fr['W']}x{fr['H']}"; return res
         if not (fr['x'] and fr['y']):
-            res["status"] = "skipped: map frame not found"; return res
-        (x0, x1), (y0, y1) = fr['x'], fr['y']
-        x0 += INSET; x1 -= INSET; y0 += INSET; y1 -= INSET          # inner edge of the thick frame line
+            res["status"] = f"skipped: map frame not found ({fr['W']}x{fr['H']})"; return res
+        (fx0, fx1), (fy0, fy1) = fr['x'], fr['y']
+        (x0, y0, x1, y1), ext = map_region(fr, INSET)      # the frame, plus a glued-on piece of map if there is one
+        if sheet in FRAME_ONLY:                              # glued piece separated by the title strip / name column: leave it out
+            x0, y0, x1, y1, ext = fx0 + INSET, fy0 + INSET, fx1 - INSET, fy1 - INSET, []
         W, H = x1 - x0, y1 - y0
         c, r = CELL[n]; CW, CH = CFG['cell']
         k = 7; A = []; UU = []
         for i in range(k):
             for j in range(k):
-                fx, fy = i / (k - 1), j / (k - 1)
-                A.append((fx * W, fy * H, 1)); UU.append(((c + fx) * CW, -(r + fy) * CH))
+                px, py = W * i / (k - 1), H * j / (k - 1)                       # pixel in the tiled window
+                fx = (x0 + px - fx0) / (fx1 - fx0); fy = (y0 + py - fy0) / (fy1 - fy0)   # position in frame units (beyond 0..1 on a glued piece)
+                A.append((px, py, 1)); UU.append(((c + fx) * CW, -(r + fy) * CH))
         L = grid_to_local(UU); B = np.array(CFG['to_merc'].transform(L[:, 0], L[:, 1])).T
         A = np.array(A)
         # the correction bends a little inside one sheet: warp with a 3rd-order polynomial through the 7x7 mesh
@@ -89,8 +91,11 @@ def process(job):
         with rasterio.open(tif) as ds:
             data = ds.read([1, 2, 3], window=Window(x0, y0, W, H))
         rgba = np.zeros((4,) + data.shape[1:], np.uint8)
-        rgba[:3] = data; rgba[3] = 255; del data
-        res["status"] = "ok"
+        rgba[:3] = data; rgba[3] = 255
+        if ext:
+            bg = background_mask(data); rgba[:, bg] = 0
+        del data
+        res["status"] = "ok" + (f", with glued piece ({'+'.join(ext)})" if ext else "") + (f", {fr['inferred']} frame line reconstructed" if fr['inferred'] else "")
         lock_path = os.path.join(os.path.dirname(os.path.abspath(out_dir)), ".tiles.lock")
         prev = prev_tf = None
         for z in range(zmax, zmin - 1, -1):
