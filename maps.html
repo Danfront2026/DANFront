@@ -2381,6 +2381,61 @@ var climateData = (CLIMATE_LAYER_ENABLED && typeof climateMapData !== "undefined
                 searchInput.focus();
             });
 
+            // ===== SHEET LOOKUP: right-click (long press on touch screens) shows which map sheet is under the pointer =====
+            // js/sheet-outlines.json: for every survey, sheet name -> corners NW, NE, SE, SW as [lon, lat, lon, lat, ...].
+            // The file is only fetched on the first right-click.
+            var sheetOutlines = null, sheetOutlinesLoading = null;
+            var SHEET_SETS = [
+                { key: 'h', en: 'First Military Survey, Hungary',       tr: 'Birinci Askerî Haritalama, Macaristan', pre: '' },
+                { key: 'e', en: 'First Military Survey, Transylvania',  tr: 'Birinci Askerî Haritalama, Erdel',      pre: 'Sectio ' },
+                { key: 't', en: 'First Military Survey, Banat',         tr: 'Birinci Askerî Haritalama, Banat',      pre: 'Sectio ' },
+                { key: 's', en: 'Second Military Survey',               tr: 'İkinci Askerî Haritalama',              pre: '' },
+                { key: 'd', en: 'Third Military Survey (1:25 000)',     tr: 'Üçüncü Askerî Haritalama (1:25 000)',   pre: '' }
+            ];
+            function loadSheetOutlines() {
+                if (sheetOutlines) return Promise.resolve(sheetOutlines);
+                if (!sheetOutlinesLoading) {
+                    sheetOutlinesLoading = fetch('js/sheet-outlines.json?v=1').then(function(r) { return r.json(); })
+                        .then(function(d) { sheetOutlines = d; return d; });
+                }
+                return sheetOutlinesLoading;
+            }
+            function pointInQuad(lng, lat, q) {
+                var inside = false;
+                for (var i = 0, j = 3; i < 4; j = i++) {
+                    var xi = q[2 * i], yi = q[2 * i + 1], xj = q[2 * j], yj = q[2 * j + 1];
+                    if ((yi > lat) !== (yj > lat) && lng < (xj - xi) * (lat - yi) / (yj - yi) + xi) inside = !inside;
+                }
+                return inside;
+            }
+            function sheetsAt(lng, lat, data) {
+                var found = [];
+                SHEET_SETS.forEach(function(set) {
+                    var sheets = data[set.key] || {};
+                    for (var name in sheets) {
+                        if (pointInQuad(lng, lat, sheets[name])) { found.push({ set: set, name: name }); break; }
+                    }
+                });
+                return found;
+            }
+            map.on('contextmenu', function(e) {
+                var lang = placeSearchLang();
+                var popup = L.popup({ maxWidth: 320 }).setLatLng(e.latlng)
+                    .setContent(lang === 'tr' ? 'Pafta aranıyor...' : 'Looking up the sheet...').openOn(map);
+                loadSheetOutlines().then(function(data) {
+                    var found = sheetsAt(e.latlng.lng, e.latlng.lat, data);
+                    var head = '<strong>' + (lang === 'tr' ? 'Bu noktadaki paftalar' : 'Map sheets at this point') + '</strong>';
+                    var body = found.length ? found.map(function(f) {
+                        return '<div style="margin-top:4px;">' + escapeHtml(lang === 'tr' ? f.set.tr : f.set.en) + ': <strong>' +
+                               escapeHtml(f.set.pre + f.name) + '</strong></div>';
+                    }).join('') : '<div style="margin-top:4px;">' + (lang === 'tr' ? 'Bu noktada tarihî harita paftası yok.' : 'No historical map sheet here.') + '</div>';
+                    var coords = '<div style="margin-top:6px;color:#888;font-size:11px;">' + e.latlng.lat.toFixed(4) + '° N, ' + e.latlng.lng.toFixed(4) + '° E</div>';
+                    popup.setContent(head + body + coords);
+                }).catch(function() {
+                    popup.setContent(lang === 'tr' ? 'Pafta bilgisi yüklenemedi.' : 'The sheet index could not be loaded.');
+                });
+            });
+
             // ===== TIME SLIDER =====
             var timeSlider = document.getElementById('time-slider-range');
             var timeYearDisplay = document.getElementById('time-year-display');
