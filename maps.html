@@ -1040,26 +1040,29 @@ var climateData = (CLIMATE_LAYER_ENABLED && typeof climateMapData !== "undefined
                 }
             });
 
-            // --- First Military Survey (1KF / Josephinian) ---
+            // --- First Military Survey (1KF / Josephinian), Kingdom of Hungary ---
+            // All 965 sheets of the Arcanum DVD, tiled by DANFront with the DVD's own georeference (R2 prefix "tiles-1kf/").
+            // This replaces the two older tile sets: the ready-made Arcanum tiles ("tiles/", cut along today's border of
+            // Hungary) and the sheets added around them ("tiles-ext/"), which left holes and double images where they met.
             var historicalTileBounds = {
-                6:  { xMin: 34,   xMax: 36,   yMin: 22,   yMax: 22 },
-                7:  { xMin: 69,   xMax: 72,   yMin: 44,   yMax: 45 },
-                8:  { xMin: 139,  xMax: 144,  yMin: 88,   yMax: 91 },
-                9:  { xMin: 278,  xMax: 288,  yMin: 176,  yMax: 182 },
-                10: { xMin: 557,  xMax: 577,  yMin: 353,  yMax: 365 },
-                11: { xMin: 1114, xMax: 1154, yMin: 706,  yMax: 731 },
-                12: { xMin: 2228, xMax: 2309, yMin: 1412, yMax: 1463 },
-                13: { xMin: 4457, xMax: 4619, yMin: 2825, yMax: 2926 },
-                14: { xMin: 8914, xMax: 9239, yMin: 5651, yMax: 5852 }
+                6:  { xMin: 34, xMax: 36, yMin: 21, yMax: 23 },
+                7:  { xMin: 69, xMax: 73, yMin: 43, yMax: 46 },
+                8:  { xMin: 139, xMax: 146, yMin: 87, yMax: 92 },
+                9:  { xMin: 278, xMax: 292, yMin: 174, yMax: 184 },
+                10: { xMin: 557, xMax: 584, yMin: 348, yMax: 368 },
+                11: { xMin: 1114, xMax: 1168, yMin: 697, yMax: 736 },
+                12: { xMin: 2228, xMax: 2336, yMin: 1395, yMax: 1472 },
+                13: { xMin: 4457, xMax: 4673, yMin: 2790, yMax: 2945 },
+                14: { xMin: 8914, xMax: 9346, yMin: 5581, yMax: 5891 }
             };
-            var historicalTileUrl = 'https://danfront-tiles.odulsuzkisafilm.workers.dev/tiles/{z}/{x}/{y}.png';
+            var historicalTileUrl = 'https://danfront-tiles.odulsuzkisafilm.workers.dev/tiles-1kf/{z}/{x}/{y}.png';
             var historicalMapLayer = new BoundedTileLayer(historicalTileUrl, {
-                attribution: 'First Military Survey (1763–1785), Arcanum Adatbázis Kft. 2004 | &copy; <a href="https://danfront.univie.ac.at/" target="_blank">DANFront Project</a>',
+                attribution: 'First Military Survey (1763–1785), Arcanum Adatbázis Kft. 2004, georeferenced by the DANFront Project | &copy; <a href="https://danfront.univie.ac.at/" target="_blank">DANFront Project</a>',
                 minZoom: 6, maxZoom: 14, tms: false, noWrap: true, opacity: 0.7,
                 tileBounds: historicalTileBounds
             });
             var historicalMapOnlyLayer = new BoundedTileLayer(historicalTileUrl, {
-                attribution: 'First Military Survey (1763–1785), Arcanum Adatbázis Kft. 2004 | &copy; <a href="https://danfront.univie.ac.at/" target="_blank">DANFront Project</a>',
+                attribution: 'First Military Survey (1763–1785), Arcanum Adatbázis Kft. 2004, georeferenced by the DANFront Project | &copy; <a href="https://danfront.univie.ac.at/" target="_blank">DANFront Project</a>',
                 minZoom: 6, maxZoom: 14, tms: false, noWrap: true, opacity: 1.0,
                 tileBounds: historicalTileBounds
             });
@@ -1182,8 +1185,8 @@ var climateData = (CLIMATE_LAYER_ENABLED && typeof climateMapData !== "undefined
                 });
             }
             var kf1TemesLayer = makeTemesLayer(0.7), kf1TemesOnlyLayer = makeTemesLayer(1.0);
-            var kf1OverlayGroup = L.layerGroup([kf1TemesLayer, kf1ErdelyLayer, extHistoricalLayer, historicalMapLayer]);
-            var kf1OnlyGroup = L.layerGroup([kf1TemesOnlyLayer, kf1ErdelyOnlyLayer, extHistoricalOnlyLayer, historicalMapOnlyLayer]);
+            var kf1OverlayGroup = L.layerGroup([kf1TemesLayer, kf1ErdelyLayer, historicalMapLayer]);   // extHistoricalLayer (old tile set) no longer shown
+            var kf1OnlyGroup = L.layerGroup([kf1TemesOnlyLayer, kf1ErdelyOnlyLayer, historicalMapOnlyLayer]);
 
             // Add default layers
             osmLayer.addTo(map);
