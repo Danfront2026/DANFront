@@ -1088,7 +1088,7 @@ var climateData = (CLIMATE_LAYER_ENABLED && typeof climateMapData !== "undefined
             });
 
             // --- Second Military Survey sheets (2KF), georeferenced by DANFront ---
-            // Separate R2 prefix "tiles-2kf/" and separate layer, so the two surveys never mix.
+            // R2 prefix "tiles-2kf-v2/" (second run: sheet edges merged without the dark lines of the first run in "tiles-2kf/").
             // Current content: the whole survey, 1111 sheets, each placed from its own Cassini-Soldner
             // coordinates (origin St. Stephen's Cathedral, Vienna) and clipped to its map frame.
             var kf2TileBounds = {
@@ -1102,7 +1102,7 @@ var climateData = (CLIMATE_LAYER_ENABLED && typeof climateMapData !== "undefined
                 13: { xMin: 4455, xMax: 4670, yMin: 2790, yMax: 2966 },
                 14: { xMin: 8910, xMax: 9341, yMin: 5581, yMax: 5932 }
             };
-            var kf2HistoricalLayer = new BoundedTileLayer('https://danfront-tiles.odulsuzkisafilm.workers.dev/tiles-2kf/{z}/{x}/{y}.png', {
+            var kf2HistoricalLayer = new BoundedTileLayer('https://danfront-tiles.odulsuzkisafilm.workers.dev/tiles-2kf-v2/{z}/{x}/{y}.png', {
                 attribution: 'Second Military Survey (1806–1869), Arcanum Adatbázis Kft. 2006, georeferenced by the DANFront Project | &copy; <a href="https://danfront.univie.ac.at/" target="_blank">DANFront Project</a>',
                 minZoom: 6, maxZoom: 14, tms: false, noWrap: true, opacity: 0.7,
                 tileBounds: kf2TileBounds
