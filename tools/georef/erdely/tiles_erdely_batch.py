@@ -27,7 +27,16 @@ from erdely_grid_cells import CELL
 from frame import find_frame, map_region, background_mask
 
 CFG = {}
-FRAME_ONLY = {'001', '005', '007', '014', '118'}   # checked by eye on the previews
+FRAME_ONLY = {'001', '005', '007', '014', '118', '229'}   # glued piece separated by title strip / name column (checked by eye)
+# map frames measured by hand where frame.py fails: sheet -> ((x0, x1), (y0, y1)) in scan pixels
+FRAME_OVERRIDE = {
+    '068': ((138, 8037), (458, 5751)),    # scanned larger than the others, piece glued to the right
+    '148': ((135, 7584), (441, 5406)),
+    '229': ((114, 7504), (435, 5428)),
+    '237': ((100, 7520), (115, 5060)),    # later, coloured copy trimmed to the map: frame = paper edge
+    '254': ((114, 7577), (413, 5382)),
+    '269': ((16, 7391), (436, 5431)),     # left frame line cut off
+}
 INSET = 18          # half the thickness of the drawn frame line, in scan pixels
 
 def configure(fit_json):
@@ -59,7 +68,11 @@ def process(job):
         n = sheet_number(sheet)
         if n is None or n not in CELL:
             res["status"] = "skipped: not a numbered grid sheet"; return res
-        fr = find_frame(tif)
+        if sheet in FRAME_OVERRIDE:
+            with rasterio.open(tif) as ds: Wd, Hd = ds.width, ds.height
+            fx, fy = FRAME_OVERRIDE[sheet]; fr = dict(W=Wd, H=Hd, x=fx, y=fy, score=None, inferred=None)
+        else:
+            fr = find_frame(tif)
         if not (fr['x'] and fr['y']):
             res["status"] = f"skipped: map frame not found ({fr['W']}x{fr['H']})"; return res
         (fx0, fx1), (fy0, fy1) = fr['x'], fr['y']
