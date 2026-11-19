@@ -1,0 +1,831 @@
+[
+ {
+  "n": 1,
+  "town": "Tasnad",
+  "lat": 47.477,
+  "lon": 22.584,
+  "sheet": 3,
+  "frame_x": [
+   108,
+   7528
+  ],
+  "frame_y": [
+   388,
+   5388
+  ],
+  "pred_px": [
+   2913,
+   4381
+  ],
+  "status": "ok"
+ },
+ {
+  "n": 2,
+  "town": "Szilagysomlyo",
+  "lat": 47.2306,
+  "lon": 22.8006,
+  "sheet": 26,
+  "frame_x": [
+   132,
+   7556
+  ],
+  "frame_y": [
+   452,
+   5444
+  ],
+  "pred_px": [
+   6963,
+   1889
+  ],
+  "status": "ok"
+ },
+ {
+  "n": 3,
+  "town": "Zilah",
+  "lat": 47.1806,
+  "lon": 23.057,
+  "sheet": 38,
+  "frame_x": [
+   132,
+   7560
+  ],
+  "frame_y": [
+   460,
+   5472
+  ],
+  "pred_px": [
+   6715,
+   957
+  ],
+  "status": "ok"
+ },
+ {
+  "n": 4,
+  "town": "Zsibo",
+  "lat": 47.2583,
+  "lon": 23.2583,
+  "sheet": 28,
+  "frame_x": [
+   124,
+   7568
+  ],
+  "frame_y": [
+   444,
+   5468
+  ],
+  "pred_px": [
+   6052,
+   3958
+  ],
+  "status": "ok"
+ },
+ {
+  "n": 5,
+  "town": "Magyarlapos",
+  "lat": 47.4603,
+  "lon": 23.8597,
+  "sheet": 21,
+  "frame_x": [
+   148,
+   7600
+  ],
+  "frame_y": [
+   460,
+   5464
+  ],
+  "pred_px": [
+   3629,
+   4206
+  ],
+  "status": "ok"
+ },
+ {
+  "n": 6,
+  "town": "Naszod",
+  "lat": 47.2833,
+  "lon": 24.4069,
+  "sheet": 55,
+  "frame_x": [
+   80,
+   7348
+  ],
+  "frame_y": [
+   220,
+   5044
+  ],
+  "pred_px": [
+   3376,
+   477
+  ],
+  "status": "ok"
+ },
+ {
+  "n": 7,
+  "town": "Radna",
+  "lat": 47.4217,
+  "lon": 24.8169,
+  "sheet": 46,
+  "frame_x": [
+   124,
+   7564
+  ],
+  "frame_y": [
+   488,
+   5492
+  ],
+  "pred_px": [
+   2124,
+   2302
+  ],
+  "status": "ok"
+ },
+ {
+  "n": 8,
+  "town": "Bethlen",
+  "lat": 47.1803,
+  "lon": 24.1792,
+  "sheet": 54,
+  "frame_x": [
+   172,
+   7596
+  ],
+  "frame_y": [
+   488,
+   5488
+  ],
+  "pred_px": [
+   3221,
+   3797
+  ],
+  "status": "ok"
+ },
+ {
+  "n": 9,
+  "town": "Szamosujvar castle",
+  "lat": 47.03,
+  "lon": 23.91,
+  "sheet": 64,
+  "frame_x": [
+   116,
+   7540
+  ],
+  "frame_y": [
+   456,
+   5464
+  ],
+  "pred_px": [
+   1147,
+   3597
+  ],
+  "status": "ok"
+ },
+ {
+  "n": 10,
+  "town": "Banffyhunyad",
+  "lat": 46.8667,
+  "lon": 23.0333,
+  "sheet": 60,
+  "frame_x": [
+   152,
+   7584
+  ],
+  "frame_y": [
+   428,
+   5424
+  ],
+  "pred_px": [
+   3001,
+   4611
+  ],
+  "status": "ok"
+ },
+ {
+  "n": 11,
+  "town": "Gyalu castle",
+  "lat": 46.7633,
+  "lon": 23.3906,
+  "sheet": 82,
+  "frame_x": [
+   148,
+   7576
+  ],
+  "frame_y": [
+   444,
+   5440
+  ],
+  "pred_px": [
+   5344,
+   1754
+  ],
+  "status": "ok"
+ },
+ {
+  "n": 12,
+  "town": "Torda",
+  "lat": 46.5714,
+  "lon": 23.7847,
+  "sheet": 110,
+  "frame_x": [
+   144,
+   7584
+  ],
+  "frame_y": [
+   432,
+   5444
+  ],
+  "pred_px": [
+   610,
+   3006
+  ],
+  "status": "ok"
+ },
+ {
+  "n": 13,
+  "town": "Teke",
+  "lat": 46.9167,
+  "lon": 24.5083,
+  "sheet": 87,
+  "frame_x": [
+   152,
+   7556
+  ],
+  "frame_y": [
+   504,
+   5472
+  ],
+  "pred_px": [
+   3316,
+   2684
+  ],
+  "status": "ok"
+ },
+ {
+  "n": 14,
+  "town": "Szaszregen",
+  "lat": 46.7756,
+  "lon": 24.7061,
+  "sheet": 100,
+  "frame_x": [
+   140,
+   7580
+  ],
+  "frame_y": [
+   460,
+   5476
+  ],
+  "pred_px": [
+   628,
+   5236
+  ],
+  "status": "ok"
+ },
+ {
+  "n": 15,
+  "town": "Marosvecs castle",
+  "lat": 46.8597,
+  "lon": 24.7672,
+  "sheet": 100,
+  "frame_x": [
+   140,
+   7580
+  ],
+  "frame_y": [
+   460,
+   5476
+  ],
+  "pred_px": [
+   3211,
+   1895
+  ],
+  "status": "ok"
+ },
+ {
+  "n": 16,
+  "town": "Gyergyoszentmiklos",
+  "lat": 46.7228,
+  "lon": 25.5961,
+  "sheet": 132,
+  "frame_x": [
+   124,
+   7516
+  ],
+  "frame_y": [
+   484,
+   5484
+  ],
+  "pred_px": [
+   4834,
+   3299
+  ],
+  "status": "ok"
+ },
+ {
+  "n": 17,
+  "town": "Szovata",
+  "lat": 46.5961,
+  "lon": 25.0744,
+  "sheet": 145,
+  "frame_x": [
+   140,
+   7588
+  ],
+  "frame_y": [
+   440,
+   5452
+  ],
+  "pred_px": [
+   2832,
+   571
+  ],
+  "status": "ok"
+ },
+ {
+  "n": 18,
+  "town": "Abrudbanya",
+  "lat": 46.2742,
+  "lon": 23.0631,
+  "sheet": 136,
+  "frame_x": [
+   148,
+   7592
+  ],
+  "frame_y": [
+   436,
+   5452
+  ],
+  "pred_px": [
+   5631,
+   1003
+  ],
+  "status": "ok"
+ },
+ {
+  "n": 19,
+  "town": "Marosujvar",
+  "lat": 46.3878,
+  "lon": 23.8581,
+  "sheet": 140,
+  "frame_x": [
+   132,
+   7536
+  ],
+  "frame_y": [
+   428,
+   5404
+  ],
+  "pred_px": [
+   1133,
+   1626
+  ],
+  "status": "ok"
+ },
+ {
+  "n": 20,
+  "town": "Nagyenyed",
+  "lat": 46.3106,
+  "lon": 23.7181,
+  "sheet": 139,
+  "frame_x": [
+   112,
+   7548
+  ],
+  "frame_y": [
+   416,
+   5420
+  ],
+  "pred_px": [
+   3577,
+   4060
+  ],
+  "status": "ok"
+ },
+ {
+  "n": 21,
+  "town": "Balazsfalva",
+  "lat": 46.1756,
+  "lon": 23.9156,
+  "sheet": 172,
+  "frame_x": [
+   124,
+   7584
+  ],
+  "frame_y": [
+   404,
+   5436
+  ],
+  "pred_px": [
+   941,
+   1406
+  ],
+  "status": "ok"
+ },
+ {
+  "n": 22,
+  "town": "Dicsoszentmarton",
+  "lat": 46.3306,
+  "lon": 24.2706,
+  "sheet": 156,
+  "frame_x": [
+   124,
+   7548
+  ],
+  "frame_y": [
+   440,
+   5432
+  ],
+  "pred_px": [
+   5738,
+   2013
+  ],
+  "status": "ok"
+ },
+ {
+  "n": 23,
+  "town": "Medgyes",
+  "lat": 46.1631,
+  "lon": 24.3511,
+  "sheet": 173,
+  "frame_x": [
+   108,
+   7584
+  ],
+  "frame_y": [
+   396,
+   5396
+  ],
+  "pred_px": [
+   6730,
+   4942
+  ],
+  "status": "ok"
+ },
+ {
+  "n": 24,
+  "town": "Erzsebetvaros",
+  "lat": 46.2281,
+  "lon": 24.575,
+  "sheet": 174,
+  "frame_x": [
+   132,
+   7572
+  ],
+  "frame_y": [
+   432,
+   5404
+  ],
+  "pred_px": [
+   6713,
+   3590
+  ],
+  "status": "ok"
+ },
+ {
+  "n": 25,
+  "town": "Segesvar",
+  "lat": 46.2194,
+  "lon": 24.7925,
+  "sheet": 191,
+  "frame_x": [
+   112,
+   7704
+  ],
+  "frame_y": [
+   116,
+   5068
+  ],
+  "pred_px": [
+   5953,
+   126
+  ],
+  "status": "ok"
+ },
+ {
+  "n": 26,
+  "town": "Szekelyudvarhely",
+  "lat": 46.3053,
+  "lon": 25.2944,
+  "sheet": 177,
+  "frame_x": [
+   124,
+   7564
+  ],
+  "frame_y": [
+   440,
+   5456
+  ],
+  "pred_px": [
+   7071,
+   4919
+  ],
+  "status": "ok"
+ },
+ {
+  "n": 27,
+  "town": "Csikszereda castle",
+  "lat": 46.3575,
+  "lon": 25.802,
+  "sheet": 196,
+  "frame_x": [
+   116,
+   7736
+  ],
+  "frame_y": [
+   144,
+   5056
+  ],
+  "pred_px": [
+   732,
+   485
+  ],
+  "status": "ok"
+ },
+ {
+  "n": 28,
+  "town": "Korosbanya",
+  "lat": 46.1722,
+  "lon": 22.7178,
+  "sheet": 135,
+  "frame_x": [
+   136,
+   7580
+  ],
+  "frame_y": [
+   400,
+   5412
+  ],
+  "pred_px": [
+   1543,
+   2933
+  ],
+  "status": "ok"
+ },
+ {
+  "n": 29,
+  "town": "Zalatna",
+  "lat": 46.11,
+  "lon": 23.2289,
+  "sheet": 152,
+  "frame_x": [
+   128,
+   7560
+  ],
+  "frame_y": [
+   448,
+   5452
+  ],
+  "pred_px": [
+   1652,
+   4472
+  ],
+  "status": "ok"
+ },
+ {
+  "n": 30,
+  "town": "Deva castle",
+  "lat": 45.8886,
+  "lon": 22.897,
+  "sheet": 183,
+  "frame_x": [
+   104,
+   7544
+  ],
+  "frame_y": [
+   440,
+   5432
+  ],
+  "pred_px": [
+   4217,
+   1806
+  ],
+  "status": "ok"
+ },
+ {
+  "n": 31,
+  "town": "Vajdahunyad castle",
+  "lat": 45.7492,
+  "lon": 22.8881,
+  "sheet": 199,
+  "frame_x": [
+   120,
+   7764
+  ],
+  "frame_y": [
+   144,
+   5068
+  ],
+  "pred_px": [
+   2673,
+   2561
+  ],
+  "status": "ok"
+ },
+ {
+  "n": 32,
+  "town": "Szaszvaros",
+  "lat": 45.8383,
+  "lon": 23.1997,
+  "sheet": 200,
+  "frame_x": [
+   112,
+   7560
+  ],
+  "frame_y": [
+   424,
+   5412
+  ],
+  "pred_px": [
+   5595,
+   1233
+  ],
+  "status": "ok"
+ },
+ {
+  "n": 33,
+  "town": "Szaszsebes",
+  "lat": 45.9569,
+  "lon": 23.5694,
+  "sheet": 186,
+  "frame_x": [
+   120,
+   7536
+  ],
+  "frame_y": [
+   424,
+   5416
+  ],
+  "pred_px": [
+   3176,
+   3652
+  ],
+  "status": "ok"
+ },
+ {
+  "n": 34,
+  "town": "Hatszeg",
+  "lat": 45.6078,
+  "lon": 22.9506,
+  "sheet": 215,
+  "frame_x": [
+   128,
+   7568
+  ],
+  "frame_y": [
+   416,
+   5376
+  ],
+  "pred_px": [
+   3164,
+   4541
+  ],
+  "status": "ok"
+ },
+ {
+  "n": 35,
+  "town": "Szerdahely",
+  "lat": 45.885,
+  "lon": 23.7936,
+  "sheet": 203,
+  "frame_x": [
+   108,
+   7688
+  ],
+  "frame_y": [
+   100,
+   5016
+  ],
+  "pred_px": [
+   1985,
+   3052
+  ],
+  "status": "ok"
+ },
+ {
+  "n": 36,
+  "town": "Nagysink",
+  "lat": 45.9167,
+  "lon": 24.8,
+  "sheet": 223,
+  "frame_x": [
+   112,
+   7572
+  ],
+  "frame_y": [
+   440,
+   5428
+  ],
+  "pred_px": [
+   3451,
+   3922
+  ],
+  "status": "ok"
+ },
+ {
+  "n": 37,
+  "town": "Kohalom castle",
+  "lat": 46.0397,
+  "lon": 25.2111,
+  "sheet": 225,
+  "frame_x": [
+   120,
+   7588
+  ],
+  "frame_y": [
+   428,
+   5404
+  ],
+  "pred_px": [
+   2283,
+   1153
+  ],
+  "status": "ok"
+ },
+ {
+  "n": 38,
+  "town": "Sepsiszentgyorgy",
+  "lat": 45.865,
+  "lon": 25.787,
+  "sheet": 260,
+  "frame_x": [
+   96,
+   7516
+  ],
+  "frame_y": [
+   440,
+   5436
+  ],
+  "pred_px": [
+   3670,
+   2603
+  ],
+  "status": "ok"
+ },
+ {
+  "town": "Brasso Black Church",
+  "sheet": 274,
+  "status": "frame not found",
+  "size": [
+   8271,
+   9703
+  ]
+ },
+ {
+  "n": 39,
+  "town": "Torcsvar castle",
+  "lat": 45.515,
+  "lon": 25.3672,
+  "sheet": 278,
+  "frame_x": [
+   2588,
+   10008
+  ],
+  "frame_y": [
+   424,
+   5408
+  ],
+  "pred_px": [
+   5156,
+   475
+  ],
+  "status": "ok"
+ },
+ {
+  "n": 40,
+  "town": "Kovaszna",
+  "lat": 45.8494,
+  "lon": 26.185,
+  "sheet": 272,
+  "frame_x": [
+   120,
+   7504
+  ],
+  "frame_y": [
+   420,
+   5428
+  ],
+  "pred_px": [
+   997,
+   745
+  ],
+  "status": "ok"
+ },
+ {
+  "n": 41,
+  "town": "Talmacs",
+  "lat": 45.6667,
+  "lon": 24.2611,
+  "sheet": 253,
+  "frame_x": [
+   132,
+   7584
+  ],
+  "frame_y": [
+   384,
+   5348
+  ],
+  "pred_px": [
+   6966,
+   1303
+  ],
+  "status": "ok"
+ }
+]

@@ -1138,8 +1138,30 @@ var climateData = (CLIMATE_LAYER_ENABLED && typeof climateMapData !== "undefined
             extHistoricalLayer.setZIndex(2); extHistoricalOnlyLayer.setZIndex(2);
             historicalMapLayer.setZIndex(3); historicalMapOnlyLayer.setZIndex(3);
             kf2HistoricalLayer.setZIndex(4);
-            var kf1OverlayGroup = L.layerGroup([extHistoricalLayer, historicalMapLayer]);
-            var kf1OnlyGroup = L.layerGroup([extHistoricalOnlyLayer, historicalMapOnlyLayer]);
+            // First Military Survey of Transylvania (1769-1773). That DVD has no georeferencing: the sheets are placed from
+            // their position in the sheet grid, corrected with control points marked on the sheets (tools/georef/erdely).
+            // Accuracy about 550 m (median). R2 prefix "tiles-1kf-erdely/".
+            var kf1ErdelyTileBounds = {
+                6:  { xMin: 35, xMax: 36, yMin: 22, yMax: 22 },
+                7:  { xMin: 71, xMax: 73, yMin: 44, yMax: 45 },
+                8:  { xMin: 143, xMax: 146, yMin: 89, yMax: 91 },
+                9:  { xMin: 287, xMax: 293, yMin: 178, yMax: 183 },
+                10: { xMin: 575, xMax: 587, yMin: 357, yMax: 366 },
+                11: { xMin: 1150, xMax: 1174, yMin: 714, yMax: 733 },
+                12: { xMin: 2300, xMax: 2348, yMin: 1429, yMax: 1467 },
+                13: { xMin: 4601, xMax: 4697, yMin: 2858, yMax: 2935 },
+                14: { xMin: 9203, xMax: 9395, yMin: 5717, yMax: 5870 }
+            };
+            function makeErdelyLayer(opacity) {
+                return new BoundedTileLayer('https://danfront-tiles.odulsuzkisafilm.workers.dev/tiles-1kf-erdely/{z}/{x}/{y}.png', {
+                    attribution: 'First Military Survey of Transylvania (1769–1773), Arcanum Adatbázis Kft., georeferenced by the DANFront Project',
+                    minZoom: 6, maxZoom: 14, tms: false, noWrap: true, opacity: opacity, zIndex: 2,
+                    tileBounds: kf1ErdelyTileBounds
+                });
+            }
+            var kf1ErdelyLayer = makeErdelyLayer(0.7), kf1ErdelyOnlyLayer = makeErdelyLayer(1.0);
+            var kf1OverlayGroup = L.layerGroup([kf1ErdelyLayer, extHistoricalLayer, historicalMapLayer]);
+            var kf1OnlyGroup = L.layerGroup([kf1ErdelyOnlyLayer, extHistoricalOnlyLayer, historicalMapOnlyLayer]);
 
             // Add default layers
             osmLayer.addTo(map);
@@ -2453,6 +2475,7 @@ var climateData = (CLIMATE_LAYER_ENABLED && typeof climateMapData !== "undefined
                     var opacity = parseFloat(this.value);
                     historicalMapLayer.setOpacity(opacity);
                     extHistoricalLayer.setOpacity(opacity);
+                    kf1ErdelyLayer.setOpacity(opacity);
                     kf2HistoricalLayer.setOpacity(opacity);
                     kf3HistoricalLayer.setOpacity(opacity);
                     valueDisplay.innerHTML = Math.round(opacity * 100) + '%';
