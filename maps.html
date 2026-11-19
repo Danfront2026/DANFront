@@ -1160,8 +1160,30 @@ var climateData = (CLIMATE_LAYER_ENABLED && typeof climateMapData !== "undefined
                 });
             }
             var kf1ErdelyLayer = makeErdelyLayer(0.7), kf1ErdelyOnlyLayer = makeErdelyLayer(1.0);
-            var kf1OverlayGroup = L.layerGroup([kf1ErdelyLayer, extHistoricalLayer, historicalMapLayer]);
-            var kf1OnlyGroup = L.layerGroup([kf1ErdelyOnlyLayer, extHistoricalOnlyLayer, historicalMapOnlyLayer]);
+
+            // First Military Survey of the Banat of Temesvár (1769-1772). No georeferencing on that DVD either: sheets placed
+            // from the sheet grid of the overview sheet, affine fit to 15 towns (tools/georef/temes). Accuracy about 750 m (median).
+            var kf1TemesTileBounds = {
+                6:  { xMin: 35, xMax: 36, yMin: 22, yMax: 23 },
+                7:  { xMin: 71, xMax: 72, yMin: 45, yMax: 46 },
+                8:  { xMin: 142, xMax: 144, yMin: 90, yMax: 92 },
+                9:  { xMin: 284, xMax: 288, yMin: 181, yMax: 185 },
+                10: { xMin: 568, xMax: 576, yMin: 362, yMax: 370 },
+                11: { xMin: 1137, xMax: 1153, yMin: 725, yMax: 741 },
+                12: { xMin: 2274, xMax: 2307, yMin: 1451, yMax: 1483 },
+                13: { xMin: 4548, xMax: 4615, yMin: 2903, yMax: 2966 },
+                14: { xMin: 9096, xMax: 9231, yMin: 5806, yMax: 5932 }
+            };
+            function makeTemesLayer(opacity) {
+                return new BoundedTileLayer('https://danfront-tiles.odulsuzkisafilm.workers.dev/tiles-1kf-temes/{z}/{x}/{y}.png', {
+                    attribution: 'First Military Survey of the Banat of Temesvár (1769–1772), Arcanum Adatbázis Kft., georeferenced by the DANFront Project',
+                    minZoom: 6, maxZoom: 14, tms: false, noWrap: true, opacity: opacity, zIndex: 2,
+                    tileBounds: kf1TemesTileBounds
+                });
+            }
+            var kf1TemesLayer = makeTemesLayer(0.7), kf1TemesOnlyLayer = makeTemesLayer(1.0);
+            var kf1OverlayGroup = L.layerGroup([kf1TemesLayer, kf1ErdelyLayer, extHistoricalLayer, historicalMapLayer]);
+            var kf1OnlyGroup = L.layerGroup([kf1TemesOnlyLayer, kf1ErdelyOnlyLayer, extHistoricalOnlyLayer, historicalMapOnlyLayer]);
 
             // Add default layers
             osmLayer.addTo(map);
@@ -2476,6 +2498,7 @@ var climateData = (CLIMATE_LAYER_ENABLED && typeof climateMapData !== "undefined
                     historicalMapLayer.setOpacity(opacity);
                     extHistoricalLayer.setOpacity(opacity);
                     kf1ErdelyLayer.setOpacity(opacity);
+                    kf1TemesLayer.setOpacity(opacity);
                     kf2HistoricalLayer.setOpacity(opacity);
                     kf3HistoricalLayer.setOpacity(opacity);
                     valueDisplay.innerHTML = Math.round(opacity * 100) + '%';
